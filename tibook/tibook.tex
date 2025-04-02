@@ -1,0 +1,196 @@
+\documentclass[openany,nobib]{tufte-book}
+
+%%
+% For nicely typeset tabular material
+\usepackage{booktabs}
+\usepackage{diagbox}
+
+%%
+% For graphics / images
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+%%
+% Prints argument within hanging parentheses (i.e., parentheses that take
+% up no horizontal space).  Useful in tabular environments.
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}}
+
+%%
+% Prints an asterisk that takes up no horizontal space.
+% Useful in tabular environments.
+\newcommand{\hangstar}{\makebox[0pt][l]{*}}
+
+%%
+% Prints a trailing space in a smart way.
+\usepackage{xspace}
+
+%%
+% Some shortcuts for Tufte's book titles.  The lowercase commands will
+% produce the initials of the book title in italics.  The all-caps commands
+% will print out the full title of the book in italics.
+\newcommand{\vdqi}{\textit{VDQI}\xspace}
+\newcommand{\ei}{\textit{EI}\xspace}
+\newcommand{\ve}{\textit{VE}\xspace}
+\newcommand{\be}{\textit{BE}\xspace}
+\newcommand{\VDQI}{\textit{The Visual Display of Quantitative Information}\xspace}
+\newcommand{\EI}{\textit{Envisioning Information}\xspace}
+\newcommand{\VE}{\textit{Visual Explanations}\xspace}
+\newcommand{\BE}{\textit{Beautiful Evidence}\xspace}
+\newcommand{\TL}{Tufte-\LaTeX\xspace}
+
+
+\usepackage[portuguese]{babel}
+%\usepackage{natbib}
+\usepackage[backend=biber, style=authoryear, language=portuguese]{biblatex}
+\addbibresource{tibook.bib}
+
+%\setcitestyle{authoryear}
+%\bibliographystyle{plainnat}
+
+\usepackage{amsmath,amssymb,amsthm,xfrac,cancel}
+\renewcommand{\qedsymbol}{\raisebox{-\baselineskip}{\llap{\openbox}}}
+\newtheoremstyle{dotless}{}{}{\itshape}{}{\bfseries}{}{ }{}
+\theoremstyle{dotless}
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corolário}[theorem]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}{Proposição}
+\newtheorem{remark}{Observação}
+\theoremstyle{definition}
+\newtheorem{definition}{Definição}
+\newtheorem{example}{Exemplo}
+
+%%%%%%%%%%%%%%%%% math operators
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Tr}{Tr}
+% symbol for independet
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+% Real Numbers
+\newcommand\RealNumber{{\rm I\!R}}
+% Expected value, Variance and Covariance
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+
+% math cancel to (down arrow)
+\makeatletter
+% #1, #2 offset of label   #6 extra width to clear arrowhead
+% #3, #4 vector direction  #7 superscript label style
+% #5 vector width          #8 superscript label
+\def\cantox@vector#1#2#3#4#5#6#7#8{%
+  \dimen@.5\p@
+  \setbox\z@\vbox{\boxmaxdepth.5\p@
+   \hbox{\kern-1.2\p@\kern#1\dimen@$#7{#8}\m@th$}}%
+  \ifx\canto@fil\hidewidth  \wd\z@\z@ \else \kern-#6\unitlength \fi
+  \ooalign{%
+    \canto@fil$\m@th \CancelColor
+    \vcenter{\hbox{\dimen@#6\unitlength \kern\dimen@
+      \multiply\dimen@#4\divide\dimen@#3 \vrule\@depth\dimen@\@width\z@
+      \vector(#3,-#4){#5}%
+    }}_{\raise-#2\dimen@\copy\z@\kern-\scriptspace}$%
+    \canto@fil \cr
+    \hfil \box\@tempboxa \kern\wd\z@ \hfil \cr}}
+\def\bcancelto#1#2{\let\canto@vector\cantox@vector\cancelto{#1}{#2}}
+\makeatother
+%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% underbrase - font size no change
+\newcommand*{\KeepStyleUnderBrace}[1]{%
+  \mathop{%
+    \mathchoice
+    {\underbrace{\displaystyle#1}}%
+    {\underbrace{\textstyle#1}}%
+    {\underbrace{\scriptstyle#1}}%
+    {\underbrace{\scriptscriptstyle#1}}%
+  }\limits
+}
+%%%%%%%%%%%%%%%%%
+
+
+
+
+\usepackage[brazilian]{cleveref}
+
+
+% Definindo o ambiente interlude
+\newenvironment{interlude}
+    {\vspace{2ex}\small\noindent\textbf{Interlúdio}\\} % Começo do ambiente
+    {\vspace{1ex}\\\hfill\rule{0.5\linewidth}{0.5pt}\hfill\vspace{2ex}} % Fim do ambiente com linha horizontal e espaço
+
+\usepackage{ifxetex}
+\ifxetex
+  \newcommand{\textls}[2][5]{%
+    \begingroup\addfontfeatures{LetterSpace=#1}#2\endgroup
+  }
+  \renewcommand{\allcapsspacing}[1]{\textls[15]{#1}}
+  \renewcommand{\smallcapsspacing}[1]{\textls[10]{#1}}
+  \renewcommand{\allcaps}[1]{\textls[15]{\MakeTextUppercase{#1}}}
+  \renewcommand{\smallcaps}[1]{\smallcapsspacing{\scshape\MakeTextLowercase{#1}}}
+  \renewcommand{\textsc}[1]{\smallcapsspacing{\textsmallcaps{#1}}}
+  \usepackage{fontspec}
+\fi
+
+\title{Teoria da Informação e\\Codificação}
+\author{Leonardo Araújo}
+
+\usepackage{lipsum}
+
+\begin{document}
+
+\maketitle
+
+\input{intro.tex}
+
+\input{principios.tex}
+
+\input{propeqassintotica.tex}
+
+% https://www.overleaf.com/learn/latex/Spacing_in_math_mode
+%The different spacing commands in LaTeX math mode serve to fine-tune the spacing between symbols and elements in mathematical expressions. Here’s when you should use each:
+%
+%### 1. **Thin spaces (`\,` or `\!`)**  
+%   - `\,` (thin space, 1/6 of an em): Used to improve readability by slightly separating elements.  
+%     - Example: \( a\,b \) (to clarify multiplication without using `\cdot`)  
+%   - `\!` (negative thin space, -1/6 of an em): Used to slightly reduce space, often before `d` in differentials.  
+%     - Example: \( \int f(x) \,dx \) vs. \( \int f(x)\!dx \)
+%
+%### 2. **Medium spaces (`\:`, `\;`)**  
+%   - `\:` (medium space, 2/9 of an em): Used for slightly larger separation, often in function definitions or cases.  
+%     - Example: \( f(x) \:=\: x^2 + 1 \)  
+%   - `\;` (thick space, 5/18 of an em): Used to create a noticeable separation, especially in sequences or function application.  
+%     - Example: \( f(x) \; g(y) \)  
+%
+%### 3. **Large spaces (`\quad`, `\qquad`)**  
+%   - `\quad` (1 em): Used to separate expressions significantly.  
+%     - Example: \( A \quad B \) (for separating terms in an equation)  
+%   - `\qquad` (2 em): Used when even more space is needed, often for logical breaks or alignment in displayed math.  
+%     - Example:  
+%       \[
+%       x = a \qquad y = b
+%       \]
+%
+%### **General Guidelines**  
+%- Use `\,`, `\!` to fine-tune spacing in integrals, differentials, and multiplication.  
+%- Use `\quad` or `\qquad` in displayed equations for logical separation.  
+%- Avoid excessive spacing unless necessary for clarity.  
+
+
+% redundância
+% entropia, informação mútua, divergência, capacidade do canal e codificação
+%\lipsum[11-20]
+
+
+%\chapter{Bibliografia}
+%\bibliography{tibook}
+\printbibliography
+
+\end{document}

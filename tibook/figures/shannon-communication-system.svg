@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.0"
+   width="461.95312"
+   height="216.34601"
+   style="font-size:13.3639px;font-family:Arial;text-anchor:middle"
+   id="svg2"
+   sodipodi:docname="shannon-communication-system.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview180"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.2597574"
+     inkscape:cx="371.50009"
+     inkscape:cy="90.09671"
+     inkscape:window-width="1366"
+     inkscape:window-height="703"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <inkscape:path-effect
+       effect="simplify"
+       id="path-effect363"
+       is_visible="true"
+       lpeversion="1"
+       steps="1"
+       threshold="0.00108696"
+       smooth_angles="360"
+       helper_size="0"
+       simplify_individual_paths="false"
+       simplify_just_coalesce="false" />
+    <marker
+       orient="auto"
+       style="overflow:visible"
+       id="Arrow2Lend">
+      <path
+         d="M -10.690447,-4.4371087 1.3280185,-0.01761459 -10.690447,4.4018786 c 1.920048,-2.609267 1.9089846,-6.1791971 0,-8.8389873 z"
+         id="path3277" />
+    </marker>
+    <inkscape:path-effect
+       effect="simplify"
+       id="path-effect363-3"
+       is_visible="true"
+       lpeversion="1"
+       steps="1"
+       threshold="0.00108696"
+       smooth_angles="360"
+       helper_size="0"
+       simplify_individual_paths="false"
+       simplify_just_coalesce="false" />
+  </defs>
+  <rect
+     width="60"
+     height="60"
+     x="4.9865766"
+     y="34.993263"
+     style="fill:#ffffff;fill-opacity:0.313725;stroke:#000000"
+     id="rect2266" />
+  <rect
+     width="60"
+     height="60"
+     x="94.98658"
+     y="34.993263"
+     style="fill:#ffffff;fill-opacity:0.313725;stroke:#000000"
+     id="rect3239" />
+  <rect
+     width="60"
+     height="60"
+     x="304.98657"
+     y="34.993263"
+     style="fill:#ffffff;fill-opacity:0.313725;stroke:#000000"
+     id="rect3241" />
+  <rect
+     width="60"
+     height="60"
+     x="394.98657"
+     y="34.993263"
+     style="fill:#ffffff;fill-opacity:0.313725;stroke:#000000"
+     id="rect3243" />
+  <rect
+     width="60"
+     height="60"
+     x="199.98657"
+     y="124.99326"
+     style="fill:#ffffff;fill-opacity:0.313725;stroke:#000000"
+     id="rect3245" />
+  <g
+     id="g3461"
+     transform="translate(1.9865767,6.6310803)">
+    <path
+       d="M 63.512411,58.313421 H 90.251773"
+       style="stroke:#000000"
+       id="path3249" />
+    <path
+       d="m 81.1819,53.87631 12.01846,4.4195 -12.01846,4.41949 c 1.92004,-2.60927 1.90898,-6.1792 0,-8.83899 z"
+       id="path3457" />
+  </g>
+  <g
+     id="g3467"
+     transform="translate(1.9865767,6.6310803)">
+    <path
+       d="m 363.51241,58.313421 h 26.73936"
+       style="stroke:#000000"
+       id="path3469" />
+    <path
+       d="m 381.1819,53.87631 12.01846,4.4195 -12.01846,4.41949 c 1.92004,-2.60927 1.90898,-6.1792 0,-8.83899 z"
+       id="path3471" />
+  </g>
+  <g
+     id="g3487"
+     transform="translate(1.9865767,6.6310803)">
+    <path
+       d="m 152.51241,58.3798 h 61.17642"
+       style="stroke:#000000"
+       id="path3481" />
+    <path
+       d="m 207.86009,53.94269 12.01846,4.4195 -12.01846,4.41949 c 1.92004,-2.60927 1.90898,-6.1792 0,-8.83899 z"
+       id="path3483" />
+  </g>
+  <g
+     id="g3491"
+     transform="translate(1.9865767,6.6310803)">
+    <path
+       d="m 235.56649,58.3798 h 61.17642"
+       style="stroke:#000000"
+       id="path3493" />
+    <path
+       d="m 290.91417,53.94269 12.01846,4.4195 -12.01846,4.41949 c 1.92004,-2.60927 1.90898,-6.1792 0,-8.83899 z"
+       id="path3495" />
+  </g>
+  <g
+     id="g3497"
+     transform="translate(1.9865767,6.6310803)">
+    <path
+       d="M 227.5176,117.72434 V 72.34845"
+       style="stroke:#000000"
+       id="path3499" />
+    <path
+       d="m 223.08049,78.17719 4.4195,-12.01846 4.41949,12.01846 c -2.60927,-1.92004 -6.1792,-1.90898 -8.83899,0 z"
+       id="path3501" />
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     x="34.826572"
+     y="10.199974"
+     id="text1359"><tspan
+       id="tspan1357"
+       x="34.826572"
+       y="10.199974">fonte de</tspan><tspan
+       x="34.826572"
+       y="26.8666"
+       id="tspan1367">informação</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="80.316292"
+     y="116.5255"
+     id="text1359-5"><tspan
+       x="80.316292"
+       y="116.5255"
+       id="tspan1367-5">mensagem</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="41.366459"
+     y="127.36265"
+     id="text1359-5-7"
+     transform="rotate(-45)"><tspan
+       x="41.366459"
+       y="127.36265"
+       id="tspan1367-5-5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fonte</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="191.04825"
+     y="299.70071"
+     id="text1359-5-7-6"
+     transform="rotate(-45)"><tspan
+       x="191.04825"
+       y="299.70071"
+       id="tspan1367-5-5-2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">fonte</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="43.366798"
+     y="150.04555"
+     id="text1359-5-7-3"
+     transform="rotate(-45)"><tspan
+       sodipodi:role="line"
+       id="tspan664"
+       x="43.366798"
+       y="150.04555"><tspan
+         x="43.366798"
+         y="150.04555"
+         id="tspan1367-5-5-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">canal</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="190.89812"
+     y="274.68335"
+     id="text1359-5-7-3-6"
+     transform="rotate(-45)"><tspan
+       sodipodi:role="line"
+       id="tspan664-1"
+       x="190.89812"
+       y="274.68335"><tspan
+         x="190.89812"
+         y="274.68335"
+         id="tspan1367-5-5-5-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">canal</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="380.31628"
+     y="116.5255"
+     id="text1359-5-9"><tspan
+       x="380.31628"
+       y="116.5255"
+       id="tspan1367-5-2">mensagem</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="124.97992"
+     y="29.933258"
+     id="text1359-5-6"><tspan
+       x="124.97992"
+       y="29.933258"
+       id="tspan1517">transmissor</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="188.40872"
+     y="80.615974"
+     id="text1359-5-6-9"><tspan
+       x="188.40872"
+       y="80.615974"
+       id="tspan1517-1">sinal</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="230.22656"
+     y="199.54605"
+     id="text1359-5-6-9-2"><tspan
+       id="tspan1611"
+       x="230.22656"
+       y="199.54605">fonte de</tspan><tspan
+       id="tspan1613"
+       x="230.22656"
+       y="216.21268">ruído</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="247.38512"
+     y="119.52549"
+     id="text1359-5-6-9-3"><tspan
+       id="tspan1644"
+       x="247.38512"
+       y="119.52549">ruído</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="271.02945"
+     y="76.858292"
+     id="text1359-5-6-9-0"><tspan
+       id="tspan1689"
+       x="271.02945"
+       y="76.858292">sinal</tspan><tspan
+       id="tspan1691"
+       x="271.02945"
+       y="93.524918">recebido</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="334.5199"
+     y="26.8666"
+     id="text1359-5-6-9-26"><tspan
+       id="tspan1728"
+       x="334.5199"
+       y="26.8666">receptor</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="424.97989"
+     y="29.933258"
+     id="text1359-5-6-9-8"><tspan
+       id="tspan1765"
+       x="424.97989"
+       y="29.933258">destinatário</tspan></text>
+  <circle
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-dasharray:none;stroke-dashoffset:0"
+     id="path1918"
+     cx="229.48656"
+     cy="64.993263"
+     r="7.9098639" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 95.610229,94.627947 C 115.1287,74.964038 134.64716,55.30013 154.16563,35.636221"
+     id="path361"
+     inkscape:path-effect="#path-effect363"
+     inkscape:original-d="M 95.610229,94.627947 154.16563,35.636221" />
+  <path
+     style="font-size:13.3639px;font-family:Arial;text-anchor:middle;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 305.6541,94.449251 C 325.17257,74.785342 344.69103,55.121434 364.2095,35.457525"
+     id="path361-6"
+     inkscape:path-effect="#path-effect363-3"
+     inkscape:original-d="M 305.6541,94.449251 364.2095,35.457525" />
+</svg>

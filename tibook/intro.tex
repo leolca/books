@@ -1,0 +1,114 @@
+\chapter{Introdução}
+
+O avanço das tecnologias de comunicação trouxe a necessidade de buscar a
+transmissão de informação de forma eficiente. Informação, um conceito abstrato,
+que, no contexto da comunicação e da tecnologia, advém da organização e
+interpretação de dados, fornecendo uma visão sobre tendências ou padrões,
+possibilitando a interpretação e emergência de significado. Dados em si, são
+apenas um conjunto de símbolos, geralmente organizados como uma sequência.
+Assim, determinada informação pode ser representada na forma de dados de
+maneiras distintas. A representação na forma de dados pode ser mais ou menos
+propícia a um determinado meio, sob o qual a informação será transmitida ou
+armazenada. Uma mesma informação pode ainda ser representada de forma mais
+concisa ou prolixa.
+
+Se voltarmos na história, em meados do século XIX, Samuel Morse e Alfred Vail
+propuseram o código Morse, como uma forma econômica de se comunicar através das
+redes telegráficas. A proposta consistia em usar um código de pontos (tom
+curto), traços (tom longo) e espaços de separação entre eles (silêncio) para
+tornar a comunicação de uma mensagem mais eficiente, ou seja, utilizando menos
+pulsos e, assim, reduzindo o tempo necessário para enviar uma mensagem. O código Morse,
+criado originalmente para o inglês, representa os símbolos mais frequentes através
+de sequências curtas e os símbolos infrequentes através de sequências longas,
+o que proporciona a redução do comprimento esperado da mensagem transmitida.
+
+Também no século XIX, foi criada a escrita noturna por Charles Barbier. Esta
+forma de escrita foi posteriormente adaptada por Louis Braille para criar um
+sistema mais simples e acessível para deficientes visuais. Cada célula de 6
+pontos é capaz de representar letras (ou sequências de letras) na forma de
+combinações binárias. O código Braille, inicialmente proposto para o francês,
+foi mais tarde adaptado para outras línguas, bem como para matemática e música,
+dentre outras áreas. A adaptação da forma de escrita e leitura ao meio é
+fundamental e evidente na forma escrita tátil, sendo preponderante para
+garantir a eficácia da comunicação. É essencial que o leitor seja capaz de
+decodificar facilmente a informação ali representada. Para tanto, a distinção
+de diferentes símbolos é facilitada pela clareza e simplicidade do sistema. A
+eficiência e a economicidade da representação são evidentes na capacidade de
+transmitir informações de forma compacta, reduzindo o espaço necessário.
+
+Usualmente, quando falamos da representação de informação, pensamos na escrita
+como uma forma de expressá-la. Entretanto, devemos nos atentar ao fato de que
+certas informações podem utilizar outros formatos representacionais. Por
+exemplo, a cotação de uma moeda é representada por uma sequência de números; um
+sinal eletrocardiográfico é medido pela diferença de potencial; uma imagem
+digital é constituída por uma matriz de pixels; e informações sobre produtos,
+endereços ou dados de pagamento podem ser armazenados em códigos de barras e
+códigos QR.  Embora a natureza representacional dessas informações, ao serem
+geradas, não seja expressa por meio de um alfabeto convencional, elas podem ser
+transcodificadas para serem representadas através de um alfabeto padrão, como o
+Base64\footnote{Base64 é um esquema de codificação que transforma dados
+    binários em uma representação textual utilizando um conjunto de 64
+    caracteres, que inclui letras maiúsculas (A-Z), letras minúsculas (a-z),
+    dígitos (0-9) e os símbolos '+' e '/'. Cada grupo de três bytes de dados
+binários é convertido em quatro caracteres ASCII.}, que é utilizado para
+codificar, por exemplo, anexos de e-mails.
+
+A ideia de representação binária é muito antiga, possivelmente anterior 
+aos estudos de de Thomas Harriot e Gottfried Leibniz, nos séculos XVI e XVII.
+No entanto,
+\textcite{hartley1928} foi um dos primeiros a quantificar a informação 
+introduzindo o conceito de `bit' como a unidade básica. 
+Os trabalhos de Hartley ocorreram no contexto de rápida expansão das
+tecnologias de comunicação, como o telégrafo e o rádio, onde havia uma
+crescente necessidade de medir e otimizar a transmissão de dados.
+
+O trabalho de \textcite{shannon1948}, que começou a ser desenvolvido durante a
+Segunda Guerra Mundial, permaneceu sigiloso devido à sua aplicação em
+comunicações militares. Embora suas ideias tenham sido formuladas na década de
+1940, o artigo seminal \emph{A Mathematical Theory of Communication} foi
+publicado apenas em 1948.  Motivado pela necessidade de entender como a
+informação poderia ser codificada e transmitida de forma eficiente, Shannon
+desenvolveu uma teoria matemática que abordava questões práticas da
+comunicação. Ele introduziu conceitos fundamentais, como a entropia, que mede a
+incerteza ou a quantidade de informação em uma mensagem, e a capacidade do
+canal, que determina a quantidade máxima de informação que pode ser transmitida
+sem erro. O trabalho de Shannon estabeleceu um novo campo de estudo que
+influenciou profundamente a computação, a teoria da comunicação e outras
+disciplinas. Seu trabalho é considerado o marco de surgimento da teoria da
+informação.
+
+Na década de 1960, a teoria da codificação passou por avanços significativos
+que moldaram a forma como entendemos e aplicamos a comunicação digital. O
+trabalho de \textcite{hamming1950} estabeleceu as bases para a detecção e correção
+de erros, permitindo que sistemas de comunicação se tornassem mais robustos.
+Paralelamente, os códigos de \textcite{golay1949} emergiram como uma solução
+eficaz para a correção de múltiplos erros, ampliando as possibilidades de
+transmissão confiável. A aplicação do teorema de Shannon sobre a capacidade do
+canal continuou a ser explorada, fornecendo uma compreensão crítica dos limites
+da comunicação eficiente. Além disso, os códigos de convolução começaram a
+ganhar destaque, oferecendo novas abordagens para melhorar a confiabilidade na
+transmissão de dados. O trabalho inovador de \textcite{gallager1962}, com os
+códigos de paridade de baixa densidade, introduziu uma nova classe de códigos
+que se mostraram extremamente eficazes na correção de erros, influenciando
+profundamente o desenvolvimento da teoria da codificação. Esses avanços não
+apenas solidificaram a teoria da codificação como um campo essencial da teoria
+da informação, mas também tiveram um impacto duradouro em diversas aplicações
+práticas na comunicação moderna.
+
+A teoria da informação tornou-se central nas comunicações digitais, servindo
+como a base para o desenvolvimento de tecnologias que transformaram a forma
+como nos comunicamos. Com a ascensão da internet e das redes de comunicação, os
+princípios estabelecidos por Claude Shannon, como a quantificação da informação
+e a capacidade dos canais, tornaram-se indispensáveis para otimizar a
+transmissão de dados e garantir a integridade das comunicações.  Além de seu
+papel fundamental nas telecomunicações, a teoria da informação é amplamente
+aplicada em diversas outras áreas. Na ecologia, por exemplo, é utilizada para
+analisar a diversidade de espécies e a complexidade dos ecossistemas, ajudando
+a entender as interações entre organismos. Na criptografia, os conceitos de
+entropia e codificação são essenciais para garantir a segurança das informações
+transmitidas. Na linguística, a teoria da informação auxilia na análise da
+estrutura e da semântica das línguas, permitindo a modelagem de padrões de
+comunicação. Outros campos, como a biologia, onde a informação genética é
+estudada, e a psicologia, que investiga a percepção e a cognição, também se
+beneficiam dos princípios da teoria da informação, demonstrando sua relevância
+e aplicabilidade em diferentes áreas.

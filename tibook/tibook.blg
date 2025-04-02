@@ -1,0 +1,15 @@
+[0] Config.pm:308> INFO - This is Biber 2.20
+[0] Config.pm:311> INFO - Logfile is 'tibook.blg'
+[108] biber:340> INFO - === Thu Mar 27, 2025, 14:44:18
+[127] Biber.pm:420> INFO - Reading 'tibook.bcf'
+[198] Biber.pm:994> INFO - Found 14 citekeys in bib section 0
+[212] Biber.pm:4463> INFO - Processing section 0
+[224] Biber.pm:4654> INFO - Looking for bibtex file 'tibook.bib' for section 0
+[226] bibtex.pm:1713> INFO - LaTeX decoding ...
+[257] bibtex.pm:1519> INFO - Found BibTeX data source 'tibook.bib'
+[397] UCollate.pm:68> INFO - Overriding locale 'pt-PT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[397] UCollate.pm:68> INFO - Overriding locale 'pt-PT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[397] Biber.pm:4283> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'pt-PT'
+[397] Biber.pm:4289> INFO - No sort tailoring available for locale 'pt-PT'
+[417] bbl.pm:676> INFO - Writing 'tibook.bbl' with encoding 'UTF-8'
+[424] bbl.pm:779> INFO - Output to tibook.bbl
