@@ -183,3 +183,45 @@ Com valores apropriados de $r$, o MT pode gerar sequências com período de até
 $2^{19937}$, além de possuir boas propriedades
 estatísticas \parencite{matsumoto1998mersenne}.
 
+
+
+
+
+
+\subsection{Abordagens para Geração de Números Pseudoaleatórios}
+
+Diversas abordagens existem para gerar números pseudoaleatórios
+\parencite{knuth1997art,matsumoto1998mersenne,wolfram2002,kocarev2011chaos,kneusel2018random},
+abaixo listamos algumas delas:
+
+\begin{itemize}
+    \item Geradores Lineares Congruenciais (LCGs): \\
+	Baseiam-se em uma relação de recorrência linear da forma 
+	\begin{equation}
+	    X_{n+1} = (a \cdot X_n + c) \mod m ,
+	\end{equation} 
+	como o exemplo do Gerador Lehmer visto anteriormente.
+	Este tipo de gerador é simples, mas com período curto e baixa qualidade estatística.
+    \item Geradores de Fibonacci com Atraso (LFGs): \\
+	Geram números combinando valores anteriores da sequência usando uma operação (como adição ou XOR) com atrasos:
+	\begin{equation}
+	    X_n = (X_{n-k} \oplus X_{n-l}) \mod 2^w ,
+	\end{equation} 
+	oferecendo períodos longos, mas exigindo estados iniciais grandes.
+    \item Autômatos Celulares: \\ 
+	Aplicam regras como a Regra 30 vista anteriormente, 
+	\begin{equation} 
+	    c_i(t+1) = c_{i-1}(t) \oplus (c_i(t) \lor c_{i+1}(t)) ,
+	\end{equation} 
+	gerando padrões caóticos, porém computacionalmente custosos.
+    \item Funções de Hash e Criptográficas: \\
+	Utilizam funções como SHA-256 ($R_i = H(S || C)$) ou cifras de fluxo como ChaCha ($R_i = \text{ChaCha}(K, C)$), 
+	sendo seguras para criptografia, porém mais lentas.
+    \item Geradores Baseados em Caos: \\
+	Empregam sistemas caóticos, como o mapa logístico 
+	\begin{equation}
+	    X_{n+1} = r \cdot X_n \cdot (1 - X_n) ,
+	\end{equation}
+	com comportamento caótico, mas sensíveis a precisão numérica.
+\end{itemize}
+
