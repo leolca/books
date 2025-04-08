@@ -216,17 +216,21 @@ A \Cref{fig:tiposcodigos} apresentado a estrutura hierárquica dos códigos
 \end{marginfigure}
 
 
+
+
+\section{Desigualdade de Kraft}
+
 A Desigualdade de Kraft estabelece uma condição necessária e suficiente para a
 existência de códigos de prefixo com comprimentos de palavras-código
 especificados. A demonstração, que será vista, ainda fornecerá um método para
 construir um código de prefixo.
 
-\begin{theorem}[Desigualdade de Kraft]
+\begin{theorem}[Desigualdade de Kraft]\label{thm:deskraft}
 Para qualquer código instantâneo (código de prefixo) sobre um alfabeto de tamanho $D$, o comprimento
 das palavras $l_1, l_2, \ldots, l_m$ deve satisfazer
-      \begin{equation}
+   \begin{equation}\label{eq:desigualdadekraft}
       \sum_i D^{-l_i} \leq 1 .
-      \end{equation}
+   \end{equation}
 Por um outro lado, dado um conjunto de comprimentos de código satisfazendo a desigualdade acima,
 então existe um código de prefixo com estes comprimentos.
 \end{theorem}
@@ -291,3 +295,621 @@ de código, então este processo não irá exaurir as palavras de código.
 Criamos assim um código de prefixo com os comprimentos desejados, satisfazendo Kraft.
 \end{proof}
 
+A desigualdade de Kraft é uma condição \emph{sine qua non} (necessária e
+indispensável) para a existência de um código prefixo.  A condição dada na
+\Cref{eq:desigualdadekraft} deve ser satisfeita para que um dado código com
+comprimentos $l_1, l_2, \ldots, l_m$ seja um código de prefixo.  A demonstração
+também nos mostra como construir um código de prefixo, dado um conjunto de
+comprimentos $\{l_1, l_2, \ldots, l_m\}$ que satisfaça a
+\Cref{eq:desigualdadekraft}.
+
+
+\section{Em busca do código ótimo}
+
+Desejamos um código que forneça decodificação instantânea e livre de
+ambiguidade, além disso, queremos um código eficiênte, que tenha comprimento
+esperado mínimo. Desta forma, estamos em busca de um código de prefixo ótimo.
+
+O comprimento esperado é dado por
+\begin{equation}
+  L(C) = \sum_{i} p_i l_i ,
+\end{equation}
+onde os comprimentos $l_i$'s devem ser números inteiros.
+Teremos então o seguinte problema de otimização com restrição:
+\begin{equation}
+  \min_{\{l_{1:m}\} \in \mathbb{Z}_{+}^m} L(C) = \sum_i p_i l_i ,
+\end{equation}
+sujeito a
+\begin{equation}
+  \sum_i D^{-l_i} \leq 1 .
+\end{equation}
+
+Este é um problema de programação em inteiros que é um problema cuja
+sua complexidade computacional cresce exponencialmente com o tamanho da entrada.
+Não seria assim possível resolvê-lo de forma eficiente.
+Vamos relaxar a condição de que $l_i$ precisa ser inteiro e considerar o Lagrangiano
+\begin{equation}
+  J = \sum_i p_i l_i + \lambda \left( \sum_i D^{-l_i} - 1 \right)
+\end{equation}
+Para encontrar os pontos estacionários de $J$, considerado uma função dos $l_i$'s
+e do multiplicador lagrangiano $\lambda$, devemos encontrar as condições para que
+as derivadas se igualam a zero, ou seja, $\sfrac{\partial J}{\partial l_i} = 0$,
+$i=1,\ldots,m$, e $\sfrac{\partial J}{\partial \lambda} = 0$. Teremos assim
+\begin{equation}
+  \frac{\partial J}{\partial l_i} = p_i - \lambda D^{-l_i} \ln D = 0 ,
+\end{equation}
+e assim
+\begin{equation}\label{eq:codotDli}
+  D^{-l_i} = \frac{p_i}{\lambda \ln D} .
+\end{equation}
+Teremos também
+\begin{equation}
+  \frac{\partial J}{\partial \lambda} = \sum_i D^{-l_i} - 1 = 0 ,
+\end{equation}
+que nos fornecerá
+\begin{equation}\label{eq:codotlambda}
+  \lambda = 1 / \ln D .
+\end{equation}
+Utilizando as \Cref{eq:codotDli,eq:codotlambda} obtemos $D^{-l_i} = p_i$,
+e assim os comprimentos ótimos são dados por
+\begin{equation}\label{eq:codotli}
+  l^\ast_i = -\log_D p_i .
+\end{equation}
+Desta forma, o comprimento esperado do código ótimo será
+\begin{equation}\label{eq:codotLC}
+  L^\ast = \sum_i p_i l_i^\ast = - \sum_i p_i \log_D p_i = H_D (X) = H(X) / \log D .
+\end{equation}
+
+Assumindo que seja possível utilizar comprimentos fracionários, os omprimentos
+ótimos para as palavras de um código são $l^\ast_i = - \log_D p_i$, isto
+implica que os comprimentos ótimos são iguais à informação do evento (o menor
+comprimento para codificação de um evento é inerentemente a informação sobre o
+próprio evento --- princípio da Navalha de Occam\footnote{
+A Navalha de Occam, princípio atribuído ao frade franciscano Guilherme de Ockham 
+(século XIV), sugere que, entre explicações concorrentes, a mais simples --- 
+aquela que requer menos suposições --- deve ser preferida, desde que explique os 
+fatos adequadamente. 
+}), e assim o comprimento
+esperado do código será a entropia.
+
+Apesar os comprimentos ótimos dados na \Cref{eq:codotli} não seja, a princípio,
+inteiros, podemos utilizar a codificação em blocos e assim proximar do limite
+ótimo mesmo quando os comprimentos dos códigos por símbolos são valores fracionários.
+
+\begin{theorem}[Comprimento esperado mínimo]\label{thm:comprespmin}
+Entropia é o comprimento esperado mínimo. O comprimento esperado $L$ de qualquer código
+$D$-ário instantâneo (satisfaz Kraft por conseguinte) para uma v.a. $X$ é tal que
+\begin{equation}
+  L \geq H_D (X) ,
+\end{equation}
+com igualdade sse $D^{-l_i} = p_i$.
+\end{theorem}
+\begin{proof}
+  \begin{subequations}
+    \begin{align}
+      L - H_D (X) &= \sum_i p_i l_i - \sum_i p_i \log_D 1/p_i \\
+                &= - \sum_i p_i \log_D D^{-l_i} + \sum_i p_i \log_D p_i \\
+                &= - \sum_i p_i \log_D D^{-l_i} + \underbrace{ \log_D \left( \sum_i D^{-l_i} \right) - \log_D \left( \sum_i D^{-l_i} \right)  }_{=0} + \sum_i p_i \log_D p_i \label{eq:demthm:comprespminA}\\
+                &= \sum_i p_i \log_D \frac{p_i}{r_i} - \log_D \left( \sum_i D^{-l_i} \right) \\
+                &= \underbrace{D(p \mid\mid r)}_{ \geq 0} + \underbrace{\log_D (1/c)}_{ \geq 0} \\
+                &\geq& 0 \label{eq:demthm:comprespminB}
+    \end{align}
+  \end{subequations}
+  onde utilizamos em \ref{eq:demthm:comprespminA}, para simplificar, a soma de três das quatro parcelas é dada na \Cref{eq:demthm:simplificar},
+  e em \ref{eq:demthm:comprespminB} utilizamos que $c \leq 1$ pois a desigualdade de Kraft deve ser satisfeita,
+  onde $c = \sum_i D^{-l_i}$.
+  \begin{subequations}\label{eq:demthm:simplificar}
+    \begin{align}
+      - \sum_i p_i \log_D D^{-l_i} + \log_D \left( \sum_j D^{-l_j} \right) +  \sum_i p_i \log_D p_i &= \\
+      - \sum_i p_i \log_D D^{-l_i} + \left( \underbrace{ \sum_i p_i }_{=1} \right) \log_D \left( \sum_i D^{-l_i} \right) + \sum_i p_i \log_D p_i & \\  
+      - \sum_i p_i \log_D D^{-l_i} + \sum_i p_i \log_D \left( \sum_j D^{-l_j} \right) + \sum_i p_i \log_D p_i &= \\
+      \sum_i p_i \log_D \frac{p_i \left( \sum_j D^{-l_j} \right)}{D^{-l_i}} &= \\
+      \sum_i p_i \log_D \frac{p_i}{\frac{D^{-l_i}}{\left( \sum_j D^{-l_j} \right)}} &= \sum_i p_i \log_D \frac{p_i}{r_i} ,
+    \end{align}
+  \end{subequations}
+  onde definimos
+  \begin{equation}
+    r_i = \frac{D^{-l_i}}{\sum_j D^{-l_j}} .
+  \end{equation}
+\end{proof}
+
+Assumindo que Kraft seja satisfeito (existe um código de prefixo com tais comprimentos)
+teremos comprimentos inteiros de forma que $E l \geq H$. Se ainda $l_i = -\log_D p_i$ é
+inteiro, para todo $i$, então teremos a igualdade $E l = H$. 
+Se $l_i \neq -\log_D p_i$, mas $l_i$ é inteiro, teremos estritamente $E l > H$.
+
+
+\section{Código de Shannon}
+O código de Shannon é um código subótimo que consiste em considerar
+o comprimento como inteiro mais próximo do valor ótimo, ou seja,
+\begin{equation}\label{eq:compricodshannon}
+  l_i = \lceil \log_D 1/p_i \rceil .
+\end{equation}
+Os comprimentos definidos desta forma satisfazem Kraft, uma vez que
+\begin{equation}
+  \sum_i D^{-l_i} = \sum_i D ^{- \lceil \log_D 1/p_i \rceil} \leq \sum_i D^{-\log_D 1/p_i} = \sum_i p_i = 1 .
+\end{equation} 
+Pelo \Cref{thm:deskraft}, existe então um código de prefixo com os comprimentos dados em \ref{eq:compricodshannon}.
+
+\begin{theorem}[Limites para o comprimento esperado do código de Shannon]
+  Sejam $l_1, l_2, \ldots, l_m$ comprimentos inteiros do código de Shannon para uma fonte $p$ e um
+  alfabeto $D$-ário. $L$ é o comprimento esperado. Então
+  \begin{equation}
+   H_D(X) \leq L \leq H_D(X) + 1 .
+  \end{equation}
+\end{theorem}
+\begin{proof}
+Para o código de Shannon, teremos os seguintes limites:
+\begin{subequations}\label{eq:limitescodshannon}
+  %\begin{align}
+      \begin{alignat}{2}
+	  \log_D \frac{1}{p_i} & \leq l_i && \leq \log_D \frac{1}{p_i} + 1 \\
+	  E_p \left[ \log_D \frac{1}{p_i} \right]  & \leq E_p \left[ l_i \right] && \leq E_p \left[ \log_D \frac{1}{p_i} + 1 \right] \\
+	  \sum_i p_i \log_D \frac{1}{p_i} & \leq L && \leq \sum_i p_i \left( \log_D \frac{1}{p_i} + 1 \right) \\
+	  H_D(X) & \leq L && \leq H_D(X) + 1 .
+      \end{alignat}
+  %\end{align}
+\end{subequations}
+\end{proof}
+
+Observe ainda que, $H \leq L^\ast \leq L$, onde $L^\ast$ é o comprimento ótimo para códigos de comprimento inteiro.
+Desta forma, também teremos a seguinte relação para o comprimento esperado de código ótimo: $H_D(X) \leq L^\ast \leq H_D(X) + 1$.
+
+Podemos melhorar a eficiência do código de Shannon codificando mais de um símbolo por vez (codificação em bloco).
+Vamos chamar de $L_n$ o comprimento esperado por símbolo de uma sequência de $n$ símbolos $x_{1:n}$. Então,
+\begin{equation}
+  L_n = \frac{1}{n} \sum_{x_{1:n} \in \mathcal{X}^n} p(x_{1:n}) l(x_{1:n}) = \frac{1}{n} E l(x_{1:n}) .
+\end{equation}
+tilizando os comprimentos do código de Shannon, teremos
+\begin{subequations}
+  \begin{alignat}{2}
+    \log 1/p_i & \leq l_i &&\leq \log 1/p_i + 1 \\
+    \sum_i p_i \log 1/p_i & \leq \sum_i p_i l_i &&\leq \sum_i p_i \left( \log 1/p_i + 1 \right) \\ 
+    H(X_1,\ldots,X_n) & \leq E l(X_{1:n}) &&\leq H(X_1,\ldots,X_n) + 1 \\
+    H(X) &\leq L_n &&\leq H(X) + \frac{1}{n} ,
+  \end{alignat}
+  onde utilizamos que $X_i$ são i.i.d., então $H(X_1,\ldots,X_n) = nH(X_i)$.
+\end{subequations}
+Quando $n$ cresce, a penalidade por símbolo imposta ao código de Shannon diminui e
+conseguiremos assim aproximar-nos do limite da Entropia (por símbolo), embora teremos que
+adotar a estratégia de codificação em blocos.
+
+
+
+A escolha feita na \Cref{eq:compricodshannon} para definir o comprimento das palavras
+no código de Shannon, subentende o conhecimento da distribuição $p$. Entretanto,
+em geral, a distribuição subjacente não é conhecida. Isso implica que existem erros nos cálculos.
+Suponha então que o código de Shannon utiliza $l(x) = \lceil \log 1/q(x) \rceil$, mas a real
+distribuição é $p(x) \neq q(x)$. Vamos recalcular o valor esperado do comprimento do código,
+agora utilizando esta informação. Encontraremos novos limites para o comprimento esperado
+do código de Shannon.
+
+\begin{theorem}[Limites para o código de Shannon com a distribuição aproximada]
+O comprimento esperado de um código sob a distribuição $p(x)$ com $l(x) = \lceil \log 1/q(x) \rceil$ satisfaz
+\begin{equation}
+  H(p) + D(p \mid \mid q) \leq E_p l(X) \leq H(p) + D(p \mid \mid q) + 1 .
+\end{equation}
+\end{theorem}
+\begin{proof}
+Vamos analisar primeiramente o limite superior.  
+\begin{subequations}
+  \begin{align}
+    E l(X) &= \sum_x p(x) \lceil \log 1/q(x) \rceil \\
+           &\leq \sum_x p(x) \left( \log \frac{1}{q(x)} + 1 \right) \\
+           &= \sum_x p(x) \left( \log \frac{p(x)}{q(x)} \frac{1}{p(x)} + 1 \right) \\
+           &= \sum_x p(x) \log \frac{p(x)}{q(x)} + \sum_x p(x) \log \frac{1}{p(x)} + 1 \\
+           &= D(p \mid \mid q) + H(p) + 1 .
+  \end{align}
+\end{subequations}
+E agora, para o limite inferior temos
+\begin{subequations}
+  \begin{align}
+    E l(X) &= \sum_x p(x) \lceil \log 1/q(x) \rceil \\
+           &\geq \sum_x p(x) \log 1/q(x) \\
+           &= \sum_x p(x) \left( \log \frac{p(x)}{q(x)} \frac{1}{p(x)}\right) \\
+           &= \sum_x p(x) \log \frac{p(x)}{q(x)} + \sum_x p(x) \log \frac{1}{p(x)} \\
+           &= D(p \mid \mid q) + H(p) .
+  \end{align}
+\end{subequations}
+\end{proof}
+Comparando estes limites com aqueles dados na \Cref{eq:limitescodshannon}, verificamos que
+$D(p \mid \mid q)$ é o custo adicional por símbolo causado por utilizar a distribuição errada.
+
+
+
+
+
+\section{Desigualdade de Kraft revisitada}
+Considerando como objetivo principal, encontrar um código unívoco (unicamente decodificável)
+com comprimento esperado de palavra mínimo, ao observar as classes de códigos, conforme
+apresentadas na \Cref{fig:tiposcodigos}, podemos imaginar que a classe mais ampla é a mais
+provável de se encontrar tal código desejado. Potencialmente, dentre os códigos
+unicamente decodificáveis (um conjunto maior), podemos encontrar um código com menor comprimento esperado.
+Entretanto, o teorema a seguir mostra que a desigualdade de Kraft é também
+condição \emph{sine qua non} para obtermos um código unicamente
+decodificável. Desta forma, podemos concluir que um código prefixo é a melhor escolha.
+
+Primeiramente, vamos apresentar o seguinte lemma.
+\begin{lemma}[Expansão Multinomial]\label{lm:expmultin}
+  Seja $\mathcal{X} = \{x_1, x_2, \ldots, x_m \}$, $\vert \mathcal{X} \vert = m$, temos
+  \begin{equation}
+    \left( \sum_{x \in \mathcal{X}} D^{-l(x)} \right)^k = \sum_{x_{1:k} \in \mathcal{X}^k} D^{-l(x_1)} D^{-l(x_2)} \ldots D^{-l(x_k)} .
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  A demonstração utiliza o teorema multinomial para expandir a soma, revelando sua equivalência à soma combinatória das contribuições de cada sequência.
+  \begin{subequations}
+    \begin{align}
+    \left( \sum_{x \in \mathcal{X}} D^{-l(x)} \right)^k &= \left( \sum_{i=1}^{m} D^{-l(x_i)} \right)^k \\
+        &= \left( D^{-l(x_1)} + D^{-l(x_2)} + \ldots + D^{-l(x_m)}  \right)^k \nonumber \\
+        &= \sum_{\substack{ n_1, n_2, \ldots, n_m \geq 0 \\ n_1 + n_2 + \ldots + n_m = k}} \frac{k!}{n_1! n_2! \ldots n_m!} D^{-l(x_1)n_1} \ldots D^{-l(x_m)n_m} \\
+        &= \sum_{x_{1:k} \in \mathcal{X}^k} D^{-l(x_1)} D^{-l(x_2)} \ldots D^{-l(x_k)} .
+    \end{align}
+  \end{subequations}
+
+  Cada termo $(D^{-l(x_1)})^{n_1} (D^{-l(x_2)})^{n_2} \ldots (D^{-l(x_m)})^{n_m}$ 
+  pode ser visto como o produto de $k$ fatores $D^{-l(x_i)}$, onde $x_i$ é escolhido $n_i$ vezes. 
+  Isso corresponde exatamente a somar $D^{-l(x_1)} D^{-l(x_2)} \ldots D^{-l(x_k)}$ 
+  sobre todas as sequências possíveis $x_{1:k} = (x_1, x_2, \ldots, x_k)$ em $\mathcal{X}^k$:
+  \[
+  \sum_{x_{1:k} \in \mathcal{X}^k} D^{-l(x_1)} D^{-l(x_2)} \ldots D^{-l(x_k)}
+  \]
+  Para cada sequência $x_{1:k}$, o produto reflete uma combinação específica dos termos $D^{-l(x_i)}$, e a soma cobre todas as $m^k$ possibilidades.
+\end{proof}
+
+
+\begin{theorem}[Desigualdade de Kraft para códigos unicamente decodificáveis]
+O comprimento de palavras de qualquer código unicamente decodificável (não necessariamente instantâneo)
+deve satisfazer a desigualdade de Kraft $\sum_i D^{-l_i} \leq 1$. Por outro lado, dado um conjunto de comprimentos
+que satisfazem Kraft, é possível construir um código unicamente decodificável.
+\end{theorem}
+\begin{proof}
+A proposição inversa já foi previamente mostrada, uma vez que mostramos como construir um código instantâneo
+utilizando um conjunto de comprimentos satisfazendo Kraft.
+
+Dado um código unicamente decodificável (não necessariamente instantâneo) com comprimentos $l(x)$
+e com extensão com comprimentos dados por $l(x_1, \ldots, x_k) = \sum_{i=1}^k l(x_i)$, queremos mostrar
+que $\sum_x D^{-l(x)} \leq 1$.
+Vamos definir $S = \sum_{x \in \mathcal{X}} D^{-l(x)}$ e então teremos
+
+\begin{subequations}
+  \begin{align}
+    S^k &= \left( \sum_{x \in \mathcal{X}} D^{-l(x)} \right)^k \\
+        &= \sum_{x_{1:k} \in \mathcal{X}^k} D^{-l(x_1)} D^{-l(x_2)} \ldots D^{-l(x_k)} \label{eq:demkraftrevA}\\
+        &= \sum_{x_{1:k} \in \mathcal{X}^k} D^{- \left( \sum_{i=1}^k l(x_i) \right)} \\
+        &= \sum_{x_{1:k} \in \mathcal{X}^k} D^{-l(x_{1:k})} \\
+        &= \sum_{m=1}^{k l_{\text{max}}} a(m) D^{-m}
+  \end{align}
+\end{subequations}
+onde em \ref{eq:demkraftrevA} utilizamos o resultado do \Cref{lm:expmultin} e
+$l_{\text{max}} = \max_x l(x)$, $a(m)$ é o número de sequências $x_{1:k}$ mapeadas em palavras de comprimento $m$, 
+i.e., 
+\begin{equation}
+  a(m) = \left\vert \{ x_{1:k} \in \mathcal{X}^k : l(x_{1:k}) = m \} \right\vert .
+\end{equation}
+
+Existem $D^m$ palavras de comprimento $m$, e cada uma delas pode ter no máximo uma sequência da fonte associada,
+já que o código é unicamente decodificável. Então $a(m) \leq D^m$, e assim
+\begin{subequations}
+  \begin{align}
+    \underbrace{S^k}_{\text{exponencial em } k} &= \sum_{m=1}^{k l_{\text{max}}} a(m) D^{-m} \\
+                &\leq \sum_{m=1}^{k l_{\text{max}}} D^m D^{-m} = \underbrace{k l_{\text{max}}}_{\text{polinomial em } k} \quad \forall k
+  \end{align}
+\end{subequations}
+Isto só pode ser verdade para todo $k$ se $S \leq 1$.
+Teremos então
+\begin{equation}
+  S = \sum_{x \in \mathcal{X}} D^{-l(x)} \leq 1 .
+\end{equation}
+\end{proof}
+Concluímos assim que todo código unicamente decodificável deve satisfazer
+a desigualdade de Kraft. Sabemos também que é possível construir um código
+instantâneo com os comprimentos que satisfazem Kraft. Logo, não há razão 
+em se buscar um código unicamente decodificável que não seja um código de
+prefixo, afinal para um mesmo comprimento esperado podemos construir um
+código de prefixo.
+
+
+
+
+\section{Código de Huffman}
+
+Os códigos de comprimento variável buscam minimizar o comprimento esperado,
+para tanto, atribuem comprimentos menores a símbolos mais frequentes em detrimento
+de códigos maiores para símbolos menos frequentes.
+
+Antes de 1952, as abordagens predominantes para esses códigos eram
+\emph{top-down}, partindo de uma estrutura inicial e ajustando comprimentos de forma
+descendente, mas nem sempre resultavam em soluções ótimas.
+David A. Huffman, em 1952, utilizou uma abordagem inovadora: construir a
+árvore binária de maneira \emph{bottom-up}, combinando iterativamente os símbolos
+de menor probabilidade. Esse método garante um código prefixo com comprimento
+esperado mínimo, respeitando a desigualdade de Kraft e aproximando-se do limite
+teórico da entropia de Shannon.
+
+Vejamos inicialmente um exemplo de utilização da abordagem gulosa \emph{top-down}
+para criar um códgio. A abordagem consistem em: começar pelo topo e 
+realizar divisões com entropia máxmima para determinar os símbolos.
+Em cada etapa dividimos os símbolos em dois grupos, de forma que cada etapa
+tenha entropia máxima no processo de detrerminação dos símbolos.
+
+\begin{example}[Método Guloso \emph{top-down} para codificação \parencite{bilmes2013}]
+  Considere uma variável alatória $X$ com distribuição\\
+  \begin{center}
+  \begin{tabular}{c|c|c|c|c|c|c|c}
+     & a    & b    & c    & d    & e    & f    & g \\ \hline
+   p & 0.01 & 0.24 & 0.05 & 0.20 & 0.47 & 0.01 & 0.02
+  \end{tabular}
+  \end{center}
+
+  Em cada etapa, queremos dividir os símbolos em dois grupos de forma a
+  maximizar a entropia nesta divisão. A pergunta $Y_1$ para determinação 
+  (ou codificação) de $X$, é aquela que reduz a entropia residual sobre $X$.
+  \begin{subequations}
+    \begin{align}
+      H(X|Y_1) &= H(X,Y_1) - H(Y_1) \\
+               &= H(X) - H(Y_1)
+    \end{align}
+  \end{subequations}
+  onde utilizamos o fato de que $Y_1$ é uma função de $X$, e assim $H(X,Y_1) = H(X)$.
+  Escolhemos a pergunta $Y_1$ com maior informação mútua com $X$:
+  \begin{equation}
+    I(Y_1 ; X) = H(X) - H(X|Y_1) = H(Y_1) ,
+  \end{equation}
+  e desta forma buscaremos minimizar a incerteza residual sobre $X$, dado $Y_1$.
+
+  Considere a seguinte partição $\{a,b,c,d,e,f,g\} = \{a,b,c,d\} \cup \{e,f,g\}$.
+  Com este particionamento, obteremos entropia máxima pois $p(X \in \{a,b,c,d\}) = p(X \in \{e,f,g\}) = 0.5$.
+  Este particionamento corresponde à v.a. $Y_1 = \mathbf{1}_{\{X \in \{e,f,g\}\}}$, e
+  teremos $H(Y_1) = 1$, valor máximo, reduzindo assim $H(X|Y_1)$.
+
+  Para o caso $Y_1 = 0$, podemos agora particionar $\{a,b,c,d\} = \{a,b\} \cup \{c,d\}$,
+  uma vez que $p(\{a,b\}) = p(\{c,d\}) = 1/4$. Desta forma, $p(X \in \{a,b\} \mid X \in \{a,b,c,d\}) = 1/2$ e
+  $p(X \in \{c,d\} \mid X \in \{a,b,c,d\}) = 1/2$.
+  Este particionamento corresponde a $Y_2 = \mathbf{1}_{\{X \in \{c,d\}\}}$. Obtemos assim $H(Y_2 \mid Y_1 = 0) = 1$,
+  novamente alcançando o máximo.
+
+  Para o caso $Y_1 = 1$ precisaremos particionar $\{e,f,g\}$. As opções são listadas a seguir:\\
+  \begin{center}
+    \begin{tabular}{c|c|c|c}
+                 & I & II & III \\ \hline
+        partição & $(\{e\},\{f,g\})$ & $(\{e,f\},\{g\})$ & $(\{e,g\},\{f\})$ \\ \hline
+        prob     & $(0.47, 0.03)$ & $(0.48, 0.02)$ & $(0.49, 0.01)$ \\ \hline
+        $H(Y_2 \mid Y_1 = 1)$ & $0.3274$ & $0.2423$ & $0.1414$
+    \end{tabular}
+  \end{center}
+  A partição I é aquela que fornece maior entropia.
+
+  Tais escolhas nos levam a maximizar $H(Y_2 \mid Y_1)$ e por conseguinte iremos minimizar
+  a incerteza remanescente sobre $X$:
+  \begin{subequations}
+    \begin{align}
+      H(X \mid Y_2, Y_1) &= H(X,Y_2 \mid Y_1) - H(Y_2 \mid Y_1) \\
+                         &= H(X \mid Y_1) - H(Y_2 \mid Y_1) \\
+                         &= H(X) - H(Y_2 \mid Y_1) - H(Y_1) .
+    \end{align}
+  \end{subequations}
+  A cada passo escolhemos o que nos parece melhor, as escolhas futuras terão que lidar
+  com as possibilidades que restaram devido às escolhas passadas.
+  Teremos assim os seguintes particionamentos:\\
+  \begin{center}
+    \begin{scriptsize}
+      \begin{tabular}{c|c|c|c}
+        conjunto          & partição & probabilidades & entropia condicional \\ \hline
+        $\{a,b,c,d,e,f,g\}$     & $\{a,b,c,d\}$ , $\{e,f,g\}$   & $(0.5, 0.5)$          & $H(Y_1) = 1$ \\ \hline
+        $\{a,b,c,d\}$           & $\{a,b\}$, $\{c,d\}$          & $(0.25, 0.25)$        & $H(Y_2 \mid Y_1 = 0) = 1$ \\ \hline
+        $\{e,f,g\}$             & $\{e\}$, $\{f,g\}$            & $(0.47, 0.03)$        & $H(Y_2 \mid Y_1 = 1) = 0.3274$ \\ \hline
+        $\{a,b\}$               & $\{a\}$, $\{b\}$              & $(0.01, 0.24)$        & $H(Y_3 \mid Y_2 = 0, Y_1 = 0) = 0.2423$ \\ \hline
+        $\{c,d\}$               & $\{c\}$, $\{d\}$              & $(0.05, 0.20)$        & $H(Y_3 \mid Y_2 = 1, Y_1 = 0) = 0.7219$ \\ \hline
+        $\{e\}$                 & $\{e\}$                       & $(0.47)$              & $H(Y_3 \mid Y_2 = 0, Y_1 = 1) = 0$ \\ \hline
+        $\{f,g\}$               & $\{f\}$ ,$\{g\}$              & $(0.01, 0.02)$        & $H(Y_3 \mid Y_2 = 1, Y_1 = 1) = 0.9183$
+        \end{tabular}
+      \end{scriptsize}
+  \end{center}
+
+  Ao final, seguindo a abordagem gulosa \emph{top-down} obtemos o código representado
+  na \Cref{fig:greedytree}. Este código possui comprimento esperado do código $E l = 2.53$ e 
+  eficiência $H/E l = 0.7638$, uma vez que a entropia é $H=1.9323$ bits.
+
+  \begin{marginfigure}%[-25cm]%
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/greedytree.pdf}
+  \caption{Árvore obtida através do método guloso seguindo a estratégia \emph{top-down}.}\label{fig:greedytree}
+  \end{marginfigure}
+
+  A título de comparação, o algoritmo de Huffman produz o código apresentado na \Cref{fig:huffman}.
+  Terá comprimento esperado $E l_{\text{huffman}} = 1.97$ e eficiência $H/E l_{\text{huffman}} = 0.9809$.
+
+  Isto demonstra claramente que o código de Huffman é superior e que a estratégia gulosa
+  não foi capaz de nos levar a um código ótimo.
+  \begin{marginfigure}%
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/huffman.pdf}
+  \caption{Árvore obtida pelo código de Huffman.}\label{fig:huffman}
+  \end{marginfigure}
+\end{example}
+
+
+O algoritmo de Huffman pode ser sumarizado através dos seguintes passos:
+\begin{enumerate}
+\item Selecione os dois símbolos menos prováveis no alfabeto.
+\item Ambos terão associados as palavras mais longas e se diferirão no último bit.
+\item Combine estes dois símbolos em um símbolo auxiliar com probabilidade igual à soma das
+        probabilidades dos dois símbolos. Adicione o símbolo auxiliar e remova os dois símbolos previamente selecionados.
+        Repita os passos.
+\end{enumerate}
+
+O procedimento é similar para $D > 2$. Neste caso poderá ser necessário utilizar símbolos fictícios no alfabeto.
+
+\begin{example}[\parencite{bilmes2013}]
+Seja $\mathcal{X} = \{1,2,3,4,5\}$ com probabilidades $(1/4, 1/4, 1/5, 3/20, 3/20)$.
+O procedimento e o código de Huffman obtido estão dispostos na \Cref{fig:ex-huffman01}.
+
+       \begin{figure}[h!]
+       \centering
+       \includegraphics[width=0.95\textwidth]{figures/ex-huffman01.pdf}
+       \caption{Código de Huffman exemplo.}\label{fig:ex-huffman01}
+       \end{figure}
+
+Para este código de Huffman teremos $E l = 2.3$ bits e $H=2.2855$ bits.
+Note que, algumas palavras são maiores e outras menores que $l^\ast(x) = I(X) = \log 1/p(x)$.
+O código de Huffman encontrado pode ser expresso, de maneira compacta, como: $((2,3),(1,(4,5)))$,
+onde cada par de parênteses representada os símbolos combinados em cada passo do algoritmo.
+\end{example}
+
+O lema a seguir descreve atributos necessários para códigos de prefixo ótimos,
+relacionando a frequência dos símbolos à estrutura de suas palavras. Ele
+assegura que símbolos mais prováveis tenham comprimentos menores ou iguais e
+que as duas palavras mais longas, ligadas aos símbolos menos frequentes,
+possuam comprimentos iguais e difiram apenas no último bit. Essas propriedades,
+intrínsecas a códigos ótimos, refletem a construção \emph{bottom-up} do algoritmo de
+Huffman.
+
+
+\begin{lemma}[Propriedades de Códigos Instantâneos Ótimos]\label{lem:propcodinstot}
+Para toda distribuição, $\exists$ um código instantâneo ótimo (i.e., com comprimento esperado mínimo)
+satisfazendo simultâneamente:
+\begin{enumerate}
+  \item\label{propcodinstot1} Se $p_j > p_k$ então $l_j \leq l_k$ (i.e., o símbolo mais provável não possui palavra com maior comprimento).
+  \item\label{propcodinstot2} As duas maiores palavras possuem o mesmo comprimento.
+  \item\label{propcodinstot3} As duas maiores palavras diferem apenas no último bit e correspondem aos dois símbolos menos prováveis.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Vejamos primeiramente a propriedade \ref{propcodinstot1}.
+
+Suponha que $C_m$ seja um código ótimo (então $L(C_m)$ é mínimo) e escolha $j,k$ de forma tal que $p_j > p_k$.
+Precisamos mostrar que $\exists$ um código com $l_j \leq l_k$.
+Considere o código $C_m'$ com a troca das palavras $j$ e $k$, ou seja,
+\begin{equation}
+  l_j' = l_k \quad \text{e} \quad l_k' = l_j ,
+\end{equation}
+o que só pode tornar o código maior, então $L(C_m') \geq L(C_m)$.
+
+Realizando a troca, como $L(C_m)$ é mínimo, teremos
+\begin{subequations}
+  \begin{align}
+    0 &\leq L(C_m') - L(C_m) = \sum_i p_i l_i' - \sum_i p_i l_i \\
+      &= p_j l_j' + p_k l_k' - p_j l_j - p_k l_k = p_j l_k + p_k l_j - p_j l_j - p_k l_k \\
+      &= p_j (l_k - l_j) - p_k (l_k - l_j) \\
+      &= \underbrace{(p_j - p_k)}_{>0}  (l_k - l_j)
+  \end{align}
+\end{subequations}
+Devemos ter então $(l_k - l_j) \geq 0$, ou seja, $l_k \geq l_j$ quando $p_j > p_k$, satisfazendo assim a propriedade \ref{propcodinstot1}.
+Esta propriedade é verdadeira para todos códigos ótimos.
+
+Vejamos agora a propriedade \ref{propcodinstot2}: as palavras mais longas possuem o mesmo comprimento.
+
+Se as duas palavras maiores não possuem o mesmo comprimento, podemos apagar o último bit da palavra mais longa.
+Desta forma manteremos a propriedade de prefixo, já que a palavra mais longa é a única com o seu dado comprimento e não
+existe um prefixo dela que seja uma outra palavra (veja a \Cref{fig:lemmahuffman}).
+ \begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.5\textwidth]{figures/lemmahuffman.pdf}
+ \caption{Apagando o último bit da palavra mais longa.}\label{fig:lemmahuffman}
+ \end{figure}
+
+Desta forma reduzimos o comprimento esperado. Concluímos que um código ótimo deve possuir as duas
+palavras mais longas com o mesmo comprimento.
+
+Analisaremos agora a propriedade \ref{propcodinstot3}: as duas palavras mais longas diferem apenas no último bit e correspondem aos símbolos menos prováveis.
+
+Devido à propriedade 1 ($p_k < p_j \Rightarrow l_k \geq l_j$), se $p_k$ é a menor probabilidade, então ela deve
+possuir associada uma palavra de comprimento que não seja menor do que qualquer outra $j$ com $p_j > p_k$.
+De forma similar, se $p_k$ é a segunda menor probabilidade, a palavra associada deve possuir comprimento que não seja
+menor do que qualquer outro símbolo mais provável.
+As duas palavras mais longas possuem o mesmo comprimento (propriedade \ref{propcodinstot2}) e
+correspondem aos dois símbolos menos prováveis.
+Se as duas maiores palavras não são irmãs, podemos trocá-las. Isto é, se $p_1 \geq p_2 \geq \ldots \geq p_m$, então
+fazemos a transposição ilustrada na \Cref{fig:lemmahuffman2}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/lemmahuffman2.pdf}
+\caption{Transposição das duas palavras mais longas.}\label{fig:lemmahuffman2}
+\end{figure}
+
+Isto não altera o comprimento esperado $L = \sum_i p_i l_i$.
+\end{proof}
+
+
+
+O \Cref{lem:propcodinstot} nos fornece que, se $p_1 \geq p_2 \geq \ldots \geq p_m$, 
+então existe um código ótimo com $l_1 \leq l_2 \leq \ldots l_{m-1} = l_m$
+e no qual $C(x_{m-1})$ e $C(x_m)$ diferem apenas no último bit.
+
+Vamos mostrar que Huffman é ótimo através da operação de criar um novo código no qual a otimização é mais simples.
+Este processo é repetido até que a otimização seja trivial.
+
+\begin{theorem}[Otimidade do Código de Huffman]\label{thm:optcodhuffman}
+O procedimento de codificação de Huffman cria um código com comprimentos inteiros ótimo.
+\end{theorem}
+\begin{proof}
+  
+Assuma um código $C_m$ (não necessariamente ótimo) que satisfaz as propriedades anteriores.
+$C_m$ terá as seguintes palavras de código $\{w_i\}_{i=1}^m$.
+O procedimento de Huffman consiste em transformar $C_m$ em $C_{m-1}$, com palavras de código $\{w_i'\}_{i=1}^{m-1}$.
+Para o código $C_m$ teremos as seguintes palavras, comprimento e probabilidades associados:
+\begin{center}
+  \begin{tabular}{ccc}
+  $C_m$ & comprimento & prob. do símbolo \\ \hline
+  $w_1$ & $l_1$ & $p_1$ \\
+  $w_2$ & $l_2$ & $p_2$ \\
+  $\vdots$ & $\vdots$ & $\vdots$ \\
+  $w_{m-2}$ & $l_{m-2}$ & $p_{m-2}$ \\
+  $w_{m-1}$ & $l_{m-1}$ & $p_{m-1}$ \\
+  $w_{m}$ & $l_{m}$ & $p_{m}$ \\
+  \end{tabular}
+\end{center}
+
+Para ir de $C_m$ para $C_{m-1}$, o procedimento de Huffman combina dos dois símbolos
+de menor probabilidades em $C_m$, criando um símbolo auxiliar em $C_{m-1}$ com probabilidade
+dada pela soma $p_{m-1}' = p_{m-1} + p_m$. A transformação de $C_m$ em $C_{m-1}$ é
+esquematizada a seguir:
+\begin{center}
+  \begin{tabular}{cccccc}
+  \scriptsize{prob. símb.} & $C_{m-1}$ & \scriptsize{comp.} $m-1$ & \scriptsize{rel. código} & \scriptsize{rel. comp.} & \scriptsize{prob. símb.} \\ \hline
+  $p_1$   & $w_1'$        & $l_1'$        & $w_1 = w_1'$  & $l_1 = l_1'$  & $p_1$ \\
+  $p_2$   & $w_2'$        & $l_2'$        & $w_2 = w_2'$  & $l_2 = l_2'$  & $p_2$ \\
+  $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\
+  $p_{m-2}$   & $w_{m-2}'$        & $l_{m-2}'$        & $w_{m-2} = w_{m-2}'$  & $l_{m-2} = l_{m-2}'$  & $p_{m-2}$ \\
+  $p_{m-1} + p_m$   & $w_{m-1}'$        & $l_{m-1}'$        & $w_{m-1} = w_{m-1}' 0$  & $l_{m-1} = l_{m-1}'+1$  & $p_{m-1}$ \\
+          &       &       & $w_{m} = w_{m-1}' 1$ & $l_m = l_{m-1}'+1$ & $p_m$
+  \end{tabular}
+\end{center}
+onde $w_i$ e $l_i$ são as palavras e comprimento das palavras do código $C_m$ e $w_i'$ e $l_i'$ do código $C_{m-1}$.
+
+As palavras e comprimentos em Huffman são definidos recursivamente. Huffman define uma relação entre palavras
+(e consequentemente comprimentos) ao dar um passo de um código para outro mais simples.
+
+Obtemos assim a seguinte relação entre o comprimento esperado de $C_m$ e o comprimento esperado de $C_{m-1}$:
+\begin{subequations}
+  \begin{align}
+    L(C_m) &= \sum_i p_i l_i\\
+           &= \sum_{i=1}^{m-2} p_i l_i' + p_{m-1} (l_{m-1}' + 1) + p_m (l_{m-1}' + 1) \\
+           &= \sum_{i=1}^{m-2} p_i l_i' + (p_{m-1} + p_m) l_{m-1}' + p_{m-1} + p_m \\
+           &= \sum_{i=1}^{m-1} p_i' l_i'+ p_{m-1} + p_m \\
+           &= L(C_{m-1}) + p_{m-1} + p_m
+  \end{align}
+\end{subequations} 
+onde o termo $p_{m-1} + p_m$ é constante, não envolve comprimentos de palavras e, consequentemente,
+não tem nenhuma implicância no processo de otimização.
+
+Desta forma, reduzimos o número de variáveis que iremos otimizar de $m$ para $m-1$.
+O procedimento de Huffman implica em 
+\begin{subequations}
+  \begin{align}
+    \min_{l_{1:m}} L(C_m) &= \text{const.} + \min_{l_{1:m-1}} L(C_{m-1}) \\
+                          &= \text{const.} + \min_{l_{1:m-2}} L(C_{m-2}) \\
+                          & \;\; \vdots \nonumber \\
+                          &= \text{const.} + \min_{l_{1:2}} L(C_{2})
+  \end{align}
+\end{subequations}
+onde em cada passo são preservadas as propriedades.
+
+Ao reduzir para o caso com dois comprimentos ($C_2$), teremos a solução óbvia, um bit para cada símbolo, e assim 
+podemos refazer o caminho de volta e construir o código.
+Em cada passo garantimos que estaremos obtendo a solução ótima, e assim o código criado pelo algoritmo de Huffman
+será ótimo.
+\end{proof}
