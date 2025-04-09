@@ -517,6 +517,108 @@ $D(p \mid \mid q)$ é o custo adicional por símbolo causado por utilizar a dist
 
 
 
+Um aspecto importante na análise de códigos é entender como seus comprimentos
+de palavras se comparam a outros códigos univocamente decodificáveis em termos
+de eficiência. O teorema a seguir aborda essa questão, fornecendo uma cota
+probabilística para a diferença entre os comprimentos de palavras do código de
+Shannon e de um código concorrente. Essa cota, expressa em função de uma
+constante $c$, destaca a robustez do código de Shannon, mostrando que a
+probabilidade de seus comprimentos excederem significativamente os de outro
+código decresce exponencialmente, um resultado que reforça sua relevância.
+
+\begin{theorem}[Otimalidade Competitiva do Código de Shannon]\label{thm:otcompcodshannon}
+Considere $l(x)$ como o comprimento da palavra associada ao símbolo $x$ no
+código de Shannon e $l'(x)$ como o comprimento da palavra correspondente em
+outro código univocamente decodificável, ambos definidos sobre uma variável
+aleatória $X$ com distribuição $p$. Então, a probabilidade de que
+$l(X)$ exceda $l'(X)$ por pelo menos uma constante $c$ é limitada por:
+
+\begin{equation}
+\Pr \left( l(X) \geq l'(X) + c \right) \leq \frac{1}{2^{c-1}} .
+\end{equation}
+
+Equivalentemente, em notação mais formal:
+\begin{equation}
+\Pr \left( \mathbf{1}_{\{ l(X) \geq l'(X) + c \}} = 1 \right) \leq \frac{1}{2^{c-1}},
+\end{equation}
+onde $\mathbf{1}_{\{ \cdot \}}$ é a função indicadora.
+\end{theorem}
+
+\begin{proof}
+    \begin{subequations}
+      \begin{align}
+        \Pr \left( l(X) \geq l'(X) + c \right) &= \Pr \left( \lceil \log 1/p(X) \rceil \geq l'(X) + c \right) \\
+                                               &\leq \Pr \left( \log 1/p(X) \geq l'(X) + c - 1  \right) \label{dem:otcompcodshannonA}\\
+              &= \Pr \left( p(X) \leq 2^{-l'(X)-c+1} \right) \\
+              &=  \sum_{x:p(x) \leq 2^{-l'(x)-c+1}} p(x) \\
+              &\leq \sum_{x:p(x) \leq 2^{-l'(x)-c+1}}  2^{-l'(x)-c+1} \\
+              &\leq \sum_{x} 2^{-l'(x)} 2^{-(c-1)} \leq 2^{-(c-1)} \label{dem:otcompcodshannonB},
+      \end{align}
+    \end{subequations}
+    onde em \ref{dem:otcompcodshannonA} utilizamos que o código de Shannon utiliza $l(x) = \lceil \log 1/p(x) \rceil$, e,
+    em \ref{dem:otcompcodshannonB}, utilizamos a desigualdade de Kraft: $\sum_{x} 2^{-l'(x)} \leq 1$.
+\end{proof}
+
+A probabilidade do código de Shannon ter comprimento esperado maior do que um outro
+código unicamente decodificável é exponencialmente decrescente com $c > 1$.
+Código de Shannon é ótimo para distribuições d-ádicas, já que neste caso teremos que $\log 1/p(x)$ será inteiro.
+
+
+Em distribuições $d$-ádicas, é mais provável que os comprimentos das palavra de
+um código de Shannon sejam menores do que maiores em comparação com um código
+alternativo. Esse resultado evidencia uma vantagem probabilística do código de
+Shannon, destacando sua eficiência relativa.
+
+\begin{theorem}[Otimalidade Competitiva do Código de Shannon II]\label{thm:otcompcodshannon2}
+Considere uma distribuição $d$-ádica $p$ sobre um conjunto de símbolos,
+onde $p(x) = 1/d^k$ para algum inteiro $k$, e seja $l(x) = \log_d (1/p(x))$
+o comprimento da palavra associada a $x$ no código de Shannon, enquanto $l'(x)$
+é o comprimento da palavra correspondente em outro código prefixo, ambos
+aplicados a uma variável aleatória $X$ com distribuição $p$. Então:
+\begin{equation}
+\Pr \left( l(X) < l'(X) \right) \geq \Pr \left( l(X) > l'(X) \right),
+\end{equation}
+com igualdade se, e somente se, $l'(x) = l(x)$ para todo $x$.
+\end{theorem}
+
+\begin{proof}
+Seja
+\begin{equation}
+\sign(t) = \begin{cases}
+        1 , \quad t > 0 \\
+        0 , \quad t = 0 \\
+        -1 , \quad t < 0
+        \end{cases}
+\end{equation}
+É fácil verificar que $\sign(t) \leq 2^t -1$ para $t=0,\pm 1, \pm 2, \ldots$.
+Para $t = 0$ teremos $0 = 2^0 - 1 = 0$;
+para $t \geq 1$ teremos $1 \leq 2^t - 1$, uma vez que $2^t > 1$ para $t \geq 1$;
+e para $t \leq 1$ teremos $-1 \leq 2^t - 1$, uma vez que $2^t < 1$ para $t \leq 1$.
+
+Teremos então
+\begin{subequations}
+{
+\allowdisplaybreaks
+\begin{align}
+\Pr \left( l'(X) < l(X) \right) - \Pr \left( l'(X) > l(X) \right) &= \sum_{x:l'(x) \leq l(x)} p(x) - \sum_{x:l'(x)>l(x)} p(x) \\
+             &= \sum_x p(x) \sign\left( l(x)-l'(x) \right) \label{dem:otcompcodshannon2A}\\
+             &= E \left[ \sign \left( l(X) - l'(X) \right) \right] \\
+             &\leq \sum_x p(x) \left( 2^{l(x) - l'(x)} - 1\right) \\
+             &= \sum_x 2^{-l(x)} \left( 2^{l(x)-l'(x)} - 1 \right) \label{dem:otcompcodshannon2B}\\
+             &= \sum_x 2^{-l'(x)} - \sum_x 2^{-l(x)} \\
+             &= \sum_x 2^{-l'(x)} - 1 \\
+             &\leq 1 - 1 \label{dem:otcompcodshannon2C} \\
+             &= 0
+\end{align}
+}
+\end{subequations}
+onde em \ref{dem:otcompcodshannon2A} utilizamos que $\{l'(x) \leq l(x)\} \cap \{l'(x)>l(x)\} = \emptyset$,
+em \ref{dem:otcompcodshannon2B} utilizamos que $p(x)$ é d-ádica, $p(x)=2^{-l(x)}$, e em \ref{dem:otcompcodshannon2C} 
+utilizamos que $l'(x)$ satisfaz Kraft.
+Assim, mostramos que $\Pr \left( l'(X) < l(X) \right) \leq \Pr \left( l'(X) > l(X) \right)$, como desejado.
+\end{proof}
+
+
 
 
 \section{Desigualdade de Kraft revisitada}
@@ -913,3 +1015,324 @@ podemos refazer o caminho de volta e construir o código.
 Em cada passo garantimos que estaremos obtendo a solução ótima, e assim o código criado pelo algoritmo de Huffman
 será ótimo.
 \end{proof}
+
+
+
+
+
+\section{Codificação Shannon-Fano-Elias}
+
+A codificação Shannon-Fano-Elias é uma abordagem prática para representar
+símbolos com base em suas probabilidades cumulativas. Ela atribui códigos
+prefixo aproximando os comprimentos ideais por meio de uma representação
+binária truncada da função de distribuição cumulativa. Historicamente,
+Shannon-Fano-Elias é um marco na evolução da codificação, sendo ela
+predecessora da codificação aritmética, que também usa probabilidades
+cumulativas. 
+
+Vejamos algumas definições que serão utilizadas na codificação Shannon-Fano-Elias.
+\begin{definition}[Distribuição Cumulativa]
+Seja $\mathcal{X} = \{x_1, x_2, \ldots, x_m\}$ um conjunto finito de símbolos 
+com uma distribuição $p$, onde $p(x_i) \geq 0$ e $\sum_{i=1}^m p(x_i) = 1$.
+A função de distribuição cumulativa, denotada por $F(x)$, é definida como:
+\begin{equation}
+F(x) = \sum_{a \leq x} p(a),
+\end{equation}
+em que a soma é tomada sobre todos os símbolos $a \in \mathcal{X}$ 
+tais que $a \leq x$, considerando a ordenação de $\mathcal{X}$: 
+$x_1 < x_2 < \cdots < x_m$. Assim, $F(x)$ representa a probabilidade acumulada
+de todos os símbolos até $x$, inclusive, e satisfaz as propriedades: $0 \leq F(x) \leq 1$,
+$F(x_i) \leq F(x_j)$ se $x_i < x_j$ (monotonicidade), e $F(x_m) = 1$. 
+\end{definition}
+
+
+\begin{definition}[\(\overline{F}\)-Distribuição Cumulativa Modificada]
+Seja $\mathcal{X} = \{x_1, x_2, \ldots, x_m\}$ um conjunto finito de símbolos
+com uma distribuição $p$, e seja $F(x) = \sum_{a \leq x} p(a)$ a função de
+distribuição cumulativa associada, considerando uma ordenação fixa $x_1 < x_2 <
+\cdots < x_m$. A função $\overline{F}(x)$, chamada de distribuição cumulativa
+modificada, é definida como:
+\begin{subequations}
+\begin{align}
+\overline{F}(x) &\triangleq \sum_{a < x} p(a) + \frac{1}{2} p(x), \\
+&= F(x) - \frac{1}{2} p(x),
+\end{align}
+\end{subequations}
+em que $\sum_{a < x} p(a)$ é a soma das probabilidades dos símbolos
+estritamente menores que $x$, e $\frac{1}{2} p(x)$ adiciona metade da
+probabilidade do símbolo $x$. Assim, $\overline{F}(x)$ representa um ponto
+intermediário no intervalo de probabilidade associado a $x$ na distribuição
+acumulada.
+\end{definition}
+
+$\overline{F}(x)$ é o ponto entre $F(x-1)$ e $F(x)$, então, como $p(x)>0$, temos
+\begin{equation}
+  F(x-1) < \overline{F}(x) < F(x)
+\end{equation}
+
+Como $p(x)>0$, $a \neq b \Rightarrow F(a) \neq F(b) \Leftrightarrow
+\overline{F}(a) \neq \overline{F}(b)$.  Podemos utilizar $\overline{F}(a)$ como
+um código não singular para $a$ (podemos utilizar a expansão binária após a
+vírgula, como visto anteriormente na prova de Kraft para um infinito contável
+de comprimentos).  Teremos um código unicamente decodificável, porém poderemos
+ter palavras de tamanho infinito.  A solução será truncar $\overline{F}(x)$
+para ficar com $l(x)$ bits. A notação para tanto será $\lfloor \overline{F}(x) \rfloor_{l(x)}$.
+
+\begin{example}[Truncamento com $l$ bits]\label{ex:Fbarratruncado}
+Seja $l=4$ e $\overline{F}(x) = 0.011011001000\ldots$, então
+\begin{equation}
+    \lfloor \overline{F}(x) \rfloor_{l(x)} = 0.0110 .
+\end{equation}
+    \centering{
+    \begin{tabular}{ccccc}
+	& 0.0110 & 1100 & 1000 & \\
+    $-$ & 0.0110 & 0000 & 0000 & código $\lfloor \overline{F}(x) \rfloor_4$ \\
+    \hline
+    $=$ & 0.0000 & 1100 & 1000 & \\
+    $<$ & 0.0001 & 0000 & 0000 & $= 1/2^{l(x)}$
+    \end{tabular}
+    }
+\end{example}
+
+Precisamos agora determinar qual seria $l(x)$ mínimo para que a decodificação unívoca seja preservada.
+Sabemos que
+\begin{equation}
+ \overline{F}(x) - \lfloor \overline{F}(x) \rfloor_{l(x)} < \frac{1}{2^{l(x)}} ,
+\end{equation}
+conforme ilustrado no \Cref{ex:Fbarratruncado}.
+Se considerarmos $l(x) = \lceil \log 1/p(x) \rceil + 1$, então teremos
+\begin{subequations}
+\begin{align}
+\frac{1}{2^{l(x)}} &= \frac{1}{2} 2^{- \lceil \log 1/p(x) \rceil} \leq \frac{1}{2} 2^{-\log 1/p(x)} = \frac{p(x)}{2} \\
+                &= \overline{F}(x) - F(x-1)
+\end{align}
+\end{subequations}
+Combinando com o limite anterior, teremos
+\begin{equation}
+ \overline{F}(x) - \lfloor \overline{F}(x) \rfloor_{l(x)} < \frac{1}{2^{l(x)}} < \overline{F}(x) - F(x-1) ,
+\end{equation}
+e poderemos concluir que
+\begin{equation}
+ \lfloor \overline{F}(x) \rfloor_{l(x)} > F(x-1) .
+\end{equation}
+Por fim, temos
+\begin{equation}
+ F(x-1) < \lfloor \overline{F}(x) \rfloor_{l(x)} \leq \overline{F}(x) < F(x) .
+\end{equation}
+
+Concluímos que $l(x) = \lceil \log 1/p(x) \rceil + 1$ bits serão suficientes para descrever $x$ de forma não ambígua
+segundo a representação $\lfloor \overline{F}(x) \rfloor_{l(x)}$, uma vez
+que para cada $x$ teremos $\lfloor \overline{F}(x) \rfloor_{l(x)}$ em intervalos distintos, conforme a desigualdade anterior.
+
+Precisamos agora verificar que a representação binária do $\lfloor \overline{F}(x) \rfloor_{l(x)}$ nos fornecerá
+um código de prefixo. Para tanto, considere a palavra $z_1 z_2 \ldots z_l$ que corresponde ao intervalo semiaberto:
+\begin{equation}
+  [ \overbrace{0.z_1 z_2 \ldots z_l}^{\lfloor \overline{F}(x) \rfloor_{l(x)}} , \quad \overbrace{0.z_1 z_2 \ldots z_l}^{\lfloor \overline{F}(x) \rfloor_{l(x)}} + 1/2^l  ) =
+  \left[ 0.z_1 z_2 \ldots z_l , \quad 0.z_1 z_2 \ldots z_l + 0.00\ldots 1  \right) .
+\end{equation}
+que possui comprimento $1/2^l$ (este intervalo contém todos os números binários que se iniciam com $0.z_1 z_2 \ldots z_l$).
+
+A desigualdade $F(x-1) < \lfloor \overline{F}(x) \rfloor_{l(x)} \leq \overline{F}(x) < F(x)$ e o intervalo de comprimento $1/2^l$ são representados na
+\Cref{fig:intervalshannonfanoelias}
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{figures/intervalshannonfanoelias.pdf}
+  \caption{Intervalo de comprimento $1/2^l$ representando $\lfloor \overline{F}(x) \rfloor_{l(x)}$ como uma forma não ambígua para codificação.}\label{fig:intervalshannonfanoelias}
+\end{marginfigure}
+Então $\lfloor \overline{F}(x) \rfloor_{l(x)} \in (F(x-1), \overline{F}(x)]$.
+Como $2^{-l(x)} \leq p(x)/2 = \overline{F}(x) - F(x-1)$  e também $F(x-1) < \lfloor \overline{F}(x) \rfloor_{l(x)} \leq \overline{F}(x) < F(x)$, então
+teremos que os intervalos abertos são disjuntos, mesmo se $\lfloor \overline{F}(x) \rfloor_{l(x)} = \overline{F}(x)$.
+A forma de codificação proposta, usando a representação binária de $\lfloor \overline{F}(x) \rfloor_{l(x)}$, 
+nos leva a um código de prefixo (não existirão duas palavras associadas a um mesmo intervalo e os intervalos associados a cada um são disjuntos).
+Como é suficiente ter $l(x) = \lceil \log 1/p(x) \rceil + 1$, podemos calcular o limite para o comprimento esperado.
+Assim,
+\begin{equation}
+ L = \sum_{x} p(x) l(x) = \sum_{x} p(x) (\lceil \log 1 / p(x) \rceil + 1) \leq H(X) + 2
+\end{equation}
+
+
+\begin{example}[Distribuição d-ádica]
+Considere a seguinte distribuição d-ádica. Os passos para 
+encontrar o código de Shannon-Fano-Elias são explicitados 
+abaixo.
+
+\begin{center}
+  \begin{tabular}{lllllll}
+  $x$ & $p(x)$ & $F(x)$ & $\overline{F}(x)$       & $\overline{F}(x)$ (binário) & $l(x)$ & palavra código \\ \hline
+  1   & 0.25   & 0.25   & 0.125           & 0.001                 & 3     & 001   \\
+  2   & 0.5    & 0.75   & 0.5             & 0.10                  & 2     & 10    \\
+  3   & 0.125  & 0.875  & 0.8125          & 0.1101                & 4     & 1101  \\
+  4   & 0.125  & 1.0    & 0.9375          & 0.1111                & 4     & 1111
+  \end{tabular}
+\end{center}
+
+Para o código encontrado teremos $El = 2.75$ bits enquanto $H=1.75$ bits. 
+Comparativamente, para o caso de Huffman teremos a árvore $(((3,4),1),2)$, 
+e assim $El_{\text{huffman}} = 0.25 \time 1 + 0.25 \times 2 + 0.125 \times 3 + 0.125 \times 3 = 1.75$.
+\end{example}
+
+
+\begin{example}[Dízima periódica]
+Utilizaremos a seguinte notação para dízima periódica: $0.\overline{01} = 0.010101010101\ldots$.
+Para uma dada distribuição $p$, abaixo apresentamos os passos para
+encontrar o código de Shannon-Fano-Elias:
+
+\begin{center}
+  \begin{tabular}{lllllll}
+  $x$ & $p(x)$ & $F(x)$ & $\overline{F}(x)$    & $\overline{F}(x)$ (binário) & $l(x)$ & palavra código \\ \hline
+  1   & 0.25   & 0.25   & 0.125           & $0.001$                 & 3     & 001   \\
+  2   & 0.25   & 0.5    & 0.375           & $0.011$                 & 3     & 011   \\
+  3   & 0.2    & 0.7    & 0.6             & $0.1\overline{0011}$         & 4     & 1001  \\
+  4   & 0.15   & 0.85   & 0.775           & $0.110\overline{0011}$       & 4     & 1100  \\
+  5   & 0.15   & 1      & 0.925           & $0.111\overline{0110}$          & 4     & 1110
+  \end{tabular}
+\end{center}
+Para o código de Shannon-Fano-Elias encontrado, teremos $H=2.285$ bits, $El = 3.5$ bits, 
+enquanto $El_{\text{huffman}} = 2.3$ bits, sendo a árvore de Huffman $((1,(4,5)),(3,2))$.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{O Jogo de Shannon}
+
+A compreensão da entropia como medida da incerteza em uma fonte de informação é
+fundamental para o desenvolvimento de códigos eficientes. Em seu artigo de
+1951~\parencite{Shannon1951}, \textit{``Prediction and Entropy of Printed English''}, Claude Shannon
+explorou essa ideia por meio de um experimento simples,
+conhecido como o Jogo de Shannon. Neste jogo, participantes tentam adivinhar a
+próxima letra em uma sequência de texto em inglês, como completar ``TH'' em
+``THE'' ou ``THEN'', utilizando o contexto das letras anteriores. Shannon
+observou que, em média, os participantes precisavam de poucas tentativas para
+acertar, sugerindo que a previsibilidade do idioma reduz significativamente a
+quantidade de informação por letra.
+
+Para quantificar isso, Shannon modelou o texto como um processo estocástico e
+estimou a entropia condicional --- a incerteza média de uma letra dado o
+contexto anterior. Usando amostras de até 100 letras e aproximações estatísticas
+(de monogramas, bigramas e trigramas), ele concluiu que a entropia do inglês impresso
+está entre 0,6 e 1,3 bits por letra, muito abaixo dos 4,76 bits de um alfabeto
+de 27 símbolos (26 letras mais espaço) com distribuição uniforme. Esse
+resultado implica uma redundância de cerca de 75\%, evidenciando que a
+estrutura linguística permite compressão eficiente.
+
+O Jogo de Shannon destaca a
+dependência entre símbolos em uma sequência. Por exemplo, após ``QU'', a
+próxima letra é quase certamente uma vogal, reduzindo a incerteza. Essa visão
+sequencial motiva alguns métodos, como a codificação aritmética, que
+comprime uma mensagem inteira em um único número, aproveitando a entropia de
+toda a sequência.
+
+
+
+
+
+
+
+
+
+\section{Codificação Aritmética}
+
+A codificação aritmética supera as limitações dos códigos baseados em símbolos
+individuais, sendo considerada como um código de fluxo, ou seja, codifica uma
+sequência inteira em um único número real/binário. Ao mapear a mensagem em um
+intervalo de probabilidade que se estreita iterativamente com base nas
+probabilidades cumulativas dos símbolos, a codificação aritmética alcança taxas
+de compressão que se aproximam da entropia da fonte, mesmo em distribuições
+complexas com dependências entre símbolos. O algoritmo básico da codificação
+aritmética foi desenvolvido independentemente por Jorma Rissanen e Richard C.
+Pasco, na década de 1970. A ideia reflete uma evolução natural das propostas de
+Shannon, oferecendo uma solução elegante para fontes onde a redundância
+sequencial desempenha um papel importante.
+
+A codificação aritmética opera dividindo subsequentemente um intervalo inicial
+de probabilidade, $[0, 1)$, com base nas probabilidades dos
+símbolos de uma sequência. Para cada novo símbolo, o intervalo atual é
+particionado proporcionalmente às probabilidades cumulativas dos símbolos
+possíveis, e o subintervalo correspondente ao símbolo observado é selecionado.
+À medida que a sequência avança, esse processo gera intervalos cada vez
+menores, cuja largura reflete a probabilidade conjunta da sequência inteira.
+Para transmitir a mensagem, escolhe-se um número binário que caiba dentro do
+intervalo final --- tipicamente, uma sequência binária cuja representação
+decimal esteja contida nesse intervalo reduzido. Esse número único codifica
+toda a sequência.
+
+Suponha que o alfabeto da fonte seja $\mathcal{X} = \{a_1, a_2, \ldots, a_I\}$.
+À medida que a fonte produz uma sequência de símbolos $x_1, x_2, \ldots, x_n, \ldots$,
+o intervalo real $[0, 1)$ é subsequentemente subdividido de acordo com
+as probabilidades dos símbolos em cada instante. A \Cref{fig:acoding_invervals}
+apresenta a subdivisão do intervalo para os dois primeiros símbolos da sequência.
+
+\begin{figure}%
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/acoding_invervals.pdf}
+  \caption{Definição dos intervalos probabilísticos para uma sequência de símbolos produzida pela fonte.}\label{fig:acoding_invervals}
+\end{figure}
+
+Paralelamente, o codificador deve ir subdividindo o intervalo $[0, 1)$,
+sempre ao meio em cada passo, para determinar uma sequência binária
+correspondente a um intervalo que esteja dentro do intervalo selecionado
+pela sequência de símbolos produzida pela fonte.
+A \Cref{fig:acoding_binaryinvervals} apresenta a subdivisão binária dos intervalos.
+
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{figures/acoding_binaryinvervals.pdf}
+  \caption{Definição dos intervalos probabilísticos para uma sequência binária na saída do codificador.}\label{fig:acoding_binaryinvervals}
+\end{marginfigure}
+
+
+
+
+\begin{example}[\parencite{mackay2003}]
+Suponha $x \in \{a,b,\square\}$, onde $\square$ é o símbolo de término.
+Vamos considerar a codificação da \textit{string} $bbba\square$.
+A seguir, apresentamos as probabilidades do próximo símbolo, dado o passado:
+
+\begin{center}
+  \begin{tabular}{cccc}
+  -  & $p(a) = 0.425$ & $p(b) = 0.425$ & $p(\square) = 0.15$ \\
+  $b$  & $p(a|b) = 0.28$ & $p(b|b) = 0.57$ & $p(\square | b) = 0.15$ \\
+  $bb$ & $p(a|bb) = 0.21$ & $p(b|bb) = 0.64$ & $p(\square | bb) = 0.15$ \\
+  $bbb$ & $p(a|bbb) = 0.17$ & $p(b|bbb) = 0.68$ & $p(\square | bbb) = 0.15$ \\
+  $bbba$ & $p(a|bbba) = 0.28$ & $p(b|bbba) = 0.57$ & $p(\square | bbba) = 0.15$
+  \end{tabular}
+\end{center}
+
+Temos subintervalos semiabertos em $[0,1)$.
+Os intervalos $[l,u)$ são dados pela probabilidade condicional $p(x_i | x_1, x_2, \ldots, x_{i-1})$.
+Temos a representação de um prefixo $b_1 b_2 \ldots b_k$ por um intervalo da forma
+$[0.b_1 b_2 \ldots b_k, 0.b_1 b_2 \ldots b_k + 2^{-k})$ para $b_i \in \{0,1\}$.
+
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{figures/bbba.pdf}
+  \caption{Intervalo final para a sequências de símbolos da fonte e para a sequência binária na saída do codificador.}\label{fig:bbba}
+\end{marginfigure}
+
+A \Cref{fig:bbba} ilustra os intervalos que teremos ao final da sequência $bbba\square$
+a ser codificada. Observe que a sequência binária $100111101$ correspondente a um
+intervalo completamente dentro do intervalo associado à sequência $bbba\square$,
+codificando assim a sequência da fonte.
+
+A \Cref{fig:bbbaall} apresenta todo o processo de subdivisão dos intervalos.
+ 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/bbbaall.pdf}
+\caption{Todo o processo de subdivisão dos intervalos para a sequências de símbolos da fonte e para a sequência binária na saída do codificador \parencite{mackay2003}.}
+\label{fig:bbbaall}
+\end{figure}
+
+\end{example}
+
+
