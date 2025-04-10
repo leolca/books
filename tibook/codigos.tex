@@ -1325,7 +1325,15 @@ intervalo completamente dentro do intervalo associado à sequência $bbba\square
 codificando assim a sequência da fonte.
 
 A \Cref{fig:bbbaall} apresenta todo o processo de subdivisão dos intervalos.
- 
+Note que, o processo de divisão do intervalo $[0,1)$ proporcionalmente às
+probabilidades dos símbolos da fonte e a subdivisão binária desse intervalo
+para identificar uma sequência binária que codifique a mensagem podem ocorrer
+de forma concomitante. À medida que cada símbolo reduz o intervalo com base em
+sua probabilidade, o algoritmo pode simultaneamente refinar uma representação
+binária, ajustando-a para permanecer dentro do intervalo atual, o que otimiza o
+processo de codificação.
+
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{figures/bbbaall.pdf}
@@ -1336,3 +1344,316 @@ A \Cref{fig:bbbaall} apresenta todo o processo de subdivisão dos intervalos.
 \end{example}
 
 
+
+A codificação aritmética comprime uma sequência de símbolos em uma única
+sequência binária por meio da divisão iterativa de um intervalo inicial $[0,1)$. 
+Para cada símbolo $x_n$ da sequência, o algoritmo utiliza um modelo
+probabilístico que fornece a distribuição preditiva $p(x_n = a_i | x_1, \ldots, x_{n-1})$, 
+definindo as probabilidades cumulativas inferiores e superiores:
+
+\begin{equation}
+Q_n(a_i | x_1, \ldots, x_{n-1}) = \sum_{a' < a_i} P(x_n = a' | x_1, \ldots, x_{n-1}),
+\end{equation}
+\begin{equation}
+R_n(a_i | x_1, \ldots, x_{n-1}) = \sum_{a' \leq a_i} P(x_n = a' | x_1, \ldots, x_{n-1}).
+\end{equation}
+
+O intervalo atual $[u, v)$ é subdividido proporcionalmente a essas
+probabilidades, e o subintervalo correspondente a $x_n$, dado por 
+$[u + (v-u)Q_n, u + (v-u)R_n)$, é selecionado.
+Esse processo estreita o
+intervalo a cada passo. No fim, uma sequência binária é escolhida dentro do
+intervalo final, permitindo ao decodificador reconstruir a sequência com o
+mesmo modelo. Essa técnica maximiza a compressão, aproximando-se da entropia da
+fonte.
+
+
+%\begin{lstlisting}[caption={Algoritmo de Codificação Aritmética},label={lst:arithmetic_coding}]
+%Algoritmo: Codificação Aritmética
+%Entrada: Sequência x_1, ..., x_N; modelo P
+%Saída: Intervalo [u, v)
+%
+%1. u ← 0.0
+%2. v ← 1.0
+%3. Para n = 1 até N:
+%   a. Obtenha P(x_n = a_i | x_1, ..., x_{n-1})
+%   b. Q_n ← Σ_{a' < x_n} P(x_n = a' | x_1, ..., x_{n-1})
+%   c. R_n ← Σ_{a' ≤ x_n} P(x_n = a' | x_1, ..., x_{n-1})
+%   d. v ← u + (v - u) * R_n
+%   e. u ← u + (v - u) * Q_n
+%4. Retorne [u, v)
+%\end{lstlisting}
+\begin{algorithm}
+\caption{Codificação Aritmética}
+\label{alg:arithmetic_coding}
+\begin{algorithmic}[1]
+\State \textbf{Entrada:} Sequência \( x_1, x_2, \dots, x_N \); modelo probabilístico \( P \)
+\State \textbf{Saída:} Intervalo \( [u, v) \)
+\State \( u \gets 0.0 \)
+\State \( v \gets 1.0 \)
+\For{\( n = 1 \) \textbf{até} \( N \)}
+    \State Obtenha \( P(x_n = a_i | x_1, \dots, x_{n-1}) \) do modelo
+    \State Calcule \( Q_n(a_i) = \sum_{a' < x_n} P(x_n = a' | x_1, \dots, x_{n-1}) \)
+    \State Calcule \( R_n(a_i) = \sum_{a' \leq x_n} P(x_n = a' | x_1, \dots, x_{n-1}) \)
+    \State \( v \gets u + (v - u) \cdot R_n(x_n | x_1, \dots, x_{n-1}) \)
+    \State \( u \gets u + (v - u) \cdot Q_n(x_n | x_1, \dots, x_{n-1}) \)
+\EndFor
+\State \textbf{Retorne} \( [u, v) \)
+\end{algorithmic}
+\end{algorithm}
+
+
+\textcite{Witten1987} eliminaram a necessidade de cálculos com números reais de
+precisão arbitrária e operações de ponto flutuante. Eles propuseram uma
+implementação baseada em aritmética inteira de precisão finita, representando o
+intervalo de probabilidade ($[\text{low}, \text{high})$) com inteiros e
+escalonando-o dinamicamente para evitar \emph{overflow}, emitindo bits
+incrementalmente durante o processo. Essa abordagem simplificou os cálculos,
+reduziu a demanda por recursos de hardware e tornou o algoritmo eficiente o
+suficiente para aplicações reais de compressão de dados, como em arquivos de
+texto e imagens, pavimentando o caminho para sua adoção em sistemas práticos de
+compressão.
+
+
+
+
+
+
+
+
+\section{Codificação Lempel--Ziv}
+
+A codificação Lempel--Ziv, desenvolvida por \textcite{ziv1977}, marca
+uma transição significativa na compressão de dados ao abandonar abordagens
+baseadas exclusivamente em probabilidades estatísticas, como Huffman e a
+codificação aritmética, em favor de uma estratégia que explora padrões
+repetitivos em sequências. O algoritmo LZ77, o primeiro da
+família Lempel--Ziv, estabeleceu as bases para métodos de compressão baseados
+em dicionários dinâmicos, codificando sequências por meio de referências a
+trechos já observados no texto. Ao utilizar uma janela deslizante para
+identificar repetições, o LZ77 substitui trechos redundantes por ponteiros
+(comprimento e distância).
+
+O algoritmo LZ77 utiliza uma janela deslizante para identificar e substituir
+sequências repetitivas em uma entrada de dados, dividindo-a em dois
+componentes: o \textit{search buffer}, com algumas centenas de bytes, que
+armazena símbolos já processados, e o \textit{look-ahead buffer}, com dezenas
+de bytes, que contém os próximos símbolos a serem codificados (veja a \Cref{fig:sliding_window_lz77}). 
+O codificador
+examina o \textit{search buffer} (da direita para a esquerda) procurando a
+maior sequência de símbolos que coincida com o início do \textit{look-ahead
+buffer}. Ele continua a busca em todo o histórico disponível no \textit{search
+buffer}, selecionando a correspondência mais longa encontrada ou, em caso de
+empate, a mais recente para simplificar a implementação. Cada correspondência é
+codificada como um par (distância, comprimento), indicando quantos bytes
+retroceder e quantos símbolos coincidem, enquanto símbolos sem correspondência
+são emitidos diretamente. Após cada codificação, a janela desliza, incorporando
+novos símbolos ao \textit{search buffer} e avançando no \textit{look-ahead
+buffer}, repetindo o processo até o fim da entrada.
+
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{figures/sliding_window_lz77.png}
+  \caption{Janela deslizante no LZ77 \parencite{salomon2007}.}\label{fig:sliding_window_lz77}
+\end{marginfigure}
+
+A \Cref{fig:lz77_schema} apresenta uma etapa da codificação da sequência
+\texttt{sir sid eastman easily teases sea sick seals}. Note como o codificador
+encontra no passado duas instâncias da sequência \texttt{eas}. Decide então
+gerar um \emph{token} na saída que representa a posição (16) de início desta sequência
+e o comprimento (3) dela. Por fim, acrescenta ao \emph{token} o último símbolo (\texttt{e})
+que, ao ser acrescentado na \emph{string} de busca, não geraria um \emph{match}.
+
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/lz77_schema.png}
+  \caption{Codificação LZ77 \parencite{salomon2007}.}
+  \label{fig:lz77_schema}
+  \end{figure}
+
+
+A escolha da correspondência no LZ77 impacta diretamente a eficiência da
+compressão. Selecionar a última correspondência encontrada simplifica o
+codificador, pois elimina a necessidade de armazenar todas as
+correspondências identificadas durante a busca. No entanto, isso tende a
+gerar valores de \textit{offset} maiores, aumentando o tamanho da saída
+codificada e reduzindo a eficiência. Por outro lado, escolher a primeira
+correspondência resulta em \textit{offsets} menores, o que é mais vantajoso
+para compressão subsequente. Combinando o LZ77 com a codificação Huffman,
+onde \textit{offsets} menores recebem palavras de código mais curtas,
+obtém-se uma abordagem otimizada. Esse método, conhecido como LZH, foi
+proposto por Bernd Herd, integrando a eficiência do dicionário dinâmico do
+LZ77 com a compressão estatística do Huffman \parencite{salomon2007}.
+
+Ao longo das décadas de 1980 e 1990, o algoritmo LZ77 foi aprimorado de
+diversas formas para aumentar sua eficiência e versatilidade na compressão de
+dados. Entre as principais otimizações, destacam-se: a utilização de campos
+de \emph{offset} e comprimento com tamanhos variáveis nos \emph{tokens}, permitindo maior
+flexibilidade na codificação; o aumento do tamanho do \emph{search buffer} e do
+\emph{look-ahead buffer}, expandindo a capacidade de encontrar correspondências mais
+longas e distantes; a substituição da janela linear por uma janela circular,
+que elimina a necessidade de mover o texto inteiro após cada correspondência,
+reduzindo custos computacionais; e a adição de um bit de \emph{flag} nos \emph{tokens} para
+distinguir entre literais e referências, eliminando o terceiro campo em
+alguns casos. Além disso, técnicas como o algoritmo Deflate, empregado no
+formato ZIP, introduziram tabelas de hash para acelerar a busca por
+correspondências, combinando LZ77 com codificação Huffman para otimizar ainda
+mais a compressão. Outras melhorias incluíram o uso de árvores binárias ou
+estruturas de sufixos para buscas mais rápidas, contribuindo para a adoção do
+LZ77 em padrões como GZIP e PNG.
+
+
+
+
+
+\section{Codificação LZ78}
+
+A codificação LZ78, também conhecida como LZ2, é uma evolução do método
+LZ77. Diferentemente do LZ77, que utiliza uma janela deslizante com \emph{search buffer} e
+\emph{look-ahead buffer}, o LZ78 adota um dicionário dinâmico para armazenar
+strings previamente encontradas, eliminando a dependência de \emph{buffers}. O
+dicionário, que começa vazio ou com uma string nula na posição zero, cresce à
+medida que novas strings são processadas, limitado apenas pela memória
+disponível. O codificador lê os símbolos da entrada, busca correspondências no
+dicionário e gera \emph{tokens} na forma de pares (ponteiro para o
+dicionário, símbolo), que representam strings da entrada. Cada \emph{token}
+adiciona uma nova string ao dicionário, que nunca é esvaziado, podendo crescer
+rapidamente. Uma estrutura eficiente para o dicionário é uma árvore, com a
+string vazia como raiz e strings derivadas como filhos, permitindo buscas
+rápidas mesmo em alfabetos grandes, como os de 256 símbolos (8 bits). Essa
+abordagem torna o LZ78 particularmente eficaz para compressão de dados com
+padrões repetitivos, influenciando formatos como LZW e servindo de base para
+aplicações modernas de compressão.
+
+\begin{algorithm}
+\caption{Codificação LZ78}
+\label{alg:lz78}
+\begin{algorithmic}[1]
+\State \textbf{Entrada:} Sequência de símbolos \( S = x_1, x_2, \dots, x_N \)
+\State \textbf{Saída:} Sequência de tokens \( (i, s) \)
+\State \textbf{Inicialize:}
+\State \quad \( D \gets \) dicionário vazio com string nula na posição 0
+\State \quad \( k \gets 1 \) \Comment{Próxima posição livre no dicionário}
+\State \quad \( w \gets \) string vazia \Comment{String atual}
+\State \quad \( T \gets \) lista vazia \Comment{Lista de tokens}
+\For{cada símbolo \( x \) em \( S \)}
+    \If{\( w + x \) está em \( D \)}
+        \State \( w \gets w + x \)
+    \Else
+        \State \( i \gets \) índice de \( w \) em \( D \)
+        \State Adicione \( (i, x) \) a \( T \)
+        \State Adicione \( w + x \) a \( D \) na posição \( k \)
+        \State \( k \gets k + 1 \)
+        \State \( w \gets \) string vazia
+    \EndIf
+\EndFor
+\If{\( w \) não é vazia}
+    \State \( i \gets \) índice de \( w \) em \( D \)
+    \State Adicione \( (i, \varepsilon) \) a \( T \)
+\EndIf
+\State \textbf{Retorne} \( T \)
+\end{algorithmic}
+\end{algorithm}
+
+\begin{marginfigure}
+\centering
+\includegraphics[width=\linewidth]{figures/lz78_example.png}
+\caption{Exemplo \parencite{salomon2007}.}\label{fig:lz78_example}
+\end{marginfigure}
+
+As \Cref{fig:lz78_example,fig:lz78_tree_example} apresentam a aplicação do LZ78
+à string exemplo \texttt{sir sid eastman easily teases sea sick seals}.
+Na \Cref{fig:lz78_example} é apresentado o dicionário utilizado pelo
+algoritmo em cada passo da execução, evidenciando o símbolo de entrada
+em cada etapa, a string de busca e a saída do codificador.
+A \Cref{fig:lz78_tree_example} apresenta a árvore em que a dicionário
+é organizado. Note que as sequências de símbolos são armazenadas como
+sequências na árvore. Por exemplo, no passo 13 da \Cref{fig:lz78_example},
+observamos que a sequência \texttt{sil} deverá ser adicionada à árvore.
+Na \Cref{fig:lz78_tree_example}, podemos observar que 13 (sequência \texttt{sil})
+foi adicionado abaixo de 5 (sequência \texttt{si}), e esta, por sua vez, abaixo 
+de 1 (sequência \texttt{s}).
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/lz78_tree_example.png}
+\caption{Exemplo \parencite{salomon2007}.}
+\label{fig:lz78_tree_example}
+\end{figure}
+
+
+
+
+
+
+
+\section{Codificação LZW}
+
+A codificação LZW, desenvolvida por \cite{welch1984} como uma variação do
+LZ78, aprimora a abordagem baseada em dicionário ao simplificar a estrutura dos
+\textit{tokens} e otimizar o uso do alfabeto inicial. Diferentemente do LZ78,
+que gera \textit{tokens} com dois campos (ponteiro para o dicionário e
+símbolo), o LZW emite apenas o ponteiro para uma string no dicionário,
+eliminando o segundo campo e reduzindo a complexidade da saída. O dicionário é
+inicializado com todas as entradas do alfabeto --- por exemplo, 256 símbolos
+para um alfabeto de 8 bits --- permitindo que o codificador comece
+imediatamente a formar strings sem depender de uma string nula inicial. À
+medida que processa a entrada, o LZW acumula símbolos em uma string, busca
+correspondências no dicionário, e adiciona novas strings quando a busca falha,
+atualizando o dicionário dinamicamente. O LZW é adotado em formatos de compressão 
+como GIF, TIFF e PDF.
+
+\begin{algorithm}
+\caption{Codificação LZW}
+\label{alg:lzw}
+\begin{algorithmic}[1]
+\State \textbf{Entrada:} Sequência de símbolos \( S = x_1, x_2, \dots, x_N \); alfabeto \( A \)
+\State \textbf{Saída:} Sequência de ponteiros \( P \)
+\State \textbf{Inicialize:}
+\State \quad \( D \gets \) dicionário com todos os símbolos de \( A \) (e.g., 256 entradas para 8 bits)
+\State \quad \( k \gets |A| + 1 \) \Comment{Próxima posição livre no dicionário}
+\State \quad \( I \gets \) string vazia \Comment{String atual}
+\State \quad \( P \gets \) lista vazia \Comment{Lista de ponteiros}
+\For{cada símbolo \( x \) em \( S \)}
+    \If{\( I + x \) está em \( D \)}
+        \State \( I \gets I + x \)
+    \Else
+        \State \( i \gets \) índice de \( I \) em \( D \)
+        \State Adicione \( i \) a \( P \)
+        \State Adicione \( I + x \) a \( D \) na posição \( k \)
+        \State \( k \gets k + 1 \)
+        \State \( I \gets x \)
+    \EndIf
+\EndFor
+\If{\( I \) não é vazia}
+    \State \( i \gets \) índice de \( I \) em \( D \)
+    \State Adicione \( i \) a \( P \)
+\EndIf
+\State \textbf{Retorne} \( P \)
+\end{algorithmic}
+\end{algorithm}
+
+
+O algoritmo LZW, embora eficiente em explorar redundâncias, enfrentou desafios
+no passado devido ao crescimento do dicionário, que podia esgotar a memória
+limitada dos computadores da década de 1980. Para contornar isso,
+implementações práticas frequentemente adotavam limites no tamanho do
+dicionário ou reinicializações periódicas.
+
+Para o exemplo da codificação da sequência \texttt{sir sid eastman easily teases sea sick seals},
+a \Cref{fig:lzw_example} apresenta a saída do codificador e
+a \Cref{fig:lzw_dictionary} apresenta o dicionário final.
+
+
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/lzw_example.png}
+  \caption{Exemplo de saída do codificador LZW \parencite{salomon2007}.}
+  \label{fig:lzw_example}
+  \end{figure}
+
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/lzw_dictionary.png}
+  \caption{Dicionário final do LZW para o exemplo dado \parencite{salomon2007}.}
+  \label{fig:lzw_dictionary}
+  \end{figure}
