@@ -1,0 +1,414 @@
+\section{Estimação da Entropia}
+\label{sec:estimacao-entropia}
+
+Vimos anteriormente conceitos como a entropia de Shannon, entropia conjunta e
+informação mútua, assumindo que a distribuição de probabilidade da fonte é
+conhecida. Em aplicações práticas, como compressão de dados, criptografia ou
+modelagem estatística, raramente temos acesso à distribuição exata da fonte. Em
+vez disso, dispomos de dados --- por exemplo, uma sequência de
+bits --- e precisamos estimar a distribuição e, consequentemente, a entropia.
+Este processo de estimativa envolve suposições
+sobre a fonte e limitações impostas pela quantidade finita de dados. 
+
+
+A entropia de Shannon assume uma fonte sem memória e ignora dependências ou padrões temporais.
+Ao utilizá-la como uma medida de incerteza de uma fonte, devemos ter em mente tais limitações. 
+Sequências previsíveis, como \texttt{010101...} ou \texttt{000...111...}, 
+podem ter a mesma entropia estimada que sequências imprevisíveis 
+(e.g., uma sequência verdadeiramente aleatória) se apresentarem a mesma distribuição de símbolos 
+(e.g., $p(0)=p(1)=1/2$).
+
+Ainda, a distribuição estimada supõe a adoção de algum modelo e está sujeita a erros
+de estimação desta distribuição. Por exemplo, podemos assumir que cada bit é um símbolo
+produzido pela fonte, ou cada sequência de 2 bits é um símbolo, ou sequências de 3 bits, etc.
+Além disso, devemos lidar com a imprecisão da estimativa da distribuição subjacente, uma vez
+que temos tão somente uma amostra finita em mãos.
+
+Estimar a entropia requer primeiro estimar a distribuição da fonte. Um método
+muito utilizado é a estimativa de máxima verossimilhança (MLE), que se relaciona
+diretamente com a minimização da divergência de Kullback-Leibler. 
+
+Suponha uma variável aleatória $\mathbf{X} = (X_1, \ldots, X_N)$ 
+com distribuição subjacente $p$, que depende de um parâmetro $\theta$,
+podemos a chamar também de $p_\theta$. 
+Dadas $N$ observações i.i.d. $x_1, \ldots, x_N$, queremos estimar $\theta$ 
+via um estimador $\hat{\theta} = T(x_1, \ldots, x_N)$. 
+A verossimilhança $L(\theta)$ é a probabilidade conjunta dos dados sob o modelo:
+\begin{equation}
+L(\theta) = \Pr(X_1 = x_1, \ldots, X_N = x_N | \theta) = \prod_{n=1}^N p(x_n | \theta).
+\end{equation}
+
+Como o logaritmo é monótono crescente, maximizar $L(\theta)$ equivale a maximizar o logaritmo da verossimilhança:
+\begin{equation}
+\ell(\theta) = \log L(\theta) = \sum_{n=1}^N \log p(x_n | \theta).
+\end{equation}
+O estimador de máxima verossimilhança é:
+\begin{equation}
+\hat{\theta}_{\text{MLE}} = \argmax_{\theta \in \Theta} \ell(\theta; x_1, \ldots, x_N).
+\end{equation}
+
+
+A distribuição empírica \( \hat{p} \), baseada nas observações, é definida como uma função massa de probabilidade:
+\begin{equation}
+  \hat{p}(x) = \frac{1}{N} \sum_{n=1}^N \delta (x_n = x) = \frac{N(x \vert x_1, \ldots, x_N)}{N} = \frac{N_x}{N},
+\end{equation}
+onde $\delta(x_n = x)$ é a delta de Kronecker, que vale 1 se $x_n = x$ e 0 caso contrário, e
+$N(x \vert x_1, \ldots, x_N)$ expressa o número de ocorrências do símbolo $x$ na amostra $x_1, \ldots, x_N$.
+Seja $p_\theta$ uma distribuição parametrizada por $\theta$. 
+Maximizar a verossimilhança de $p_\theta(x)$ equivale a minimizar a divergência de KL entre $\hat{p}$ e $p_\theta$:
+\begin{subequations}
+  \begin{align}
+    D_{\text{KL}}(\hat{p} \| p_\theta) &= \sum_{x \in \mathcal{X}} \hat{p}(x) \log \frac{\hat{p}(x)}{p_\theta(x)} \\
+                                       &= -H(\hat{p}) - \sum_{x \in \mathcal{X}} \hat{p}(x) \log p_\theta(x)  \nonumber \\
+                                       &= -H(\hat{p}) - \frac{1}{N} \sum_{x \in \mathcal{X}} \sum_{n=1}^{N} \delta (x_n = x) \log p_\theta(x) \nonumber \\
+                                       &= -H(\hat{p}) - \frac{1}{N} \sum_{n=1}^{N} \log p_\theta(x_n) ,
+  \end{align}
+\end{subequations}
+onde o segundo termo é o oposto do logaritmo da verossimilhança médio. 
+Como $H(\hat{p})$ é constante para um conjunto fixo de dados, minimizar 
+$D_{\text{KL}}(\hat{p} \| p_\theta)$ equivale a maximizar $\frac{1}{N} \sum_{n=1}^N \log p_\theta(x_n)$,
+ou seja, maximizar $\ell(\theta)$. 
+Portanto, o MLE $\hat{\theta}_{\text{MLE}}$ é:
+\begin{equation}
+\hat{\theta}_{\text{MLE}} = \argmin_{\theta \in \Theta} D_{\text{KL}}(\hat{p} \| p_\theta).
+\end{equation}
+Essa equivalência mostra que escolher o modelo $p_\theta$ que melhor se
+ajusta aos dados (via MLE) minimiza a diferença entre a distribuição empírica e
+o modelo.
+
+
+
+
+
+\subsection{Suavização: Regra de Laplace e Dirichlet}
+\label{subsec:suavizacao}
+
+Quando realizamos a estimativa de probabilidades a partir de amostras finitas,
+devemos nos atentar ao seguinte problema: símbolos raros podem não ser observados
+devido ao tamanho limitado da amostra, levando a estimativas
+imprecisas. Devemos considerar que é um mero acaso da amostra observamos
+determinado símbolo uma vez ou nenhuma vez.
+Em uma sequência binária de $N$ bits, se nenhum 0
+for observado, o estimador atribuirá $\hat{p}(0) = 0$, sugerindo
+que 0 é impossível, o que pode ser um artefato da amostra. Isso distorce a
+estimativa da distribuição, especialmente em fontes com baixa probabilidade de certos
+símbolos. Para abordar essa questão, técnicas de suavização
+(\textit{smoothing}) ajustam as probabilidades empíricas, atribuindo valores
+não nulos a símbolos não observados. A Regra de Sucessão de
+Laplace e sua generalização via Dirichlet são exemplos simples de
+técnicas de suavização utilizadas.
+
+
+
+\subsubsection{Regra de Laplace e o Problema do Nascer do Sol}
+A Regra de Sucessão de Laplace, proposta no século XVIII por Pierre-Simon
+Laplace, é uma abordagem bayesiana para estimar probabilidades em experimentos
+binários, como o famoso ``problema do nascer do sol'': qual é a probabilidade de
+que o sol nasça amanhã, dado que nasceu todos os dias nos últimos $n$ dias?
+Essa regra suaviza as estimativas ao assumir uma distribuição a priori Beta com
+parâmetros $\alpha_0 = \alpha_1 = 1$, equivalente a uma densidade uniforme
+no intervalo $[0, 1]$ para a probabilidade $p_0$, evitando probabilidades
+nulas. Isso reflete a suposição de ignorância total sobre a probabilidade $p_0$,
+antes de observar os dados.
+
+Considere uma fonte binária com alfabeto $\mathcal{X} = \{0, 1\}$, onde
+$X_1, \ldots, X_N$ são variáveis aleatórias i.i.d. com $p(0) = p_0$, 
+$p(1) = p_1 = 1 - p_0$. Dadas $N$ observações $x_1, \ldots, x_N$, o número
+de ocorrências de 0 e 1 é:
+\begin{equation}
+N_0 = \sum_{n=1}^N \delta(x_n = 0), \quad N_1 = \sum_{n=1}^N \delta(x_n = 1), \quad N = N_0 + N_1.
+\end{equation}
+A verossimilhança dos dados é:
+\begin{equation}
+p(x_1, \ldots, x_N | p_0) = p_0^{N_0} p_1^{N_1}.
+\end{equation}
+Assumimos uma distribuição a priori uniforme para $p_0$, ou seja, $\Pr(p_0) = 1$ para $p_0 \in [0, 1]$, 
+refletindo incerteza total sobre a distribuição. Pelo teorema de Bayes, a distribuição a posteriori de $p_0$ é:
+\begin{subequations}
+  \begin{align}
+    \Pr(p_0 | x_1, \ldots, x_N) &= \frac{p(x_1, \ldots, x_N | p_0) \Pr(p_0)}{\Pr(x_1, \ldots, x_N)} \\
+                                &= \frac{p_0^{N_0} p_1^{N_1}}{\Pr(x_1, \ldots, x_N)}.
+  \end{align}
+\end{subequations}
+O denominador, a probabilidade marginal dos dados, é calculado usando a função Beta:
+\begin{subequations}
+  \begin{align}
+    \Pr(x_1, \ldots, x_N) &= \int_0^1 \Pr (x_{1:N}, p_0) dp_0 \label{eq:demprobmargbetaA}\\
+                          &= \int_0^1 p_0^{N_0} p_1^{N_1} \Pr(p_0) dp_0 \label{eq:demprobmargbetaB}\\
+                          &= \int_0^1 p_0^{N_0} p_1^{N_1} dp_0 \label{eq:demprobmargbetaC} \\
+                          &= B(N_0 + 1, N_1 + 1) \\
+                          &= \frac{\Gamma(N_0 + 1) \Gamma(N_1 + 1)}{\Gamma(N_0 + N_1 + 2)} \\
+                          &= \frac{N_0! N_1!}{(N_0 + N_1 + 1)!},
+  \end{align}
+\end{subequations}
+onde $\Gamma(n) = (n-1)!$ para $n$ inteiro. 
+Em \ref{eq:demprobmargbetaA} utilizamos que a probabilidade marginal $\Pr(x_1, \ldots, x_N)$ é obtida 
+integrando a probabilidade conjunta $\Pr (x_{1:N}, p_0)$ sobre $p_0$.
+Em \ref{eq:demprobmargbetaC} utilizamos que a distribuição a priori é uniforme, $\Pr(p_0)=1$.
+A integral remanescente em \ref{eq:demprobmargbetaC} é característica da função Beta\footnote{
+A função Beta é definida como:
+\begin{equation}
+  B(a,b) = \int_0^1 x^{a-1} (1-x)^{b-1} dx.
+\end{equation}
+A função Beta pode ser expressa em termos da função Gamma:
+\begin{equation}
+  B(a,b) = \frac{\Gamma(a) \Gamma(b)}{\Gamma(a+b)}.
+\end{equation}
+A função Gamma para inteiros pode ser expressa como:
+\begin{equation}
+  \Gamma(n) = (n-1)! ,
+\end{equation}
+onde $n$ é inteiro.
+}.
+Para prever a probabilidade do próximo símbolo ser 0, calculamos:
+\begin{subequations}
+  \begin{align}
+    \Pr(X_{N+1} = 0 | x_1, \ldots, x_N) &= \int_0^1 p_0 \Pr(p_0 | x_1, \ldots, x_N) dp_0 \\
+                                        &= \int_0^1 p_0 \frac{p_0^{N_0} (1 - p_0)^{N_1}}{\Pr(x_1, \ldots, x_N)} dp_0 \\
+                                        &= \frac{\int_0^1 p_0^{N_0 + 1} (1 - p_0)^{N_1} dp_0}{\int_0^1 p_0^{N_0} (1 - p_0)^{N_1} dp_0} \\
+                                        &= \frac{B(N_0 + 2, N_1 + 1)}{B(N_0 + 1, N_1 + 1)} \\
+                                        &= \frac{\frac{(N_0 + 1)! N_1!}{(N_0 + N_1 + 2)!}}{\frac{ N_0! N_1! }{ (N_0 + N_1 +1)!  }} \\
+                                        &= \frac{N_0 + 1}{N_0 + N_1 + 2}.
+  \end{align}
+\end{subequations}
+
+Essa é a Regra de Laplace, que estima:
+\begin{equation}
+\hat{p}(0) = \frac{N_0 + 1}{N + 2}, \quad \hat{p}(1) = \frac{N_1 + 1}{N + 2}.
+\end{equation}
+A adição de 1 a cada contagem (chamada de `contagem pseudo') garante que nenhum 
+símbolo tenha probabilidade nula, suavizando a estimativa. No contexto do `problema do nascer do sol', 
+se o sol nasceu em $n = 1.826.251$ dias, a probabilidade de nascer amanhã é $\frac{1.826.251 + 1}{1.826.251 + 2} \approx 0.99999945$, 
+refletindo alta confiança, mas evitando certeza absoluta.
+
+
+
+
+
+
+\subsubsection{Generalização: Abordagem de Dirichlet}
+
+A Regra de Laplace assume uma distribuição a priori uniforme, equivalente a uma distribuição
+Beta com parâmetros $\alpha_0 = \alpha_1 = 1$. A abordagem de Dirichlet
+generaliza isso, permitindo distribuições a priori mais flexíveis. Para uma fonte binária, a
+distribuição a priori é uma distribuição Beta com parâmetros $\alpha_0, \alpha_1 > 0$, e a
+probabilidade do próximo símbolo é:
+\begin{equation}
+\Pr(X_{N+1} = 0 | x_1, \ldots, x_N) = \frac{N_0 + \alpha_0}{N_0 + N_1 + \alpha_0 + \alpha_1}.
+\end{equation}
+Escolher $\alpha_0 = \alpha_1 = 1$ simplifica para a Regra de Laplace, enquanto
+outros valores ajustam o peso da distribuição a priori, útil em contextos onde há conhecimento prévio sobre a fonte. 
+Para alfabetos maiores, a Dirichlet estende a suavização a múltiplos símbolos.
+
+
+
+
+
+\subsection{O Desafio da Estimativa de Entropia}
+
+A entropia de Shannon para uma fonte binária $X$ com símbolos em 
+$\mathcal{X} = \{0, 1\}$ é dada por:
+
+\begin{equation}
+H(X) = -\sum_{x \in \{0,1\}} p(x) \log_2 p(x),
+\end{equation}
+onde $p(x)$ é a probabilidade de cada símbolo. Quando $p(0)$ e $p(1)$ são
+desconhecidos, devemos estimá-los a partir de uma sequência observada, como
+\texttt{010110...}. A entropia estimada, $\hat{H}(X)$, é então calculada usando
+essas probabilidades empíricas. No entanto, vários fatores que devemos
+considerar: Os dados são finitos, sendo assim, uma sequência curta pode não
+representar a verdadeira distribuição da fonte, levando a estimativas
+imprecisas; Podem existir dependências desconhecidas na sequência de símbolos
+produzida pela fonte (a entropia de Shannon assume uma fonte sem memória); A
+granularidade com que os dados são tomados afeta todo problema (por exemplo,
+devemos decidir se os símbolos são bits ou sequências, blocos, de bits).
+
+
+A entropia de Shannon, definida como $H(X) = -\sum_{x \in \mathcal{X}} p(x) \log p(x)$, 
+quantifica a incerteza de uma fonte, mas sua determinação exige o conhecimento
+da distribuição subjacente $p(x)$. Em cenários reais, essa distribuição é
+geralmente desconhecida, sendo necessário estimá-la a partir de uma amostra
+finita. Este processo de estimativa apresenta limitações, devido à
+finitude/escassez dos dados, dependências entre símbolos e a sensibilidade da
+entropia a eventos raros. 
+
+\subsubsection{Estimador \textit{Plug-In}}
+O método mais comum para estimar a entropia é o estimador \textit{plug-in}, que
+utiliza a estimativa de máxima verossimilhança (MLE) para as probabilidades dos
+símbolos. Para uma fonte com alfabeto $\mathcal{X} = \{a_1, \ldots, a_M\}$
+e uma amostra de $N$ observações de símbolos produzidos por esta fonte $x_1, \ldots, x_N$,
+a probabilidade do $k$-ésimo símbolo é estimada como:
+\begin{equation}
+\hat{p}_k = \frac{n_k}{M}, \quad \text{onde} \quad n_k = \sum_{n=1}^N \delta(x_n = a_k)
+\label{eq:mle-prob}
+\end{equation}
+é o número de ocorrências de $a_k$ na amostra, e $\delta(x_n = a_k)$ é a delta de Kronecker
+$1$ se $x_n = a_k$, $0$ caso contrário). A entropia estimada é então:
+\begin{equation}
+\hat{H}(X) = -\sum_{k=1}^M \hat{p}_k \log \hat{p}_k.
+\label{eq:estpluginentropia}
+\end{equation}
+Esse estimador assume que os símbolos são independentes e identicamente
+distribuídos (i.i.d.), ou seja, que não há dependências entre símbolos
+consecutivos. Em fontes reais, como textos, onde palavras ou bits subsequentes
+exibem correlações, essa suposição é irrealista, levando a estimativas
+imprecisas. Por exemplo, em uma sequência binária como \texttt{010101\ldots}, a
+dependência entre bits reduz a entropia efetiva, mas o estimador
+\textit{plug-in} pode superestimá-la.
+
+
+
+
+
+\subsubsection{Sensibilidade a Eventos Raros}
+A entropia de Shannon é particularmente sensível às probabilidades de eventos
+raros, que contribuem significativamente para o valor final devido à função
+logarítmica. A informação associada a um evento de probabilidade $p_k$ é 
+$-\log_2 p_k$, que cresce inversamente com $p_k$. Pequenas perturbações
+nas estimativas de probabilidades de cauda (eventos raros) podem causar grandes
+variações em $\hat{H}(X)$. Em amostras finitas, eventos raros são
+frequentemente subestimados ou não observados, resultando em $\hat{p}_k = 0$
+para alguns símbolos, o que subestima a entropia. Por exemplo, em uma fonte
+binária com $N = 10$ e apenas zeros observados ($n_0 = 10$, $n_1 = 0$),
+o estimador \textit{plug-in} dá $\hat{H}(X) = 0$, sugerindo certeza
+nula, o que é irrealista, uma vez que observação tomada como base é muito
+pequena (o fato de não termos observado nenhuma ocorrência do símbolo $1$
+nesta amostra pode ser tão somente um acaso da amostra tomada).
+
+
+
+\subsubsection{Técnicas de Suavização}
+
+Para mitigar o problema de eventos raros, técnicas de suavização atribuem
+probabilidades não nulas a símbolos não observados. A Regra de Sucessão de
+Laplace \parencite{laplace1840}, vista anteriormente, é uma das primeiras abordagens.
+Para o exemplo de uma fonte binária, a Laplace estima
+$\hat{p}(0) = \frac{n_0 + 1}{M + 2}$, garantindo que $\hat{p}(1) > 0$
+mesmo se $n_1 = 0$. No século XX, Alan Turing e Irving John Good \parencite{good1953} 
+sistematizaram métodos de suavização.\footnote{As técnicas de suavização foram
+cruciais durante a Segunda Guerra Mundial no esforço dos criptoanalistas em
+Bletchley Park, Reino Unido. O estimador de Good-Turing, desenvolvido por
+Turing e formalizado por Good, foi usado para estimar probabilidades de eventos
+raros em mensagens cifradas pela máquina Enigma, permitindo prever a frequência
+de letras ou padrões não observados em amostras limitadas e contribuindo
+significativamente para a decifração de comunicações alemãs.} Hoje, tais técnicas
+são essenciais no Processamento de Linguagem Natural. Essas técnicas
+melhoram a robustez da estimativa de entropia, mas não eliminam o problema de
+dependências em sequências com padrões.
+
+
+
+
+
+\subsubsection{Propriedades Estatísticas do Estimador \textit{Plug-In}}
+
+O estimador \textit{plug-in} é não paramétrico, intuitivo e apresenta
+convergência rápida entre os estimadores de entropia \parencite{zhang2012b}. 
+\textcite{antos2001} mostraram que, para distribuições com entropia
+finita, a variância de $\hat{H}(X)$ tem um limite superior que decai com o
+tamanho da amostra $N$ a uma taxa $\mathcal{O}\left(\frac{\ln^2 N}{N}\right)$, 
+válido até para alfabetos infinitos contáveis. Para alfabetos
+finitos de tamanho conhecido $|\mathcal{X}| = M$, a variância decai a uma
+taxa $\mathcal{O}\left(\frac{1}{N}\right)$, que é ótima, pois o estimador
+\textit{plug-in} coincide com a MLE quando $M$ é conhecido
+\parencite{zhang2012b}.
+
+No entanto, o estimador é enviesado, tendendo a subestimar a entropia
+verdadeira, especialmente devido à subestimação de eventos raros. 
+\textcite{harris1975} derivou uma aproximação para o viés esperado:
+\begin{equation}
+\mathbb{E}[\hat{H} - H] = -\frac{M - 1}{2N} + \frac{1}{12 N^2} \left( 1 - \sum_{k=1}^M p_k^{-1} \right) + \mathcal{O}(N^{-3}),
+\label{eq:biasHplugin}
+\end{equation}
+onde o termo dominante $-\frac{M - 1}{2N}$ indica que o viés é mais pronunciado
+para alfabetos grandes em relação ao tamanho da amostra. 
+A variância do estimador é dada por:
+\begin{equation}
+\Var(\hat{H}) = \frac{1}{N} \left( \sum_{k=1}^M p_k (\log p_k)^2 - H^2 \right) + \frac{M - 1}{2 N^2} + \mathcal{O}(N^{-3}).
+\label{eq:variance}
+\end{equation}
+Essas expressões, originalmente em nats \cite{harris1975}, devem ser convertidas 
+para bits dividindo por $\ln 2$ quando necessário. Quando $M$ é desconhecido, 
+como em fontes com alfabetos grandes, a estimativa do próprio $M$ adiciona 
+complexidade, ampliando o viés.
+
+
+\subsubsection{Outros Estimadores de Entropia}
+\label{subsec:outros-estimadores}
+
+Embora o estimador \textit{plug-in} seja amplamente utilizado devido à sua
+simplicidade e convergência rápida, sua tendência a subestimar
+a entropia, especialmente em amostras finitas com eventos raros, motivou o
+desenvolvimento de estimadores alternativos. 
+
+O estimador de Miller \cite{miller1955} ajusta o viés do estimador
+\textit{plug-in} adicionando um termo de correção baseado no número de símbolos
+observados. Dada a entropia \textit{plug-in} $\hat{H}$ (\Cref{eq:estpluginentropia}), 
+o estimador de Miller é definido como:
+\begin{equation}
+\hat{H}_{\text{Miller}} = \hat{H} + \frac{\hat{M} - 1}{2N},
+\label{eq:miller}
+\end{equation}
+onde $\hat{M}$ é o número de símbolos distintos observados na amostra 
+(i.e., com $n_k > 0$) e $N$ é o tamanho da amostra. 
+O termo $\sfrac{\hat{M} - 1}{2N}$ corresponde à primeira ordem do viés esperado 
+(\Cref{eq:biasHplugin}), compensando a subestimação causada por eventos raros. 
+Embora simples, o estimador de Miller é eficaz para alfabetos moderados, 
+mas pode ser insuficiente em amostras muito pequenas ou quando $\hat{M}$
+subestima o tamanho real do alfabeto.
+
+O estimador Jackknife \parencite{Zahl1977}, baseado na técnica de reamostragem de \textcite{Quenouille1956}, 
+reduz o viés ao combinar estimativas de entropia calculadas em subamostras. 
+Para uma amostra $x_1, \ldots, x_N$, o estimador é:
+\begin{equation}
+\hat{H}_{\text{Jackknife}} = N \hat{H} - \frac{N - 1}{N} \sum_{i=1}^N \hat{H}_{-i},
+\label{eq:jackknife}
+\end{equation}
+onde $\hat{H}_{-i}$ é a entropia \textit{plug-in} calculada na subamostra de tamanho
+$N - 1$ que exclui o $i$-ésimo símbolo, com probabilidades:
+\begin{equation}
+\hat{p}_{k,-i} = \frac{n_k - \delta_(x_i = a_k)}{N - 1}.
+\end{equation}
+O Jackknife mitiga o viés ao explorar a variabilidade entre subamostras, 
+sendo mais robusto que o estimador de Miller, especialmente para distribuições complexas. 
+No entanto, sua computação é intensiva, e a variância pode ser alta em amostras pequenas.
+
+Esses estimadores complementam técnicas de suavização ao abordar o viés diretamente,
+sem abordar o problema da interdependência de símbolos. Aqui, apresentamos apenas alguns métodos
+desses métodos. Outros como Combed Jackknife, Grassberger, Chao–Shen podem ser vistos na 
+literatura \parencite{Chao2003,grassberger2008,Pinchas2024}.
+
+
+\begin{table*}[!htbp] \centering
+\begin{tabular}{@{\extracolsep{5pt}} D{.}{.}{-4} D{.}{.}{-4} D{.}{.}{-4} D{.}{.}{-4} D{.}{.}{-4} }
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+\multicolumn{1}{c}{Métrica} & \multicolumn{1}{c}{Plug-in} & \multicolumn{1}{c}{Laplace} & \multicolumn{1}{c}{Miller} & \multicolumn{1}{c}{Laplace-Miller} \\
+\hline \\[-1.8ex]
+\multicolumn{1}{c}{Entropia por caractere (bits/char)} & 4.2467 & 4.2467 & 4.2467 & 4.2468 \\
+\multicolumn{1}{c}{Entropia por palavra (bits/word)} & 10.6757 & 11.2962 & 10.7332 & 11.3537 \\
+\multicolumn{1}{c}{Entropia por caractere por palavra (bits/char)} & 2.3687 & 2.5064 & 2.3815 & 2.5192 \\
+\multicolumn{1}{c}{Comprimento esperado de palavra (chars)} & 4.5069 & 4.5069 & 4.5069 & 4.5069 \\
+\hline \\[-1.8ex]
+\end{tabular}
+\caption{Estimativas de Entropia do Inglês com o Texto de \textit{Ulysses}}
+\label{tab:entropy-ulysses}
+\end{table*}
+
+%> source('entropy.R')
+%=== Character-Based Entropy (bits/char) ===
+%Plug-in: 4.2467
+%Laplace: 4.2467
+%Miller: 4.2467
+%Laplace+Miller: 4.2468
+%
+%=== Word-Based Entropy ===
+%Expected word length: 4.5069 chars
+%Word entropy (plug-in): 10.6757 bits/word
+%Char entropy (plug-in): 2.3687 bits/char
+%Word entropy (Laplace): 11.2962 bits/word
+%Char entropy (Laplace): 2.5064 bits/char
+%Word entropy (Miller): 10.7332 bits/word
+%Char entropy (Miller): 2.3815 bits/char
+%Word entropy (Laplace+Miller): 11.3537 bits/word
+%Char entropy (Laplace+Miller): 2.5192 bits/char

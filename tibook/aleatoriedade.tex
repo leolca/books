@@ -1,9 +1,15 @@
 \chapter{Aleatoriedade}
 
 A aleatoriedade é um conceito fundamental em diversas disciplinas, sendo
-essencial entender o que ela realmente é. Aleatoriedade é vital em diversas
-aplicações, sobretudo em áreas como criptografia, simulações computacionais e
-teoria da informação. No entanto, quando lidamos com computadores, a produção
+essencial entender o que ela realmente é. 
+Há muitos anos a humanidade faz uso da aleatoriedade, quer seja em jogos de azar,
+na determinação do destino de pessoas ou em sua seleção para exercer alguma
+função ou cargo. Como método de obter aleatoriedade, há milênios se utiliza
+dados ou moedas \parencite{metropolitan}.
+Aleatoriedade é vital em diversas aplicações, como criptografia, simulações computacionais,
+jogos, arte e teoria da informação. 
+
+Quando lidamos com computadores, a produção
 de números verdadeiramente aleatórios é um desafio intrínseco. Em geral, os
 números gerados por algoritmos computacionais são \emph{pseudo-aleatórios},
 ou seja, seguem sequências determinísticas que apenas aparentam não possuir uma
@@ -12,6 +18,12 @@ definidas, como geradores lineares congruentes ou algoritmos mais sofisticados,
 como o Mersenne Twister, que, apesar de produzirem sequências com propriedades
 estatísticas desejáveis, carecem da imprevisibilidade essencial à aleatoriedade
 genuína.
+
+Para tarefas críticas, onde imprevisibilidade e falta de padrões são realmente essenciais,
+adota-se a geração de aleatoriedade baseada em hardware. Exemplos incluem
+o uso da captação de imagem e áudio em celulares \parencite{krhovjak2007sources,chen2013}, 
+atividade de teclado, mouse e disco \parencite{gutterman2006analysis} e até mesmo
+Lava Lamps \parencite{cloudflare}.
 
 Stephen Wolfram, renomado por suas contribuições à complexidade computacional e
 à teoria dos sistemas complexos, propõe três fontes distintas de aleatoriedade
@@ -60,6 +72,8 @@ bloqueia a leitura, gerando dados adicionais mesmo em baixa entropia ao
 reutilizar e estender os valores coletados; isso o torna mais adequado para
 aplicações como simulações, que demandam grandes quantidades de números
 aleatórios rapidamente.
+
+
 
 \section{O Gerador Lehmer}
 
@@ -224,4 +238,85 @@ abaixo listamos algumas delas:
 	\end{equation}
 	com comportamento caótico, mas sensíveis a precisão numérica.
 \end{itemize}
+
+
+
+
+
+\section{Geradores de Números Pseudoaleatórios Criptograficamente Seguros (CSPRNGs)}
+\label{sec:csprng}
+
+Os geradores de números pseudoaleatórios (PRNGs), como aqueles abordados
+anteriormente, são destinados a aplicações onde a qualidade estatística da
+sequência é suficiente, como em simulações ou modelagem. Geradores de números
+aleatórios são fundamentais para a criptografia. A segurança de algoritmos
+criptográficos depende diretamente da qualidade desses números. Neste aspecto,
+referimos à imprevisibilidade e impossibilidade de se encontrar padrões nos
+números gerados.  Desta forma, os geradores mencionados anteriormente não são
+rigorosos suficiente para serem utilizados em contextos criptográficos. Um
+Gerador de Números Pseudoaleatórios Criptograficamente Seguro (CSPRNG\footnote{Cryptographically secure pseudorandom number generator.})
+é um PRNG projetado para garantir não apenas boas propriedades estatísticas,
+mas também imprevisibilidade e resistência a ataques, mesmo contra adversários
+com recursos computacionais significativos.
+
+Sistemas criptográficos requerem números aleatórios em diversas situações, por
+exemplo: geração de chaves criptográficas (as chaves devem ser imprevisíveis
+para para evitar ataques de força bruta ou inferência); vetores de
+inicialização (muitos métodos requerem dados de inicialização para garantir
+imprevisibilidade e vazamento de informação); nonces (números utilizados uma
+única vez em diversos protocolos necessitam de valores únicos e imprevisíveis
+para evitar ataques de repetição); salts (sequências aleatórias adicionadas a
+senhas dificultam ataques de dicionário ou tabelas arco-íris); tolkens (são
+utilizados em sistemas de autenticação para garantir unicidade e segurança).
+
+Além dos requisitos típicos de PRNGs, como distribuição uniforme e período
+longo, os CSPRNGs devem atender a critérios adicionais:
+\begin{itemize}
+    \item Imprevisibilidade: Dado um trecho da sequência gerada, não deve ser 
+	possível prever os próximos bits com probabilidade significativamente 
+	maior que a aleatória.
+    \item Resistência a ataques: Mesmo com acesso a grandes quantidades de 
+	saída ou controle parcial sobre as entradas, um adversário não deve 
+	ser capaz de reconstruir o estado interno ou comprometer a segurança.
+    \item Entropia adequada: A fonte de inicialização (\textit{seed}) deve ter 
+	entropia suficiente, frequentemente coletada de fontes físicas, como 
+	ruído térmico ou eventos de hardware.
+\end{itemize}
+
+Esses requisitos tornam os CSPRNGs mais lentos que PRNGs comuns, mas sua
+robustez é essencial para aplicações sensíveis à segurança.
+
+
+\begin{example}[CSPRNG Baseado em AES no Modo CTR]
+Um exemplo ilustrativo de CSPRNG é o uso do algoritmo AES (\textit{Advanced
+Encryption Standard}) no modo \textit{Counter} (CTR). Nesse esquema, uma chave
+secreta $K$ e um contador inicial $C_0$ são usados para gerar uma sequência
+pseudoaleatória. A cada iteração, o contador $C_i$ é incrementado, e a saída é
+obtida cifrando $C_i$ com $K$:
+
+\[
+\text{Saída}_i = \text{AES}_K(C_i)
+\]
+
+A sequência resultante é concatenada para formar a saída do CSPRNG. A segurança
+depende da força do AES e da entropia da chave $K$ e do contador inicial $C_0$.
+
+\begin{algorithm}
+\caption{Geração de Sequência Pseudoaleatória com AES-CTR}
+\begin{algorithmic}
+\Require Chave $K$, contador inicial $C_0$, tamanho da saída $n$
+\Ensure Sequência pseudoaleatória $S$ de tamanho $n$
+\State $S \gets \emptyset$
+\State $C \gets C_0$
+\While {$|S| < n$}
+    \State $S \gets S || \text{AES}_K(C)$
+    \State $C \gets C + 1$
+\EndWhile
+\State \Return $S[0:n]$
+\end{algorithmic}
+\end{algorithm}
+
+
+\end{example}
+
 
