@@ -267,11 +267,14 @@ Tomemos primeiramente um exemplo simples de uma v.a. binária $X \in \mathcal{X}
 Para simplificar, iremos denotar arbitrariamente por $\theta = Pr(X=1)$ e $1-\theta = Pr(X=0)$.
 Usando agora a definição dada na \Cref{eq:entropy-def}, teremos
 \begin{equation}\label{eq:entropia-binaria}
-H(X) = -\theta \log \theta - (1-\theta) \log (1-\theta)
+H(X) = h(\theta) =  -\theta \log \theta - (1-\theta) \log (1-\theta)
 \end{equation}
-e, para simplificar, iremos denotar esta grandeza por $H(\theta)$.
-Sempre que utilizarmos esta notação, como por exemplo em $H(\sfrac{1}{4})$, $H(\sfrac{1}{3})$ ou $H(\pi)$,
+e, para simplificar, iremos denotar esta grandeza por $h(\theta)$.
+Sempre que utilizarmos esta notação, como por exemplo em $h(\sfrac{1}{4})$, $h(\sfrac{1}{3})$ ou $h(\pi)$,
 estaremos nos referindo à entropia binária definida na \Cref{eq:entropia-binaria}.
+Em alguns casos, pode aparecer a notação $H(\theta)$ para representar 
+a entropia binária, sem comprometer o entendimeno, uma vez que ficará claro pelo contexto
+se tratar de uma entropia binária.
 
 \begin{marginfigure}%
   \includegraphics[width=\linewidth]{plots/binary_entropy.pdf}
@@ -2161,4 +2164,6 @@ $H(X;Y) = I(X;Y)$, utilizando a notação do ponto-e-vírgula.
 
 
 \input{estimacao.tex}
+
+\input{crossentropy.tex}
 

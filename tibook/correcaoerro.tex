@@ -409,26 +409,21 @@ Essa notação, conhecida como códigos [n, k, d], fornece uma maneira
 concisa de caracterizar a estrutura e a capacidade de um código, permitindo
 comparar diferentes esquemas de codificação.
 
-\begin{definition}[Códigos [n,k,d]]\label{def:codnkd}
-Um código [n, k, d] é um código de correção de erros com as seguintes características:
-\begin{itemize}
-    \item $n$: Comprimento da palavra-código, que inclui os bits de dados e os bits de redundância.
-    \item $k$: Número de bits de dados (ou seja, o tamanho da mensagem antes da codificação).
-    \item $d$: Distância mínima de Hamming entre quaisquer duas palavras-código distintas do código.
-\end{itemize}
+\begin{definition}[Códigos \string[n,k,d\string]]\label{def:codnkd}
+Um código [n, k, d] é um código de correção de erros linear com as seguintes características:
+possui comprimento de palavra de código $n$ (incluindo os bits de dados e os bits de redundância);
+possui $k$ bits de dados (tamanho da mensagem antes da codificação);
+e com distância mínima de Hamming $d$ entre quaisquer duas palavras-código distintas do código.
 \end{definition}
 
 Como discutido anteriormente, a distância mínima $d_{\text{min}}$ determina
 diretamente a capacidade de um código de lidar com erros. 
 Utilizando resultados já estabelecidos anteriormente, podemos concluir que um 
-código [n, k, d] pode:
-\begin{itemize}
-    \item detectar até \( d - 1 \) erros, pois qualquer alteração de até $d - 1$ 
-      símbolos em uma palavra-código não a transforma em outra palavra-código válida;
-    \item corrigir até $\lfloor (d - 1)/2 \rfloor$ erros, 
-      pois esferas de Hamming de raio $\lfloor (d - 1)/2 \rfloor$ centradas nas palavras-código 
-      não se sobrepõem, garantindo que a palavra-código correta seja identificada.
-\end{itemize}
+código [n, k, d] pode detectar até \( d - 1 \) erros, pois qualquer alteração de até $d - 1$ 
+símbolos em uma palavra-código não a transforma em outra palavra-código válida;
+corrigir até $\lfloor (d - 1)/2 \rfloor$ erros, 
+pois esferas de Hamming de raio $\lfloor (d - 1)/2 \rfloor$ centradas nas palavras-código 
+não se sobrepõem, garantindo que a palavra-código correta seja identificada.
 
 A taxa do código, definida como $R = k/n$, mede a eficiência do código: 
 quanto maior $k$ em relação a $n$, menos redundância e maior a taxa, 
@@ -440,9 +435,158 @@ código de repetição com $n=3$ (mensagem de 1 bit repetida três vezes)  é um
 código de paridade simples com $n=4$ é um código [4, 3, 2].
 
 
+\begin{definition}[Código Linear]
+Um código linear $\mathcal{C}$ de comprimento $n$ sobre um corpo $\mathbb{F} = \text{GF}(q)$ 
+(onde $q$ é geralmente uma potência de um primo) é um subespaço vetorial de $\mathbb{F}^n$ sobre $\mathbb{F}$.
+Em outras palavras, $\mathcal{C} \subseteq \mathcal{F}^n$ é um código linear se, para quaisquer palavras-código 
+$\mathbf{c}_1, \mathbf{c}_2 \in \mathcal{C}$, e quaisquer escalares $\alpha, \beta \in \mathbb{F}$, temos:
+$\alpha \mathbf{c}_1 + \beta \mathbf{c}_2 \in \mathcal{C}$, onde as operações de soma e multiplicação por escalar 
+são definidas componente a componente no corpo finito $\mathbb{F}_q$. 
+Para um código binário ($q = 2$), $\mathbb{F} = \{0, 1\}$, e a soma é feita módulo 2.
+
+Um código linear $\mathcal{C}$ com $k$ dimensões (ou seja, $|\mathcal{C}| = q^k$) pode ser descrito 
+por uma matriz geradora $\mathbf{G}$ de tamanho $k \times n$, onde cada palavra-código é da forma 
+$\mathbf{v} \mathbf{G}$, com $\mathbf{v} \in \mathbb{F}^k$. 
+Alternativamente, $C$ é o espaço nulo de uma matriz de verificação de paridade $\mathbf{H}$ de tamanho 
+$(n-k) \times n$, tal que $\mathbf{H} \mathbf{c} = \mathbf{0}$ para toda palavra $\mathbf{c} \in \mathcal{C}$.
+\end{definition}
+
+
+Se $\mathcal{C}$ é um código linear $(n,M,d)$ sobre $\mathbb{F}$ e a dimensionalidade de $\mathcal{C}$ é $k$,
+então dizemos que $\mathcal{C}$ é um código linear $[n,k,d]$ sobre $\mathbb{F}$. A diferença $n-k$ é a 
+redundância do código. Toda base de um códilo linear $[n,k,d]$ $\mathcal{C}$ sobre $\mathbb{F} = \text{GF}(q)$
+contém $k$ palavras distintas que geram todo o código $\mathcal{C}$ por combinações lineares delas.
+Assim, $\vert\mathcal{C}\vert = M = q^k$ e a taxa do código é $R = \sfrac{\log_q M}{n} = k/n$.
+As linhas da matriz geradora $\mathbf{G}$ serão a base do código (podendo não ser úncia).
+
+
+\begin{definition}[Peso de Hamming]
+O peso de Hamming de uma palavra $\mathbf{c} \in \mathcal{C}$
+é o número de posições em que $\mathbf{c}$ tem elementos não nulos, ou seja:
+\begin{equation}
+  w(\mathbf{c}) = |\{ i \in \{1, 2, \dots, n\} : c_i \neq 0 \}|,
+\end{equation}
+onde $\mathbf{c} = (c_1, c_2, \dots, c_n)$. 
+Para um código binário ($\mathcal{X} = \{0, 1\}$), o peso de Hamming é simplesmente o número de 1s na palavra. 
+
+\begin{example}
+Considere $\mathbf{c} = (1, 0, 1, 1, 0)$ em um código binário ($q = 2$, $n = 5$). 
+O peso de Hamming é: $w(\mathbf{c}) = |\{1, 3, 4\}| = 3$,
+pois $\mathbf{c}$ tem 1s nas posições 1, 3 e 4.
+\end{example}
+\end{definition}
+
+\begin{definition}[Peso Mínimo de um Código]
+O peso mínimo de um código $\mathcal{C} \subseteq \mathbb{F}^n$, 
+onde \( \mathcal{X} = \{0, 1, \dots, q-1\} \) é um alfabeto \( q \)-ário, 
+é o menor peso de Hamming entre todas as palavras-código não nulas de $\mathcal{C}$, ou seja:
+\begin{equation}
+w_{\text{min}}(\mathcal{C}) = \min \{ w(\mathbf{c}) : \mathbf{c} \in \mathcal{C}, \mathbf{c} \neq \mathbf{0} \},
+\end{equation}
+onde $w(\mathbf{c})$ é o peso de Hamming de $\mathbf{c}$, 
+conforme definido anteriormente. 
+%Para um código linear, o peso mínimo é igual à distância mínima 
+%$d_{\text{min}}$ do código, pois $d_H(\mathbf{c}_1, \mathbf{c}_2) = w(\mathbf{c}_1 - \mathbf{c}_2) \), e \( \mathbf{c}_1 - \mathbf{c}_2 \in C \) devido à linearidade. Assim, para um código linear, o menor peso de uma palavra não nula determina a capacidade de detecção (\( d_{\text{min}} - 1 \)) e correção (\( \lfloor (d_{\text{min}} - 1)/2 \rfloor \)) de erros.
+\end{definition}
+
+
+\begin{proposition}[Distância e peso mínimo]
+Seja $\mathcal{C}$ um código linear $[n,k,d]$ sobre $\mathbb{F}$, então
+\begin{equation}
+	  d = \min_{\mathbf{c} \in \mathcal{C} \backslash \{\mathbf{0}\}}  w(\mathbf{c}) .
+\end{equation}
+\end{proposition}
+\begin{proof}
+Como $\mathcal{C}$ é linear, dadas duas palavras $\mathbf{c}_1, \mathbf{c}_2 \in \mathcal{C}$, teremos
+que $\mathbf{c}_1 - \mathbf{c}_2 \in \mathcal{C}$. 
+Temos que $d(\mathbf{c}_1, \mathbf{c}_2) = w(\mathbf{c}_1 - \mathbf{c}_2)$ e assim
+\begin{equation}
+ d = \min_{\mathbf{c}_1, \mathbf{c}_2 \in \mathcal{C}: \mathbf{c}_1 \neq \mathbf{c}_2} d(\mathbf{c}_1, \mathbf{c}_2) = \min_{\mathbf{c}_1, \mathbf{c}_2 \in \mathcal{C}: \mathbf{c}_1 \neq \mathbf{c}_2} w(\mathbf{c}_1 - \mathbf{c}_2) = \min_{\mathbf{c} \in \mathcal{C}\backslash\{\mathbf{0}\}} w(\mathbf{c})
+\end{equation}
+\end{proof}
 
 
 
+
+\begin{definition}[Codificador de um Código Linear]
+Seja $\mathcal{C}$ um código linear $[n, k, d]$ sobre um corpo finito $\mathbb{F}_q$, 
+com uma matriz geradora $\mathbf{G}$ de tamanho $k \times n$. 
+Um codificador para $\mathcal{C}$ é um mapeamento bijetivo 
+$\phi: \mathbb{F}_q^k \to \mathcal{C}$, definido por:
+\begin{equation}
+\phi(\mathbf{u}) = \mathbf{u} \mathbf{G},
+\end{equation}
+onde $\mathbf{u} \in \mathbb{F}_q^k$ é a mensagem a ser codificada, e 
+$\mathbf{u} \mathbf{G} \in \mathcal{C}$ é a palavra-código correspondente. 
+Como $\mathbf{G}$ tem posto $k$ (suas $k$ linhas são linearmente independentes), 
+o mapeamento $\phi$ é uma bijeção, garantindo uma correspondência 1-a-1 entre mensagens e palavras-código.
+
+A matriz geradora $\mathbf{G}$ está na forma sistemática se pode ser escrita como $\mathbf{G} = (\mathbf{I}_k \mid \mathbf{A})$, 
+onde $\mathbf{I}_k$ é a matriz identidade $k \times k$, e $\mathbf{A}$ é uma matriz $k \times (n-k)$. 
+Nesse caso, a codificação de uma mensagem $\mathbf{u}$ resulta em:
+\begin{equation}
+\mathbf{u} \mathbf{G} = (\mathbf{u} \mid \mathbf{u} \mathbf{A}),
+\end{equation}
+onde a primeira parte $\mathbf{u}$ (os primeiros $k$ bits) contém a mensagem original, 
+e a segunda parte $\mathbf{u} \mathbf{A}$ (os $n-k$ bits restantes) contém os bits de paridade. 
+Se $\mathbf{G}$ não estiver na forma sistemática, é possível permutar suas colunas para obter 
+uma matriz equivalente $\mathbf{G}'$ na forma $(\mathbf{I}_k \mid \mathbf{A}')$, 
+gerando o mesmo código $\mathcal{C}$, mas com uma ordenação diferente das posições dos bits.
+\end{definition}
+
+
+\begin{definition}[Matriz Verificadora de Paridade]
+Seja $\mathcal{C}$ um código linear $[n, k, d]$ sobre um corpo finito $\mathbb{F}_q$. 
+A matriz verificadora de paridade de $\mathcal{C}$ é uma matriz $\mathbf{H}$ de tamanho
+$(n-k) \times n$ sobre $\mathbb{F}_q$, tal que:
+\begin{equation}
+\mathbf{H} \mathbf{c}^T = \mathbf{0},
+\end{equation}
+para todo $\mathbf{c} \in \mathcal{C}$, onde $\mathbf{c}^T$ é o transposto de $\mathbf{c}$, 
+e $\mathbf{0}$ é o vetor nulo em $\mathbb{F}_q^{n-k}$. 
+Em outras palavras, $\mathcal{C}$ é o kernel (ou espaço nulo) de $\mathbf{H}$, ou seja:
+\begin{equation}
+\mathcal{C} = \{ \mathbf{c} \in \mathbb{F}_q^n : \mathbf{H} \mathbf{c}^T = \mathbf{0} \}.
+\end{equation}
+Pelo teorema do posto-nulidade, o posto de $\mathbf{H}$ mais a dimensão do seu kernel 
+é igual ao número de colunas de $\mathbf{H}$. Como $\mathbf{H}$ tem $n$ colunas e $\mathcal{C}$ 
+tem dimensão $k$, temos:
+\begin{equation}
+\text{posto}(\mathbf{H}) + \dim(C) = n, %\implies \text{posto}(\mathbf{H}) + k = n \implies \text{posto}(\mathbf{H}) = n - k.
+\end{equation}
+e assim $\text{posto}(\mathbf{H}) = n - k$.
+Desta forma, as $n-k$ linhas de $\mathbf{H}$ são linearmente independentes, garantindo que $\mathbf{H}$ tenha posto máximo $n-k$.
+
+Seja $\mathbf{G}$ uma matriz geradora $k \times n$ de $\mathcal{C}$. 
+Como $\mathbf{c} = \mathbf{u} \mathbf{G} \in \mathcal{C}$ para algum $\mathbf{u} \in \mathbb{F}_q^k$, 
+temos $\mathbf{H} (\mathbf{u} \mathbf{G})^T = \mathbf{0}$, ou seja:
+\begin{equation}
+\mathbf{H} \mathbf{G}^T \mathbf{u}^T = \mathbf{0}.
+\end{equation}
+Para que isso seja verdadeiro para todo $\mathbf{u}$, deve-se ter:
+\begin{equation}
+\mathbf{H} \mathbf{G}^T = \mathbf{0},
+\end{equation}
+onde $\mathbf{0}$ é a matriz nula $(n-k) \times k$. 
+Equivalentemente, $\mathbf{G} \mathbf{H}^T = \mathbf{0}$, 
+pois $(\mathbf{H} \mathbf{G}^T)^T = \mathbf{G} \mathbf{H}^T$. 
+Isso implica que as linhas de $\mathbf{G}$ estão no kernel de $\mathbf{H}$, 
+e como $\mathbf{G}$ gera $\mathcal{C}$, as linhas de $\mathbf{G}$ formam uma base para 
+o kernel de $\mathbf{H}$. Da mesma forma, as linhas de $\mathbf{H}$ estão no kernel 
+de $\mathbf{G}$, ou seja, $\mathbf{H}$ gera o espaço ortogonal a $\mathcal{C}$, 
+chamado de código dual $\mathcal{C}^\perp$, que tem dimensão $n-k$.
+
+Quando $\mathbf{G}$ está na forma sistemática, ou seja, $\mathbf{G} = (\mathbf{I}_k \mid \mathbf{A})$, 
+onde $\mathbf{I}_k$ é a identidade $k \times k$ e $\mathbf{A}$ é $k \times (n-k)$, a matriz $\mathbf{H}$ pode ser escrita como:
+\begin{equation}
+\mathbf{H} = (-\mathbf{A}^T \mid \mathbf{I}_{n-k}),
+\end{equation}
+onde $\mathbf{I}_{n-k}$ é a identidade $(n-k) \times (n-k)$, 
+e $\mathbf{A}^T$ é a transposta de $\mathbf{A}$. 
+Isso ocorre porque $\mathbf{H} \mathbf{G}^T = (-\mathbf{A}^T \mid \mathbf{I}_{n-k}) (\mathbf{I}_k \mid \mathbf{A})^T = -\mathbf{A}^T \mathbf{I}_k + \mathbf{I}_{n-k} \mathbf{A}^T = \mathbf{0}$, 
+satisfazendo a condição de ortogonalidade. A forma sistemática de $\mathbf{H}$ facilita 
+a verificação de paridade, pois os últimos $n-k$ bits da palavra-código são diretamente relacionados aos bits de paridade.
+\end{definition}
 
 
 
@@ -538,6 +682,10 @@ As colunas de $\mathbf{H}$ são as 7 permutações não nulas de vetores binári
 de 3 bits, garantindo que cada posição da palavra-código tenha uma ``assinatura''
 única para identificação de erros.
 
+Para os códigos lineares, como é o caso do código de Hamming, a matriz geradora
+é uma forma compacta de representar tal código. Já a matriz de verificação de
+paridade funciona como uma ferramenta para decodificação e análise do código.
+
 %\begin{figure}[h]
 %    \centering
 %    \begin{tikzpicture}
@@ -603,18 +751,14 @@ módulo 2 são equivalentes.
 
 A distância mínima do código é $d_{\text{min}} = 3$, igual ao peso mínimo, que é o menor
 número de 1s em uma palavra-código não nula. Para verificar, note que não
-existem palavras-código com peso 1 ou 2:
-\begin{itemize}
-    \item Peso 1: Uma palavra com um único 1 na posição $i$ não 
-      satisfaz $\mathbf{H} \mathbf{x} = \mathbf{0}$, 
-      pois não existe coluna nula em $\mathbf{H}$. Para obter $\mathbf{H} \mathbf{x} = \mathbf{0}$,
-      sendo $\mathbf{x}$ não nulo apenas na posição $i$, deveríamos ter a $i$-ésima coluna de $\mathbf{H}$ nula,
-      o que não ocorre.
-    \item Peso 2: A soma de duas colunas de $\mathbf{H}$ (módulo 2) nunca é zero, 
-      pois todas as colunas são distintas e não nulas.
-    \item Peso 3: Existem palavras com peso 3, como $(0,0,1,0,0,1,1)$, 
-      que satisfazem $\mathbf{H} \mathbf{x} = \mathbf{0}$.
-\end{itemize}
+existem palavras-código com peso 1 ou 2.
+Primeiramente, para peso 1, veja que uma palavra com um único 1 na posição $i$ não
+satisfaz $\mathbf{H} \mathbf{x} = \mathbf{0}$, pois não existe coluna nula em $\mathbf{H}$. 
+Para obter $\mathbf{H} \mathbf{x} = \mathbf{0}$, sendo $\mathbf{x}$ não nulo apenas na posição $i$,
+deveríamos ter a $i$-ésima coluna de $\mathbf{H}$ nula, o que não ocorre.
+Vejamos agora o próximo caso, peso 2. Note que a soma de duas colunas de $\mathbf{H}$ (módulo 2) nunca é zero,
+pois todas as colunas são distintas e não nulas.
+Por fim, podemos verificar que existem palavras com peso 3, como $(0,0,1,0,0,1,1)$, que satisfazem $\mathbf{H} \mathbf{x} = \mathbf{0}$.
 Como a distância de Hamming entre duas palavras $\mathbf{v}_1, \mathbf{v}_2 \in C$ 
 é o peso de $\mathbf{v}_1 + \mathbf{v}_2$ (outra palavra-código), 
 a distância mínima é igual ao peso mínimo, $d_{\text{min}} = 3$.
@@ -666,7 +810,7 @@ Os bits de dados são $(x_0, x_1, x_2, x_3) = (0,0,1,1)$.
 \end{example}
 
 O procedimento de decodificação por síndrome é esquematizado da seguinte forma:
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt, topsep=0pt]
     \item Calcule a síndrome $\mathbf{s} = \mathbf{H} \mathbf{y}$.
     \item Se $\mathbf{s} = \mathbf{0}$, assuma $\mathbf{z} = \mathbf{0}$ e vá ao passo \ref{itm:xyplusz}.
     \item Caso contrário, identifique a coluna $\mathbf{h}_i$ de $\mathbf{H}$ igual a $\mathbf{s}$, e defina $\mathbf{z}$ com 1 na posição $i$ e 0s nas demais.

@@ -226,11 +226,11 @@ capacidade do CBS é dada por
       &= \max_{p(x)} H(Y) - H(Y|X) \\
       &= \max_{p(x)} H(Y) - \sum_x p(x) H(Y|X=x) \\
       &= \max_{p(x)} H(Y) - \sum_x p(x) H(p) \\
-      &= \max_{p(x)} H(Y) - H(p) \\
-      &= 1 - H(p) , \label{dem:capbschA}
+      &= \max_{p(x)} H(Y) - h(p) \\
+      &= 1 - h(p) , \label{dem:capbschA}
   \end{align}
 \end{subequations}
-onde $H(p) = -p \log p - (1-p) \log (1-p)$ é a entropia binária,
+onde $H(p) = h(p) = -p \log p - (1-p) \log (1-p)$ é a entropia binária,
 e utilizamos em \ref{dem:capbschA} a simetria do problema, que
 nos garante que a distribuição uniforme na entrada acarreta
 a distribuição uniforme na saída, maximizando $H(Y)$. Logo,
@@ -741,6 +741,25 @@ Teorema de Codificação de Canal de Shannon formaliza esse limite,
 estabelecendo que taxas abaixo de $C$ são alcançáveis com probabilidade de erro
 tendendo a zero, enquanto taxas acima de $C$ não permitem confiabilidade.
 
+Na transmissão de informação através de um canal binário simétrico (BSC) com
+probabilidade de erro de cruzamento $p$, a decodificação correta de uma
+sequência recebida $Y^n \in \{0,1\}^n$ permite ao receptor reconstruir duas
+informações distintas: a palavra-código transmitida $X^n$, correspondente a uma
+mensagem $m \in \{1, \ldots, M\}$ com $M = \lceil 2^{nR} \rceil$, equivalente a
+$nR$ bits de informação; e o padrão de erro $E^n = Y^n \oplus X^n$, onde
+$\oplus$ denota adição módulo 2 em cada componente. No BSC, essas informações
+são estatisticamente independentes, pois o erro $E^n$ depende apenas da
+probabilidade $p$ do canal. Pela Propriedade da Equipartição Assintótica, os
+erros típicos $E^n$ têm peso de Hamming próximo de $np$, com probabilidade
+aproximada de $2^{-n H(p)}$, onde $H(p) = h(p)$
+é a entropia binária. Assim, existem aproximadamente $2^{n H(p)}$ padrões de
+erro típicos, cada um contribuindo com $n H(p)$ bits de informação. Como a
+sequência recebida $Y^n$ contém $n$ bits, a soma da informação da mensagem
+($nR$) e do erro ($n H(p)$) não pode exceder $n$, implicando $R \leq 1 -
+H(p)$. Essa quantidade, conhecida como capacidade $C = 1 - H(p)$ do BSC,
+define o limite superior para taxas de transmissão confiáveis, como
+estabelecido pelo Teorema de Codificação de Canal de Shannon.
+
 \begin{theorem}[Teorema de Codificação de Canal de Shannon]
 Seja um canal discreto sem memória $(\mathcal{X}, p(y|x), \mathcal{Y})$ com capacidade $C = \max_{p(x)} I(X;Y)$. Então:
 \begin{enumerate}
@@ -924,10 +943,10 @@ H(W) = H(W \mid Y^n) + I(W; Y^n).
 \end{equation}
 Como $P_e^{(n)} \to 0$, a incerteza condicional $H(W \mid Y^n)$ é limitada. Pelo lema de Fano, temos:
 \begin{equation}
-H(W \mid Y^n) \leq H(P_e^{(n)}) + P_e^{(n)} \log (M - 1),
+H(W \mid Y^n) \leq h(P_e^{(n)}) + P_e^{(n)} \log (M - 1),
 \end{equation}
-onde $H(p)$ é a entropia binária. 
-Como $P_e^{(n)} \to 0$, temos $H(P_e^{(n)}) \to 0$.
+onde $h(p)$ é a entropia binária. 
+Como $P_e^{(n)} \to 0$, temos $h(P_e^{(n)}) \to 0$.
 Como $M = \lceil 2^{nR} \rceil$, segue que $M - 1 \leq 2^{nR}$, então:
 \begin{equation}
 \log (M - 1) \leq \log (2^{nR}) = nR.
@@ -939,7 +958,7 @@ P_e^{(n)} \log (M - 1) \leq P_e^{(n)} \cdot nR \to 0,
 pois $P_e^{(n)}$ tende a zero enquanto $nR$ cresce linearmente.
 Assim:
 \begin{equation}
-H(W \mid Y^n) \leq \delta_n = H(P_e^{(n)}) + P_e^{(n)} \log (M - 1),
+H(W \mid Y^n) \leq \delta_n = h(P_e^{(n)}) + P_e^{(n)} \log (M - 1),
 \end{equation}
 com $\delta_n \to 0$ à medida que $n \to \infty$. Portanto:
 \begin{equation}
@@ -1009,9 +1028,9 @@ $X^n = f(W)$ é a palavra-código, $Y^n$ é a saída do canal, e $\hat{W} = g(Y^
 mensagem decodificada, com $M = \lceil 2^{nR} \rceil$. Denote 
 $P_e^{(n)} = \Pr(\hat{W} \neq W)$ a probabilidade média de erro. Então:
 \begin{equation}
-H(W \mid Y^n) \leq H(P_e^{(n)}) + P_e^{(n)} \log (M - 1),
+H(W \mid Y^n) \leq h(P_e^{(n)}) + P_e^{(n)} \log (M - 1),
 \end{equation}
-onde $H(p) = -p \log p - (1-p) \log (1-p)$ é a entropia binária.
+onde $h(p) = -p \log p - (1-p) \log (1-p)$ é a entropia binária.
 \end{lemma}
 
 \begin{proof}
@@ -1047,9 +1066,9 @@ H(E, W \mid Y^n) = H(E \mid Y^n) + H(W \mid E, Y^n).
 \end{equation}
 Como $E$ é binária ($E \in \{0, 1\}$), sua entropia é limitada, e assim podemos escrever:
 \begin{equation}
-H(E \mid Y^n) \leq H(E) \leq H(P_e^{(n)}),
+H(E \mid Y^n) \leq H(E) \leq h(P_e^{(n)}),
 \end{equation}
-onde $H(p) = -p \log p - (1-p) \log (1-p)$ é a entropia binária.
+onde $h(p) = -p \log p - (1-p) \log (1-p)$ é a entropia binária.
 
 Agora, calculamos $H(W \mid E, Y^n)$:
 \begin{equation}
@@ -1226,9 +1245,9 @@ H(V^n) \leq H(V^n \mid Y^n) + nC.
 Se $P_e^{(n)} \to 0$, então $\hat{V}^n = g(Y^n)$ é igual a $V^n$ com alta
 probabilidade, sugerindo que $H(V^n \mid Y^n)$ é pequeno. Pelo Lema de Fano:
 \begin{equation}\label{eq:demtccfcAB}
-H(V^n \mid Y^n) \leq H(P_e^{(n)}) + P_e^{(n)} \log (|\mathcal{V}|^n - 1),
+H(V^n \mid Y^n) \leq h(P_e^{(n)}) + P_e^{(n)} \log (|\mathcal{V}|^n - 1),
 \end{equation}
-onde $H(p) = -p \log p - (1-p) \log (1-p)$, a entropia binária. 
+onde $h(p) = -p \log p - (1-p) \log (1-p)$, a entropia binária. 
 Como $|\mathcal{V}|^n - 1 \leq |\mathcal{V}|^n = 2^{n \log |\mathcal{V}|}$, 
 a \Cref{eq:demtccfcAB} pode ser expressa como:
 \begin{equation}
