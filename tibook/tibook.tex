@@ -61,10 +61,11 @@
 \newtheorem{corollary}{Corolário}[theorem]
 \newtheorem{lemma}[theorem]{Lema}
 \newtheorem{proposition}{Proposição}
-\newtheorem{remark}{Observação}
 \theoremstyle{definition}
+\newtheorem{remark}{Observação}
 \newtheorem{definition}{Definição}
 \newtheorem{example}{Exemplo}
+\newtheorem{note}{Nota}
 
 %%%%%%%%%%%%%%%%% math operators
 \DeclareMathOperator*{\argmin}{\arg\!\min}
@@ -154,6 +155,8 @@
 \usepackage{enumitem}
 \usepackage{pdfpages}
 
+
+
 \title{Teoria da Informação e\\Codificação}
 \author{Leonardo Araújo}
 
@@ -178,6 +181,12 @@
 \input{canal.tex}
 
 \input{correcaoerro.tex}
+
+\input{algebra.tex}
+
+
+%\appendix
+%\input{appendix.tex}
 
 % https://www.overleaf.com/learn/latex/Spacing_in_math_mode
 %The different spacing commands in LaTeX math mode serve to fine-tune the spacing between symbols and elements in mathematical expressions. Here’s when you should use each:
