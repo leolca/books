@@ -1,0 +1,61 @@
+\chapter{Resultados Fundamentais da Teoria dos Números}
+
+\section{Identidade de Bézout}
+
+\begin{theorem}[Identidade de Bézout]\label{thm:bezout}
+
+  Sejam $a$ e $b$ inteiros não ambos zero. Então, o maior divisor comum de $a$
+  e $b$, denotado $\text{MDC}(a, b) = d$, pode ser expresso como uma combinação
+  linear de $a$ e $b$, ou seja, existem inteiros $x$ e $y$ tais que:
+
+  \begin{equation}
+  ax + by = d
+  \end{equation}
+
+  Além disso, $d$ é o menor inteiro positivo que pode ser escrito como uma
+  combinação linear de $a$ e $b$, e qualquer inteiro que seja uma
+  combinação linear de $a$ e $b$ é um múltiplo de $d$.
+\end{theorem}
+
+\begin{proof}
+Seja \( d = \text{MDC}(a, b) \). Vamos provar que existem inteiros \( x \) e \( y \) tais que \( ax + by = d \), e que \( d \) é o menor inteiro positivo expresso como combinação linear de \( a \) e \( b \).
+
+Primeiro, mostramos que \( d \) pode ser escrito como uma combinação linear de \( a \) e \( b \). Considere o conjunto \( S = \{ ax + by \mid x, y \in \mathbb{Z}, ax + by > 0 \} \), que contém todos os inteiros positivos que podem ser escritos como combinações lineares de \( a \) e \( b \). Como \( a \) e \( b \) não são ambos zero, \( S \) é não vazio: por exemplo, se \( a \neq 0 \), então \( a \cdot 1 + b \cdot 0 = a \), e tomando o valor absoluto, \( |a| \in S \). Pelo princípio do bom ordenamento, \( S \) tem um menor elemento positivo, digamos \( m \), de modo que \( m = ax_0 + by_0 \) para alguns inteiros \( x_0 \) e \( y_0 \).
+
+Agora, provamos que \( m = d \). Como \( d = \text{MDC}(a, b) \), \( d \) divide \( a \) e \( b \), então \( a = d k \) e \( b = d l \) para alguns inteiros \( k \) e \( l \). Substituindo na expressão de \( m \), temos:
+\[
+m = ax_0 + by_0 = (d k) x_0 + (d l) y_0 = d (k x_0 + l y_0)
+\]
+Portanto, \( m \) é um múltiplo de \( d \), ou seja, \( d \mid m \). Isso implica \( m \geq d \), já que \( m \) e \( d \) são positivos.
+
+Para mostrar que \( m = d \), suponha por contradição que \( m > d \). Divida \( a \) por \( m \) usando o algoritmo de divisão: \( a = m q + r \), onde \( 0 \leq r < m \). Como \( m = ax_0 + by_0 \), substituímos:
+\[
+a = (ax_0 + by_0) q + r
+\]
+Rearranjando, temos:
+\[
+r = a - (ax_0 + by_0) q = a (1 - x_0 q) + b (-y_0 q)
+\]
+Assim, \( r \) é uma combinação linear de \( a \) e \( b \). Além disso, \( 0 \leq r < m \). Se \( r > 0 \), então \( r \in S \), mas \( r < m \), o que contradiz o fato de \( m \) ser o menor elemento positivo de \( S \). Portanto, \( r = 0 \), ou seja, \( a = m q \), e \( m \) divide \( a \). Analogamente, \( m \) divide \( b \). Como \( m \) divide \( a \) e \( b \), \( m \) é um divisor comum de \( a \) e \( b \), e como \( d = \text{MDC}(a, b) \) é o maior divisor comum, temos \( m \leq d \). Combinando com \( m \geq d \), concluímos que \( m = d \). Assim, \( d = ax_0 + by_0 \), e \( d \) é uma combinação linear de \( a \) e \( b \).
+
+Na prática, \( x_0 \) e \( y_0 \) podem ser encontrados usando o Algoritmo de Euclides Estendido. Por exemplo, para \( a = 3 \), \( b = 5 \), aplicamos o algoritmo de Euclides:
+\[
+5 = 1 \cdot 3 + 2, \quad 3 = 1 \cdot 2 + 1, \quad 2 = 2 \cdot 1 + 0
+\]
+O último resto não nulo é 1, então \( \text{MDC}(3, 5) = 1 \). Agora, retrocedemos:
+\[
+1 = 3 - 1 \cdot 2, \quad 2 = 5 - 1 \cdot 3
+\]
+Substituímos \( 2 \) na primeira equação:
+\[
+1 = 3 - 1 \cdot (5 - 1 \cdot 3) = 3 - 5 + 1 \cdot 3 = 2 \cdot 3 - 5
+\]
+Portanto, \( 1 = 2 \cdot 3 + (-1) \cdot 5 \), com \( x_0 = 2 \), \( y_0 = -1 \).
+
+Finalmente, mostramos que qualquer combinação linear de \( a \) e \( b \), digamos \( ax + by \), é um múltiplo de \( d \). Como \( ax + by = (ax + by) \cdot 1 \), e \( d \) divide \( a \) e \( b \), segue que \( d \) divide \( ax + by \). Assim, qualquer elemento de \( S \) é um múltiplo de \( d \), e \( d \) é o menor inteiro positivo em \( S \).
+
+Este resultado é fundamental no exemplo de \( \mathbb{Z}/p\mathbb{Z} \), onde \( p \) é primo e \( a \in \{1, 2, \ldots, p-1\} \). Como \( \text{MDC}(a, p) = 1 \), o Teorema de Bézout garante a existência de \( x \) e \( y \) tais que \( ax + py = 1 \), ou seja, \( ax \equiv 1 \pmod{p} \), mostrando que \( a \) tem um inverso multiplicativo em \( \mathbb{Z}/p\mathbb{Z} \), o que é essencial para provar que \( \mathbb{Z}/p\mathbb{Z} \) é um corpo.
+\end{proof}
+
+
+
