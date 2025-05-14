@@ -137,7 +137,12 @@ matrizes, transformações geométricas (como rotação e reflexão de figuras),
 
 \begin{definition}[Grupo]
 Um grupo é um par ordenado $(G, *)$, onde $G$ é um conjunto não vazio e $*$ é
-uma operação binária em $G$. Para que $(G, *)$ seja um grupo, a operação deve
+  uma operação binária\footnote{Uma operação binária em um conjunto é uma regra
+  para combinar dois elementos desse conjunto para produzir um único elemento
+  que também pertence ao mesmo conjunto. Operações aritméticas usuais como
+  a soma e multiplicação no conjunto dos números reais são exemplos de operações binárias.
+  Veja a formalização na \Cref{def:operacaobinaria}.} em $G$. 
+Para que $(G, *)$ seja um grupo, a operação deve
 satisfazer as seguintes propriedades: a operação é fechada, de modo que, para
 quaisquer elementos $a$ e $b$ em $G$, o resultado $a * b$ também pertence a
 $G$; a operação é associativa, significando que, para quaisquer elementos $a$,
@@ -177,15 +182,18 @@ com a operação de soma módulo $n$, forma um grupo abeliano.
 \begin{example}
 Considere um quadrado com vértices rotulados $A, B, C, D$ em ordem horária,
 onde $A$ está no canto superior esquerdo, $B$ no superior direito, $C$ no inferior direito e $D$ no inferior esquerdo.
-O conjunto $G = \{I, r, r^2, r^3, f, f \circ r, f \circ r^2, f \circ r^3\}$, apresentado na \Cref{fig:square_symmetries}, é formado pelas simetrias do quadrado,
+O conjunto $G = \{e, r, r^2, r^3, f, f \circ r, f \circ r^2, f \circ r^3\}$, apresentado na \Cref{fig:square_symmetries}, é formado pelas simetrias do quadrado,
 que são transformações que preservam sua forma geométrica, como rotações e reflexões.
 A operação binária em $G$ é a composição, denotada por $\circ$, que combina duas simetrias para produzir uma terceira.
 Este grupo é gerado por dois elementos: $r$, que representa uma rotação de 90 graus no sentido horário,
 e $f$, que representa uma reflexão (espelhamento) sobre a linha horizontal que passa pelo centro.
-O elemento $I$ é a identidade, que deixa o quadrado inalterado; $r^2 = r \circ r$ e $r^3 = r \circ r^2$ correspondem a rotações de 180 e 270 graus, respectivamente;
-e $f \circ r$, $f \circ r^2$, $f \circ r^3$ são combinações de reflexão vertical seguida de rotações.
+O elemento $e$ é a identidade, que deixa o quadrado inalterado; $r^2 = r \circ r$ e $r^3 = r \circ r^2$ correspondem a rotações de 180 e 270 graus, respectivamente;
+e $f_d = f \circ r$, $f_v = f \circ r^2$, $f_c = f \circ r^3$ são combinações de reflexão vertical seguida de rotações.
+A notação escolhida no exemplo foi utilizar $f$ para representar uma reflexão ao longo
+do eixo de simetria horizontal, $f_d$ para indicar uma reflexão ao longo da diagonal,
+$f_v$ uma reflexão ao longo do eixo de simetria vertical, e $f_c$ uma reflexão ao longo da contra-diagonal.
 O par $(G, \circ)$ forma um grupo, conhecido como o grupo diedral $D_4$.
-A composição é associativa, o elemento neutro é $I$, e cada elemento possui um inverso 
+A composição é associativa, o elemento neutro é $e$, e cada elemento possui um inverso 
 (por exemplo, o inverso de $r$ é $r^3$, o inverso de $r^2$ é o próprio $r^2$, e o inverso de $f$ é $f$). 
 Este grupo não é abeliano, pois $f \circ r \neq r \circ f$.
 
@@ -208,16 +216,16 @@ A \Cref{fig:square_symmetries} ilustra as oito simetrias do quadrado, mostrando 
   }
 
   % Row 1
-  \mysquare{0}{0}{A}{B}{C}{D}{$I$}{15}
+  \mysquare{0}{0}{A}{B}{C}{D}{$e$}{15}
   \mysquare{1}{0}{D}{A}{B}{C}{$r$}{15}
   \mysquare{2}{0}{C}{D}{A}{B}{$r^2$}{15}
   \mysquare{3}{0}{B}{C}{D}{A}{$r^3$}{15}
 
   % Row 2
   \mysquare{0}{1}{D}{C}{B}{A}{$f$}{15}
-  \mysquare{1}{1}{A}{D}{C}{B}{$f\circ r$}{7}
-  \mysquare{2}{1}{B}{A}{D}{C}{$f\circ r^2$}{7}
-  \mysquare{3}{1}{C}{B}{A}{D}{$f\circ r^3$}{7}
+  \mysquare{1}{1}{A}{D}{C}{B}{$f_d = f\circ r$}{-3}
+  \mysquare{2}{1}{B}{A}{D}{C}{$f_v = f\circ r^2$}{-5}
+  \mysquare{3}{1}{C}{B}{A}{D}{$f_c = f\circ r^3$}{-5}
 
 \end{tikzpicture}
 \caption{As oito simetrias do quadrado, geradas pelos elementos $r$ (rotação de 90 graus no sentido horário) e $f$ (reflexão vertical), sob a operação de composição.}
@@ -541,16 +549,19 @@ garantem a segurança baseada na dificuldade do logaritmo discreto em corpos
 finitos.
 
 
-
 Para explorar mais a estrutura de corpos finitos como $\mathbb{Z}/n\mathbb{Z}$,
 é útil introduzir o conceito de relação de equivalência, que nos permite
 organizar elementos em classes com base em uma relação que generaliza a ideia
-de igualdade. Vamos, antes de explorarmos a relação de equivalência, introduzir
-o conceito mais geral de relação binária.
-Relações binárias são utilizadas por toda a matemática desde o início -- em comparações,
-pertinência a conjuntos, divisibilidade, funções e muito mais. Embora as aplicamos
-rotineiramente, podem não ter sido até então formalmente definidas. A formalização abstrai
-e generaliza esses padrões familiares de associação entre elementos.
+de igualdade. Antes de explorarmos a relação de equivalência, introduziremos
+dois conceitos fundamentais que usamos desde o início do estudo da álgebra:
+relações binárias e operações binárias. Relações binárias são utilizadas por
+toda a matemática desde o início – em comparações, pertinência a conjuntos,
+divisibilidade, funções e muito mais. Embora as apliquemos rotineiramente,
+podem não ter sido até então formalmente definidas. Da mesma forma, operações
+binárias, como a adição e a multiplicação em grupos e corpos, também merecem
+uma definição formal. A formalização abstrai e generaliza esses padrões
+familiares de associação e combinação entre elementos.
+
 
 \begin{definition}[Relação Binária]
 Sejam $A$ e $B$ conjuntos não vazios. Uma relação binária de $A$ para $B$ é um subconjunto
@@ -586,6 +597,27 @@ não é simétrica, pois se $a \mid b$, não é garantido que $b \mid a$ (e.g., 
 \end{example}
 
 
+
+\begin{definition}[Operação Binária]\label{def:operacaobinaria}
+Seja $S$ um conjunto não vazio. Uma operação binária em $S$ é uma função
+$*: S \times S \to S$, que associa a cada par ordenado $(a, b) \in S \times S$
+um único elemento $a * b \in S$. Em outras palavras, uma operação binária
+combina dois elementos de $S$ para produzir um terceiro elemento também em $S$.
+\end{definition}
+
+\begin{example}
+Um exemplo familiar de operação binária é a adição módulo $n$ no conjunto
+$\mathbb{Z}/n\mathbb{Z}$. Para $n = 5$, temos
+$\mathbb{Z}/5\mathbb{Z} = \{0, 1, 2, 3, 4\}$, e a operação
+$+: \mathbb{Z}/5\mathbb{Z} \times \mathbb{Z}/5\mathbb{Z} \to \mathbb{Z}/5\mathbb{Z}$
+é definida por $a + b = (a + b) \mod 5$.
+Por exemplo, $3 + 4 = 7 \equiv 2 \pmod{5}$, então $3 + 4 = 2$
+em $\mathbb{Z}/5\mathbb{Z}$. Outra operação binária nesse conjunto é a
+multiplicação módulo 5, definida por $a \cdot b = (a \cdot b) \mod 5$, como
+$3 \cdot 4 = 12 \equiv 2 \pmod{5}$. Essas operações binárias são a base para
+a estrutura de grupo e corpo de $\mathbb{Z}/5\mathbb{Z}$, como vimos
+anteriormente.
+\end{example}
 
 
 
@@ -696,14 +728,16 @@ subgrupo $H = \{0, 3\}$, que é um subgrupo porque $0 + 0 = 0$, $0 + 3 = 3$,
 $3 + 3 = 6 \equiv 0 \pmod{6}$, e $H$ é fechado sob adição e
 contém os inversos (o inverso de 0 é 0, e o inverso de 3 é 3, pois $3 + 3 = 0$).
 As coclasses à esquerda de $H$ em $\mathbb{Z}/6\mathbb{Z}$ são:
-\begin{itemize}
-    \item $0 + H = \{0+0, 0+3\} = \{0, 3\}$,
-    \item $1 + H = \{1+0, 1+3\} = \{1, 4\}$,
-    \item $2 + H = \{2+0, 2+3\} = \{2, 5\}$,
-    \item $3 + H = \{3+0, 3+3\} = \{3, 0\} = 0 + H$,
-    \item $4 + H = \{4+0, 4+3\} = \{4, 1\} = 1 + H$,
-    \item $5 + H = \{5+0, 5+3\} = \{5, 2\} = 2 + H$.
-\end{itemize}
+\begin{subequations}
+  \begin{align}
+    0 + H &= \{0+0, 0+3\} = \{0, 3\},\\
+    1 + H &= \{1+0, 1+3\} = \{1, 4\},\\
+    2 + H &= \{2+0, 2+3\} = \{2, 5\},\\
+    3 + H &= \{3+0, 3+3\} = \{3, 0\} = 0 + H,\\
+    4 + H &= \{4+0, 4+3\} = \{4, 1\} = 1 + H,\\
+    5 + H &= \{5+0, 5+3\} = \{5, 2\} = 2 + H.
+  \end{align}
+\end{subequations}
 Observamos que há apenas três coclasses distintas: $\{0, 3\}$, $\{1, 4\}$,
 e $\{2, 5\}$, que são disjuntas e cuja união é $\mathbb{Z}/6\mathbb{Z}$,
 confirmando que formam uma partição. Note que $3 + H = 0 + H$, pois 
@@ -846,3 +880,186 @@ o protocolo Diffie-Hellman), a estrutura de subgrupos de ordem prima facilita
 a escolha de elementos primitivos e a organização de palavras-código em
 classes de tamanho uniforme.
 
+
+
+
+
+
+
+
+Existem muitos grupos distintos, com diferentes conjuntos e operações, mas
+frequentemente encontramos grupos que, apesar de parecerem diferentes à
+primeira vista, possuem essencialmente o mesmo comportamento e as mesmas
+propriedades estruturais. Para capturar essa ideia, introduzimos a noção
+de isomorfismo, que nos permite identificar quando dois grupos são, em
+essência, iguais, mesmo que seus elementos e operações sejam representados
+de forma diferente.
+
+\begin{example}
+  Um exemplo simples de grupos que são "essencialmente iguais" é o grupo
+  $(\mathbb{Z}/2\mathbb{Z}, +) = \{0, 1\}$, com adição módulo 2, e o grupo
+  $(\{1, -1\}, \cdot)$, com multiplicação usual. Em $\mathbb{Z}/2\mathbb{Z}$,
+  temos $0 + 0 = 0$, $0 + 1 = 1$, $1 + 1 = 0$. Em $\{1, -1\}$, temos $1 \cdot 1 = 1$,
+  $1 \cdot (-1) = -1$, $(-1) \cdot (-1) = 1$. Podemos definir uma
+  correspondência entre esses grupos: associe $0 \mapsto 1$ e $1 \mapsto -1$.
+  Note que essa correspondência preserva as operações: por exemplo, $1 + 1 = 0$
+  em $\mathbb{Z}/2\mathbb{Z}$, e a imagem de $1 + 1$, que é $0$, corresponde a
+  $1$; do outro lado, as imagens de $1$ e $1$ são $-1$ e $-1$, e $(-1) \cdot (-1) = 1$,
+  que é a imagem de $0$. Isso sugere que esses grupos têm a mesma estrutura.
+
+  Outro exemplo é o grupo $(\mathbb{Z}/4\mathbb{Z}, +) = \{0, 1, 2, 3\}$, com
+  adição módulo 4, e o grupo das rotações de um quadrado, denotado 
+  $R_4 = \{0^\circ, 90^\circ, 180^\circ, 270^\circ\}$, com a operação de composição de
+  rotações (e.g., $90^\circ + 90^\circ = 180^\circ$). Ambos os grupos têm 4
+  elementos, e podemos associar $0 \mapsto 0^\circ$, $1 \mapsto 90^\circ$, $2
+  \mapsto 180^\circ$, $3 \mapsto 270^\circ$. Essa correspondência também
+  preserva as operações: por exemplo, $1 + 1 = 2$ em $\mathbb{Z}/4\mathbb{Z}$,
+  e $90^\circ + 90^\circ = 180^\circ$, que corresponde a $2$. Esses grupos,
+  apesar de parecerem diferentes (um é numérico, outro geométrico), têm a mesma
+  estrutura subjacente.
+
+\end{example}
+
+\begin{definition}[Isomorfismo e Grupos Isomórficos]
+  Sejam $G_1$ e $G_2$ grupos. Uma bijeção $f: G_1 \to G_2$ é chamada de
+  isomorfismo de $G_1$ para $G_2$ se, para quaisquer dois elementos $a, b \in G_1$,
+  temos $f(ab) = f(a)f(b)$, onde $ab$ é o produto em $G_1$ e
+  $f(a)f(b)$ é o produto em $G_2$\footnote{
+    Note que $ab$ usa a operação binária de $G_1$, enquanto $f(a)f(b)$
+    usa a operação binária de $G_2$, que podem ser distintas.
+    O isomorfismo garante que essas operações, embora
+    diferentes na forma, correspondem estruturalmente através de $f$.}. 
+  Se existe um isomorfismo de $G_1$ para
+  $G_2$, dizemos que $G_1$ é isomórfico a $G_2$, e escrevemos $G_1 \cong G_2$.
+\end{definition}
+
+
+
+\begin{remark}
+  Nos exemplos acima, os mapeamentos dados são isomorfismos: eles são bijetivos
+  (um para um e sobrejetivos) e preservam as operações dos grupos. O conceito
+  de isomorfismo é fundamental na teoria da codificação, pois permite
+  identificar grupos que, apesar de diferentes na forma, podem ser usados de
+  maneira equivalente em construções de códigos. Por exemplo, em códigos
+  cíclicos sobre corpos finitos, grupos isomórficos ao grupo multiplicativo de
+  $\mathbb{F}_q \setminus \{0\}$ podem ser usados para gerar polinômios
+  geradores de forma intercambiável.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+Agora que definimos o conceito de isomorfismo, podemos explorar exemplos
+específicos de grupos que surgem frequentemente em aplicações matemáticas, como
+os grupos de permutação e os grupos simétricos. Além disso, introduziremos a
+noção de ordem de um elemento, que é fundamental para entender a estrutura de
+grupos e suas aplicações na teoria da codificação.
+
+\begin{definition}[Grupo de Permutação]
+  Seja $S$ um conjunto finito. Uma permutação de $S$ é uma bijeção
+  $\sigma: S \to S$. O conjunto de todas as permutações de $S$,
+  denotado $\text{Perm}(S)$, forma um grupo sob a operação de composição de
+  funções, chamado de grupo de permutação de $S$. A identidade é a
+  permutação $\text{id}: S \to S$ tal que $\text{id}(x) = x$, e o
+  inverso de uma permutação $\sigma$ é a bijeção $\sigma^{-1}$ tal que
+  $\sigma \circ \sigma^{-1} = \text{id}$.
+\end{definition}
+
+\begin{example}
+  Considere o conjunto $S = \{a, b\}$. O grupo de permutação
+  $\text{Perm}(S)$ contém todas as bijeções de $S$ em si mesmo. 
+  Há $2! = 2$ permutações: a identidade $\text{id}: a \to a, b \to b$, e a
+  permutação $\sigma: a \to b, b \to a$. A operação é a composição de
+  funções: $\text{id} \circ \text{id} = \text{id}$,
+  $\text{id} \circ \sigma = \sigma$, $\sigma \circ \text{id} = \sigma$, e
+  $\sigma \circ \sigma = \text{id}$, pois $\sigma(\sigma(a)) = \sigma(b) = a$,
+  $\sigma(\sigma(b)) = \sigma(a) = b$. Assim, $\text{Perm}(S) = \{ \text{id}, \sigma \}$,
+  e este grupo é isomórfico a $\mathbb{Z}/2\mathbb{Z}$, 
+  como vimos anteriormente, com $\text{id} \mapsto  0$, $\sigma \mapsto 1$.
+\end{example}
+
+
+\begin{example}
+  O grupo simétrico $S_3$, também conhecido como o grupo simétrico de grau 3,
+  é o grupo que consiste em todas as permutações de um conjunto com três
+  elementos, digamos $\{1, 2, 3\}$. Ele tem $3! = 6$ elementos, que
+  podemos representar usando a notação de duas linhas, onde a primeira linha
+  lista os elementos $\{1, 2, 3\}$ e a segunda linha mostra para onde cada
+  elemento é mapeado. Vamos nomear cada elemento com uma letra grega para
+  facilitar a referência:
+\[
+\iota = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{pmatrix}, \quad
+\alpha = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix}, \quad
+\beta = \begin{pmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{pmatrix},
+\]
+\[
+\gamma = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix}, \quad
+\delta = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix}, \quad
+\epsilon = \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix}.
+\]
+  Este grupo não é abeliano, o que significa que a ordem em que aplicamos as
+  permutações importa. Para ilustrar, considere $\alpha \circ \gamma$,
+  onde aplicamos primeiro $\gamma$ e depois $\alpha$. Teremos
+  $\gamma(1) = 1$, $\gamma(2) = 3$ e $\gamma(3) = 2$ e assim, subsequentemente
+  teremos $\alpha(\gamma(1)) = \alpha(1) = 2$, $\alpha(\gamma(2)) = \alpha(3) = 3$
+  e $\alpha(\gamma(3)) = \alpha(2) = 1$. Logo, $\alpha \circ \gamma = \delta$.
+  Por outro lado, $\gamma \circ \alpha = \epsilon$, logo 
+  $\alpha \circ \gamma \neq \gamma \circ \alpha$, $S_3$ não é
+  abeliano. Grupos simétricos como $S_n$ são amplamente usados na teoria da
+  codificação, por exemplo, em códigos de permutação, onde permutações de
+  posições de símbolos são usadas para construir ou analisar códigos.
+\end{example}
+
+
+\begin{definition}[Grupo Simétrico]
+Quando $S = \{1, 2, \ldots, n\}$, o grupo de permutação $\text{Perm}(S)
+$ é chamado de \emph{grupo simétrico} de ordem $n$, denotado $S_n$.
+  O grupo $S_n$ contém todas as permutações dos números $\{1, 2, \ldots,
+  n\}$, e sua ordem é $|S_n| = n!$, pois há $n!$ bijeções de $\{1,
+  2, \ldots, n\}$ em si mesmo.
+\end{definition}
+
+
+Um conceito relacionado que é útil para entender a estrutura de grupos como $
+S_n$ é a ordem de um elemento.
+
+\begin{definition}[Ordem de um Elemento]
+Seja $G$ um grupo com operação $*$ e elemento identidade $e$. A
+  \emph{ordem} de um elemento $g \in G$ é o menor inteiro positivo $m$
+  tal que $g^m = e$, onde $g^m$ denota $g * g * \cdots * g$ ($m
+$ vezes). Se tal $m$ não existe, dizemos que $g$ tem ordem infinita.
+\end{definition}
+
+\begin{example}
+  No grupo $S_3$, considere a permutação $\alpha: 1 \to 2, 2 \to 1, 3 \to 3$.
+  Vamos calcular sua ordem $n$, tal que $\alpha^n = e$. 
+  É fácil constatar que $n=2$ e assim $\alpha^2 = \alpha \circ \alpha = e$.
+  Considere agora a permutação $\delta: 1 \to 2, 2 \to 3, 3 \to 1$. 
+  Temos $\delta^1: 1 \to 2, 2 \to 3, 3 \to 1$, 
+  $\delta^2: 1 \to 3, 2 \to 1, 3 \to 2$, e
+  $\delta^3: 1 \to 1, 2 \to 2, 3 \to 3$, que é a identidade.
+  Assim, a ordem de $\delta$ é 3. 
+\end{example}
+
+\begin{example}
+  No grupo $(\mathbb{Z}/4\mathbb{Z}, +)$, a ordem de $1$ é 4,
+  pois $1 + 1 = 2$, $1 + 1 + 1 = 3$, $1 + 1 + 1 + 1 = 4 \equiv 0 \pmod{4}$,
+  e 4 é o menor inteiro positivo para o qual $1$
+  retorna à identidade 0.
+  A ordem de $2$ é 2, pois $2 + 2 = 4 \equiv 0 \pmod{4}$, 
+  e 2 é o menor inteiro positivo para o qual isso ocorre. 
+  A ordem de $3$ é 4, pois $3 + 3 = 6 \equiv 2 \pmod{4}$, $3 + 3 + 3 = 9 \equiv 1 \pmod{4}$, $3 + 3 + 3 + 3 = 12 \equiv 0 \pmod{4}$,
+  e 4 é o menor inteiro positivo para o qual $3$ retorna a 0.
+\end{example}
+
+A ordem de um elemento é crucial na teoria da
+codificação: em códigos cíclicos, a ordem de um elemento primitivo no grupo
+multiplicativo de um corpo finito determina o comprimento do código, e na
+criptografia, como no protocolo Diffie-Hellman, a ordem de um gerador
+influencia a segurança do sistema.
