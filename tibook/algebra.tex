@@ -1017,13 +1017,37 @@ grupos e suas aplicações na teoria da codificação.
 \end{example}
 
 
+%\begin{definition}[Grupo Simétrico]
+%Quando $S = \{1, 2, \ldots, n\}$, o grupo de permutação $\text{Perm}(S)
+%$ é chamado de \emph{grupo simétrico} de ordem $n$, denotado $S_n$.
+%  O grupo $S_n$ contém todas as permutações dos números $\{1, 2, \ldots,
+%  n\}$, e sua ordem é $|S_n| = n!$, pois há $n!$ bijeções de $\{1,
+%  2, \ldots, n\}$ em si mesmo.
+%\end{definition}
+
+
 \begin{definition}[Grupo Simétrico]
-Quando $S = \{1, 2, \ldots, n\}$, o grupo de permutação $\text{Perm}(S)
-$ é chamado de \emph{grupo simétrico} de ordem $n$, denotado $S_n$.
-  O grupo $S_n$ contém todas as permutações dos números $\{1, 2, \ldots,
-  n\}$, e sua ordem é $|S_n| = n!$, pois há $n!$ bijeções de $\{1,
-  2, \ldots, n\}$ em si mesmo.
+  Seja $X$ um conjunto não vazio. O grupo simétrico sobre $X$, denotado
+  $\text{Sym}(X)$, é definido como o conjunto de todas as bijeções $\sigma: X \to X$,
+  equipado com a operação binária de composição de funções ($\circ$).
+  Isso é, para $\sigma, \tau \in \text{Sym}(X)$, o produto é $\sigma \circ \tau$,
+  onde $(\sigma \circ \tau)(x) = \sigma(\tau(x))$ para todo $x \in X$.
+  Quando $|X| = n$, o grupo simétrico é denotado por $S_n$, e sua ordem é
+  $|S_n| = n!$.
 \end{definition}
+
+\begin{example}
+  Considere o conjunto $S = \{a, b\}$. O grupo simétrico $\text{Sym}(S)$ contém
+  todas as bijeções de $S$ em si mesmo. Há $2! = 2$ permutações: a identidade
+  $\text{id}: a \to a, b \to b$, e a permutação $\sigma: a \to b, b \to a$. A
+  operação é a composição de funções: $\text{id} \circ \text{id} = \text{id}$,
+  $\text{id} \circ \sigma = \sigma$, $\sigma \circ \text{id} = \sigma$, e
+  $\sigma \circ \sigma = \text{id}$, pois $\sigma(\sigma(a)) = \sigma(b) = a$,
+  $\sigma(\sigma(b)) = \sigma(a) = b$. Assim,
+  $\text{Sym}(S) = \{ \text{id}, \sigma \}$, e este grupo é isomórfico a 
+  $\mathbb{Z}/2\mathbb{Z}$, como vimos anteriormente, com
+  $\text{id} \mapsto 0$, $\sigma \mapsto 1$.
+\end{example}
 
 
 Um conceito relacionado que é útil para entender a estrutura de grupos como $
@@ -1063,3 +1087,430 @@ codificação: em códigos cíclicos, a ordem de um elemento primitivo no grupo
 multiplicativo de um corpo finito determina o comprimento do código, e na
 criptografia, como no protocolo Diffie-Hellman, a ordem de um gerador
 influencia a segurança do sistema.
+
+
+
+
+
+
+\begin{proposition}
+  Seja $a \in G$ um elemento de ordem $n$. Então, $a^t = e$ se e somente se $t$
+  é um múltiplo de $n$.
+\end{proposition}
+\begin{proof}
+  Primeiro, suponha que $t$ é um múltiplo de $n$, ou seja, $t = nq$ para algum
+  inteiro $q$. Então:
+  \[
+  a^t = a^{nq} = (a^n)^q = e^q = e,
+  \]
+  já que $a^n = e$. Agora, suponha que $a^t = e$. Pelo algoritmo da divisão,
+  escrevemos $t = nq + r$, onde $0 \leq r < n$. Assim:
+  \[
+  a^t = a^{nq + r} = (a^n)^q a^r = e^q a^r = e a^r = a^r.
+  \]
+  Como $a^t = e$, temos $a^r = e$. Mas $0 \leq r < n$, e $n$ é o menor inteiro
+  positivo tal que $a^n = e$. Se $r > 0$, isso contradiz a definição de ordem
+  de $a$, então $r = 0$. Portanto, $t = nq$, ou seja, $t$ é um múltiplo de $n$. 
+\end{proof}
+
+
+
+
+
+Um resultado fundamental que conecta grupos finitos aos grupos simétricos é o
+Teorema de Cayley, que mostra que todo grupo finito pode ser representado como
+um grupo de permutações.
+
+\begin{theorem}[Teorema de Cayley]
+  Todo grupo finito $G$ é isomórfico a um subgrupo do grupo simétrico
+  $S_{n}$, onde $n = |G|$ é a ordem de $G$.
+\end{theorem}
+
+\begin{proof}
+  Seja $G$ um grupo finito com $|G| = n$.
+  Para construir um grupo simétrico, tomamos o conjunto $X$ como sendo o
+  próprio conjunto subjacente de elementos de $G$, ou seja, $X = G$, de modo
+  que $\text{Sym}(X) = \text{Sym}(G) \cong S_n$, já que $|G| = n$.
+  Para cada elemento $g \in G$,
+  definimos uma bijeção $\phi_g: G \to G$ por $\phi_g(x) = g x$, onde $g x$ é o
+  produto em $G$. Vamos verificar que $\phi_g$ é uma bijeção:
+\begin{itemize}
+    \item \emph{Injetividade}: Se $\phi_g(x) = \phi_g(y)$, então $g x = g y$.
+      Multiplicando à esquerda por $g^{-1}$, temos $g^{-1}(g x) = g^{-1}(g y)$,
+      ou seja, $(g^{-1} g) x = (g^{-1} g) y$, então $x = y$. Assim, $\phi_g$ é
+      injetiva.
+    \item \emph{Sobrejetividade}: Para qualquer $y \in G$, escolha $x = g^{-1}y$.
+      Então, $\phi_g(x) = g (g^{-1} y) = (g g^{-1}) y = y$, pois $g g^{-1} = e$.
+      Assim, $\phi_g$ é sobrejetiva.
+\end{itemize}
+  Portanto, $\phi_g \in \text{Sym}(G)$. Agora, definimos um mapeamento
+  $\phi: G \to \text{Sym}(G)$ por $\phi(g) = \phi_g$. Vamos mostrar que $\phi$ é um
+  isomorfismo de $G$ para um subgrupo de $\text{Sym}(G)$:
+\begin{itemize}
+    \item \emph{Homomorfismo}: Para $g, h \in G$, queremos mostrar que
+      $\phi(g h) = \phi(g) \circ \phi(h)$. Note que $\phi(g h) = \phi_{g h}$, e
+      $\phi_{g h}(x) = (g h) x$. Por outro lado, 
+      $\phi(g) \circ \phi(h) = \phi_g \circ \phi_h$, então 
+      $(\phi_g \circ \phi_h)(x) = \phi_g(\phi_h(x)) = \phi_g(h x) = g (h x) = (g h) x$,
+      que é igual a $\phi_{g h}(x)$. Assim, $\phi(g h) = \phi(g) \circ \phi(h)$.
+    \item \emph{Injetividade}: Se $\phi(g) = \phi(h)$, então $\phi_g = \phi_h$,
+      ou seja, $\phi_g(x) = \phi_h(x)$ para todo $x \in G$. Em particular, para
+      $x = e$, temos $\phi_g(e) = g e = g$, e $\phi_h(e) = h e = h$, então 
+      $g = h$. Assim, $\phi$ é injetiva.
+\end{itemize}
+  Como $G$ é finito, $\phi$ ser injetiva implica que é bijetiva de $G$ para sua
+  imagem $\phi(G)$, que é um subconjunto de $\text{Sym}(G)$. Além disso,
+  $\phi(G)$ é um subgrupo de $\text{Sym}(G)$, pois contém $\phi(e) =
+  \text{id}$, é fechado sob composição (por ser um homomorfismo), e contém
+  inversos (se $\phi(g) = \phi_g$, então $\phi(g^{-1}) = \phi_{g^{-1}}$, e
+  $\phi_{g^{-1}} \circ \phi_g = \phi_{g^{-1} g} = \phi_e = \text{id}$). Assim,
+  $\phi: G \to \phi(G)$ é um isomorfismo, e $\phi(G) \leq \text{Sym}(G) \cong S_n$, 
+  completando a demonstração.
+\end{proof}
+
+\begin{remark}
+  O Teorema de Cayley tem consequências importantes. Ele mostra que todo grupo
+  finito pode ser representado como um grupo de permutações, o que fornece uma
+  maneira concreta de visualizar e trabalhar com grupos abstratos. Além disso,
+  conecta diretamente com os grupos simétricos $S_n$, que já vimos serem
+  fundamentais na teoria da codificação. Por exemplo, em códigos de permutação,
+  usamos subgrupos de $S_n$ para permutar posições de símbolos, e o Teorema de
+  Cayley garante que qualquer grupo finito pode ser incorporado nesse contexto.
+  Em criptografia, como em cifras de permutação, essa representação permite
+  construir sistemas baseados em permutações que refletem a estrutura de grupos
+  arbitrários.
+\end{remark}
+
+
+
+
+
+
+
+
+Uma propriedade importante da ordem de um elemento nos ajuda a entender a
+estrutura das potências desse elemento e sua relação com grupos cíclicos.
+
+\begin{theorem}[Propriedade das Potências de um Elemento]
+  Seja $G$ um grupo e $a \in G$ um elemento de ordem $n$. Então, as potências
+  $a^0, a^1, \ldots, a^{n-1}$ são todas distintas, e $a^n = e$, onde $e$ é a
+  identidade de $G$. Assim, há exatamente $n$ potências diferentes de $a$,
+  dadas por $\{ a^0, a^1, \ldots, a^{n-1} \}$, e $a^k = a^r$ se e somente se
+  $k \equiv r \pmod{n}$.
+\end{theorem}
+
+\begin{proof}
+  Vamos provar este resultado em duas partes: primeiro, mostraremos que
+  qualquer potência $a^m$ pode ser escrita como $a^r$ para algum $r \in \{0, 1,
+  \ldots, n-1\}$, e $a^k = a^r$ se e somente se $k \equiv r \pmod{n}$. Depois,
+  provaremos por contradição que as potências $a^0, a^1, \ldots, a^{n-1}$ são
+  todas distintas.
+
+  \emph{Parte 1}: $a^m = a^r$ para algum $r \in \{0, 1, \ldots, n-1\}$, e 
+  $a^k = a^r$ se e somente se $k \equiv r \pmod{n}$.
+
+  Seja $m \geq 0$ um inteiro qualquer (a prova para $m < 0$ é análoga, usando
+  $a^{-m} = (a^{-1})^m$). Pelo algoritmo da divisão, podemos escrever 
+  $m = qn + r$, onde $q \geq 0$ é o quociente, e $r \in \{0, 1, \ldots, n-1\}$
+  é o resto, ou seja, $0 \leq r < n$. Assim:
+  \[
+  a^m = a^{qn + r} = (a^n)^q a^r.
+  \]
+  Como $a$ tem ordem $n$, temos $a^n = e$, então $(a^n)^q = e^q = e$, e:
+  \[
+  a^m = e \cdot a^r = a^r.
+  \]
+  Portanto, $a^m = a^r$ com $r \in \{0, 1, \ldots, n-1\}$. Agora, para mostrar
+  que $a^k = a^r$ se e somente se $k \equiv r \pmod{n}$, suponha que $a^k = a^r$.
+  Então:
+  \[
+  a^k = a^r \implies a^{k-r} = e.
+  \]
+  Como a ordem de $a$ é $n$, o menor inteiro positivo $d$ tal que $a^d = e$ é $n$,
+  então $n$ deve dividir $k-r$. Isso significa que $k \equiv r \pmod{n}$.
+  A recíproca é imediata: se $k \equiv r \pmod{n}$, então $k = qn + r$, e
+  $a^k = a^{qn + r} = (a^n)^q a^r = e a^r = a^r$.
+
+  \emph{Parte 2}: As potências $a^0, a^1, \ldots, a^{n-1}$ são distintas. 
+
+  Suponha, por contradição, que existam $r, s \in \{0, 1, \ldots, n-1\}$ com
+  $r \neq s$ tais que $a^r = a^s$. Sem perda de generalidade, assuma $r > s$.
+  Então:
+  \[
+  a^r = a^s \implies a^{r-s} = e,
+  \]
+  onde $r-s$ é um inteiro positivo, pois $r > s$, e $r-s \leq n-1$, já que
+  $r \leq n-1$. Mas $a$ tem ordem $n$, o que significa que o menor inteiro
+  positivo $m$ tal que $a^m = e$ é $n$. Como $0 < r-s < n$, isso contradiz a
+  definição de ordem de $a$. Portanto, $a^r \neq a^s$ para $r \neq s$, e as
+  potências $a^0, a^1, \ldots, a^{n-1}$ são todas distintas.
+
+  Combinando as duas partes, concluímos que há exatamente $n$ potências
+  distintas de $a$, dadas por $\{ a^0, a^1, \ldots, a^{n-1} \}$, e $a^k = a^r$
+  se e somente se $k \equiv r \pmod{n}$.
+\end{proof}
+
+
+\begin{example}
+  Considere o grupo $(\mathbb{Z}/4\mathbb{Z}, +)$, onde já calculamos que o
+  elemento $1$ tem ordem 4. Aqui, a operação é a adição, então as ``potências''
+  de $1$ são somas repetidas: $1^0 = 0$, $1^1 = 1$, $1^2 = 1 + 1 = 2$, $1^3 = 1
+  + 1 + 1 = 3$, e $1^4 = 1 + 1 + 1 + 1 = 4 \equiv 0 \pmod{4}$. As potências
+  $1^0, 1^1, 1^2, 1^3$ correspondem aos elementos $0, 1, 2, 3$, que são todos
+  distintos, e há exatamente 4 elementos, como previsto pela ordem de $1$. Além
+  disso, $1^k = 1^r$ se e somente se $k \equiv r \pmod{4}$; por exemplo,
+  $1^5 = 5 \equiv 1 \pmod{4}$, e de fato $5 \mod 4 = 1$, então $1^5 = 1$.
+  O mesmo vale  para o elemento $3$, que também tem ordem 4, enquanto $2$ tem
+  ordem 2, gerando $\{0, 2\}$.
+\end{example}
+
+\begin{remark}
+  Esta propriedade é essencial na teoria da codificação e na criptografia. Em
+  códigos cíclicos, como os códigos Reed-Solomon, os elementos de um grupo
+  cíclico (gerado por um elemento de ordem $n$) correspondem às raízes de
+  polinômios geradores, e as potências distintas garantem que o código tenha
+  comprimento $n$. Na criptografia, como no protocolo Diffie-Hellman, a ordem
+  de um elemento gerador determina o tamanho do grupo cíclico usado, impactando
+  diretamente a segurança do sistema.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Agora que exploramos as potências de um elemento e suas propriedades, podemos
+introduzir um tipo especial de grupo que é gerado por um único elemento: o
+grupo cíclico.
+
+\begin{definition}[Grupo Cíclico]
+  Um grupo $G$ é chamado de cíclico se existe um elemento $a \in G$ tal
+  que $G = \{ a^n \mid n \in \mathbb{Z} \}$, onde $a^n$ denota a aplicação da
+  operação de grupo $n$ vezes (com $a^0 = e$, a identidade de $G$, e $a^{-n} =
+  (a^{-1})^n$ para $n > 0$). Nesse caso, $a$ é chamado de gerador de
+  $G$, e escrevemos $G = \langle a \rangle$. Um grupo cíclico pode ser finito
+  ou infinito, dependendo da ordem de $a$: se $a$ tem ordem infinita, todas as
+  suas potências são distintas, e $G$ é infinito; se $a$ tem ordem $n$, então
+  $G$ tem exatamente $n$ elementos distintos, dados por $\{ a^0, a^1, \ldots, a^{n-1} \}$,
+  como vimos anteriormente.
+\end{definition}
+
+\begin{example}
+  O grupo $(\mathbb{Z}/4\mathbb{Z}, +) = \{0, 1, 2, 3\}$ é cíclico, gerado pelo
+  elemento $1$, pois $1^0 = 0$, $1^1 = 1$, $1^2 = 2$, $1^3 = 3$, e $1^4 = 4 \equiv 0 \pmod{4}$.
+  Assim, $\mathbb{Z}/4\mathbb{Z} = \langle 1 \rangle$, e
+  $1$ tem ordem 4. Da mesma forma, o grupo $(\mathbb{Z}, +)$ é cíclico
+  infinito, gerado por $1$, pois 
+  $\mathbb{Z} = \{ \ldots, -2, -1, 0, 1, 2, \ldots \} = \{ n \cdot 1 \mid n \in \mathbb{Z} \}$, 
+  e $1$ tem ordem infinita, já que $n \cdot 1 = 0$ apenas quando $n = 0$.
+\end{example}
+
+\begin{example}
+  Considere o círculo unitário no plano complexo, ou seja, o conjunto de
+  números complexos $z$ tais que $|z| = 1$. Seja $z = e^{2\pi i / 5}$, uma
+  5-ésima raiz primitiva da unidade, que satisfaz $z^5 = e^{2\pi i} = 1$, e sua
+  ordem é 5 (o menor inteiro positivo $k$ tal que $z^k = 1$ é $k = 5$). O grupo
+  gerado por $z$ sob multiplicação complexa é
+  $\langle z \rangle = \{ z^k \mid k \in \mathbb{Z} \}$.
+  Como $z$ tem ordem 5, temos:
+  \[
+    z^0 = 1, \quad z^1 = e^{2\pi i / 5}, \quad z^2 = e^{4\pi i / 5}, \quad z^3 = e^{6\pi i / 5}, \quad z^4 = e^{8\pi i / 5}, 
+  \]
+  \[
+    \text{e}\quad z^5 = e^{10\pi i / 5} = e^{2\pi i} = 1 .
+  \]
+  As potências $z^0, z^1, z^2, z^3,
+  z^4$ são todas distintas (pois $z$ é uma raiz primitiva), e
+  $\langle z \rangle = \{ z^0, z^1, z^2, z^3, z^4 \}$, 
+  um grupo cíclico finito de ordem 5.
+  Este grupo é isomórfico a $\mathbb{Z}/5\mathbb{Z}$, e seus elementos estão
+  igualmente espaçados no círculo unitário, separados por ângulos de $2\pi/5$.
+  Grupos cíclicos gerados por raízes primitivas são fundamentais na teoria
+  da codificação, como na construção de códigos cíclicos via transformada de
+  Fourier discreta, onde as potências de uma raiz primitiva definem as
+  frequências do código.
+\end{example}
+
+\begin{remark}
+  Os grupos cíclicos possuem propriedades estruturais importantes. Todo grupo
+  cíclico infinito é isomórfico ao grupo aditivo dos inteiros $(\mathbb{Z}, +)$,
+  e todo grupo cíclico finito de ordem $n$ é isomórfico ao grupo aditivo
+  dos inteiros módulo $n$, $(\mathbb{Z}/n\mathbb{Z}, +)$. Além disso, todo
+  grupo cíclico é abeliano, ou seja, sua operação de grupo é comutativa, pois
+  $a^k a^m = a^{k+m} = a^{m+k} = a^m a^k$. Uma consequência mais ampla é que
+  todo grupo abeliano finitamente gerado pode ser expresso como um produto
+  direto de grupos cíclicos, uma propriedade fundamental na classificação de
+  tais grupos e útil em aplicações como a teoria da codificação, onde grupos
+  cíclicos finitos, como subgrupos de $\mathbb{Z}/n\mathbb{Z}$, são usados para
+  construir códigos cíclicos.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Um resultado clássico sobre grupos cíclicos descreve sua estrutura
+detalhadamente, incluindo a natureza de seus subgrupos, a ordem de seus
+elementos e a quantidade de geradores. Este teorema é fundamental para
+aplicações em teoria da codificação e criptografia.
+
+\begin{theorem}[Estrutura de Grupos Cíclicos]
+Seja $G = \langle a \rangle$ um grupo cíclico.
+\begin{enumerate}
+    \item[(i)] Todo subgrupo de $G$ é cíclico.
+    \item[(ii)] Se $G$ é finito de ordem $m$, o elemento $a^k$ gera um subgrupo
+      de ordem $\sfrac{m}{\text{mdc}(k, m)}$, onde $\text{mdc}(k, m)$ é o maior
+      divisor comum entre $k$ e $m$.
+    \item[(iii)] Se $d$ é um divisor positivo de $m$, então $G$ contém
+      exatamente um subgrupo de índice $d$. Para qualquer divisor positivo $f$
+      de $m$, $G$ contém exatamente um subgrupo de ordem $f$.
+    \item[(iv)] Para um divisor positivo $f$ da ordem $m$, $G$ contém $\phi(f)$
+      elementos de ordem $f$, onde $\phi(f)$ é a função totiente de Euler, que
+      conta o número de inteiros $n$ com $1 \leq n \leq f$ que são primos
+      relativos a $f$.
+    \item[(v)] Um grupo cíclico finito $G$ de ordem $m$ contém $\phi(m)$
+      geradores, ou seja, elementos $a^r$ tais que $\langle a^r \rangle = G$.
+      Os geradores são as potências $a^r$ com $\text{mdc}(r, m) = 1$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Demonstração da Parte (i)]
+  Seja $H \leq G$ um subgrupo de $G$, onde $G = \langle a \rangle$. Se
+  $H = \{e\}$, então $H$ é cíclico, gerado por $e$. Suponha $H \neq \{e\}$.
+  Como $H \subseteq G$, os elementos de $H$ são da forma $a^k$ para algum
+  $k \in \mathbb{Z}$. Seja $S = \{ k \in \mathbb{Z} \mid a^k \in H \}$, o conjunto de
+  expoentes de elementos de $H$. Como $H$ é um subgrupo, $S$ é não vazio (pois
+  contém 0, já que $a^0 = e \in H$) e fechado sob adição e inversos (se
+  $a^k \in H$, então $a^{-k} = (a^k)^{-1} \in H$, e se $a^k, a^l \in H$, então
+  $a^{k+l} \in H$). Assim, $S$ contém inteiros positivos. Seja $d$ o menor
+  inteiro positivo em $S$, ou seja, $d = \min \{ k > 0 \mid a^k \in H \}$.
+  Afirmamos que $H = \langle a^d \rangle$.
+\begin{itemize}
+    \item \emph{$H \subseteq \langle a^d \rangle$}: Se $h \in H$, então $h = a^k$
+      para algum $k \in S$. Pelo algoritmo da divisão, escrevemos $k = qd + r$,
+      com $0 \leq r < d$. Assim, $a^k = a^{qd + r} = (a^d)^q a^r$. Como
+      $a^k \in H$ e $a^d \in H$, temos $(a^d)^q \in H$, então $a^r = a^k (a^d)^{-q} \in H$.
+      Mas $0 \leq r < d$, e $d$ é o menor inteiro positivo
+      tal que $a^d \in H$, então $r = 0$. Portanto, $k = qd$, e
+      $h = a^k = (a^d)^q \in \langle a^d \rangle$.
+    \item \emph{$\langle a^d \rangle \subseteq H$}: Como $a^d \in H$, todas as
+      potências $(a^d)^q = a^{dq} \in H$, então $\langle a^d \rangle \subseteq H$.
+\end{itemize}
+  Assim, $H = \langle a^d \rangle$, e $H$ é cíclico, gerado por $a^d$.
+\end{proof}
+
+\begin{proof}[Demonstração da Parte (ii)]
+  Seja $G = \langle a \rangle$ um grupo cíclico finito de ordem $m$, então $a^m = e$.
+  O elemento $a^k$ gera o subgrupo $\langle a^k \rangle = \{ (a^k)^t \mid t
+  \in \mathbb{Z} \} = \{ a^{kt} \mid t \in \mathbb{Z} \}$. Queremos determinar
+  a ordem de $\langle a^k \rangle$, que é igual à ordem de $a^k$. A ordem de
+  $a^k$ é o menor inteiro positivo $t$ tal que $(a^k)^t = a^{kt} = e$. Como
+  $a^m = e$, temos $a^{kt} = e$ se e somente se $m$ divide $kt$ (pela
+  Propriedade das Potências de um Elemento). Escrevemos $d = \text{mdc}(k, m)$,
+  então $k = d \cdot k'$ e $m = d \cdot m'$, onde $\text{mdc}(k', m') = 1$.
+  Substituímos: $a^{kt} = a^{d k' t} = e$, então $m \mid d k' t$, ou seja, $d
+  m' \mid d k' t$. Dividindo por $d$, temos $m' \mid k' t$. Como
+  $\text{mdc}(k', m') = 1$, $m'$ divide $t$, então o menor $t$ positivo é $t =
+  m' = \frac{m}{d} = \sfrac{m}{\text{mdc}(k, m)}$. Portanto, a ordem de $\langle
+  a^k \rangle$ é $\sfrac{m}{\text{mdc}(k, m)}$.
+\end{proof}
+
+\begin{proof}[Demonstração da Parte (iii)]
+  Seja $G = \langle a \rangle$ de ordem $m$. Pela parte (i), todo subgrupo de $G$
+  é cíclico, da forma $\langle a^d \rangle$, onde $d$ é o menor inteiro
+  positivo tal que $a^d \in H$. Da parte (ii), a ordem de $\langle a^d \rangle$
+  é $\sfrac{m}{\text{mdc}(d, m)}$. Seja $f$ um divisor positivo de $m$, e
+  queremos um subgrupo de ordem $f$. Então:
+  \[
+  \frac{m}{\text{mdc}(d, m)} = f \implies \text{mdc}(d, m) = \frac{m}{f}.
+  \]
+  Seja $d = \sfrac{m}{f}$. Então $\text{mdc}(d, m) = \text{mdc}\left(\sfrac{m}{f},
+  m\right) = \sfrac{m}{f}$, pois $\sfrac{m}{f}$ divide $m$. Assim, a ordem de
+  $\langle a^d \rangle$ é $\sfrac{m}{\text{mdc}(d, m)} = \sfrac{m}{(\sfrac{m}{f})} =
+  f$, ou seja, $\langle a^{\sfrac{m}{f}} \rangle$ tem ordem $f$. Para mostrar
+  unicidade, suponha que $\langle a^k \rangle$ também tenha ordem $f$. Então
+  $\text{mdc}(k, m) = \sfrac{m}{f}$, e $k = \sfrac{m}{f} \cdot k'$, com
+  $\text{mdc}(k', f) = 1$. Assim, $\langle a^k \rangle = \langle a^{(\sfrac{m}{f})
+  k'} \rangle$, e a ordem de $a^{(\sfrac{m}{f}) k'}$ é
+  $\sfrac{m}{\text{mdc}\left(\frac{m}{f} k', m\right)}$. Como $\text{mdc}(k', f)
+  = 1$, segue que $\langle a^k \rangle = \langle a^{\sfrac{m}{f}} \rangle$,
+  provando unicidade. Para o índice, se $H$ tem índice $d$, sua ordem é
+  $\sfrac{m}{d}$, e o argumento é análogo.
+\end{proof}
+
+\begin{proof}[Demonstração da Parte (iv)]
+  Seja $f$ um divisor positivo de $m$, e queremos o número de elementos de ordem
+  $f$ em $G$. Um elemento $a^k \in G$ tem ordem $f$ se $f$ é o menor inteiro
+  positivo tal que $(a^k)^f = a^{kf} = e$, ou seja, $m \mid kf$. Isso implica
+  $\sfrac{m}{\text{mdc}(k, m)} = f$, então $\text{mdc}(k, m) = \frac{m}{f}$.
+  Assim, $k = \frac{m}{f} \cdot k'$, com $k'$ variando de 1 a $f$, e
+  $\text{mdc}(k', f) = 1$. Cada $k'$ gera um elemento distinto $a^k$, e o
+  número de $k'$ com $\text{mdc}(k', f) = 1$ é $\phi(f)$. Portanto, há
+  $\phi(f)$ elementos de ordem $f$.
+\end{proof}
+
+\begin{proof}[Demonstração da Parte (v)]
+  Um elemento $a^r$ é um gerador de $G$ se $\langle a^r \rangle = G$, ou seja, se
+  a ordem de $a^r$ é $m$. Pela parte (ii), a ordem de $a^r$ é
+  $\sfrac{m}{\text{mdc}(r, m)}$, então $\sfrac{m}{\text{mdc}(r, m)} = m \implies
+  \text{mdc}(r, m) = 1$. Assim, $a^r$ é um gerador se e somente se
+  $\text{mdc}(r, m) = 1$. O número de inteiros $r$ de 1 a $m$ com
+  $\text{mdc}(r, m) = 1$ é $\phi(m)$, e como $a^r = a^s$ se e somente se $r
+  \equiv s \pmod{m}$, há exatamente $\phi(m)$ geradores distintos. 
+\end{proof}
+
+
+\begin{example}
+  Considere $G = \mathbb{Z}/6\mathbb{Z} = \{0, 1, 2, 3, 4, 5\}$, um grupo cíclico
+  de ordem 6 gerado por $1$, ou seja, $G = \langle 1 \rangle$. Vamos ilustrar
+  algumas partes do teorema:
+\begin{itemize}
+    \item \emph{Parte (i)}: Os subgrupos de $G$ são cíclicos. Por exemplo, o
+      subgrupo gerado por $2$, $\langle 2 \rangle$, contém $2, 2+2=4, 4+2=6
+      \equiv 0 \pmod{6}$, ou seja, $\langle 2 \rangle = \{0, 2, 4\}$, que é
+      cíclico.
+    \item \emph{Parte (ii)}: A ordem de $2$ é a ordem do subgrupo $\langle 2
+      \rangle$. Temos $m = 6$, $k = 2$, e $\text{mdc}(2, 6) = 2$, então a ordem
+      de $\langle 2 \rangle$ é $\sfrac{6}{\text{mdc}(2, 6)} = \sfrac{6}{2} = 3$,
+      o que confirma que $\langle 2 \rangle = \{0, 2, 4\}$ tem 3 elementos.
+    \item \emph{Parte (iii)}: Os divisores positivos de $m = 6$ são $1, 2, 3,
+      6$. Para $f = 2$, há exatamente um subgrupo de ordem 2: $\langle 3
+      \rangle$, pois $3+3=6 \equiv 0 \pmod{6}$, então $\langle 3 \rangle = \{0,
+      3\}$. Para $f = 3$, o subgrupo é $\langle 2 \rangle = \{0, 2, 4\}$.
+    \item \emph{Parte (v)}: Os geradores de $G$ são os elementos $1^r$ com
+      $\text{mdc}(r, 6) = 1$. Como $\text{mdc}(r, 6) = 1$ para $r = 1, 5$,
+      temos $\phi(6) = 2$ geradores: $1$ e $5$. De fato, $\langle 5 \rangle =
+      \{0, 5, 4, 3, 2, 1\} = G$.
+\end{itemize}
+\end{example}
+
+\begin{remark}
+  Este teorema é essencial na teoria da codificação e criptografia. A parte (i)
+  garante que subgrupos usados em códigos cíclicos, como subgrupos de
+  $\mathbb{Z}/n\mathbb{Z}$, são cíclicos, simplificando a construção de
+  polinômios geradores. A parte (ii) ajuda a determinar o comprimento de
+  subgrupos em códigos, enquanto as partes (iii) e (iv) são úteis para contar
+  subgrupos e elementos de ordens específicas, o que é importante em
+  criptografia (e.g., escolha de geradores em protocolos como Diffie-Hellman).
+  A parte (v) é crucial para identificar geradores de grupos cíclicos,
+  amplamente usados em sistemas criptográficos e na construção de códigos
+  cíclicos.
+\end{remark}
