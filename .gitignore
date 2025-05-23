@@ -22,3 +22,11 @@
 *.pdfsync
 *.synctex
 *.run.xml
+
+# .gitignore - pipoca
+pipoca-vai-a-escola/book_pipoca.pdf
+pipoca-vai-a-escola/booklet_pipoca.pdf
+pipoca-vai-a-escola/booklet_pipoca_print_with_crop_marks.pdf
+pipoca-vai-a-escola/booklet_pipoca_print.pdf
+
+
