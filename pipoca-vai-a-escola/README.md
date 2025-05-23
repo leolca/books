@@ -1,44 +1,12 @@
 # Pipoca Vai à Escola
 
-![Pipoca usando o computador](pipoca-computador_small.png)
+![Pipoca usando o computador](imagens/pipoca-computador_small.png)
 
 **Pipoca Vai à Escola** é um livro infantil ilustrado que acompanha a jornada delicada e transformadora de um pequeno dinossauro em seu primeiro dia de aula. A história aborda medos, descobertas, amizades e emoções intensas vividas por crianças ao ingressarem no ambiente escolar.
 
 ## 📒 Sobre o Projeto
 
 Este repositório contém os arquivos do livro, incluindo textos, traduções, imagens e materiais auxiliares usados durante o processo de criação. O projeto foi desenvolvido com o auxílio de ferramentas de IA como ChatGPT e Sora (OpenAI) para geração e refinamento de texto e imagens.
-
-## 📁 Estrutura dos Arquivos
-
-.
-├── imagens
-│   ├── pipoca-aula-musica.png
-│   ├── pipoca-aula-pintura.png
-│   ├── pipoca-biblioteca.png
-│   └── ...
-├── pdf_pages
-│   ├── pipoca01.pdf
-│   ├── pipoca02.pdf
-│   ├── pipoca03.pdf
-│   └── ...
-├── svg_pages
-│   ├── pipoca01.svg
-│   ├── pipoca02.svg
-│   ├── pipoca03.svg
-│   └── ...
-├── textos
-│   ├── original.md
-│   └── traducao_en.md
-├── booklet_pipoca.pdf
-├── booklet_pipoca_print.pdf
-├── booklet_pipoca_print_with_crop_marks.pdf
-├── book_pipoca.pdf
-├── createbooklet.sh
-├── ebook_pipoca.pdf
-├── pdf_watermark.sh
-├── pipoca_capa.pdf
-└── README.md
-
 
 ## ✏️ Créditos
 
@@ -71,6 +39,7 @@ Para gerar a versão em formato *booklet* (livreto), com marcas de corte para im
 
 ```bash
 ./createbooklet.sh
+```
 
 
 ### 📦 Dependências necessárias
@@ -87,7 +56,7 @@ Você pode instalá-los no Ubuntu com:
 
 ```bash
 sudo apt install pdfjam pdftk mutool poppler-utils texlive
-
+```
 
 ### 📄 Arquivos gerados
 
