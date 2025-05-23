@@ -231,8 +231,32 @@ A \Cref{fig:square_symmetries} ilustra as oito simetrias do quadrado, mostrando 
 \caption{As oito simetrias do quadrado, geradas pelos elementos $r$ (rotação de 90 graus no sentido horário) e $f$ (reflexão vertical), sob a operação de composição.}
 \label{fig:square_symmetries}
 \end{figure}
-
 \end{example}
+
+
+
+\begin{example}[Grupo diedral]
+  Considere agora o grupo diedral $D_n$ em que $r$ representa $r_{\sfrac{360}{n}}$
+  e $f$ a reflexão. É fácil verificar que a reflexão é sua própria inversa $f \circ f = r_0$
+  e que $r^{-i} = r^{n-i}$. Vejamos ainda que
+  \begin{subequations}
+    \begin{align}
+      r^i \circ f \circ r^i \circ f &= r_0 \\
+      r^i \circ f &= r_0 \circ f^{-1} \circ r^{-i} \\
+      r^i \circ f &= f \circ r^{-i},
+    \end{align}
+  \end{subequations}
+  ou seja, podemos trocar a ordem de $f$ e  $r^{-i}$ invertendo o sinal do expoente de $r$.
+  Assim é fácil verificar que qualquer combinação de reflexões e rotações
+  pode ser expressa como $r^i \circ f$. Por exemplo, para $n=8$, considere
+  $r^2 \circ f \circ r^4 \circ f = r^2 \circ f \circ f \circ r^{-4} = r^2 \circ r^{-4} = r^{-2} = r^6$,
+  ou ainda, $r^3 \circ f \circ r^5 = r^3 \circ r^{-5} \circ f = r_{-2} \circ f = r^6 \circ f$.
+  Podemos concluir assim que o grupo diedral $D_n$ será composto pelos seguintes elementos:
+  \begin{equation}
+    D_n = \{r_0, r, r^2, \ldots, r^{n-1}, f, r \circ f, r^2 \circ f, \ldots r^{n-1} \circ f\} .
+  \end{equation}
+\end{example}
+
 
 
 
@@ -1513,4 +1537,440 @@ Seja $G = \langle a \rangle$ um grupo cíclico.
   A parte (v) é crucial para identificar geradores de grupos cíclicos,
   amplamente usados em sistemas criptográficos e na construção de códigos
   cíclicos.
+\end{remark}
+
+
+
+
+
+
+
+
+
+\subsection{Polinômios}
+
+\begin{definition}[Polinômio em um Corpo]
+  Seja $F$ um corpo (como $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$, ou um corpo
+  finito $\mathbb{F}_q$). Um \emph{polinômio} em uma variável $x$ com
+  coeficientes em $F$ é uma expressão da forma:
+  \begin{equation}\label{def:polinomio}
+  p(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0,
+  \end{equation}
+  onde $a_i \in F$ para $i = 0, 1, \ldots, n$, e $a_n \neq 0$ (se $n > 0$). Os
+  $a_i$ são chamados de \emph{coeficientes} do polinômio, e $x$ é uma variável
+  indeterminada. O conjunto de todos os polinômios com coeficientes em $F$ é
+  denotado por $F[x]$, chamado de \emph{anel de polinômios} sobre $F$. Se $p(x)
+  \neq 0$, o \emph{grau} de $p(x)$, denotado $\text{deg}(p)$, é o maior inteiro
+  $n$ tal que $a_n \neq 0$. Se $p(x) = 0$, definimos $\text{deg}(0) = -\infty$.
+  Um polinômio de grau 0 é uma constante $a_0 \neq 0$, e um polinômio de grau 1
+  é da forma $a_1 x + a_0$ com $a_1 \neq 0$.
+\end{definition}
+
+\begin{example}
+  No corpo $\mathbb{F}_2 = \{0, 1\}$, o polinômio $p(x) = x^3 + x + 1$ tem
+  coeficientes $1, 0, 1, 1$ (para $x^3, x^2, x, x^0$), e seu grau é
+  $\text{deg}(p) = 3$. O polinômio $q(x) = 1$ tem grau 0, e $r(x) = 0$ tem grau
+  $-\infty$.
+\end{example}
+
+\subsubsection{Operações com Polinômios}
+
+Sejam os polinômios $p(x) = \sum_{i=0}^n a_i x^i$ e $q(x) = \sum_{i=0}^m b_i x^i$, com $n \geq m$,
+a adição e subtração entre eles é definida como:
+\begin{equation}
+  p(x) \pm q(x) = \sum_{i=0}^n (a_i \pm b_i) x^i,
+\end{equation}
+onde $b_i = 0$ para $i > m$, e as operações $\pm$ nos coeficientes são
+realizadas em $F$. O grau de $p(x) \pm q(x)$ é no máximo $\max(\text{deg}(p),\text{deg}(q))$,
+e pode ser menor se houver cancelamento.
+
+A multiplicação entre $p(x)$ e $q(x)$ é definida como
+\begin{subequations}
+  \begin{align}
+    p(x) q(x) &= \sum_{k=0}^{n+m} \left( \sum_{i+j=k} a_i b_j \right) x^k \\
+    &= \sum_{k=0}^{n+m} \left( \sum_{i=0}^k a_i b_{k-i} \right) x^k \\
+    &= \sum_{k=0}^{n+m} c_k x^k, 
+  \end{align}
+\end{subequations}
+onde $\text{deg}(p(x) q(x)) = \text{deg}(p) + \text{deg}(q)$, desde que 
+$p(x) \neq 0$ e $q(x) \neq 0$.
+
+\begin{example}
+Em $\mathbb{F}_2[x]$, sejam $p(x) = x + 1$ e $q(x) = x^2 + 1$. Então:
+\begin{itemize}
+    \item $p(x) + q(x) = (x + 1) + (x^2 + 1) = x^2 + x$, pois $1 + 1 = 0$ em $\mathbb{F}_2$, e o grau é 2.
+    \item $p(x) q(x) = (x + 1)(x^2 + 1) = x \cdot x^2 + x \cdot 1 + 1 \cdot x^2 + 1 \cdot 1 = x^3 + x + x^2 + 1 = x^3 + x^2 + x + 1$, com grau $1 + 2 = 3$.
+\end{itemize}
+\end{example}
+
+
+
+
+
+
+\subsubsection*{Divisão de Polinômios}
+
+\begin{theorem}[Divisão de Polinômios]
+Sejam $p(x), q(x) \in F[x]$, com $q(x) \neq 0$. Existem polinômios únicos $s(x), r(x) \in F[x]$ tais que:
+\[
+p(x) = s(x) q(x) + r(x),
+\]
+onde $\text{deg}(r) < \text{deg}(q)$ ou $r(x) = 0$. Este processo é chamado de \emph{divisão longa} de polinômios.
+\end{theorem}
+
+\begin{example}\label{ex:polydivA}
+  Em $\mathbb{F}_2[x]$, dividamos $p(x) = x^3 + x + 1$ por $q(x) = x + 1$.
+  Primeiro, dividimos o termo de maior grau de $p(x)$, $x^3$, por $x$, obtendo
+  $x^2$. Multiplicamos $x^2 (x + 1) = x^3 + x^2$, e subtraímos: 
+  $(x^3 + x + 1) - (x^3 + x^2) = x^2 + x + 1$. Agora, dividimos $x^2$ por $x$, obtendo $x$;
+  então $x (x + 1) = x^2 + x$, e subtraímos: $(x^2 + x + 1) - (x^2 + x) = 1$.
+  Como $\text{deg}(1) = 0 < 1 = \text{deg}(q)$, paramos. Assim:
+\[
+x^3 + x + 1 = (x^2 + x) (x + 1) + 1, \in \mathbb{F}_2[x]
+\]
+com quociente $s(x) = x^2 + x$ e resto $r(x) = 1$.
+
+\[
+\renewcommand\arraystretch{1.2}
+\begin{array}{*2r @{\hskip\arraycolsep}c@{\hskip\arraycolsep} *4r}
+  &    &&    &  x^2 &  +x &  \\
+\cline{3-7}
+x & +1 &\big)& x^3 &   & +x & +1 \\
+  &    &&  x^3 & +x^2 \\
+\cline{4-7}
+  &    &&    &  x^2 & +x & + 1\\
+  &    &&    &  x^2 & +x \\
+\cline{5-7}
+  &    &&    &    &    & 1 \\
+\end{array}
+\]
+\end{example}
+
+
+
+
+
+
+
+\subsubsection*{Máximo Divisor Comum}
+
+\begin{theorem}[Existência do MDC (gcd)]
+  Sejam $p(x), q(x) \in F[x]$, não ambos zero. Existe um polinômio $d(x) \in F[x]$,
+  chamado de \emph{máximo divisor comum} (MDC) de $p(x)$ e $q(x)$,
+  denotado $\text{gcd}(p(x), q(x))$, que satisfaz:
+  \begin{enumerate}
+    \item[(i)] $d(x)|p(x)$ e $d(x)|q(x)$, ou seja, $d(x)$ divide $p(x)$ e $q(x)$.
+    \item[(ii)] Se $h(x)$ divide $p(x)$ e $q(x)$, então $h(x)$ divide $d(x)$, ou seja, $h(x)|d(x)$.
+  \end{enumerate}
+  Além disso, $d(x)$ pode ser obtido pelo \emph{algoritmo de Euclides}: se
+  $p(x) = s(x) q(x) + r(x)$, então
+  $\text{mdc}(p(x), q(x)) = \text{mdc}(q(x), r(x))$, e repetimos até o resto ser zero.
+  O MDC é único até multiplicação por
+  uma constante não nula em $F$, e tomamos $d(x)$ como \emph{monico}
+  (coeficiente do termo de maior grau igual a 1).
+\end{theorem}
+
+\begin{example}
+  Vamos utilizar os mesmo polinômios do \Cref{ex:polydivA}.
+  Em $\mathbb{F}_2[x]$, calculemos o MDC de $p(x) = x^3 + x + 1$ e $q(x) = x^2 + 1$. 
+  Na primeira etampa, dividimos $p(x)$ por $q(x)$: 
+  \begin{subequations}
+    \begin{align}
+    p_0(x) &= s_0(x) q_0(x) + r_0(x) \\
+    x^3 + x + 1 &= x (x^2 + 1) + (x^2 + x + 1) 
+    \end{align}
+  \end{subequations}
+  $x^3 + x + 1 = x (x^2 + 1) + (x^2 + x + 1)$, pois $x (x^2 + 1) = x^3 + x$, e $(x^3 + x + 1) - (x^3 + x) = x^2 + x + 1$. 
+  Agora, $\text{mdc}(p_0(x),q_0(x)) = \text{mds}(q_0,r_0)$, ou seja, $\text{mdc}(x^3 + x + 1, x^2 + 1) = \text{mdc}(x^2 + 1, x^2 + x + 1)$.
+  Faremoz agora $p_1(x) = q_0(x)$ e $q_1(x) = r_0(x)$.
+  Dividimos $p_1(x) = x^2 + 1$ por $q_1(x) = x^2 + x + 1$: 
+  \begin{subequations}
+    \begin{align}
+      p_1(x) &= s_1(x) q_1(x) + r_1(x) \\
+      x^2 + 1 &= 1 \cdot (x^2 + x + 1) + x .
+    \end{align}
+  \end{subequations}
+  No próximo passo temos que $\text{mdc}(p_1(x),q_1(x)) = \text{mdc}(q_1,r_1)$, ou seja, 
+  $\text{mdc}(x^2 + 1, x^2 + x + 1) = \text{mdc}(x^2 + x + 1, x)$. 
+  Faremoz agora $p_2(x) = q_1(x)$ e $q_2(x) = r_1(x)$.
+  Dividimos $p_2(x) = x^2 + x + 1$ por $q_2(x) = x$: 
+  \begin{subequations}
+    \begin{align}
+      p_2(x) &= s_2(x) q_2(x) + r_2(x) \\ 
+      x^2 + x + 1 &= (x + 1) x + 1 .
+    \end{align}
+  \end{subequations}
+  Finalmente, $\text{mdc}(p_2(x),q_2(x)) = \text{mdc}(q_2,r_2)$, ou seja,
+  $\text{mdc}(x^2 + x + 1, x) = \text{mdc}(x, 1) = 1$, pois $x = 1 \cdot x + 0$. 
+  Assim, $\text{mdc}(x^3 + x + 1, x^2 + 1) = 1$, e $p(x)$ e $q(x)$ são primos relativos.
+\end{example}
+
+\begin{definition}[Polinômio Irredutível]
+  Um polinômio $p(x) \in F[x]$ de grau $\text{deg}(p) \geq 1$ é
+  \emph{irredutível} sobre $F$ se não pode ser escrito como $p(x) = q(x) r(x)$,
+  onde $q(x), r(x) \in F[x]$ têm graus $\text{deg}(q), \text{deg}(r) \geq 1$.
+  Em outras palavras, os únicos divisores de $p(x)$ em $F[x]$ são constantes
+  não nulas e múltiplos constantes de $p(x)$.
+\end{definition}
+
+\begin{example}
+  Em $\mathbb{F}_2[x]$, o polinômio $p(x) = x^2 + x + 1$ é irredutível. Como
+  $\text{deg}(p) = 2$, os únicos divisores possíveis de grau 1 seriam da forma
+  $x + a$, com $a \in \mathbb{F}_2$. Avaliando, $p(0) = 0 + 0 + 1 = 1$, e
+  $p(1) = 1 + 1 + 1 = 1$, então $p(x)$ não tem raízes em $\mathbb{F}_2$, e não pode
+  ser fatorado em polinômios de grau 1. Assim, $p(x)$ é irredutível. Por outro
+  lado, $q(x) = x^2 + 1 = (x + 1)^2$ em $\mathbb{F}_2$, pois
+  $(x + 1)(x + 1) = x^2 + x + x + 1 = x^2 + 1$, então $q(x)$ não é irredutível, em
+  outras palavras, $q(x)$ é redutível.
+\end{example}
+
+
+
+
+
+\begin{example}
+  Vamos determinar todos os polinômios irredutíveis em $\mathbb{F}_2[x]$ de graus
+  1, 2, 3 e 4.
+
+  \emph{Grau 1}: Um polinômio de grau 1 é da forma $a_1 x + a_0$, com
+  $a_1 \neq 0$, então $a_1 = 1$. Assim, os polinômios de grau 1 são $x$ e $x + 1$.
+  Como têm grau 1, não podem ser fatorados em polinômios de graus menores (exceto
+  constantes), então ambos são irredutíveis.
+
+  \emph{Grau 2}: Um polinômio de grau 2 é da forma $x^2 + a_1 x + a_0$, com
+  coeficientes $a_1, a_0 \in \{0, 1\}$, totalizando $2^2 = 4$ polinômios. 
+  São eles: $x^2$, $x^2 + x$, $x^2 + 1$, e $x^2 + x + 1$.
+  Para ser redutível, um polinômio de grau 2
+  deve ser produto de dois polinômios de grau 1, ou seja, $(x + b)(x + c) = x^2 + (b + c)x + bc$.
+  Em $\mathbb{F}_2$, as possibilidades são: $x \cdot x = x^2$, $x \cdot (x+1) = x^2 + x$ e
+  $(x+1)^2 = x^2 + 1$.
+  Assim, $x^2$, $x^2 + x$, e $x^2 + 1$ são redutíveis.
+  O polinômio remanescente, $x^2 + x + 1$, não é produto de dois polinômios de grau 1
+  ($x^2 + x + 1$ não tem raízes em $\mathbb{F}_2$, pois $1+1+1=1$ e $0+0+1=1$),
+  então é o único irredutível de grau 2.
+
+  \emph{Grau 3}: Um polinômio de grau 3 é da forma 
+  $a(x) = x^3 + a_2 x^2 + a_1 x + a_0$, com $a_2, a_1, a_0 \in \{0, 1\}$,
+  totalizando $2^3 = 8$ polinômios. Para ser redutível, $a(x)$ deve ser produto
+  de um polinômio de grau 2 e um de grau 1, ou seja, $a(x) = (x^2 + b_1 x + b_0)(x + c)$.
+  Primeiro, considere o fator de grau 1 como $x$: $x \mid a(x)$ se e somente se $a(0) = a_0 = 0$.
+  Isso elimina os polinômios com $a_0 = 1$. Agora, considere o fator $x + 1$: $x + 1 \mid a(x)$
+  se e somente se $a(1) = 0$, ou seja, $a(1) = 1 + a_2 + a_1 + a_0 = 0$, então
+  $a_2 + a_1 + a_0 = 1$. Um polinômio de grau 3 é irredutível se não for divisível
+  por nenhum polinômio de grau 1, ou seja, $a_0 \neq 0$ e $a_2 + a_1 + a_0 \neq 1$. Assim, devemos ter
+  $a_0 = 1$, e $a_2 + a_1 + a_0 = a_2 + a_1 + 1 = 0$, implicando em $a_2 + a_1 = 1$, para
+  termos um polinômio de grau 3 irredutível. As possibilidades são
+  $(a_2, a_1) = (1, 0)$ ou $(0, 1)$, com $a_0 = 1$,
+  dando os polinômios $x^3 + x^2 + 1$ e $x^3 + x + 1$.
+
+\emph{Grau 4}: Um polinômio de grau 4 é da forma
+  $a(x) = x^4 + a_3 x^3 + a_2 x^2 + a_1 x + a_0$, com $2^4 = 16$ polinômios.
+  Realizando uma análise similar àquela empregada anteriormente, podemos
+  concluir ao final que os polinômios irredutíveis de grau 4 são:
+  $x^4 + x + 1$, $x^4 + x^3 + 1$, e $x^4 + x^3 + x^2 + x + 1$.
+\end{example}
+
+
+\begin{table}
+  \centering
+  \caption{Polinômios irredutíveis em $\mathbb{F}_2[x]$ com grau $n$.}
+  \begin{tabular}{ll}
+    \toprule
+    $n$ & polinômios irredutíveis em $\mathbb{F}_2[x]$ com grau $n$\\
+    \midrule
+    1   & $x$, $x + 1$\\
+    2   & $x^2$ + $x + 1$\\
+    3   & $x^3$ + $x + 1$, $x^3 + x2 + 1$\\
+    4   & $x^4 + x + 1$, $x^4 + x^3 + 1$, $x^4 + x^3 + x^2 + x + 1$\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+
+Um resultado fundamental sobre polinômios em $F[x]$ é que eles podem ser
+fatorados de forma única em polinômios irredutíveis, analogamente à fatoração
+de inteiros em números primos. Este teorema também é conhecido como o Teorema
+Fundamental da Álgebra para polinômios.
+
+\begin{theorem}[Fatoração Única de Polinômios]
+  Seja $F$ um corpo e $p(x) \in F[x]$ um polinômio não nulo de grau $n \geq 1$.
+  Então $p(x)$ pode ser escrito como:
+  \begin{equation}
+  p(x) = c \cdot p_1(x) p_2(x) \cdots p_k(x),
+  \end{equation}
+  onde $c \in F$ é uma constante não nula, e $p_i(x) \in F[x]$ são polinômios
+  irredutíveis mônicos (coeficiente do termo de maior grau igual a 1). Além
+  disso, essa fatoração é única, exceto pela ordem dos fatores $p_i(x)$.
+\end{theorem}
+
+\begin{proof}
+Vamos provar em duas partes: a existência da fatoração e sua unicidade.
+
+  \emph{Existência}: Se $\text{deg}(p) = 1$, e $p(x)$ é irredutível, a
+  fatoração é trivial: $p(x) = a_n \cdot (a_n^{-1} p(x))$, onde $a_n^{-1} p(x)$
+  é mônico. Suponha que o resultado vale para polinômios de grau menor que $n$,
+  e seja $\text{deg}(p) = n \geq 2$. Se $p(x)$ é irredutível, a fatoração é
+  $p(x) = a_n \cdot (a_n^{-1} p(x))$. Se $p(x)$ é redutível, então $p(x) = q(x) r(x)$,
+  com $1 \leq \text{deg}(q), \text{deg}(r) < n$. Por hipótese de
+  indução, $q(x)$ e $r(x)$ podem ser fatorados em irredutíveis mônicos, e assim
+  $p(x)$ também. Portanto, por indução, todo polinômio não nulo pode ser
+  fatorado em irredutíveis.
+
+  \emph{Unicidade}: Suponha que $p(x)$ tenha duas fatorações:
+  \[
+  p(x) = c \cdot p_1(x) \cdots p_k(x) = d \cdot q_1(x) \cdots q_l(x),
+  \]
+  onde $c, d \in F$, e $p_i(x), q_j(x)$ são irredutíveis mônicos. Comparando os
+  coeficientes principais, $c = d$. Dividindo ambos os lados por $c$, temos:
+  \[
+  p_1(x) \cdots p_k(x) = q_1(x) \cdots q_l(x).
+  \]
+  Como $p_1(x)$ é irredutível, e $F[x]$ é um domínio (não tem divisores de zero),
+  $p_1(x)$ deve dividir algum $q_j(x)$. Mas $q_j(x)$ também é irredutível,
+  então $p_1(x) = q_j(x)$ (já que ambos são mônicos). Cancelando $p_1(x)$ e
+  $q_j(x)$, repetimos o processo. Como os graus diminuem a cada passo,
+  eventualmente $k = l$, e os fatores coincidem (exceto pela ordem). \hfill
+  $\square$
+\end{proof}
+
+\begin{example}
+  Em $\mathbb{F}_2[x]$, considere $p(x) = x^4 + 1$. Sabemos que $x^4 + 1 = (x^2 + x + 1)^2$,
+  e $x^2 + x + 1$ é irredutível (de grau 2). Assim, a fatoração
+  única de $p(x)$ em irredutíveis é:
+  \[
+  x^4 + 1 = (x^2 + x + 1) (x^2 + x + 1),
+  \]
+  onde $x^2 + x + 1$ é mônico. 
+\end{example} 
+
+\begin{example}
+  Para outro exemplo em $\mathbb{F}_2[x]$, considere $p(x) = x^3 + 1$.
+  A fatoração única de $p(x)$ em farores irredutíveis é:
+  \[
+   x^3 + 1 = (x + 1)\cdot(x^2 + x + 1)
+  \]
+  Considere agora $q(x) = x^3 + x + 1$, irredutível (de grau 3). Então sua
+  fatoração é simplesmente $q(x) = 1 \cdot (x^3 + x + 1)$.
+\end{example}
+
+
+
+
+
+
+
+
+
+Antes de introduzirmos corpos de extensão, é útil entender uma construção
+algébrica que nos permitirá criar novos corpos a partir de polinômios: os
+\emph{anéis quocientes}. Já vimos que $F[x]$, o conjunto de polinômios com
+coeficientes em um corpo $F$, forma um anel sob adição e multiplicação de
+polinômios. Um \emph{ideal} em $F[x]$ é um subconjunto $I \subseteq F[x]$ que é
+fechado sob adição e sob multiplicação por qualquer polinômio em $F[x]$. Por
+exemplo, dado um polinômio $p(x) \in F[x]$, o conjunto $(p(x)) = \{ p(x) q(x) \mid q(x) \in F[x] \}$,
+formado por todos os múltiplos de $p(x)$, é um ideal,
+chamado de \emph{ideal gerado por $p(x)$}.
+
+Agora, podemos ``dividir'' $F[x]$ por um ideal $I$, formando o \emph{anel
+quociente} $F[x] / I$. Intuitivamente, isso significa que identificamos todos
+os polinômios em $I$ como ``iguais a zero''. Um exemplo simples fora do contexto
+de polinômios é o anel dos inteiros $\mathbb{Z}$: o ideal $(n) = \{ n k \mid k \in \mathbb{Z} \}$
+contém todos os múltiplos de $n$, e o quociente
+$\mathbb{Z}/(n)$ é o anel $\mathbb{Z}/n\mathbb{Z}$, cujos elementos são as
+classes $0, 1, \ldots, n-1$, com operações módulo $n$. Em $F[x]$, se $I = (p(x))$,
+os elementos de $F[x] / (p(x))$ são representados por polinômios de
+grau menor que $\text{deg}(p)$, e a relação $p(x) = 0$ define as operações. Um
+fato importante é que, se $p(x)$ é irredutível, então $F[x] / (p(x))$ não é
+apenas um anel, mas um corpo, o que usaremos para construir extensões finitas.
+
+
+
+
+Até agora, exploramos polinômios em um corpo $F$ e sua fatoração única em
+termos de polinômios irredutíveis. Vamos agora introduzir o conceito de corpos
+de extensão, que nos permitirá construir novos corpos a partir de um corpo
+dado, uma ferramenta essencial na teoria da codificação.
+
+Em álgebra, corpos de extensão são uma construção fundamental que permite
+``aumentar'' um corpo existente para incluir elementos que não estavam
+originalmente presentes. Isso é particularmente útil quando queremos resolver
+equações que não têm solução no corpo original. Um exemplo simples é o corpo
+dos números complexos $\mathbb{C}$ como uma extensão do corpo dos números reais
+$\mathbb{R}$. Em $\mathbb{R}$, a equação $x^2 + 1 = 0$ não tem solução, pois
+não existe um número real $x$ tal que $x^2 = -1$. No entanto, ao estender
+$\mathbb{R}$ para $\mathbb{C}$ (adicionando a unidade imaginária $i$, onde $i^2 = -1$),
+essa equação passa a ter soluções ($i$ e $-i$), já que $i^2 + 1 = 0$.
+
+Formalizemos agora essa ideia com uma definição.
+
+\begin{definition}[Corpo de Extensão]
+  Seja $F$ um corpo. Um corpo $E$ é chamado de \emph{corpo de extensão} de $F$ se
+  $F \subseteq E$ e $E$ é um corpo com as mesmas operações de adição e
+  multiplicação de $F$, mas possivelmente com elementos adicionais. Em outras
+  palavras, $F$ é um subcorpo de $E$. Se $E \neq F$, dizemos que $E$ é uma
+  extensão própria de $F$. A \emph{dimensão} de $E$ como um espaço vetorial
+  sobre $F$, denotada $[E : F]$, é chamada de \emph{grau da extensão}. Se $[E : F] < \infty$,
+  a extensão é dita \emph{finita}; caso contrário, é \emph{infinita}.
+\end{definition}
+
+\begin{example}
+  O exemplo introdutório ilustra que $\mathbb{C}$ é uma extensão de
+  $\mathbb{R}$, pois $\mathbb{R} \subseteq \mathbb{C}$. Um elemento de
+  $\mathbb{C}$ é da forma $a + bi$, com $a, b \in \mathbb{R}$ e $i = \sqrt{-1}$,
+  e $\mathbb{R}$ pode ser identificado com os elementos $a + 0i$.
+  Como espaço vetorial sobre $\mathbb{R}$, $\mathbb{C}$ tem base $\{1, i\}$,
+  então $[\mathbb{C} : \mathbb{R}] = 2$, uma extensão finita. Por outro lado,
+  $\mathbb{R}$ é uma extensão de $\mathbb{Q}$, mas $[\mathbb{R} : \mathbb{Q}] = \infty$,
+  pois $\mathbb{R}$ não é finitamente gerado como espaço vetorial
+  sobre $\mathbb{Q}$, sendo uma extensão infinita.
+\end{example}
+
+
+\begin{example}
+  Um exemplo importante na teoria da codificação é a construção de corpos
+  finitos como extensões de $\mathbb{F}_2$. Considere o polinômio
+  irredutível $p(x) = x^2 + x + 1 \in \mathbb{F}_2[x]$. 
+  Em $\mathbb{F}_2$, $p(x)$ não tem raízes, pois $p(0) = 1$ e 
+  $p(1) = 1 + 1 + 1 = 1$. Vamos construir um corpo $E$ que
+  estende $\mathbb{F}_2$ adicionando uma raiz $\alpha$ de $p(x)$,
+  ou seja, $\alpha$ satisfaz $p(\alpha) = \alpha^2 + \alpha + 1 = 0$,
+  então $\alpha^2 = \alpha + 1$. Definimos $E$ como o conjunto de
+  elementos da forma $a + b \alpha$, com $a, b \in \mathbb{F}_2$, onde
+  as operações são definidas usando a relação $\alpha^2 = \alpha + 1$.
+  Assim, os elementos de $E$ são:
+  \[
+  E = \{ 0 + 0 \alpha, 1 + 0 \alpha, 0 + 1 \alpha, 1 + 1 \alpha \} = \{ 0, 1, \alpha, 1 + \alpha \},
+  \]
+  totalizando 4 elementos, e $E \cong \mathbb{F}_4$. A adição é feita
+  componente a componente em $\mathbb{F}_2$, e a multiplicação usa $\alpha^2 = \alpha + 1$.
+  Por exemplo, $(1 + \alpha) \cdot \alpha = \alpha + \alpha^2 = \alpha + (\alpha + 1) = 1$.
+  Como espaço vetorial sobre $\mathbb{F}_2$, $E$
+  tem base $\{1, \alpha\}$, então $[E : \mathbb{F}_2] = 2$, uma extensão
+  finita. Identificamos $\mathbb{F}_2 \subseteq E$ como os elementos $\{0, 1\}$.
+\end{example}
+
+%\begin{example}
+%  Um exemplo importante na teoria da codificação é a construção de corpos
+%  finitos como extensões de $\mathbb{F}_2$. Considere o polinômio irredutível
+%  $p(x) = x^2 + x + 1 \in \mathbb{F}_2[x]$.
+%  Definimos o corpo $E = \mathbb{F}_2[x] / (p(x))$, o quociente do anel de
+%  polinômios $\mathbb{F}_2[x]$ pelo ideal gerado por $p(x)$. Como $p(x)$ é
+%  irredutível, $E$ é um corpo. Um elemento de $E$ é um polinômio $a_1 x + a_0$
+%  (com $a_1, a_0 \in \mathbb{F}_2$), e a relação $p(x) = 0$ implica $x^2 + x + 1 = 0$,
+%  ou seja, $x^2 = x + 1$. Assim, $E = \{ 0, 1, x, x + 1 \}$, com 4
+%  elementos, e $E \cong \mathbb{F}_4$. A base de $E$ como espaço vetorial sobre
+%  $\mathbb{F}_2$ é $\{1, x\}$, então $[E : \mathbb{F}_2] = 2$, uma extensão
+%  finita. Identificamos $\mathbb{F}_2 \subseteq E$ como os elementos $\{0, 1\}$.
+%\end{example}
+
+\begin{remark}
+  Corpos de extensão finitos são amplamente usados na teoria da codificação.
+  Por exemplo, $\mathbb{F}_{2^n}$ pode ser construído como $\mathbb{F}_2[x] / (p(x))$,
+  onde $p(x)$ é um polinômio irredutível de grau $n$, como no exemplo
+  acima para $n = 2$. Esses corpos são a base para códigos como os de
+  Reed-Solomon, onde elementos de $\mathbb{F}_{2^n}$ são usados para codificar
+  mensagens, e polinômios irredutíveis definem as extensões necessárias para
+  garantir que o código tenha as propriedades desejadas, como distância mínima.
+>>>>>>> aa333fb (Add new files for tibook)
 \end{remark}
