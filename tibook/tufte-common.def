@@ -1101,7 +1101,7 @@
 % The placeins package provides the \FloatBarrier command.  This forces
 % LaTeX to place all of the floats before proceeding.  We'll use this to
 % keep the float (figure and table) numbers in sequence.
-\RequirePackage{placeins}
+\RequirePackage[section]{placeins}
 
 %%
 % Margin float environment
