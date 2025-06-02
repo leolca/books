@@ -1,21 +1,21 @@
 \chapter{Aleatoriedade}
 
-A aleatoriedade é um conceito fundamental em diversas disciplinas, sendo
+A \emph{aleatoriedade}\index{aleatoriaedade} é um conceito fundamental em diversas disciplinas, sendo
 essencial entender o que ela realmente é. 
 Há muitos anos a humanidade faz uso da aleatoriedade, quer seja em jogos de azar,
 na determinação do destino de pessoas ou em sua seleção para exercer alguma
 função ou cargo. Como método de obter aleatoriedade, há milênios se utiliza
 dados ou moedas \parencite{metropolitan}.
-Aleatoriedade é vital em diversas aplicações, como criptografia, simulações computacionais,
+No domínio computacional, a aleatoriedade é vital em diversas aplicações, como criptografia, simulações,
 jogos, arte e teoria da informação. 
 
 Quando lidamos com computadores, a produção
 de números verdadeiramente aleatórios é um desafio intrínseco. Em geral, os
-números gerados por algoritmos computacionais são \emph{pseudo-aleatórios},
+números gerados por algoritmos computacionais são \emph{pseudoaleatórios}\index{pseudoaleatório},
 ou seja, seguem sequências determinísticas que apenas aparentam não possuir uma
 ordem subjacente. Esses números são o resultado de funções matemáticas bem
-definidas, como geradores lineares congruentes ou algoritmos mais sofisticados,
-como o Mersenne Twister, que, apesar de produzirem sequências com propriedades
+definidas, como geradores lineares congruentes ou algoritmos mais aprimorados,
+como o \emph{Mersenne Twister}, que, apesar de produzirem sequências com propriedades
 estatísticas desejáveis, carecem da imprevisibilidade essencial à aleatoriedade
 genuína.
 
@@ -23,10 +23,10 @@ Para tarefas críticas, onde imprevisibilidade e falta de padrões são realment
 adota-se a geração de aleatoriedade baseada em hardware. Exemplos incluem
 o uso da captação de imagem e áudio em celulares \parencite{krhovjak2007sources,chen2013}, 
 atividade de teclado, mouse e disco \parencite{gutterman2006analysis} e até mesmo
-Lava Lamps \parencite{cloudflare}.
+\textit{Lava Lamps} \parencite{cloudflare}.
 
 Stephen Wolfram, renomado por suas contribuições à complexidade computacional e
-à teoria dos sistemas complexos, propõe três fontes distintas de aleatoriedade
+à teoria dos sistemas complexos, propõe três fontes distintas de aleatoriedade\index{aleatoriaedade} 
 que explicam como ela pode emergir em sistemas: a aleatoriedade do ambiente, a
 aleatoriedade nas condições iniciais e a geração intrínseca de aleatoriedade. A
 \emph{aleatoriedade do ambiente} surge de influências externas imprevisíveis,
@@ -44,7 +44,7 @@ aleatório mesmo sem entrada aleatória alguma'', sugerindo que os mecanismos
 subjacentes à aleatoriedade na natureza e em simulações computacionais
 compartilham uma essência comum \parencite{wolfram2002}.
 
-Fontes de aleatoriedade genuína, por outro lado, frequentemente recorrem ao
+Fontes de aleatoriedade\index{aleatoriaedade} genuína, por outro lado, frequentemente recorrem ao
 mundo físico, indo além dos métodos algorítmicos determinísticos. Exemplos
 clássicos incluem o ruído térmico em circuitos eletrônicos, a decadência
 radioativa ou fenômenos atmosféricos captados por sensores, usados em geradores
@@ -62,14 +62,14 @@ desses dados brutos ao processá-los de maneira previsível.
 
 Um exemplo prático disso é encontrado no sistema operacional Linux, que utiliza
 duas fontes principais de números aleatórios: \texttt{/dev/random} e
-\texttt{/dev/urandom}. O dispositivo \texttt{/dev/random} gera números
+\texttt{/dev/urandom}\index{RNG!gerador de números aleatórios do Linux}. O dispositivo \texttt{/dev/random} gera números
 aleatórios de alta qualidade a partir de uma ``piscina de entropia'' alimentada
-por ruído ambiente, como os eventos mencionados, mas pode bloquear a leitura se
+por ruído ambiente, como os eventos mencionados anteriormente, mas pode bloquear a leitura se
 a entropia disponível for insuficiente, tornando-o ideal para operações
 criptográficas que priorizam segurança sobre velocidade. Já o
 \texttt{/dev/urandom}, embora também utilize a mesma piscina de entropia, não
-bloqueia a leitura, gerando dados adicionais mesmo em baixa entropia ao
-reutilizar e estender os valores coletados; isso o torna mais adequado para
+bloqueia a leitura, gerando dados adicionais mesmo em baixa entropia \parencite{bansal2023,gutterman2006analysis}; 
+isso o torna mais adequado para
 aplicações como simulações, que demandam grandes quantidades de números
 aleatórios rapidamente.
 
@@ -77,11 +77,11 @@ aleatórios rapidamente.
 
 \section{O Gerador Lehmer}
 
-Um dos primeiros métodos métodos proposto para gerar números aleatórios é o método de Lehmer,
+Um dos primeiros métodos métodos proposto para gerar números aleatórios é o \emph{método de Lehmer}\index{RNG!gerador de Lehmer},
 proposto por Derrick Henry Lehmer na década de 1940. O método se baseia em uma
 relação de recorrência linear para produzir sequências de valores aparentemente
-aleatórios. Esse gerador, frequentemente classificado como um Gerador Linear
-Congruencial, utiliza a multiplicação e o módulo como peças fundamentais, definindo
+aleatórios. Esse gerador, frequentemente classificado como um \emph{Gerador Linear
+Congruencial}\index{RNG!LCG} (veja a definição na página \pageref{itm:LCG}), utiliza a multiplicação e o módulo como peças fundamentais, definindo
 cada novo número na sequência por meio de:
 \begin{equation}
   X_{k+1} = g \cdot X_k \mod n ,
@@ -91,10 +91,10 @@ $n$ é o módulo (geralmente um número primo ou potência de um primo), e $X_0$
 que deve ser coprima com $n$. 
 
 Apesar de sua simplicidade, o Gerador Lehmer revela questões importantes sobre a
-percepção de aleatoriedade, tema que explorado por Stephen Wolfram em seus
+percepção de aleatoriedade, tema explorado por Stephen Wolfram em seus
 estudos sobre sistemas complexos. Wolfram demonstrou que a aparente
-aleatoriedade de uma sequência pode variar dramaticamente dependendo de como
-ela é visualizada. Por exemplo, ao representar os números gerados por um gerador linear congruencial
+aleatoriedade de uma sequência pode variar drasticamente dependendo de como
+ela é visualizada. Por exemplo, ao representar os números gerados por um gerador linear congruencial\index{RNG!LCG}
 como uma sequência unidimensional de valores, a saída pode parecer caótica e
 desprovida de padrões. No entanto, ao organizá-los em uma matriz
 bidimensional --- onde cada valor é plotado como um ponto em linhas e colunas
@@ -109,27 +109,25 @@ A \Cref{fig:lehmer} ilustra um exemplo utilizando $g=3$ e $n=2^{32}$.
   por fim, a representação de $X_k \times X_{k+1}$.}\label{fig:lehmer}
 \end{figure}
 Esse fenômeno também ocorre na Regra 30 proposta por Wolfram,
-onde uma simples regra iterativa gera saídas que parecem aleatórias em uma dimensão, mas exibem ordem
+onde um simples processo iterativo gera saídas que parecem aleatórias em uma dimensão, mas exibem ordem
 em representações visuais alternativas.
 
-A relação entre aleatoriedade e visualização no contexto do Gerador Lehmer
+A relação entre aleatoriedade e visualização no contexto do Gerador Lehmer\index{RNG!gerador de Lehmer}
 destaca suas limitações práticas. Se os parâmetros $g$ e $n$ forem mal
 escolhidos, a sequência pode apresentar ciclos curtos ou padrões visíveis,
 comprometendo sua utilidade em aplicações que exigem alta imprevisibilidade.
-Por exemplo, em testes gráficos como o plano de fases (plotando $X_k$ contra
-$X_{k+1}$), geradores lineares simples frequentemente revelam retas ou grades,
-evidenciando correlações indesejadas. Mesmo com parâmetros otimizados, a
-natureza determinística do método implica que ele nunca produz aleatoriedade
-genuína, apenas uma aproximação que pode ser suficiente para cenários, como
-simulações básicas, mas inadequada para criptografia.
-
-
+Por exemplo, em testes gráficos como aquele apresentado na \Cref{fig:lehmer},
+geradores lineares simples frequentemente revelam retas ou grades,
+evidenciando correlações indesejadas. 
+Mesmo com parâmetros otimizados, a natureza determinística do método implica que ele nunca produz aleatoriedade genuína. 
+No entanto, sua simplicidade o torna adequado para simulações básicas e aplicações que não exigem números pseudoaleatórios de alta qualidade.
 
 
 \section{O Gerador Mersenne Twister}
 
-O Mersenne Twister é um algoritmo de geração de números pseudoaleatórios
-desenvolvido por Makoto Matsumoto e Takuji Nishimura em 1997, amplamente
+O \emph{Mersenne Twister}\index{RNG!Mersenne Twister} é um algoritmo de geração de números pseudoaleatórios
+desenvolvido por \textcite{matsumoto1998mersenne}, %Makoto Matsumoto e Takuji Nishimura em 1997, 
+amplamente
 reconhecido por sua capacidade de produzir sequências com propriedades
 estatísticas de alta qualidade e um período excepcionalmente longo. O nome
 ``Mersenne Twister'' reflete sua fundamentação matemática: o algoritmo utiliza
@@ -141,12 +139,12 @@ correlação entre valores consecutivos.
 
 O Mersenne Twister também oferece um equilíbrio entre qualidade estatística e
 eficiência computacional. Embora não seja o gerador mais rápido disponível ---
-métodos mais simples, como geradores lineares congruenciais, podem ser mais
+métodos mais simples, como geradores lineares congruenciais\index{RNG!LCG}, podem ser mais
 rápidos em termos de tempo de execução ---, ele compensa com sua robustez e
-confiabilidade, tornando-o adequado para uma ampla gama de aplicações. Por essa
+confiabilidade, tornando-o adequado para uma ampla gama de aplicações. 
 
 O Mersenne Twister também possui uma boa eficiência computacional, sendo por
-isso amplamente adotado em linguagens de programação, como a função
+isso amplamente adotado em linguagens de programação, como na função
 \texttt{rand} do Octave e do MATLAB, que utiliza a variante MT19937 com período
 $2^{19937} - 1$ (seu período extremamente longo), bem como em bibliotecas
 padrão de linguagens como Python (\texttt{random}) e C++
@@ -156,29 +154,78 @@ inadequado para aplicações criptográficas.
 
 \subsection{MT19937}
 
-O Mersenne Twister (MT)~\parencite{matsumoto1998mersenne} é um dos geradores de
+O Mersenne Twister~\parencite{matsumoto1998mersenne} é um dos geradores de
 números pseudoaleatórios (RNGs) mais amplamente utilizados, sendo um GFSR
 (\textit{Generalized Feedback Shift Register}) com \textit{twist}.
-Conforme \textcite{tan2016}, o algoritmo
-do MT pode ser descrito pelas seguintes etapas:
+%Conforme \textcite{tan2016}, o algoritmo
+%do MT pode ser descrito pelas seguintes etapas:
+%
+%\begin{enumerate}[noitemsep]
+%    \item Inicialização: Defina $r$ números de $w$ bits $(x_i, i=1,2,\ldots,r)$ aleatoriamente como valores iniciais.
+%    \item Definição da Matriz de Recorrência: Considere a matriz
+%    \[
+%    A = \begin{pmatrix}
+%    0 & I_{w-1} \\
+%    a_w & a_{w-1} \cdots a_1
+%    \end{pmatrix},
+%    \]
+%    onde $I_{w-1}$ é a matriz identidade $(w-1) \times (w-1)$, e $a_i, i = 1, \ldots, w$, assume valores 0 ou 1.
+%    \item Recorrência: Para cada $i \geq 0$, calcule
+%    \[
+%    x_{i+r} = (x_{i+s} \oplus (x_i^{(w:(l+1))} | x_{i+1}^{(l:1)}) A),
+%    \]
+%    onde $x_i^{(w:(l+1))}| x_{i+1}^{(l:1)}$ representa a concatenação de $x_i^{(w:(l+1))}$, os $w-l$ bits mais significativos (superiores)
+%    de $x_i$, com $x_{i+1}^{(l:1)}$, os $l$ bits menos significativos de $x_{i+1}$.
+%    \item \textit{Tempering:} Para cada $x_{i+r}$, aplique as operações sequencialmente:
+%    \[
+%    \begin{aligned}
+%    z &= x_{i+r} \oplus (x_{i+r} \gg t_1), \\
+%    z &= z \oplus ((z \ll t_2) \land m_1), \\
+%    z &= z \oplus ((z \ll t_3) \land m_2), \\
+%    z &= z \oplus (z \gg t_4), \\
+%    u_{i+r} &= z / (2^w - 1),
+%    \end{aligned}
+%    \]
+%    onde $t_1, t_2, t_3, t_4$ são inteiros, $m_1, m_2$ são máscaras de bits, 
+%    e $\land$ é a operação \textit{bitwise AND}. Os valores $u_{i+r}, i = 1, 2, \ldots$, 
+%    formam a sequência no intervalo $[0, 1]$.
+%\end{enumerate}
+%
+%Com valores apropriados de $r$, o MT pode gerar sequências com período de até
+%$2^{19937}$, além de possuir boas propriedades
+%estatísticas \parencite{matsumoto1998mersenne}.
 
-\begin{itemize}
-    \item \textbf{Inicialização:} Defina $r$ números de $w$ bits $(x_i, i = 1, 2, \ldots, r)$ aleatoriamente como valores iniciais.
-    \item \textbf{Definição da Matriz de Recorrência:} Considere a matriz
+De acordo com \textcite{tan2016}, o algoritmo Mersenne Twister pode ser
+descrito pelas seguintes etapas:
+
+\begin{enumerate}[noitemsep]
+    \item Inicialização: Gere $r$ números de $w$ bits, representados por 
+      $(x_i, i=1,2,\ldots,r)$, que serão os valores iniciais. Esses números são
+      obtidos a partir de uma semente (\textit{seed}) fornecida.
+
+    \item Definição da Matriz de Recorrência: Construa a matriz $A$, dada por:
     \[
     A = \begin{pmatrix}
     0 & I_{w-1} \\
     a_w & a_{w-1} \cdots a_1
     \end{pmatrix},
     \]
-    onde $I_{w-1}$ é a matriz identidade $(w-1) \times (w-1)$, e $a_i, i = 1, \ldots, w$, assume valores 0 ou 1.
-    \item \textbf{Recorrência:} Para cada $i \geq 0$, calcule
+    onde $I_{w-1}$ é a matriz identidade de tamanho $(w-1) \times (w-1)$; 
+    $a_i$, para $i = 1, \ldots, w$, são valores fixos iguais a 0 ou 1, definidos previamente para garantir boas propriedades estatísticas.
+    
+    \item Recorrência: Para cada $i \geq 0$, calcule o próximo número da sequência com a fórmula:
     \[
-    x_{i+r} = (x_{i+s} \oplus (x_i^{(w:(l+1))} | x_{i+1}^{(l:1)}) A),
+    x_{i+r} = (x_{i+s} \oplus (x_i^{(w:(l+1))} \mid x_{i+1}^{(l:1)}) A),
     \]
-    onde $x_i^{(w:(l+1))}| x_{i+1}^{(l:1)}$ representa a concatenação dos $w-l$ bits mais significativos (superiores)
-    de $x_i$, e $x_{i+1}^{(l:1)}$ os $l$ bits menos significativos de $x_{i+1}$.
-    \item \textbf{Tempering:} Para cada $x_{i+r}$, aplique as operações sequencialmente:
+    onde
+    $s$ é um inteiro predefinido que determina o deslocamento na sequência de estados,
+    geralmente fixado como $s = r - n$ (onde $n$ é um parâmetro do algoritmo, como o grau de recorrência);
+    $x_i^{(w:(l+1))}$ são os $w-l$ bits mais significativos (parte superior) de $x_i$;
+    $x_{i+1}^{(l:1)}$ são os $l$ bits menos significativos (parte inferior) de $x_{i+1}$;
+    $\mid$ representa a concatenação desses bits;
+    $\oplus$ é a operação \textit{bitwise XOR}.
+
+    \item Temperamento (\textit{Tempering}): Para cada $x_{i+r}$, aplique as seguintes operações em sequência para melhorar a qualidade estatística do número gerado:
     \[
     \begin{aligned}
     z &= x_{i+r} \oplus (x_{i+r} \gg t_1), \\
@@ -188,15 +235,17 @@ do MT pode ser descrito pelas seguintes etapas:
     u_{i+r} &= z / (2^w - 1),
     \end{aligned}
     \]
-    onde $t_1, t_2, t_3, t_4$ são inteiros, $m_1, m_2$ são máscaras de bits, 
-    e $\land$ é a operação \textit{bitwise AND}. Os valores $u_{i+r}, i = 1, 2, \ldots$, 
-    formam a sequência no intervalo $[0, 1]$.
-\end{itemize}
+    onde $t_1, t_2, t_3, t_4$ são inteiros que definem o número de posições dos deslocamentos de bits;
+    $\gg$ e $\ll$ são operações de deslocamento lógico à direita e à esquerda, respectivamente;
+    $m_1, m_2$ são máscaras de bits predefinidas;
+    $\land$ é a operação \textit{bitwise AND};
+    $u_{i+r}$ é o número final gerado, que estará no intervalo $[0, 1]$.
+    A sequência $u_{i+r}$, para $i = 1, 2, \ldots$, representa os números pseudoaleatórios gerados.
+\end{enumerate}
 
-Com valores apropriados de $r$, o MT pode gerar sequências com período de até
-$2^{19937}$, além de possuir boas propriedades
-estatísticas \parencite{matsumoto1998mersenne}.
-
+Com os parâmetros corretamente ajustados, como o valor de $r$, o Mersenne Twister pode gerar
+sequências com um período de até $2^{19937}$, além de apresentar excelentes
+propriedades estatísticas \parencite{matsumoto1998mersenne}.
 
 
 
@@ -204,34 +253,34 @@ estatísticas \parencite{matsumoto1998mersenne}.
 
 \subsection{Abordagens para Geração de Números Pseudoaleatórios}
 
-Diversas abordagens existem para gerar números pseudoaleatórios
-\parencite{knuth1997art,matsumoto1998mersenne,wolfram2002,kocarev2011chaos,kneusel2018random},
-abaixo listamos algumas delas:
+Existem diversas abordagens para gerar números pseudoaleatórios
+\parencite{knuth1997art,matsumoto1998mersenne,wolfram2002,kocarev2011chaos,kneusel2018random}.
+Abaixo listamos algumas delas:
 
 \begin{itemize}
-    \item Geradores Lineares Congruenciais (LCGs): \\
+  \item \label{itm:LCG} Geradores Lineares Congruenciais (\textit{linear congruential generator}, LCGs)\index{RNG!LCG}: \\
 	Baseiam-se em uma relação de recorrência linear da forma 
 	\begin{equation}
 	    X_{n+1} = (a \cdot X_n + c) \mod m ,
 	\end{equation} 
-	como o exemplo do Gerador Lehmer visto anteriormente.
+  como o exemplo do Gerador Lehmer\index{RNG!gerador de Lehmer} visto anteriormente.
 	Este tipo de gerador é simples, mas com período curto e baixa qualidade estatística.
-    \item Geradores de Fibonacci com Atraso (LFGs): \\
+\item Geradores de Fibonacci com Atraso (\textit{Lagged Fibonacci generator}, LFGs)\index{RNG!LFG}: \\
 	Geram números combinando valores anteriores da sequência usando uma operação (como adição ou XOR) com atrasos:
 	\begin{equation}
 	    X_n = (X_{n-k} \oplus X_{n-l}) \mod 2^w ,
 	\end{equation} 
 	oferecendo períodos longos, mas exigindo estados iniciais grandes.
-    \item Autômatos Celulares: \\ 
+    \item Autômatos Celulares\index{RNG!Autômatos Celulares}: \\ 
 	Aplicam regras como a Regra 30 vista anteriormente, 
 	\begin{equation} 
 	    c_i(t+1) = c_{i-1}(t) \oplus (c_i(t) \lor c_{i+1}(t)) ,
 	\end{equation} 
 	gerando padrões caóticos, porém computacionalmente custosos.
-    \item Funções de Hash e Criptográficas: \\
+    \item Funções de Hash e Criptográficas\index{RNG!Funções Criptográficas}: \\
 	Utilizam funções como SHA-256 ($R_i = H(S || C)$) ou cifras de fluxo como ChaCha ($R_i = \text{ChaCha}(K, C)$), 
 	sendo seguras para criptografia, porém mais lentas.
-    \item Geradores Baseados em Caos: \\
+    \item Geradores Baseados em Caos\index{RNG!Caos}: \\
 	Empregam sistemas caóticos, como o mapa logístico 
 	\begin{equation}
 	    X_{n+1} = r \cdot X_n \cdot (1 - X_n) ,
@@ -249,12 +298,12 @@ abaixo listamos algumas delas:
 Os geradores de números pseudoaleatórios (PRNGs), como aqueles abordados
 anteriormente, são destinados a aplicações onde a qualidade estatística da
 sequência é suficiente, como em simulações ou modelagem. Geradores de números
-aleatórios são fundamentais para a criptografia. A segurança de algoritmos
+aleatórios são fundamentais para a criptografia e a segurança de algoritmos
 criptográficos depende diretamente da qualidade desses números. Neste aspecto,
 referimos à imprevisibilidade e impossibilidade de se encontrar padrões nos
 números gerados.  Desta forma, os geradores mencionados anteriormente não são
 rigorosos suficiente para serem utilizados em contextos criptográficos. Um
-Gerador de Números Pseudoaleatórios Criptograficamente Seguro (CSPRNG\footnote{Cryptographically secure pseudorandom number generator.})
+Gerador de Números Pseudoaleatórios Criptograficamente Seguro (CSPRNG\footnote{Cryptographically secure pseudorandom number generator.})\index{RNG!CSPRNG}
 é um PRNG projetado para garantir não apenas boas propriedades estatísticas,
 mas também imprevisibilidade e resistência a ataques, mesmo contra adversários
 com recursos computacionais significativos.
@@ -264,14 +313,14 @@ exemplo: geração de chaves criptográficas (as chaves devem ser imprevisíveis
 para para evitar ataques de força bruta ou inferência); vetores de
 inicialização (muitos métodos requerem dados de inicialização para garantir
 imprevisibilidade e vazamento de informação); nonces (números utilizados uma
-única vez em diversos protocolos necessitam de valores únicos e imprevisíveis
+única vez em diversos protocolos necessitam de valores únicos e inesperados
 para evitar ataques de repetição); salts (sequências aleatórias adicionadas a
 senhas dificultam ataques de dicionário ou tabelas arco-íris); tolkens (são
 utilizados em sistemas de autenticação para garantir unicidade e segurança).
 
 Além dos requisitos típicos de PRNGs, como distribuição uniforme e período
 longo, os CSPRNGs devem atender a critérios adicionais:
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item Imprevisibilidade: Dado um trecho da sequência gerada, não deve ser 
 	possível prever os próximos bits com probabilidade significativamente 
 	maior que a aleatória.
@@ -289,7 +338,7 @@ robustez é essencial para aplicações sensíveis à segurança.
 
 \begin{example}[CSPRNG Baseado em AES no Modo CTR]
 Um exemplo ilustrativo de CSPRNG é o uso do algoritmo AES (\textit{Advanced
-Encryption Standard}) no modo \textit{Counter} (CTR). Nesse esquema, uma chave
+Encryption Standard})\index{AES} no modo \textit{Counter} (CTR). Nesse esquema, uma chave
 secreta $K$ e um contador inicial $C_0$ são usados para gerar uma sequência
 pseudoaleatória. A cada iteração, o contador $C_i$ é incrementado, e a saída é
 obtida cifrando $C_i$ com $K$:

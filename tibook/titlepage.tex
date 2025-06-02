@@ -1,0 +1,34 @@
+% Cover content here
+\newpage % or \clearpage if needed
+
+\begingroup
+\let\cleardoublepage\clearpage
+% Title Page
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    \Huge
+    \emph{\thetitle} % Use \thetitle to get the title
+    
+    %\vspace{0.5cm}
+    %\LARGE
+    %Subtitle of the Book
+   
+    \Large %normalsize 
+    \vspace{1.5cm}
+    \theauthor % Use \theauthor to get the author name
+    
+    \vfill
+    
+    \normalsize
+    %Publisher Name \\
+    \thedate % Use \thedate to get the date
+    
+    %\vspace{0.8cm}
+    
+    %\includegraphics[width=0.3\textwidth]{path/to/your/logo.png} % Optional logo
+    
+    %\vspace{0.5cm}
+\end{titlepage}
+\endgroup

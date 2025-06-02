@@ -128,15 +128,6 @@
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 
-% Configuração para português
-\floatname{algorithm}{Algoritmo}
-\renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
-\renewcommand{\algorithmicensure}{\textbf{Saída:}}
-\renewcommand{\algorithmicwhile}{\textbf{enquanto}}
-\renewcommand{\algorithmicif}{\textbf{se}}
-\renewcommand{\algorithmicthen}{\textbf{então}}
-\renewcommand{\algorithmicreturn}{\textbf{retorne}}
-
 % Definindo o ambiente interlude
 \newenvironment{interlude}
     {\vspace{2ex}\small\noindent\textbf{Interlúdio}\\} % Começo do ambiente
@@ -164,20 +155,24 @@
 \usepackage{enumitem}
 \usepackage{pdfpages}
 
+\usepackage{titling}
+\usepackage{imakeidx}
+\makeindex
+
 
 \title{Teoria da Informação e\\Codificação}
 \author{Leonardo Araújo}
 
-
 \begin{document}
 \includepdf[pages=-]{figures/cover.pdf}
-\frontmatter 
 %\maketitle
+
+\input{titlepage.tex}
+
+\input{copyright.tex}
+
 \tableofcontents
 
-\input{prefacio.tex}
-
-\mainmatter 
 \input{intro.tex}
 
 \input{aleatoriedade.tex}
@@ -197,16 +192,8 @@
 \input{algebra.tex}
 
 
-
-\appendix
-\cleardoublepage
-\thispagestyle{empty}
-\vspace*{\fill}
-\begin{center}
-  {\itshape\Huge Apêndices} % Tentativa de usar a fonte do capítulo
-\end{center}
-\vspace*{\fill}
-\input{appendix.tex}
+%\appendix
+%\input{appendix.tex}
 
 % https://www.overleaf.com/learn/latex/Spacing_in_math_mode
 %The different spacing commands in LaTeX math mode serve to fine-tune the spacing between symbols and elements in mathematical expressions. Here’s when you should use each:
@@ -245,6 +232,8 @@
 
 %\chapter{Bibliografia}
 %\bibliography{tibook}
+
+\printindex
 \printbibliography
 
 \end{document}
