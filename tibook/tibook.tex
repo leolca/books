@@ -1,4 +1,4 @@
-\documentclass[openany,nobib]{tufte-book}
+\documentclass[openany,nobib,nohyper]{tufte-book}
 
 %%
 % For nicely typeset tabular material
@@ -67,6 +67,7 @@
 \newtheorem{example}{Exemplo}
 \newtheorem{note}{Nota}
 
+
 %%%%%%%%%%%%%%%%% math operators
 \DeclareMathOperator*{\argmin}{\arg\!\min}
 \DeclareMathOperator*{\argmax}{\arg\!\max}
@@ -122,7 +123,27 @@
 
 \usepackage{blkarray}
 
+\usepackage{imakeidx}
+\makeindex
+
+\usepackage[unicode,hyperfootnotes=false,xetex]{hyperref}
+  \hypersetup{%
+    pdfborder = {0 0 0},
+    bookmarksdepth = section,
+    citecolor = DarkGreen,
+    linkcolor = DarkBlue,
+    urlcolor = DarkGreen,
+    hyperindex=true,
+  }%
+
 \usepackage[brazilian]{cleveref}
+\crefname{lema}{lema}{lemas}
+\Crefname{lema}{Lema}{Lemas}
+\crefname{proposition}{proposição}{proposições}
+\Crefname{proposition}{Proposição}{Proposições}
+\crefname{remark}{observação}{observações}
+\Crefname{remark}{Observação}{Observações}
+
 
 %\usepackage{listings}
 \usepackage{algorithm}
@@ -132,6 +153,15 @@
 \newenvironment{interlude}
     {\vspace{2ex}\small\noindent\textbf{Interlúdio}\\} % Começo do ambiente
     {\vspace{1ex}\\\hfill\rule{0.5\linewidth}{0.5pt}\hfill\vspace{2ex}} % Fim do ambiente com linha horizontal e espaço
+
+% Definindo o fim do example
+\usepackage{xpatch}
+\xpatchcmd{\endexample}
+  {\endtrivlist}
+  {\smallskip\hfill\rule{3em}{0.4pt}\hfill\medskip\endtrivlist}
+  {}{\fail}
+
+
 
 \usepackage{ifxetex}
 \ifxetex
@@ -156,9 +186,6 @@
 \usepackage{pdfpages}
 
 \usepackage{titling}
-\usepackage{imakeidx}
-\makeindex
-
 
 \title{Teoria da Informação e\\Codificação}
 \author{Leonardo Araújo}

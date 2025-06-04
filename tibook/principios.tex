@@ -1,6 +1,6 @@
 \chapter{Princípios Fundamentais}
 
-A comunicação envolve alguns componentes fundamentais: uma fonte, que gera a
+A \emph{comunicação}\index{comunicação} envolve alguns componentes fundamentais: uma fonte, que gera a
 mensagem; um transmissor, que envia a mensagem através de algum meio; um canal
 de comunicação, que é o meio pelo qual a comunicação se estabelece, sendo
 suscetível a ruídos e interferências; um receptor, que recebe a mensagem; e,
@@ -9,11 +9,11 @@ por fim, o destinatário da mensagem (veja o diagrama na
 Theory of Communication}''\cite{shannon1948}). No âmago do processo de
 comunicação reside um problema fundamental: reconstruir no receptor a exata
 mensagem pretendida pelo emissor. Independentemente de estarmos lidando com a
-comunicação falada, escrita ou por meio de sinais digitais, o objetivo é o
+comunicação falada, escrita, ou por meio de sinais digitais, o objetivo é o
 mesmo. Embora cada sistema guarde suas nuances, a teoria da informação proposta
 por \textcite{shannon1948} busca lidar com essa problemática sob uma perspectiva
-unificada. Para tanto, ele introduziu conceitos fundamentais como entropia e
-capacidade de canal. Neste livro, procuraremos apresentar uma visão geral da
+unificada. Para tanto, ele introduziu conceitos fundamentais como \emph{entropia}\index{entropia} e
+\emph{capacidade de canal}\index{capacidade de canal}. Neste livro, procuraremos apresentar uma visão geral da
 teoria, seus fundamentos e aspectos práticos.
 
 \begin{figure}
@@ -34,23 +34,23 @@ assim, projetar e otimizar cada uma delas separadamente.
 Para lidar matermaticamente com a comunicação, um processo que envolve
 incerteza e variabilidade, e trazer então uma perspectiva probabilística na
 abordagem do problema, inicialmente, é essencial entender o conceito de
-variável aleatória (v.a.). Uma variável aleatória é uma variável que pode
-assumir diferentes valores dependendo de fatores aleatórios, ou seja, opera-se
+\emph{variável aleatória}\index{variável aleatória} (v.a.). Uma variável aleatória é uma variável que pode
+assumir diferentes valores dependendo de fatores aleatórios, ou seja, há
 um mecanismo não determinístico que torna impossível prever seu valor. Ela
 representa a incerteza inerente a eventos ou processos aleatórios e pode ser
 utilizada para modelar diversos experimentos, como o lançamento de um dado, a
 previsão do tempo ou a sequência de caracteres em um texto. Na notação aqui
 adotada, as variáveis aleatórias serão representadas por letras maiúsculas,
-como, por exemplo, $X$. Uma variável aleatória discreta é aquela que pode
+como, por exemplo, $X$. Uma \emph{variável aleatória discreta}\index{variável aleatória!discreta} é aquela que pode
 assumir valores em um conjunto enumerável. As realizações de uma v.a. se dão de
 acordo com uma distribuição subjacente $p$, e assim dizemos que $X \sim p$.
 Para representar o conjunto de valores que a variável aleatória pode assumir,
 utilizaremos a letra em forma caligráfica $\mathcal{X}$, enquanto um valor
-específico que a variável pode assume será denotado por uma letra minúscula,
-como $x$. Assim, podemos descrever que a variável aleatória $X$ assume o valor
-$x$ através do evento $\{X=x\}$. 
+específico que a variável assume será denotado por uma letra minúscula
+$x$. Assim, podemos descrever que a variável aleatória $X$ assume o valor
+$x$ através da realização do evento $\{X=x\}$. 
 
-Dada uma v.a. $X$, em um alfabeto $\mathcal{X}$ de cardinalidade $N = \vert\mathcal{X}\vert$,
+Considere uma v.a. $X$, em um alfabeto $\mathcal{X}$ de cardinalidade $N = \vert\mathcal{X}\vert$,
 onde $\mathcal{X} = \{a_1,\ldots,a_N\}$ e $a_i$, $i=1,\ldots,N$, representa
 cada um dos possíveis valores que a v.a. pode assumir com probabilidade $p_i$, ou seja,
 $p_i = \Pr(X=a_i)$. A distribuição subjacente que rege a v.a. $X$ é
@@ -58,7 +58,7 @@ $p = \mathcal{P}_X = \{p_1, \ldots, p_N\}$, tal que $p_i \geq 0$ e $\sum_{i=1}^N
 de forma equivalente, $\sum_{x \in \mathcal{X}} \Pr(X=x) = 1$.
 
 
-\textcite{hartley1928} introduziu a ideia de que a quantidade de informação pode
+\textcite{hartley1928} introduziu a ideia de que a quantidade de informação\index{informação!Hartley} pode
 ser medida em termos de possibilidades. Hartley propôs que a informação é
 diretamente proporcional ao logaritmo do número de estados possíveis de um
 sistema, estabelecendo assim uma base para a quantificação da informação. A
@@ -73,22 +73,23 @@ onde $b$ é a base utilizada para medir tal informação. Para $b=2$, a informa�
 será medida em `bits' (nome sugerido por J.W. Tukey).
 
 O conceito proposto por Hartley sobre a quantificação da informação é
-diretamente consonante com a interpretação da capacidade representacional de
-uma unidade de memória. Em termos práticos, uma unidade de memória com $n$ bits
+consonante com a interpretação da capacidade representacional de
+uma unidade de memória. Uma unidade de memória com $n$ bits
 é capaz de representar $2^n$ sequências binárias distintas, o que implica que
 essa unidade possui $n$ bits de informação. Quando consideramos duas unidades
 de memória, cada uma com $n$ bits, a capacidade total se torna $2n$ bits,
 permitindo a representação de $2^{2n}$ sequências binárias distintas. Essa
-relação demonstra que, conforme a quantidade de bits de memória aumenta, a
-capacidade de representação de informações também cresce exponencialmente,
-alinhando-se perfeitamente com a proposta de Hartley de que a informação é
-medida em função do número de estados possíveis.
+relação demonstra que, conforme a quantidade de bits de memória aumenta,
+apesar do número de sequências possíveis crescer exponencialmente, a
+capacidade de representação de informações cresce proporcionalmente ao crescimento
+da memória, alinhando-se perfeitamente com a proposta de Hartley de que a informação é
+medida em função do logaritmo do número de estados possíveis.
 
 Um conceito fundamental que emerge na discussão sobre a teoria da informação é
-a redundância, ou ainda, a previsibilidade. A redundância refere-se à parte da
+a \emph{redundância}\index{redundância}, ou ainda, a previsibilidade. A redundância refere-se à parte da
 informação que é repetitiva ou desnecessária para a compreensão, podendo ser
 eliminada sem perda de significado. Enquanto, sob uma primeira vista, pode ser
-vista como um desperdício de recursos, a redundância também desempenha um papel
+vista como um desperdício de recursos. A redundância também desempenha um papel
 crucial na detecção e correção de erros, permitindo que a informação seja
 transmitida de forma mais confiável em ambientes ruidosos. Exemplo disso é a
 redundância presente na comunicação escrita. Veja como o trecho a seguir pode
@@ -110,15 +111,15 @@ notar que a incerteza associada a esses eventos não pode ser a mesma. Assim, a
 incerteza não depende apenas do tamanho do alfabeto, mas também das
 probabilidades associadas a cada evento. Para um evento $E_k$ com probabilidade
 $p_k$, a quantidade de informação (medida em bits) associada a esse evento é
-expressa pela fórmula
+expressa por
 %
 \begin{equation}\label{eq-info-prop}
-I(E_k) = − \log_2 (p_k) . 
+  I(E_k) = \log_2 (\sfrac{1}{p_k}) = − \log_2 (p_k) . 
 \end{equation}
 %
 Essa relação indica que eventos menos prováveis, ou seja, aqueles com
 probabilidades mais baixas, geram uma maior quantidade de informação, pois sua
-ocorrência é mais inesperada. Em contrapartida, eventos com alta probabilidade
+ocorrência é inesperada. Em contrapartida, eventos com alta probabilidade
 resultam em uma quantidade menor de informação, refletindo a redundância
 presente na comunicação. Essa compreensão da relação entre probabilidade e
 informação é essencial para o desenvolvimento do conceito de entropia, que
@@ -130,11 +131,11 @@ associada a uma variável aleatória.
 \textcite{shannon1948} propôs a entropia com forma de quantificar a incerteza
 associada a uma v.a., fornecendo assim uma medida da aleatoriedade.
 A entropia nos permite entender como a distribuição de probabilidades de uma
-variável aleatória influencia na informação associada a ela. A
+variável aleatória influencia na informação\index{informação} associada a ela. A
 entropia de uma v.a. é então expressa como o valor esperado da informação própria
 associada aos eventos no alfabeto desta v.a., ou seja, $E_p[I(E_k)]$ e será
 expressa por $H(X)$.
-\begin{definition}[Entropia]
+\begin{definition}[Entropia\index{entropia}]
 \begin{subequations}\label{eq:entropy-def}
 \begin{align}
   H(X) \: &\triangleq \: \E_p \left[ -\log(p_k) \right] \\
@@ -145,11 +146,11 @@ expressa por $H(X)$.
 \end{definition}
 Passamos a adotar a convenção $\log = \log_2$, uma vez que estaremos
 sempre medindo a informação em bits. Quando necessário utilizar uma base
-diferente, expressaremos explicitamente.
+diferente, expressaremos explicitamente (por exemplo, $\ln = \log_e$ para base $e$ e $\log_{10}$ para base decimal).
 
 Para encontrar a formulação dada na \Cref{eq:entropy-def},
 \textcite{shannon1948} propôs uma função de entropia $H$, que depende da
-distribuição de massa $p$. Dado um alfabeto de tamanho $N = \mathcal{X}$, e
+distribuição de massa $p$. Dado um alfabeto de tamanho $N = |\mathcal{X}|$, e
 distribuição $p = \{p_1,\ldots,p_N\}$, Shannon estabeleceu três propriedades
 fundamentais que a função de entropia deveria satisfazer. A primeira
 propriedade exige que $H$ seja contínua em relação às probabilidades $p_i$, o
@@ -163,11 +164,11 @@ que se uma escolha pode ser decomposta em uma sequência de escolhas
 independentes, a entropia total deve ser a soma ponderada das entropias
 individuais de cada escolha. Essa propriedade é crucial para a análise de
 sistemas complexos, onde a informação pode ser tratada em partes menores e
-combinadas para obter uma visão global.
+combinadas para obter um resultado global.
 
 A formulação matemática da entropia de Shannon, dada na \Cref{eq:entropy-def},
-emerge naturalmente ao considerar essas propriedades, sendo a função
-logarítmica utilizada devido à sua capacidade de transformar multiplicações em
+emerge naturalmente ao considerar essas propriedades. A função
+logarítmica utilizada possui a sua capacidade de transformar multiplicações em
 somas, o que é essencial para garantir a aditividade da medida de informação.
 
 \begin{interlude}
@@ -197,7 +198,7 @@ somas, o que é essencial para garantir a aditividade da medida de informação.
   s^M \leq t^N \leq s^{(M+1)} .
   \end{equation}
   Tomando o logaritmo\footnote{Logaritmo é uma função monótona crescente.} da
-  expressão acima e dividindo por $N \log s$ todos os termos\footnote{
+  expressão acima e dividindo por $N \log s$\footnote{
       $N \log s$ é positivo para $N \geq 0$ e $s \geq 1$.
   }, teremos
   \begin{equation}
@@ -207,7 +208,7 @@ somas, o que é essencial para garantir a aditividade da medida de informação.
   \begin{equation}
   \left\vert \frac{M}{N} - \frac{\log t}{\log s} \right\vert < \epsilon ,
   \end{equation}
-  onde $\epsilon$ é arbitrariamente pequeno, já que $N$ é arbitrariamente
+  onde $\epsilon$ é arbitrariamente pequeno, para $N$ arbitrariamente
   grande.
 
   Usando agora a propriedade desejada de monotonicidade de $A(N)$, teremos
@@ -228,7 +229,7 @@ somas, o que é essencial para garantir a aditividade da medida de informação.
   \end{equation}
   e assim, como as duas frações ($\sfrac{\log t}{\log s}$ e
   $\sfrac{A(t)}{A(s)}$) estão $\epsilon$ próximas de $\sfrac{M}{N}$,
-  podemos concluir que
+  podemos concluir que, para $N$ grande suficiente,
   \begin{equation}
   \left\vert \frac{A(t)}{A(s)} - \frac{\log t}{\log s} \right\vert < 2\epsilon .
   \end{equation}
@@ -263,15 +264,20 @@ somas, o que é essencial para garantir a aditividade da medida de informação.
   \label{endof:interlude:appendix2}
 \end{interlude}
 
-Tomemos primeiramente um exemplo simples de uma v.a. binária $X \in \mathcal{X} = \{0,1\}$.
+
+\begin{example}[Entropia de uma v.a. binária]
+Considere uma v.a. binária $X \in \mathcal{X} = \{0,1\}$.
 Para simplificar, iremos denotar arbitrariamente por $\theta = Pr(X=1)$ e $1-\theta = Pr(X=0)$.
 Usando agora a definição dada na \Cref{eq:entropy-def}, teremos
-\begin{equation}\label{eq:entropia-binaria}
-H(X) = h(\theta) =  -\theta \log \theta - (1-\theta) \log (1-\theta)
-\end{equation}
-e, para simplificar, iremos denotar esta grandeza por $h(\theta)$.
+\begin{subequations}\label{eq:entropia-binaria}
+  \begin{align}
+    H(X) &=  -\theta \log \theta - (1-\theta) \log (1-\theta) \\
+         &= h(\theta)
+  \end{align}
+\end{subequations}
+onde, para simplificar, denotamos esta grandeza por $h(\theta)$.
 Sempre que utilizarmos esta notação, como por exemplo em $h(\sfrac{1}{4})$, $h(\sfrac{1}{3})$ ou $h(\pi)$,
-estaremos nos referindo à entropia binária definida na \Cref{eq:entropia-binaria}.
+estaremos nos referindo à \emph{entropia binária}\index{entropia!binária} definida na \Cref{eq:entropia-binaria}.
 Em alguns casos, pode aparecer a notação $H(\theta)$ para representar 
 a entropia binária, sem comprometer o entendimeno, uma vez que ficará claro pelo contexto
 se tratar de uma entropia binária.
@@ -284,14 +290,18 @@ se tratar de uma entropia binária.
 
 A \Cref{fig:entropiabinaria} apresenta o gráfico da entropia binária dada pela
 \Cref{eq:entropia-binaria}. Note como $H=0$ quando $\theta = 1$ ou $\theta =
-0$, ou seja, nos casos em que um dos eventos ocorre com probabilidade 1.
+0$, ou seja, nos casos em que um dos eventos ocorre com probabilidade 1,
+não existindo assim incerteza.
 Observe ainda como o máximo é alcançado em $\theta = \sfrac{1}{2}$, quando
-ambos eventos são equiprováveis (máxima incerteza). A função observada é
+ambos eventos são equiprováveis (incerteza máxima). A função observada é
 côncava, o que, mais à frente, mostraremos ser válido para toda função de
 entropia. A concavidade garante ainda que ao misturarmos (ponderarmos)
 distribuições diferentes não é possível obter uma entropia menor que a
 ponderação das entropias das partes.
+\end{example}
 
+
+\begin{example}[Entropia de uma v.a. uniforme]\index{entropia!distribuição uniforme}
 Vamos considerar agora o exemplo de uma v.a. com distribuição uniforme $X \sim u$.
 Usando a definição na \Cref{eq:entropy-def}, teremos que a entropia de $X$ será dada por
 \begin{subequations}\label{eq:entropy-uniform}
@@ -304,10 +314,12 @@ Como esperávamos, a entropia de uma distribuição uniforme é monotonicamente
 crescente com o tamanho do alfabeto. Intuitivamente, como já mencionado,
 a entropia é máxima para uma distribuição uniforme, uma vez que é a situação
 de maior incerteza para um dado alfabeto.
+\end{example}
 
 Ao analisarmos a \Cref{eq:entropy-def}, podemos nos questionar o que ocorre
 quando algum símbolo tem probabilidade zero, uma vez que aparecerá um termo
-$0 \log 0$ no somatório. Neste caso, iremos usar o valor limite $\lim_{x \rightarrow 0} x \log x = 0$.
+$0 \log 0$ no somatório. Como este termo é indefinido, iremos, neste caso,
+usar o valor limite $\lim_{x \rightarrow 0} x \log x = 0$.
 Para demonstrar (a menos de uma constate pela mudança de base do logaritmo), 
 usaremos para tanto a regra de L'Hospital:
 \begin{subequations}\label{eq:0log0}
@@ -317,12 +329,15 @@ usaremos para tanto a regra de L'Hospital:
 				    &= \lim_{x \rightarrow 0} -x = 0.
 \end{align}
 \end{subequations}
+Devemos então nos atentar a isto, sobretudo quando realizarmos calculos numéricos
+(a função para cálculo da entropia deve tratar estes casos).
 
-No próximo exemplo, vamos buscar aproximar a entropia de textos escritos.
+\begin{example}[Entropia de uma distribuição de Zipf\index{entropia!Zipf}]
+Neste exemplo, vamos buscar aproximar a entropia de textos escritos.
 Sabemos que a distribuição das palavras em textos segue uma lei de potência
 conhecida como Lei de Zipf
-\cite{zipf1935,zipf1949,FerreriCancho2001,araujo2013}.  A Lei de Zipf é uma
-observação empírica que também é observada em diversos outros naturais.  Ao
+\parencite{zipf1935,zipf1949,FerreriCancho2001,araujo2013}.  A Lei de Zipf é uma
+observação empírica que também é observada em diversos outros fenômenos naturais. Ao
 analisar um corpus de texto, Zipf constatou que a frequência de uma palavra é
 inversamente proporcional à sua posição em um ranking de frequência.  Essa
 relação pode ser expressa matematicamente como 
@@ -369,6 +384,7 @@ do sistema de escrita.
   \label{fig:zipfshakespeareentropy}
 \end{marginfigure}
 
+\end{example}
 
 
 
@@ -379,17 +395,17 @@ do sistema de escrita.
 
 \section{Propriedades da Entropia}\label{sec:entropyprop}
 
-A entropia possui várias propriedades fundamentais que iremos descrever a
-seguir. Essas propriedades não apenas ajudam a entender o comportamento da
-entropia e medidas relacionadas, como também serão uteis em diversas
-demonstrações. Nesta seção, exploraremos as principais propriedades da
+A entropia\index{entropia!propriedades} possui várias propriedades fundamentais
+que nos ajudam a entender seu comportamento e medidas relacionadas,
+como também serão uteis em diversas demonstrações.
+Nesta seção, exploraremos algumas das principais propriedades da
 entropia, incluindo a não negatividade, a concavidade, valor máximo, a
 continuidade, e a mudança de base.
 
-Como dito anteriormente, usualmente a unidade escolhida para medir a informação
+Usualmente a unidade escolhida para medir a informação
 é bit, e portanto utilizamos a base $2$. Entretanto, a entropia pode ser dada
-também em outras bases: nats (base $e$), trits (base $3$), hartley (base $10$).
-Para obtermos a entropia em outras bases, basta utiliza a regra de mudança de
+também em outras bases\index{entropia!bases}: nats (base $e$), trits (base $3$), hartley (base $10$).
+Para obtermos a entropia em outras bases, basta utilizar a regra de mudança de
 base do logaritmo: $\log_{a} x = \sfrac{\log_{b} x}{\log_{b} a}$. Teremos
 assim $H_b(X) = (\log_b a) H_a(X)$. A transformação para a base $e$ costuma ser
 útil nas demonstrações para evitar o fardo de se carregar uma constante durante
@@ -401,9 +417,9 @@ A incerteza nunca\footnote{Importante ressaltar que estamos aqui tratando de
     terá outra interpretação.} 
 será negativa, o que faz sentido intuitivamente.  Além disso, a não
 negatividade é uma propriedade importante para encontrarmos outras relações.
-Para verificá-la, basta notar que a entropia é a soma de termos da forma $-p
-\log p$, como $0 \leq p \leq 1$, teremos que cada termo da soma é maior ou
-igual a zero. Por conseguinte, a entropia seria não negativa.
+Para verificá-la, basta notar que a entropia é a soma de termos da forma
+$-p \log p$. Como $0 \leq p \leq 1$, teremos que cada termo da soma é maior ou
+igual a zero. Por conseguinte, a entropia será não negativa.
 
 Para verificar que a entropia é uma função contínua em $p$, devemos primeiramente
 definir $l(x)$ como a extensão contínua de $x \log x$, da seguinte forma:
@@ -423,7 +439,7 @@ fica evidente que ela também será uma função contínua.
 Antes de abordarmos uma próxima propriedade fundamental da entropia, vamos
 estabelecer uma desigualdade simples e importante em diversas demonstrações
 futuras. Ela é apresentada graficamente na \Cref{fig:lnzzm1} e demonstrada
-formalmente no \Cref{lm:desfundamental}.
+formalmente no Lema \ref{lm:desfundamental}.
 % script to create the figure
 % lnzzm1.R
 \begin{marginfigure}%
@@ -441,7 +457,7 @@ com igualdade se e somente se $z = 1$.
 \end{lemma}
 \begin{proof}
 Sabemos que para $z = 1$ é verdadeiro, pois $0 = \ln 1 \leq 1 - 1 = 0$.
-Vamos demonstrar que $\ln z \leq z-1$, para $z \geq 1$ por contradição.
+Vamos demonstrar que $\ln z \leq z-1$, para $z > 1$ por contradição.
 Suponha que existe $b > 1$ tal que $\ln z > z - 1$, para $z=b$.
 Vamos definir $f(z) = \ln z - z + 1$, logo $f(1) = 0$ (conforme visto acima)
 e $f(b) > 0$ (por hipótese).
@@ -458,41 +474,52 @@ E usar o teorema do valor médio para mostrar uma contradição na hipótese.
 \end{proof}
 
 Outra propriedade importante que mencionamos é o limite máximo da entropia,
-a entropia da distribuição uniforme. Note que, mostrar que $H(X) \leq \log N$
+sendo este a entropia da distribuição uniforme.
+\begin{theorem}[Limite superior da entropia\index{entropia!máximo}]
+A entropia é limitada superiormente pela entropia da distribuição uniforme:
+  \begin{equation}
+    H(X) \leq \log N .
+  \end{equation}
+\end{theorem}
+\begin{proof}
+Note que, mostrar que $H(X) \leq \log N$
 é equivalente a mostrar que $H(X) - \log N \leq 0$. Para tanto, vejamos:
 \begin{subequations}\label{eq:demlimentropy}
 \begin{align}
 H(X) - \log N \: &= - \sum_x p(x) \log p(x)  - \log N \overbrace{\sum_x p(x)}^{=1} \\
     &= - \sum_x p(x) \log p(x) - \sum_x p(x) \log N \\
-    &= - \sum_x p(x) \log p(x) \, N \\
+    &= - \sum_x p(x) \log \left(p(x) \, N\right) \\
     &= \log_2 e \sum_x p(x) \ln \frac{1}{p(x) N} \\
-    &\leq \log_2 e \sum_x p(x) \left[ \frac{1}{p(x) N} -1 \right] \\
-    &= \log_2 e \left[ \underbrace{\sum_{x \in \mathcal{X}} \frac{1}{N}}_{= N \frac{1}{N} = 1} - \underbrace{\sum_x p(x)}_{=1} \right] = 0. \qed
+    &\leq \log_2 e \sum_x p(x) \left[ \frac{1}{p(x) N} -1 \right] \label{eq:demlimentropy-a}\\
+    &= \log_2 e \left[ \underbrace{\sum_{x \in \mathcal{X}} \frac{1}{N}}_{= N \frac{1}{N} = 1} - \underbrace{\sum_x p(x)}_{=1} \right] = 0.
 \end{align}
 \end{subequations}
-Na demonstração anterior, utilizamos a \Cref{eq:fund-ineq}, com $z = \sfrac{1}{p(x) \, N}$.
+Em \ref{eq:demlimentropy-a}, utilizamos a \Cref{eq:fund-ineq}, com $z = \sfrac{1}{p(x) \, N}$.
 A igualdade $\ln z = z-1$ se dará no ponto $z = 1$, isto é, quando $\sfrac{1}{p(x) \, N} = 1$, ou seja,
 quando $p(x) = \sfrac{1}{N}$, e teremos assim uma distribuição uniforme.
+\end{proof}
 
 A concavidade da entropia é uma propriedade importante. Garante que a entropia
 terá um único máximo global. A maximização da entropia é um princípio
 fundamental em várias áreas como estatística, para a inferência de
 distribuições de probabilidade, e aprendizado de máquina, para garantir que os
 algoritmos de otimização convirjam e para garantir a estabilidade dos modelos.
-Esta propriedade será demonstrada mais à frente.
+Esta propriedade será demonstrada mais à frente no \Cref{thm:entropiaconcava},
+pois antes precisaremos fazer mais algumas definições e demonstrações.
 
 
 
 \section{Entropia Conjunta e Entropia Condicional}\label{sec:entropiaconjunta}
 
 Quando lidamos com incerteza em situações que envolvem múltiplas variáveis aleatórias,
-entropia conjunta e a entropia condicional são conceitos que surgem da extensão das definições
+\emph{entropia conjunta}\index{entropia!conjunta} e a \emph{entropia condicional}\index{entropia!condicional}
+são conceitos que surgem da extensão das definições
 vistas anteriormente. Um par de varáveis aleatórias $(X,Y)$ pode ser visto como
 uma variável aleatória vetorial.
 
 A entropia conjunta de duas variáveis aleatórias $X$ e $Y$, denotada como $H(X,Y)$, 
 mede a incerteza total associada ao par de variáveis. É definida como:
-\begin{definition}[Entropia Conjunta]
+\begin{definition}[Entropia Conjunta\index{entropia!conjunta}]
 \begin{subequations}\label{eq:jointentropy}
 \begin{align}    
 H(X,Y) \: &\triangleq - \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p(x,y) \log p(x,y) \\
@@ -500,7 +527,7 @@ H(X,Y) \: &\triangleq - \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p(x,y)
 	  &= \E \log \frac{1}{p(X,Y)},\label{eq:jointentropysimpl}
 \end{align}
 \end{subequations}
-onde, em \ref{eq:jointentropysimpl}, para simplificar\footnote{Tais simplificações pode
+onde, em \ref{eq:jointentropysimpl}, para simplificar\footnote{Tais simplificações podem
 aparecer ao longo do texto. Porém as adotaremos apenas em casos que não gerem ambiguidades.}, 
 omitimos a distribuição em respeito
 a qual o valor esperado é tomado.
@@ -515,7 +542,7 @@ H(X_{1:N}) \: &= H(X_1, X_2, \ldots, X_N) \\
 \end{align}
 \end{subequations}
 
-Dada a definição, vamos analisar um exemplo prático para analisar a
+Dada a definição, vamos abordar um exemplo prático para analisar a
 interdependência entre caracteres consecutivos em uma língua natural. Para
 calcular a entropia conjunta de dois caracteres em sequência, devemos
 primeiramente calcular a probabilidade conjunta. A
@@ -538,7 +565,12 @@ interdependência é esperada devido a padrões linguísticos.
 % R: joint_probability.R
 \begin{figure}%
     \includegraphics[width=\linewidth]{plots/joint_probability.pdf}
-    \caption{Probabilidade conjunta do primeiro e segundo caractere analisando os 44 textos de William Shakespeare no Projeto Gutenberg. As entropias simples e conjunta são apresentadas, evidenciando que a entropia conjunta é maior, porém, analisando a entropia por caractere, a entropia conjunta abarca dependências entre caracteres consecutivos, reduzindo o efeito de incerteza por caractere.}
+    \caption{Probabilidade conjunta do primeiro e segundo caractere analisando
+    os 44 textos de William Shakespeare no Projeto Gutenberg. As entropias
+    simples e conjunta são apresentadas, evidenciando que a entropia conjunta é
+    maior. Porém, analisando a entropia por caractere, a entropia conjunta
+    abarca dependências entre caracteres consecutivos, reduzindo o efeito de
+    incerteza por caractere.}
     \label{fig:jointprobabilityshakespeare}
 \end{figure}
 
@@ -550,7 +582,7 @@ o conhecimento de $X$ fornece informação que reduz a incerteza sobre $Y$, como
 ocorre em pares comuns como `th', onde `t' aumenta a probabilidade de `h'. Essa
 incerteza reduzida é formalmente chamada de entropia condicional, denotada por
 $H(Y|X)$, e é definida como
-\begin{definition}[Entropia Condicional]
+\begin{definition}[Entropia Condicional\index{entropia!condicional}]
 \begin{subequations}\label{eq:entropiacondicional}
 \begin{align}
  H(Y|X) \: &\triangleq \sum_x p(x) H(Y|X=x) \label{eq:entcondevents} \\
@@ -570,12 +602,12 @@ $H(Y|X=x)$, podendo este ser menor, igual ou maior que $H(Y)$. Para um caso
 específico, condicionar pode aumentar a incerteza, embora, na média, a entropia
 condicional seja sempre menor ou igual a entropia sem ser condicionada. Um
 exemplo interessante, adaptado de \textcite{cover2006}, é o contexto de um
-julgamento: uma evidência única evidência pode aumentar a incerteza sobre um
+julgamento: uma única evidência pode aumentar a incerteza sobre um
 determinado caso, o que pode levar a um julgamento enviesado; entretanto,
 conhecer um conjunto de evidência nos leva esperar uma incerteza menor,
 eliminando o viés no julgamento.
 
-Note que, condicionando $H(Y|X)$ a $Z$, usando a \Cref{eq:entcondevents} podemos
+Note que, condicionando $H(Y|X)$ a $Z$, usando a formulação da \Cref{eq:entcondevents} podemos
 escrever
 \begin{equation}\label{eq:entcondeventsZ}
 H(Y|X,Z) \: = \sum_z p(z) H(Y|X,Z=z),
@@ -590,7 +622,7 @@ a constatação de que a entropia de um par de variáveis aleatória é a entrop
 somada à entropia condicional da outra. Esta observação é formalizada pelo teorema
 da regra da cadeia.
 
-\begin{theorem}[Regra da Cadeia]\label{thm:regracadeia}
+\begin{theorem}[Regra da Cadeia\index{entropia!regra da cadeia}]\label{thm:regracadeia}
  \begin{equation}
   H(X,Y) = H(X) + H(Y|X) = H(Y) + H(X|Y)
  \end{equation}
@@ -636,7 +668,7 @@ e assim podemos calcular a entropia de $X$
        &= \frac{146}{32} - \frac{21}{32} \log 7 + \frac{55}{32} - \frac{11}{32} \log 11 = 1.5310 \ \text{bits}. 
 \end{align*}
 
-Para calcular agora a entropia condicional $H(Y|Y)$, devemos calcular a entropia condicional $p(y|x)$
+Para calcular a entropia condicional $H(Y|Y)$, devemos calcular a entropia condicional $p(y|x)$:
 \begin{equation*}
 \begin{array}{c|ccc}
 p(y|x) & y_1 & y_2 & y_3 \\
@@ -681,15 +713,21 @@ H_Y_given_X = -sum(sum(p_xy.*log2(p_y_given_x)));
 \end{example}
 
 
+
+
+
+
+
+
 \section{Informação Mútua e Entropia Relativa}\label{sec:informacaomutua}
 
 Definimos anteriormente a entropia como uma medida da incerteza sobre uma
 variável aleatória, e a entropia condicional como a incerteza condicionada ao
 conhecimento de outra viável aleatória. Estas definições nos levam a questionar
 o quanto uma variável aleatória revela sobre a outra, ou, equivalentemente, o
-quanto a incerteza sobre uma é reduzida ao se conhecer a outra. Esta medida é
-dada pela informação mútua, definida como
-\begin{definition}[Informação Mútua]\label{def:infmut}
+quanto a incerteza\index{incerteza} sobre uma é reduzida ao se conhecer a outra. Esta medida é
+dada pela \emph{informação mútua}\index{informação mútua}, definida como
+\begin{definition}[Informação Mútua\index{informação mútua}]\label{def:infmut}
 \begin{equation}\label{eq:informacaomutua-def}
 I(X;Y) \: \triangleq H(X) - H(X|Y) = H(Y) - H(Y|X) ,
 \end{equation}
@@ -717,13 +755,13 @@ como a seguir:
 \end{subequations}
 
 A informação mútua, dada pela \Cref{eq:infmutdivkl}, pode ser vista como
-a divergência de Kullback–Leibler entre a distribuição conjunta e o produto
+a \emph{divergência de Kullback-Leibler}\index{divergência de Kullback-Leibler!relação com informação mútua} entre a distribuição conjunta e o produto
 das marginais, ou seja,
 \begin{equation}
 I(X;Y) = D(p(x,y)||p(x)p(y)) .
 \end{equation}
-Vejamos então a definição de divergência de Kullback–Leibler.
-\begin{definition}[Divergência de Kullback–Leibler]\label{def:divKL}
+Vejamos então a definição de divergência de Kullback-Leibler.
+\begin{definition}[Divergência de Kullback-Leibler\index{divergência de Kullback-Leibler}]\label{def:divKL}
 A divergência de Kullback–Leibler (KL) entre duas distribuições $p$ e $q$, em um
 alfabeto comum $\mathcal{X}$, é definida como
 \begin{subequations}\label{eq:divergenciaKL}
@@ -735,7 +773,11 @@ D(p||q) \: &\triangleq \sum_x p(x) \log \frac{p(x)}{q(x)} \\
 Note que, em geral, a divergência de KL não é simétrica, ou seja, $D(p||q) \neq D(q||p)$.
 \end{definition}
 Na definição de acima, adotamos a convenção de que o somatório se dá
-sobre o suporte da distribuição $p$, $S_p$. %Adotamos ainda a convenção
+sobre o suporte\footnote{O suporte de uma distribuição de probabilidade ou de uma função é
+  o conjunto de valores para os quais a função (ou distribuição) assume valores não nulos.
+  Formalmente, para uma função $f$, o suporte é definido como $S_f = \{ x \in \mathbb{R} \mid f(x) \neq 0 \}$.
+  No contexto de distribuições, é o menor conjunto fechado onde a medida de probabilidade é positiva.}
+  da distribuição $p$, ou seja, $S_p$. %Adotamos ainda a convenção
 %$p(x) \log \frac{p(x)}{q(x)} = \infty$ se $q(x) = 0$.
 
 A divergência de KL é conhecida também na literatura como entropia relativa.
@@ -750,7 +792,8 @@ com $p(x)=\sum_y p(x,y)$ e $p(y)=\sum_x p(x,y)$, então
               &= \sum_{x,y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)} = I(X;Y) .
 \end{align}
 \end{subequations}
-A informação mútua é a distância entre a distribuição conjunta em $X$ e $Y$ e o
+A informação mútua\index{divergência de Kullback-Leibler!relação com informação mútua}
+é a ``distância'' entre a distribuição conjunta em $X$ e $Y$ e o
 produto das distribuições marginais em $X$ e $Y$. Se as variáveis aleatórias
 são independentes, teremos $p(x,y)=p(x)p(y)$ e por conseguinte a divergência
 será nula, a informação mútua entre $X$ e $Y$ será zero. A informação mútua é
@@ -771,16 +814,21 @@ revela-se equivalente a maximizar o logaritmo da verossimilhança dos dados sob 
 A divergência KL quantifica o custo ao usar $\hat{p}$ para aproximar $p_\theta$, 
 e otimizar esse custo nos leva diretamente a ajustar os parâmetros $\theta$ para melhor descrever os dados observados.
 
-Seja $x_1, \ldots, x_N \in \mathcal{X}$, $N$ observações i.i.d.\footnote{Uma coleção de variáveis aleatórias é
+Seja $x_{1:N} = x_1, \ldots, x_N \in \mathcal{X}$, $N$ observações i.i.d.\footnote{Uma coleção de variáveis aleatórias é
 independente e identicamente distribuída (i.i.d.) se todas possuírem uma mesma distribuição e forem mutuamente independentes.} 
 de uma variável aleatória $X$. A distribuição empírica será dada por
 \begin{equation}
 \hat{p}(x) = \frac{1}{N} \sum_{n=1}^{N} \delta(x - x_n) ,
 \end{equation}
-onde $\delta$ é a função de Dirac.
+onde $\delta$ é a função de Dirac. De forma equivalente, podemos expressar a distribuição empírica por
+\begin{equation}
+  \hat{p}(x) = \frac{n(x|x_{1:N})}{N} ,
+\end{equation}
+onde $n(x|x_{1:N})$ representa o número de ocorrência de $x$ na amostra $x_{1:N}$.
+
 
 Seja $p_\theta$ uma distribuição em $\mathcal{X}$ parametrizada por $\theta$.
-Maximizar a verossimilhança de $p_\theta(x)$ é equivalente a minimizar a divergência de KL
+Maximizar a verossimilhança de $p_\theta(x)$ é equivalente a minimizar a divergência
 $D_\mathrm{KL}(\hat{p} \parallel p_\theta)$.
 \begin{subequations}\label{eq:dvmleext}
 \begin{align}
@@ -815,10 +863,10 @@ converge quase certamente para $\mu$, ou seja, $\overline{X}_n \xrightarrow{q.c.
 Ao ajustar os parâmetros $\theta$ para minimizar divergência KL, estamos buscando o modelo $\hat{p}$
 que melhor representa $p$. A não negatividade da divergência, garante que o custo informacional 
 nunca será negativo e que a aproximação ótima ocorre quando as distribuições coincidem.
-Graças à convexidade da função logarítmica, sabemos que esse ótimo é bem definido e único."
+Graças à convexidade da função logarítmica, sabemos que esse ótimo é bem definido e único.
 
 Vejamos então uma propriedade essencial da divergência: a não negatividade.
-\begin{theorem}[Não negatividade da Divergência]\label{thm-divnn}
+\begin{theorem}[Não negatividade da Divergência\index{divergência de Kullback-Leibler!não negatividade}]\label{thm-divnn}
 Para duas distribuições $p$ e $q$ em um alfabeto comum $\mathcal{X}$,
 \begin{equation}
 D(p||q) \: \geq 0 
@@ -828,13 +876,13 @@ com igualdade se e somente se $p=q$.
 \begin{proof}
 Se $q(x) = 0$ para algum $x \in S_p$, então $D(p||q) = \infty$ e o teorema é verdadeiro
 (caso trivial).
-Vamos assumir então que $q(x) > 0 \forall x \in S_p$. Teremos então
+Vamos assumir então que $q(x) > 0, \forall x \in S_p$. Teremos então
 \begin{subequations}\label{eq:thmDge0}
 \begin{align}
  D(p||q) \: &= \log e \sum_{x \in S_p} p(x) \ln \frac{p(x)}{q(x)} \\
    &\geq \log e \sum_{x \in S_p} p(x) \left( 1 - \frac{q(x)}{p(x)} \right) \label{eq:thmDge0-2} \\
    &= \log e \left[ \sum_{x \in S_p} p(x) - \sum_{x \in S_p} q(x) \right] \\
-   &\geq \log e (1 - 1) \label{eq:thmDge0-4}\\
+   &\geq \log e \: (1 - 1) \label{eq:thmDge0-4}\\
    &= 0 ,
 \end{align}
 \end{subequations}
@@ -847,15 +895,15 @@ de que
 uma vez que o somatório é tomado no suporte de $p$, podendo assim excluir alguns pontos não nulos de $q$.
 \end{proof}
 
-O fato da divergência ser não negativa, nos leva como consequência em termos
-também a não negatividade da informação mútua, uma vez que esta é um caso específico
+O fato da divergência ser não negativa, nos leva como consequência
+a não negatividade da informação mútua, uma vez que esta é um caso específico
 de divergência.
-\begin{lemma}[Não negatividade da Informação Mútua]
+\begin{lemma}[Não negatividade da Informação Mútua\index{informação mútua!não negatividade}]
 A informação mútua entre duas variáveis aleatórias $X$ e $Y$ é tal que
 \begin{equation}
  I(X;Y) \: \geq 0 ,
 \end{equation}
-com igualdade se e somente se $X \independent Y$
+com igualdade se e somente se $X \independent Y$, ou seja, $X$ e $Y$ são independentes.
 \end{lemma}
 \begin{proof}
 A informação mútua é a divergência entre a distribuição conjunta e o produto das marginais, logo,
@@ -867,9 +915,75 @@ Quando $X \independent Y$, teremos $p(x,y) = p(x)p(y)$ e assim a divergência se
 e também a informação mútua.
 \end{proof}
 
+
+
+%% scripts to create example
+% python3 ulysses_vs_urandom.py 
+% 
+% R
+% source('ulysses_vs_urandom.R')
+%
+% tail -n +2 codes/ulysses_processed.csv | sort | uniq -c | awk -v N="1000000" '{count = $1; probability = count / N; entropy_term = probability * (log(1/probability) / log(2)); sum_entropy += entropy_term; } END { printf "%.6f\n", sum_entropy; }'
+% entropy = 4.207941
+%
+\begin{example}[Divergência de Kullback-Leibler em Textos e Dados Aleatórios]
+  Neste exemplo, usamos a divergência de KL para comparar a
+  distribuição de caracteres em um texto natural com a de dados aleatórios,
+  usando a distribuição uniforme como referência.
+
+  Consideramos um alfabeto reduzido de 26 letras minúsculas $\mathcal{A} = \{a, b, \ldots, z\}$).
+  Para o texto natural, usamos um trecho de \emph{Ulysses}, de James Joyce, filtrando para manter apenas letras
+  minúsculas (convertendo maiúsculas em minúsculas e removendo pontuação, espaços, etc.).
+  Para os dados aleatórios, usamos bytes gerados por \texttt{/dev/urandom}, mapeados para o
+  alfabeto [a-z] via $\text{byte} \mod 26$, onde cada valor é associado a
+  uma letra (e.g., $0 \to a$, $1 \to b$, ..., $25 \to z$).
+
+  Para cada fonte de dados (texto e \texttt{/dev/urandom}), extraímos amostras
+  de tamanhos $n = 100, 1000, 10000, 1000000$. Estimamos a distribuição empírica 
+  $p(x)$ usando a máxima verossimilhança com suavização de Laplace 
+  A distribuição uniforme é $q(x) = \frac{1}{26}$ para todo $x \in \mathcal{A}$.
+
+  Calculamos $D(p||q)$ para cada amostra e plotamos histogramas das distribuições
+  empíricas para visualizar como elas diferem da uniforme.
+  Esperamos que, para \texttt{/dev/urandom}, $D(p||q)$ seja próximo de zero,
+  refletindo a aleatoriedade dos dados, enquanto para o texto, $D(p||q)$ 
+  permaneça maior que zero devido à estrutura linguística.
+
+  Os histogramas das distribuições são mostrados na \Cref{fig:hist_ulysses_urandom}.
+  Para Ulysses, observamos que certas letras (e.g., `e', `t') são mais frequentes,
+  refletindo as propriedades do idioma inglês. 
+  Para \texttt{/dev/urandom}, as frequências são aproximadamente uniformes.
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/hist_ulysses_urandom.pdf}
+    \caption{Histogramas da distribuição empírica de letras em Ulysses e em \texttt{/dev/urandom} para $n = 100, 1000, 10000, 1000000$.}
+    \label{fig:hist_ulysses_urandom}
+  \end{figure}
+
+  A \Cref{fig:kld} mostra a divergência de KL em função de $n$.
+  Para \texttt{/dev/urandom}, $D(p||q)$ é pequeno e diminui com $n$,
+  indicando que a distribuição empírica se aproxima da uniforme.
+  Para Ulysses, $D(p||q)$ estabiliza em um valor positivo (aproximadamente 0.5),
+  refletindo a estrutura não uniforme do texto. Observe que, para um alfabeto
+  de 26 caracteres, a entropia máxima é $\log(26) = 4.7$ bits e, calculando
+  o valor da entropia para Ulysses obtemos aproximadamente 4.2.
+  A diferença é justamente o valor para o qual a divergência se estabiliza na \Cref{fig:kld}.
+
+  \begin{marginfigure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/kld_plot.pdf}
+    \caption{Divergência de KL entre a distribuição empírica e a uniforme para Ulysses e \texttt{/dev/urandom}.}
+    \label{fig:kld}
+  \end{marginfigure}
+
+\end{example}
+
+
+
 A divergência também pode ser utilizada para demonstrar o limite máximo da entropia,
 de forma alternativa àquela apresentada na \Cref{eq:demlimentropy}.
-\begin{theorem}[Limite Máximo da Entropia]\label{thm-limmaxentro}
+\begin{theorem}[Limite Máximo da Entropia -- revisitado\index{entropia!máximo}]\label{thm-limmaxentro}
 $H(X) \leq \log \vert \mathcal{X} \vert$, onde $\vert \mathcal{X} \vert$ denota a cardinalidade
 do alfabeto $\mathcal{X}$, com igualdade se e somente se $X$ possuir distribuição uniforme.
 \end{theorem}
@@ -912,7 +1026,15 @@ Vejamos dois exemplos:
   \begin{equation}
     Pr(X=i) = 2^{-i}, \quad i=1,2,\ldots .
   \end{equation}
-  Neste caso, teremos
+  Neste caso, teremos\footnote{A série $\sum_{i=1}^{\infty} i 2^{-i}$,
+     conhecida como ``Gabriel's Staircase'', é um caso especial da série aritmético-geométrica
+     $\sum_{i=1}^{\infty} i x^i$, cuja soma, para $|x| < 1$, é dada por $\frac{x}{(1-x)^2}$.
+     Essa fórmula é derivada a partir da série geométrica $\sum_{i=0}^{\infty} x^i = \frac{1}{1-x}$ 
+     por diferenciação e multiplicação por $x$. Para $x = \frac{1}{2}$, obtém-se $\sum_{i=1}^{\infty} i 2^{-i} = 2$.
+     Nicole Oresme (c. 1323--1382) forneceu uma prova geométrica para essa convergência no século XIV,
+     um feito notável para a época~\parencite{oresme2003, wiki:geometric_series, edgar2018}. 
+     Para mais detalhes, consulte a entrada sobre séries geométricas na \href{https://en.wikipedia.org/wiki/Geometric_series}{Wikipédia} ou o trabalho de
+     Oresme em suas \emph{Questiones super Geometriam Euclidis}.}
   \begin{equation}
     H(X) = \sum_{i=1}^{\infty} i 2^{-i} = 2 .
   \end{equation}
@@ -930,9 +1052,9 @@ Vejamos dois exemplos:
   para todo $i$ e $j$.
   A entropia será dada por 
   \begin{equation}
-    H(X) = - \sum_{i=1}^{\infty} \sum_{j=1}^{\sfrac{2^{2^i}}{2^i}} 2^{-2^i} \log 2^{-2^i} = \sum_{i=1}^{\infty} 1 
+    H(X) = - \sum_{i=1}^{\infty} \sum_{j=1}^{\sfrac{2^{2^i}}{2^i}} 2^{-2^i} \log 2^{-2^i} = \sum_{i=1}^{\infty} 1 \rightarrow \infty ,
   \end{equation}
-  que não converge.
+  ou seja, não converge.
 \end{example}
 
 
@@ -941,10 +1063,10 @@ informação mútua.
 Primeiramente, pela \Cref{def:infmut}, é fácil notar que
 a informação mútua $I(X;Y)$ é simétrica em $X$ e $Y$, ou seja, $I(X;Y) = I(Y;X)$.
 
-Em seguida, vamos analisar o que ocorre quando tomas a informação mútua
+Em seguida, vamos analisar o que ocorre quando tomamos a informação mútua
 entre uma variável aleatória $X$ e elas mesma, ou seja, $I(X;X)$.
 \begin{proposition}[A informação mútua de uma variável aleatória e ela mesma é a entropia]
-A informação mútua de uma variável aleatória $X$ com ela mesma, a auto-informação de $X$,
+A informação mútua de uma variável aleatória $X$ com ela mesma, a \emph{auto-informação} de $X$\index{informação!auto-informação},
 é igual à entropia de $X$.
 \end{proposition}
 
@@ -966,22 +1088,24 @@ Podemos descrever uma nova relação, ao observar a \Cref{def:infmut}
 \end{equation}
 \end{proposition}
 
-Todas essas relações observadas entre entropia, entropia conjunta e informação mútua
-podem ser facilmente representadas através do diagrama de Venn apresentado na \Cref{fig:vennshannon}.
+Todas essas relações observadas entre entropia, entropia conjunta, entropia condicional e informação mútua
+podem ser facilmente representadas através do diagrama de
+informação\index{informação!diagrama}, um tipo de digrama de Venn utilizado em
+teoria da informação para ilustrar tais relações (veja a \Cref{fig:vennshannon}).
 Esta correspondência entre o diagrama de Venn e as medidas de informação
-de Shannon não são mera coincidência.
+de Shannon não são mera coincidência (veja mais detalhes na seção \nameref{sec:medidasvariacoes}, página \pageref{sec:medidasvariacoes}).
 \begin{marginfigure}%
   \includegraphics[width=\linewidth]{figures/info-set.pdf}
-  \caption{Diagrama de Venn ilustrando as relações entre entropias, entropias condicionais e informação mútua, facilitando a visualização das grandezas informacionais.}
+  \caption{Diagrama de informação ilustrando as relações entre entropias, entropias condicionais e informação mútua, facilitando a visualização das grandezas informacionais.}
   \label{fig:vennshannon}
 \end{marginfigure}
 
-De forma semelhante que vimos anteriormente, quando foi introduzido
+De forma semelhante ao que vimos anteriormente, quando foi introduzido
 o conceito de entropia condicional, podemos agora estender o conceito
 de informação mútua entre duas variáveis aleatórias $X$ e $Y$ dado o 
 conhecimento de uma terceira variável $Z$, definindo assim a informação 
 mútua condicional.
-\begin{definition}[Informação Mútua Condicional]\label{def:infmutcond}
+\begin{definition}[Informação Mútua Condicional\index{informação mútua!condicional}]\label{def:infmutcond}
 Dadas as variáveis aleatórias $X$, $Y$ e $Z$, a informação mútua entre
 $X$ e $Y$, condicionada ao conhecimento de $Z$ é dada por
 \begin{subequations}\label{eq:mutinfcond}
@@ -1010,7 +1134,7 @@ Uma sequência de variáveis aleatórias $X_1, X_2, \ldots, X_N = X_{1:N}$ pode 
 A regra da cadeira, vista anteriormente no \Cref{thm:regracadeia},
 pode ser generalizada para uma sequência de $N$ variáveis aleatórias $X_{1:N}$.
 
-\begin{proposition}[Regra da Cadeia Generalizada da Entropia]\label{prop:regracadeiagen}
+\begin{proposition}[Regra da Cadeia Generalizada da Entropia\index{entropia!regra da cadeia generalizada}]\label{prop:regracadeiagen}
 Dada uma sequência de $N$ variáveis aleatórias $X_{1:N}$, a entropia conjunta pode ser dada por 
 \begin{equation}\label{eq:regracadeiagen}
 H(X_1, X_2, \ldots, X_N) = \sum_{i=1}^{N} H(X_i|X_1, \ldots, X_{i-1}) .
@@ -1021,9 +1145,15 @@ A demonstração é feita por indução. Sabemos que para $N=2$ é verdadeiro, c
 Vamos supor que para $N=M$ é verdadeiro e mostrar que para $N=M+1$ é verdadeiro.
 \begin{subequations}\label{eq:dmgenregracadeia}
 \begin{align}
-    H(X_1, X_2, \ldots, X_M, X_{M+1}) &= H(X_1, X_2, \ldots, X_M) + H(X_{M+1} | X_1, X_2, \ldots, X_M) \label{eq:dmgenregracadeia1}\\
-				      &= \sum_{i=1}^{M} H(X_i|X_1, \ldots, X_{i-1}) + H(X_{M+1} | X_1, X_2, \ldots, X_M) \label{eq:dmgenregracadeia2}\\
- &= \sum_{i=1}^{M+1} H(X_i|X_1, \ldots, X_{i-1}) ,
+  \begin{split}
+  H(X_1, X_2, \ldots, X_M, X_{M+1}) ={}& H(X_1, X_2, \ldots, X_M) + \\
+                                       & H(X_{M+1} | X_1, X_2, \ldots, X_M) \label{eq:dmgenregracadeia1}
+  \end{split}\\
+  \begin{split}
+                                    ={}& \sum_{i=1}^{M} H(X_i|X_1, \ldots, X_{i-1}) + \\
+                                       & H(X_{M+1} | X_1, X_2, \ldots, X_M) \label{eq:dmgenregracadeia2}
+  \end{split}\\
+      ={}& \sum_{i=1}^{M+1} H(X_i|X_1, \ldots, X_{i-1}) ,
 \end{align}
 \end{subequations}
 onde em \ref{eq:dmgenregracadeia1} utilizamos o \Cref{thm:regracadeia}, fazendo $X=(X_1, X_2, \ldots, X_M)$ e $Y=X_{M+1}$,
@@ -1035,7 +1165,7 @@ será válida para todo $N$.
 
 A regra da cadeia vista no \Cref{thm:regracadeia} pode ser estendida para o caso do condicionamento
 à uma terceira variável aleatória.
-\begin{proposition}[Regra da Cadeia Condicional]\label{pro:regracadeiacond}
+\begin{proposition}[Regra da Cadeia Condicional\index{entropia!regra da cadeia condicional}]\label{pro:regracadeiacond}
 Para duas variáveis aleatórias  $X$ e $Y$ condicionadas a uma terceira, $Z$, 
 a entropia conjunta condicional pode ser decomposta como:
 \begin{equation}\label{eq:regracadeiacond}
@@ -1053,7 +1183,7 @@ condicionar a $Z$ para obtermos a adaptação para a regra da cadeia condicional
 
 Fazemos agora a generalização para uma sequência de variáveis aleatórias $X_{1:N}$ 
 condicionada a uma variável aleatória $Y$.
-\begin{proposition}[Regra da Cadeia Condicional Generalizada]\label{pro:regracadeiacondgen}
+\begin{proposition}[Regra da Cadeia Condicional Generalizada\index{entropia!regra da cadeia condicional generalizada}]\label{pro:regracadeiacondgen}
 \begin{equation}\label{eq:regracadeiacondgen}
 H(X_1, X_2, \ldots, X_N | Y) = \sum_{i=1}^{N} H(X_i|X_1, \ldots, X_{i-1}, Y) .
 \end{equation}
@@ -1076,7 +1206,7 @@ Por fim, podemos aplicar as mesmas ideias para obter a regra da cadeia para
 informação mútua, que descreve como a informação compartilhada entre um
 conjunto de variáveis e outra variável pode ser decomposta em contribuições
 condicionais. 
-\begin{proposition}[Regra da Cadeia da Informação Mútua]\label{pro:regracadeiainfmut}
+\begin{proposition}[Regra da Cadeia da Informação Mútua\index{informação mútua!regra da cadeia}]\label{pro:regracadeiainfmut}
 \begin{equation}\label{eq:regracadeiainfmut}
 I(X_1, X_2, \ldots, X_N ; Y) = \sum_{i=1}^{N} I(X_i;Y|X_1, \ldots, X_{i-1}) .
 \end{equation}
@@ -1084,9 +1214,15 @@ I(X_1, X_2, \ldots, X_N ; Y) = \sum_{i=1}^{N} I(X_i;Y|X_1, \ldots, X_{i-1}) .
 \begin{proof}
 \begin{subequations}\label{eq:dmregracadeiainfmut}
 \begin{align}
-    I(X_1, X_2, \ldots, X_N ; Y) &= H(X_1, X_2, \ldots, X_N) - H(X_1, X_2, \ldots, X_N | Y) \\
-				 &= \sum_{i=1}^{N} \left[ H(X_i | X_1, \ldots, X_{i-1}) - H(X_i | X_1, \ldots, X_{i-1}, Y) \right] \\
-				 &= \sum_{i=1}^{N} I(X_i;Y|X_1, \ldots, X_{i-1}) ,
+  \begin{split}
+  I(X_1, X_2, \ldots, X_N ; Y) ={}& H(X_1, X_2, \ldots, X_N) - \\
+                                  & H(X_1, X_2, \ldots, X_N | Y) 
+  \end{split}\\
+  \begin{split}
+         ={}& \sum_{i=1}^{N} \left[ H(X_i | X_1, \ldots, X_{i-1}) - \right.\\
+            & \left. H(X_i | X_1, \ldots, X_{i-1}, Y) \right] 
+  \end{split}\\
+         ={}& \sum_{i=1}^{N} I(X_i;Y|X_1, \ldots, X_{i-1}) ,
 \end{align}
 \end{subequations}
 onde utilizamos as \Cref{prop:regracadeiagen,pro:regracadeiacondgen}.
@@ -1097,7 +1233,7 @@ onde utilizamos as \Cref{prop:regracadeiagen,pro:regracadeiacondgen}.
 
 
 \section{Desigualdade de Jensen}\label{sec:desjensen}
-Nesta seção, apresentamos a desigualdade de Jensen, uma relação observada para
+Nesta seção, apresentamos a \emph{desigualdade de Jensen}\index{desigualdade de Jensen}, uma relação observada para
 funções convexas entre o valor esperado da função de uma variável
 aleatória e a função do valor esperado desta variável aleatória. Mais precisamente,
 $\E f(X) \geq f(\E X)$, para $f$ uma função convexa e $X$ uma variável aleatória.
@@ -1105,7 +1241,7 @@ $\E f(X) \geq f(\E X)$, para $f$ uma função convexa e $X$ uma variável aleat�
 A desigualdade de Jensen é uma ferramenta fundamental para demonstrar diversas propriedades essenciais.
 Entretanto, primeiramente devemos rever o teste da segunda derivada para convexidade.
 
-\begin{definition}[Função Convexa]
+\begin{definition}[Função Convexa\index{Convexidade}]
 Dizemos que $f$ é convexa em $(a,b)$ se para todo $x_1,x_2 \in (a,b)$, $0 \leq \lambda \leq 1$,
 \begin{equation}
 f(\lambda x_1 + (1 - \lambda)x_2) \leq \lambda f(x_1) + (1-\lambda) f(x_2)
@@ -1161,10 +1297,14 @@ a função é convexa (estritamente convexa) no intervalo.
   Somando $\lambda$ \ref{eq:dmtestsecderv1-2} com $(1-\lambda)$ \ref{eq:dmtestsecderv2-2}, obtemos
   \begin{subequations}\label{eq:dmtestsecderv3}
   \begin{align}
-  \lambda f(x_1) + (1-\lambda) f(x_2) &\geq \lambda f(x_0) + \lambda f'(x_0) ((1-\lambda)(x_1-x_2)) + (1-\lambda) f(x_0) + (1-\lambda) f'(x_0) (\lambda(x_2-x_1)) \\
-        &\geq f(x_0) = f(\lambda x_1 + (1-\lambda) x_2)
+    \begin{split}
+      \lambda f(x_1) + (1-\lambda) f(x_2) \geq{}& \lambda f(x_0) + \lambda f'(x_0) ((1-\lambda)(x_1-x_2)) + \\
+                                                & (1-\lambda) f(x_0) + (1-\lambda) f'(x_0) (\lambda(x_2-x_1)) 
+    \end{split}\\
+        \geq{}& f(x_0) = f(\lambda x_1 + (1-\lambda) x_2) ,
   \end{align}
   \end{subequations}
+  sendo assim a função a função convexa no intervalo.
 \end{proof}
 
 
@@ -1178,10 +1318,10 @@ do que tal propriedade representar.
 \end{marginfigure}
 
 
-\begin{theorem}[Desigualdade de Jensen]\label{thm-desjensen}
+\begin{theorem}[Desigualdade de Jensen\index{desigualdade de Jensen}]\label{thm-desjensen}
 Seja $f$ uma função convexa e $X$ uma variável aleatória, então
 \begin{equation}\label{eq:desjensen}
-\E f(X) \: = \sum_x p(x) f(x) \geq f(\E X) \: = f \left( \sum_x x p(x) \right)
+\E f(X) \: = \sum_x p(x) f(x) \geq f(\E X) \: = f \left( \sum_x (p(x) \: x) \right)
 \end{equation}
 \end{theorem}
 \begin{proof}
@@ -1195,8 +1335,8 @@ Para uma distribuição com mais de dois ponto, iremos fazer uma demonstração
 por indução.
 
 Suponha que o teorema seja verdadeiro para uma distribuição com $k-1$ pontos de massa.
-Para uma distribuição com $k$ pontos de massa podemos escrever cada
-$p_i' = p_i / (1-p_k)$ para $i=1,2,\ldots,k-1$.
+Para uma distribuição com $k$ pontos de massa podemos escrever
+$p_i' = p_i / (1-p_k)$, para $i=1,2,\ldots,k-1$.
 
 Desta forma, teremos
 \begin{subequations}\label{dem:jensen}
@@ -1223,9 +1363,9 @@ Como mostramos que para $k=2$ é verdadeiro, logo o teorema é verdadeiro para q
 
 A desigualdade de Jensen pode ser utilizada para demonstrar a não negatividade
 da divergência de KL.
-\begin{lemma}[Não negatividade da Divergência de Kullback–Leibler]
+\begin{lemma}[Não negatividade da Divergência de Kullback–Leibler\index{desigualdade de Jensen!não negatividade}]
 \begin{equation}
-D(p||q) \geq 0 \text{ com igualdade se e somente se } p(x) = q(x) \forall x.
+D(p||q) \geq 0 \text{ com igualdade se e somente se } p(x) = q(x), \forall x.
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -1240,15 +1380,15 @@ Seja $S_p=\{x: p(x) > 0\}$, o suporte de $p$, então
 	 &= \log \left( \sum_{x \in S_p} q(x) \right) \leq \log \left( \sum_x  q(x) \right) = \log 1 = 0 \label{dem:divnonneg4}
 \end{align}
 \end{subequations}
-onde em \ref{dem:divnonneg2} utilizamos a desigualdade de Jensen, \Cref{eq:desjensen}.
+onde em \ref{dem:divnonneg3} utilizamos a desigualdade de Jensen, \Cref{eq:desjensen}.
 \end{proof}
 
 
 
-A desigualdade da soma dos logaritmos é derivada da desigualdade de Jensen e da convexidade da função logarítmica.
+A \emph{desigualdade da soma dos logaritmos}\index{desigualdade da soma dos logaritmos} é derivada da desigualdade de Jensen e da convexidade da função logarítmica.
 Esta desigualdade também aparece em algumas demonstrações importantes.
 
-\begin{proposition}[Desigualdade da Soma de Logaritmos]
+\begin{proposition}[Desigualdade da Soma de Logaritmos]\label{prop:ineq-sum-log}
 Dados $(a_1, \ldots, a_n)$ e $(b_1,\ldots,b_n)$, com $a_i \geq 0$ e $b_i \geq 0$, temos
 \begin{equation}\label{eq:dessomalog}
 \sum_{i=1}^n a_i \log \frac{a_i}{b_i} \geq \left( \sum_{i=1}^n a_i \right) \log \frac{\sum_{i=1}^n a_i}{\sum_{i=1}^n b_i}
@@ -1278,7 +1418,7 @@ Vamos fazer $\alpha_i = \sfrac{b_i}{\sum_{j=1}^n b_j}$ e $t_i = \sfrac{a_i}{b_i}
 \end{proof}
 
 A desigualdade da soma de logaritmos pode ser utilizada para mostrar que $D(p||q) \geq 0$.
-\begin{proposition}[Não negatividade da Divergência]
+\begin{proposition}[Não negatividade da Divergência\index{divergência de Kullback-Leibler!não negatividade} -- revisitado]
 $D(p||q) \geq 0$
 \end{proposition}
 \begin{proof}
@@ -1295,7 +1435,7 @@ $D(p||q) \geq 0$
 A entropia relativa, ou divergência de Kullback-Leibler, possui uma propriedade importante: ela é convexa no par de distribuições.
 A convexidade no par considera a interpolação simultânea de ambas as distribuições e garante que a divergência KL se comporte de forma previsível ao combinar distribuições.
 
-\begin{theorem}[A Entropia Relativa é Convexa no Par]
+\begin{theorem}[A Entropia Relativa é Convexa no Par\index{divergência de Kullback-Leibler!convexidade}]
 Para dois pares de distribuições $(p_1, q_1)$ e $(p_2, q_2)$, 
 \begin{equation}\label{eq:entrelconvpar}
 D(\lambda p_1 + (1 - \lambda) p_2 || \lambda q_1 + (1- \lambda)q_2) \leq \lambda D(p_1 || q_1) + (1- \lambda) D(p_2 || q_2) ,
@@ -1312,17 +1452,17 @@ Usando a \Cref{def:divKL}, definição de divergência de KL, temos
 \end{align}
 \end{subequations}
 onde, em \ref{dem:entrelconvpar1}, podemos considerar que, dentro do somatório em $x$, temos um somatório com dois termos: $(a_1+a_2) \log \left( \sfrac{(a_1+a_2)}{(b_1 + b_2)} \right)$.
-Utilizamos então a \Cref{eq:dessomalog} para o caso com apenas dois temos:
+Utilizamos então a desigualdade da soma de logaritmos (veja a \Cref{eq:dessomalog} da \Cref{prop:ineq-sum-log}) para o caso com apenas dois termos:
 \begin{equation}
 \left( \sum_{i=1}^2 a_i \right) \log \frac{\sum_{i=1}^2 a_i}{\sum_{i=1}^{2} b_i} \leq \sum_{i=1}^2 a_i \log \frac{a_i}{b_i} =  a_1 \log \frac{a_1}{b_1} + a_2 \log \frac{a_2}{b_2},
 \end{equation}
-o que nos leva ao resultado em \ref{dem:entrelconvpar2}. E usamos novamente a \Cref{def:divKL} para obter \ref{dem:entrelconvpar3}.
+  o que nos leva ao resultado em \ref{dem:entrelconvpar2}. E usamos novamente a definição de divergência (\Cref{def:divKL}) para obter \ref{dem:entrelconvpar3}.
 \end{proof}
 
 
 
 
-\begin{theorem}[A Entropia Relativa é Convexa no Primeiro Argumento]\label{thm:divklconvp}
+\begin{theorem}[A Entropia Relativa é Convexa no Primeiro Argumento\index{divergência de Kullback-Leibler!convexidade}]\label{thm:divklconvp}
 A divergência de Kullback-Leibler, $D(p||q)$, é convexa em relação a $p$, fixando-se $q$.
 Ou seja, dadas $p_1$ e $p_2$, duas distribuições de probabilidade, e fixando-se $q$,
 a distribuição de referência ou distribuição base. Temos então, para $\lambda \in [0,1]$,
@@ -1347,7 +1487,7 @@ A entropia relativa, entretanto, não é convexa no segundo argumento. Será ent
 côncava em $q$ para $p$ fixo. A demonstração deixamos a cargo do leitor.
 
 O \Cref{thm:divklconvp} pode ser utilizado para demonstrar a concavidade da entropia.
-\begin{theorem}[A Entropia é Côncava]\label{thm:entropiaconcava}
+\begin{theorem}[A Entropia é Côncava\index{entropia!concavidade}]\label{thm:entropiaconcava}
 $H(p)$ é uma função concava de $p$.
 \end{theorem}
 \begin{proof}
@@ -1370,7 +1510,7 @@ Essa análise possui implicação direta na determinação da capacidade de cana
 sobre a distribuição de entrada, será um problema bem comportado com um único máximo global. A concavidade da função objetivo
 implica que o máximo é atingível e pode ser encontrado usando técnicas de otimização convexa.
 
-\begin{theorem}[Concavidade/Convexidade da Informação Mútua]\label{thm:concconvinfmut}
+\begin{theorem}[Concavidade/Convexidade da Informação Mútua\index{informação mútua!convexidade}\index{informação mútua!concavidade}]\label{thm:concconvinfmut}
 Seja $(X,Y) \sim p(x,y) = p(x)p(y|x)$, a informação mútua $I(X;Y)$ é uma função côncava
 de $p(x)$ para $p(y|x)$ fixo e uma função convexa de $p(y|x)$ para $p(x)$ fixo.
 \end{theorem}
@@ -1381,7 +1521,7 @@ Podemos escrever a informação mútua como uma função de $p(x)$:
 \begin{align}
     I(X;Y) &= D(p(x,y)||p(x)p(y)) \label{dem:concconvinfmutA1} \\
        &= \sum_{x,y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)} \label{dem:concconvinfmutA2}\\
-       &=& \sum_{x,y} p(x)p(y|x) \log \frac{ p(x)p(y|x) }{p(x) \sum_x p(x) p(y|x)}, \label{dem:concconvinfmutA3}
+       &= \sum_{x,y} p(x)p(y|x) \log \frac{ p(x)p(y|x) }{p(x) \sum_x p(x) p(y|x)}, \label{dem:concconvinfmutA3}
 \end{align}
 \end{subequations}
 onde em \ref{dem:concconvinfmutA1} utilizamos a definição de informação mútua, 
@@ -1407,7 +1547,7 @@ I_{\lambda p_1(y|x) + (1-\lambda)p_2(y|x)} (X;Y) \leq \lambda I_{p_1(y|x)} (X;Y)
 
 
 
-\section{Desigualdade de Processamento de Dados}
+\section{Desigualdade de Processamento de Dados\index{desigualdade de processamento de dados}}
 Quando falamos em processamento de dados, podemos pensar no seguinte modelo:
 $X \rightarrow Y \rightarrow Z$, onde a variável aleatória $X$ representa
 os dados originais, a serem transmitidos; $Y$ representa os dados recebidos no outro lado de um canal 
@@ -1418,7 +1558,7 @@ ou, de outra forma, $Z$ e $X$ são condicionalmente independentes, dado $Y$.
 
 
 \begin{definition}[Cadeia de Markov]\label{def:markovchain}
-As variáveis aleatórias $X$, $Y$ e $Z$ formam uma cadeia de Markov nesta ordem
+As variáveis aleatórias $X$, $Y$ e $Z$ formam uma \emph{cadeia de Markov}\index{cadeia de Markov} nesta ordem
 (denotado $X \rightarrow Y \rightarrow Z$) se a distribuição condicional de $Z$
 depende apenas de $Y$ e é condicionalmente independente de $X$. Especificamente,
 $X$, $Y$ e $Z$ formam uma cadeia de Markov $X \rightarrow Y \rightarrow Z$ se
@@ -1432,7 +1572,7 @@ Temos uma cadeia de Markov $X \rightarrow Y \rightarrow Z$ se, e somente se,
 $X$ e $Z$ são condicionalmente independentes dado $Y$ ($X \independent Z | Y$).
 Isto é,
 \begin{equation}
-p(x,z|y) = \frac{p(x,y,z)}{p(y)} = \frac{p(x)p(y|x)p(z|y)}{p(y)} = p(x|y) p(z|y) \ \ \forall x,y,z
+p(x,z|y) = \frac{p(x,y,z)}{p(y)} = \frac{p(x)p(y|x)p(z|y)}{p(y)} = p(x|y) p(z|y) \ \ \forall x,y,z .
 \end{equation}
 
 \begin{proposition}[Cadeia de Markov Inversa]\label{prop:markovinv}
@@ -1449,7 +1589,7 @@ p(x,y,z) &= p(x)p(y|x)p(z|y) = p(x,y)p(z|y) \\
 \end{subequations}
 \end{proof}
 
-A Desigualdade do Processamento de Dados estabelece que a informação mútua
+A \emph{Desigualdade do Processamento de Dados}\index{desigualdade de processamento de dados} estabelece que a informação mútua
 entre variáveis aleatórias não aumenta sob o processamento de dados. Em outras
 palavras, a informação relevante para uma variável não pode ser aumentada ao
 processar outra variável relacionada em uma cadeia de Markov.
@@ -1470,7 +1610,7 @@ Utilizando a regra da cadeia da informação mútua (\Cref{pro:regracadeiainfmut
 Como $X \independent Z |Y$ ($X$ e $Z$ são condicionalmente independentes, dado $Y$), temos
 que $I(X;Z|Y)=0$. Como $I(X;Y|Z) \geq 0$, usando \cref{dem:desgprocdadosA1,dem:desgprocdadosA2}, teremos
 \begin{equation}
-I(X;Z) + \underbrace{I(X; Y|Z)}_{\geq 0} = I(X;Y) + \bcancelto{0}{I(X;Z|Y)} ,
+I(X;Z) + \underbrace{I(X; Y|Z)}_{\geq 0} = I(X;Y) + \bcancelto{0}{I(X;Z|Y)} .
 \end{equation}
 Podemos conclui então que
 \begin{equation}
@@ -1524,22 +1664,27 @@ explorar regularidades estatísticas ou estruturais na imagem.
 
 
 
+
+
+
+
+
 \section{Algumas Relações Notáveis}
 
-\begin{proposition}[Determinismo e a incerteza nula]\label{prop:detincertnull}
+\begin{proposition}[Determinismo e a incerteza nula\index{incerteza!nula}]\label{prop:detincertnull}
 $H(X)=0$ se, e somente se, $X$ for determinístico.
 \end{proposition}
 \begin{proof}
 Se $X$ é determinístico, então existe $x^\ast \in \mathcal{X}$ tal que $p(x^\ast) = 1$ e
-$p(x) = 0 \forall x \neq x^\ast$. Neste caso, teremos $H(X) = -p(x^\ast) \log p(x^\ast) = 0$.
+$p(x) = 0, \forall x \neq x^\ast$. Neste caso, teremos $H(X) = 0$.
 Por outro lado, se $X$ não for determinístico, então existe $x^\ast \in \mathcal{X}$ tal que $0 < p(x^\ast) < 1$.
-Desta forma, $H(X) \geq -p(x^\ast) \log p(x^\ast) \geq 0$. Podemos concluir assim que
+Desta forma, $H(X) > -p(x^\ast) \log p(x^\ast) > 0$. Podemos concluir assim que
 $H(X) = 0$ se e somente se $X$ for determinístico.
 \end{proof}
 
 
 \begin{proposition}[Quando $Y$ é uma função de $X$]
-$H(Y|X) = 0$ se, e somente se, $Y$ for um função de $X$, ou seja, $Y = g(X)$.
+$H(Y|X) = 0$\index{entropia condicional!nula} se, e somente se, $Y$ for um função de $X$, ou seja, $Y = g(X)$.
 \end{proposition}
 \begin{proof}
   Observando a \Cref{eq:entcondevents}, podemos concluir que $H(Y|X) = 0$
@@ -1573,7 +1718,7 @@ $H(Y|X) = 0$ se, e somente se, $Y$ for um função de $X$, ou seja, $Y = g(X)$.
   $p(y_i|x_0)$ será igual a $1$ apenas para um $y_i$ e zero para os demais.
 \end{proof}
 
-\begin{theorem}[Informação mútua condicional é não nula]\label{thm:infmutcondnnull}
+\begin{theorem}[Informação mútua condicional é não nula\index{informação mútua condicional!não nula}]\label{thm:infmutcondnnull}
   Para variáveis aleatórias $X$, $Y$ e $Z$,
   \begin{equation}
     I(X;Y|Z) \geq 0 ,
@@ -1613,7 +1758,7 @@ $H(Y|X) = 0$ se, e somente se, $Y$ for um função de $X$, ou seja, $Y = g(X)$.
 \end{proof}
 
 
-\begin{proposition}[Independência e informação mútua nula]\label{prop:indinfmutuanull}
+\begin{proposition}[Independência e informação mútua nula\index{independência}\index{informação mútua!núla}]\label{prop:indinfmutuanull}
   $I(X;Y) = 0$ se, e somente se, $X \independent Y$.
 \end{proposition}
 \begin{proof}
@@ -1622,7 +1767,7 @@ $H(Y|X) = 0$ se, e somente se, $Y$ for um função de $X$, ou seja, $Y = g(X)$.
 
 
 
-\begin{theorem}[Condicionar não aumenta a entropia]\label{thm:condnaoaumentaentropia}
+\begin{theorem}[Condicionar não aumenta a entropia\index{entropia!condicionar nãu aumenta}]\label{thm:condnaoaumentaentropia}
 \begin{equation}
   H(Y|X) \leq H(Y)
 \end{equation}
@@ -1640,7 +1785,7 @@ com igualdade se, e somente se, $X \independent Y$.
 
 
 A próxima desigualdade estabelece um teto para a entropia conjunta de um conjunto de variáveis aleatórias, assumindo que elas são independentes.
-\begin{theorem}[Limite de Independência para Entropia]\label{thm:limindent}
+\begin{theorem}[Limite de independência para entropia\index{entropia!limite de independência}]\label{thm:limindent}
   A entropia conjunta $H(X_1, X_2, \ldots, X_n)$ de um conjunto de variáveis aleatórias $X_1, X_2, \ldots, X_n$
   é sempre menor ou igual à soma das entropias individuais, ou seja,
   \begin{equation}
@@ -1667,7 +1812,7 @@ A próxima desigualdade estabelece um teto para a entropia conjunta de um conjun
 
 
 
-\begin{theorem}\label{thm:infmutxyzgeq}
+\begin{theorem}[Monotonicidade da informação mútua\index{informação mútua!monotonicidade}]\label{thm:infmutxyzgeq}
   \begin{equation}
     I(X;Y,Z) \geq I(X;Y) ,
   \end{equation}
@@ -1704,9 +1849,15 @@ da distribuição uniforme como maximizadora da entropia.
   Podemos calcular explicitamente o valor probabilidade de coincidência para duas variáveis aleatórias:
   \begin{subequations}
     \begin{align}
-      Pr(X = X') &= Pr(X=x_1|X'=x_1)Pr(X'=x_1) + \ldots + Pr(X=x_n|X'=x_n)Pr(X'=x_n) \\
-        &= Pr(X=x_1)Pr(X'=x_1) + \ldots + Pr(X=x_n)Pr(X'=x_n) \\
-        &= p^2(x_1) + \ldots + p^2(x_n) = \sum_x p^2(x) .\label{eq:colprob}
+      \begin{split}
+        Pr(X = X') ={}& Pr(X=x_1|X'=x_1)Pr(X'=x_1) + \ldots + \\
+                      & Pr(X=x_n|X'=x_n)Pr(X'=x_n) 
+      \end{split}\\
+      \begin{split}
+        ={}& Pr(X=x_1)Pr(X'=x_1) + \ldots + \\
+           & Pr(X=x_n)Pr(X'=x_n)
+      \end{split}\\
+        ={}& p^2(x_1) + \ldots + p^2(x_n) = \sum_x p^2(x) .\label{eq:colprob}
     \end{align}
   \end{subequations}
   Em muitas aplicações práticas, a distribuição exata $p$ pode não ser conhecida,
@@ -1734,8 +1885,8 @@ não restringe superiormente esta problabilidade, o que seria desejavál de se e
 
 A \Cref{eq:colprob} fornece a probabilidade de colisão. 
 \begin{definition}[Entropia de Colisão]
-A chamada entropia de colisão, ou entropia
-de Rényi de segunda ordem ($n=2$) é definida com
+  A chamada \emph{entropia de colisão}\index{entropia!de colisão}, ou \emph{entropia
+  de Rényi}\index{entropia!de Rényi} de segunda ordem ($n=2$) é definida com
 \begin{equation}
   H_2(X) = -\log (Pr(X = X')) .
 \end{equation}
