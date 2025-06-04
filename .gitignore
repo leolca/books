@@ -12,11 +12,15 @@
 *.fdb_latexmk
 *.synctex.gz
 *.bcf
+*.idx
+*.ilg
+*.ind
 
 # Backup files
 *~
 *.bak
 *.tmp
+*.bib.original
 
 # Other files
 *.pdfsync
