@@ -1929,26 +1929,25 @@ Vamos analisar agora a probabilidade de colisão quando as duas variáveis aleat
 
 
 
-
 \section{Comunicação em um canal ruidoso}
-A comunicação em um canal ruidoso é um cenário clássico em teoria da informação, onde uma mensagem
+A comunicação em um \emph{canal ruidoso}\index{canal!ruidoso} é um cenário clássico em teoria da informação, onde uma mensagem
 $X$ é transmitida através de um canal sujeito a ruído, resultando em uma versão distorcida $Y$.
 O receptor, tenta estimar $X$ a partir de $Y$, gerando uma estimativa $\hat{X} = g(Y)$.
-Esse processo forma uma cadeia de Markov: $X \rightarrow Y \rightarrow \hat{X}$.
+Esse processo forma uma cadeia de Markov\index{cadeia de Markov}: $X \rightarrow Y \rightarrow \hat{X}$.
 O processo de estimação está inevitavelmente sujeito a erros Para quantificar esse erro e estabelecer
-limites sobre a probabilidade de erro na estimação de $X$, introduziremos a desigualdade de Fano.
+limites sobre a probabilidade de erro na estimação de $X$, introduziremos a desigualdade de Fano \parencite{fano1961}.
 
 Primeiramente, definiremos o erro na estimação como o evento em que $X \neq \hat{X}$, e a
-probabilidade de erro será denotada por $P_e = p(X \neq \hat{X})$. Em muitas situações, não é
+\emph{probabilidade de erro}\index{probabilidade de erro} será denotada por $P_e = p(X \neq \hat{X})$. Em muitas situações, não é
 possível calcular diretamente $P_e$; no entanto, veremos que a incerteza sobre $X$ dado $Y$, 
-representada por $H(X∣Y)$, pode ser usada para estabelecer um
+representada por $H(X|Y)$, pode ser usada para estabelecer um
 limite inferior para essa probabilidade de erro. Para derivar esse limite, será
 suficiente conhecer as características do canal, ou seja, a distribuição
 condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y$.
 
 
 
-\begin{theorem}[Desigualdade de Fano]\label{thm:desfano}
+\begin{theorem}[Desigualdade de Fano\index{desigualdade de Fano}]\label{thm:desfano}
   Para qualquer estimador $\hat{X}$ tal que $X \rightarrow Y \rightarrow \hat{X}$, com
   $P_e = Pr(X \neq \hat{X})$, temos
   \begin{equation}\label{eq:desfano}
@@ -1960,7 +1959,7 @@ condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y
     não poderá ser aplicada. Devemos então utilizar a forma mais relaxada:
     \begin{equation}
       P_e \geq \frac{H(X|Y) - 1}{\log \left( \vert \mathcal{X} \vert - 1 \right)}
-         > \frac{H(X|Y) - 1}{\log \vert \mathcal{X} \vert }
+         > \frac{H(X|Y) - 1}{\log \vert \mathcal{X} \vert } .
     \end{equation}
   } na forma
   \begin{equation}\label{eq:desfanorelax}
@@ -1969,7 +1968,7 @@ condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y
   onde utilizamos $H(P_e) \leq 1$.
 \end{theorem}
 \begin{proof}
-  Vamos primeiramente definir uma função de erro:
+  Vamos primeiramente definir uma variável aleatórias associada ao erro na comunicação:
   \begin{equation}
     E = \begin{cases} 1 &, \text{ se } \hat{X} \neq X \text{(erro)} \\
                 0       &, \text{ se } \hat{X} = X \text{(sem erro)} .
@@ -1987,17 +1986,23 @@ condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y
   E por fim, note que
   \begin{subequations}
     \begin{align}
-      H(X|\hat{X},E) &= p(E=0) \underbrace{H(X|\hat{X},E=0)}_{=0} + p(E=1)H(X|\hat{X},E=1) \\
-                     &= (1-P_e) 0 + P_e H(X|\hat{X},E=1) \leq P_e \log (\vert \mathcal{X} \vert - 1) ,
+      \begin{split}
+        H(X|\hat{X},E) ={}& p(E=0) \underbrace{H(X|\hat{X},E=0)}_{=0} + \\
+                          & p(E=1)H(X|\hat{X},E=1) 
+      \end{split}\\
+                     ={}& (1-P_e) 0 + P_e H(X|\hat{X},E=1) \\
+                     \leq{}& P_e \log (\vert \mathcal{X} \vert - 1) , \label{eq:HXXhEc}
     \end{align}
   \end{subequations}
   onde usamos que, se não há erro ($E=0$) e conhecemos $\hat{X}$, então determinamos $X$. Não existe entropia residual em $X$ quando é dado $\hat{X}$ e $E=0$.
-  Logo $H(X|\hat{X},E=0)=0$. Usamos ainda que se conhecemos $\hat{X}$ e existe um erro ($E=1$), então sabemos que $X$ é diferente de $\hat{X}$, logo isto nos deixa com $(\vert \mathcal{X} \vert - 1)$ alternativas.
+  Logo $H(X|\hat{X},E=0)=0$. Usamos ainda que, se conhecemos $\hat{X}$ e existe um erro ($E=1$), então sabemos que $X \neq \hat{X}$,
+  logo isto nos deixa com $(\vert \mathcal{X} \vert - 1)$ alternativas.
   Assim, teremos $H(X|\hat{X},E=1) \leq \log (\vert \mathcal{X} \vert - 1)$.
-  Aplicando $H(X|\hat{X},E) \leq P_e \log (\vert \mathcal{X} \vert - 1)$ na \Cref{eq:demfanoA}, obtemos agora
+  Aplicando \cref{eq:HXXhEc} %$H(X|\hat{X},E) \leq P_e \log (\vert \mathcal{X} \vert - 1)$ 
+  na \Cref{eq:demfanoA}, obtemos agora
   \begin{subequations}\label{eq-hhpelog}
     \begin{align}
-      H(X|\hat{X}) &= H(E|\hat{X}) + H(X|E,\hat{X})
+      H(X|\hat{X}) &= H(E|\hat{X}) + H(X|E,\hat{X}) \\
                    &\leq H(P_e) + P_e \log (\vert \mathcal{X} \vert - 1) .
     \end{align}
   \end{subequations}
@@ -2029,6 +2034,7 @@ condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y
 
   A distribuição condicional $p(y|x)$ é
    
+  \begin{center}
   \begin{tabular}{c|cc}
   \diagbox{X}{Y} & 1 & 2 \\
   \hline
@@ -2038,13 +2044,14 @@ condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y
   4 & $1/2$  & $1/2$ \\
   5 & $1/2$  & $1/2$
   \end{tabular} 
+  \end{center}
 
   A efetiva probabilidade de erro é dada por
   \begin{subequations}
     \begin{align}
       P_e &= 1 - P_a  \\
       &= 1 - \sum_{i=1}^{5} P(x_i = y_i) \\
-      &= 1 - \left(  p(y = 1 | x = 1) p(x = 1) + p(y = 2 | x = 2) p(x = 2) + 0 + 0 + 0 \right) \\
+      &= 1 - \left(  p(y = 1 | x = 1) p(x = 1) + p(y = 2 | x = 2) p(x = 2) \right) \\
       &= 1 - \left( \frac{6}{7} 0.35 + \frac{6}{7} 0.35 \right) = 0.4 = \frac{2}{5}
     \end{align}
   \end{subequations}
@@ -2082,12 +2089,15 @@ condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y
     \end{align}
   \end{subequations}
 
-  Desta forma Teremos
+  Desta forma teremos
   \begin{subequations}
     \begin{align}
-      H(X|Y) &= H(X|Y=1) P(Y=1) + H(X|Y=2) P(Y=2)  \\
-        &= - \frac{1}{2} \left( 0.6 \log 0.6 + 4 \times 0.1 \log 0.1 \right) - \frac{1}{2} \left( 4 \times 0.1 \log 0.1 + 0.6 \log 0.6 \right) \\
-        &= 1.771 \text{ bits. }
+      H(X|Y) ={}& H(X|Y=1) P(Y=1) + H(X|Y=2) P(Y=2)  \\
+      \begin{split}
+        ={}& - \frac{1}{2} \left( 0.6 \log 0.6 + 4 \times 0.1 \log 0.1 \right) - \\
+           & \frac{1}{2} \left( 4 \times 0.1 \log 0.1 + 0.6 \log 0.6 \right) 
+      \end{split}\\
+        ={}& 1.771 \text{ bits. }
     \end{align}
   \end{subequations}
 
@@ -2106,7 +2116,7 @@ condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y
 
 
 
-\section{Medida de Informação}\label{sec:medidasvariacoes}
+\section{Medida de Informação\index{medida!de informação}}\label{sec:medidasvariacoes}
 Exploramos conceitos como entropia, informação mútua e divergência de
 Kullback-Leibler sob a perspectiva de variáveis aleatórias e suas
 distribuições, mas essas grandezas podem ser entendidas de forma mais profunda
@@ -2119,14 +2129,14 @@ espaços probabilísticos.
 Dado um conjunto de variáveis aleatórias: $X_1, X_2, \ldots, X_n$,
 a cada uma delas associamos um conjunto $\tilde{X}_1, \tilde{X}_2, \ldots, \tilde{X}_n$.
 
-\begin{definition}[Campo]
+\begin{definition}[Campo\index{medida!campo}]
   Um campo $\mathcal{F}_n$ gerado pelos conjuntos $\tilde{X}_1, \tilde{X}_2, \ldots, \tilde{X}_n$ é
   a coleção de conjuntos que podem ser obtidos através de qualquer sequência de operações
   usuais de conjuntos (união, interseção, complemento, e diferença) sobre os conjuntos
   $\tilde{X}_1, \tilde{X}_2, \ldots, \tilde{X}_n$.
 \end{definition}
 
-\begin{definition}[Átomo]
+\begin{definition}[Átomo\index{medida!átomo}]
   Os átomos de $\mathcal{F}_n$ são os conjuntos da forma $\cap_{i=1}^n Y_i$, onde
   $Y_i$ é $\tilde{X}_i$ ou $\tilde{X}_i^c$, o complemento de $\tilde{X}_i$.
 \end{definition}
@@ -2138,8 +2148,8 @@ a cada uma delas associamos um conjunto $\tilde{X}_1, \tilde{X}_2, \ldots, \tild
   $\tilde{X}_1 \cap \tilde{X}_2$, $\tilde{X}_1 \cap \tilde{X}_2^c$,
   $\tilde{X}_1^c \cap \tilde{X}_2$, e $\tilde{X}_1^c \cap \tilde{X}_2^c$,
   que estão representados na \Cref{fig:atoms-n2}.
-  \begin{marginfigure}%
-    \includegraphics[width=0.5\linewidth]{figures/atoms-n2.pdf}
+  \begin{marginfigure}[-5cm]%
+    \includegraphics[width=0.6\linewidth]{figures/atoms-n2.pdf}
     \caption{Exemplo de átomos para $n=2$.}
     \label{fig:atoms-n2}
   \end{marginfigure}
@@ -2177,7 +2187,7 @@ podem ser interpretadas como medidas sobre $F_n$.
 Para ilustrar propriedades específicas, consideremos o caso particular em que $S_{X_i} = \{0,1\}, \forall i$,
 ou seja, $\Omega = \{0,1\}^n$, com $\vert \Omega \vert = 2^n$ e $F_n = 2^\Omega$.
 Nesse cenário, teremos as seguintes propriedades:
-\begin{enumerate}
+\begin{enumerate}[nolistsep]
   \item há exatamente $2^n$ átomos;
   \item $\vert F_n \vert = 2^\Omega = 2^{2^n}$;
   \item Todos os átomos em $F_n$ são disjuntos;
@@ -2189,7 +2199,7 @@ números a todo subconjunto de $S$, sendo intuitivamente interpretada como o seu
 Medida com sinal é uma generalização do conceito de medida permitindo que esta assuma valores
 negativos.
 
-\begin{definition}[Medida com sinal]
+\begin{definition}[Medida com sinal\index{medida!com sinal}]
   Uma função real $\mu$ definida em $\mathcal{F}_n$ é chamada medida com sinal se
   for aditiva no conjunto, i.e., para $A$ e $B$ disjuntos em $\mathcal{F}_n$,
   \begin{equation}
@@ -2229,8 +2239,8 @@ $\tilde{X} = \cup_{i=1} Y_i$, onde $Y_i$ são átomos escolhidos apropriadamente
   O valor de $\mu$ em $\tilde{X}_1 \cup \tilde{X}_2$ pode ser obtido através de
   \begin{subequations}
     \begin{align}
-      \mu( \tilde{X}_1 \cup \tilde{X}_2 ) &=& \mu( (\tilde{X}_1 \cap \tilde{X}_2) \cup (\tilde{X}_1 \cap \tilde{X}_2^c) \cup (\tilde{X}_1^c \cap \tilde{X}_2) ) \\
-        &=& \mu( \tilde{X}_1 \cap \tilde{X}_2 ) + \mu( \tilde{X}_1 \cap \tilde{X}_2^c ) + \mu(\tilde{X}_1^c \cap \tilde{X}_2)
+      \mu( \tilde{X}_1 \cup \tilde{X}_2 ) ={}& \mu( (\tilde{X}_1 \cap \tilde{X}_2) \cup (\tilde{X}_1 \cap \tilde{X}_2^c) \cup (\tilde{X}_1^c \cap \tilde{X}_2) ) \\
+        ={}& \mu( \tilde{X}_1 \cap \tilde{X}_2 ) + \mu( \tilde{X}_1 \cap \tilde{X}_2^c ) + \mu(\tilde{X}_1^c \cap \tilde{X}_2)
     \end{align}
   \end{subequations}
 
@@ -2245,7 +2255,7 @@ $(\tilde{X}_1^c \cap \tilde{X}_2)$, e
 $(\tilde{X}_1^c \cap \tilde{X}_2^c)$.
 O diagrama de informação é apresentado na Figura \ref{fig:setX1X2}.
   \begin{marginfigure}%
-    \includegraphics[width=0.5\linewidth]{figures/setX1X2.pdf}
+    \includegraphics[width=0.6\linewidth]{figures/setX1X2.pdf}
     \caption{Diagrama de informação para $X_1$ e $X_2$.}
     \label{fig:setX1X2}
   \end{marginfigure}
@@ -2256,7 +2266,7 @@ O conjunto universo será considerada como sendo $\Omega = \tilde{X}_1 \cup \til
   \tilde{X}_1^c \cap \tilde{X}_2^c = (\tilde{X}_1 \cup \tilde{X}_2)^c = \Omega^c = \emptyset .
   \end{equation}
 
-  Para as v.a.s $X_1$ e $X_2$, as medidas de informação de Shannon são
+  Para as v.a.s $X_1$ e $X_2$, as medidas de informação de Shannon\index{medida!de informação de Shannon} são
   \begin{equation}
   H(X_1), H(X_2), H(X_1|X_2), H(X_2|X_1), H(X_1,X_2), I(X_1;X_2) .
   \end{equation}
@@ -2300,7 +2310,7 @@ A Equação \ref{eqmuX1HX1} também pode ser facilmente verificada
   \end{align}
 \end{subequations}
 
-  É possível então verificar a seguinte correspondência com as medidas de informação de Shannon
+  É possível então verificar a seguinte correspondência\index{medida!correspondências com as medidas de Shannon} com as medidas de informação de Shannon
   \begin{subequations}
   \begin{align}
   H / I &\leftrightarrow \mu^\ast \\

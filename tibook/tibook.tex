@@ -83,6 +83,9 @@
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\Cov}{\mathrm{Cov}}
 
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+
 % math cancel to (down arrow)
 \makeatletter
 % #1, #2 offset of label   #6 extra width to clear arrowhead
@@ -154,12 +157,12 @@
     {\vspace{2ex}\small\noindent\textbf{Interlúdio}\\} % Começo do ambiente
     {\vspace{1ex}\\\hfill\rule{0.5\linewidth}{0.5pt}\hfill\vspace{2ex}} % Fim do ambiente com linha horizontal e espaço
 
-% Definindo o fim do example
-\usepackage{xpatch}
-\xpatchcmd{\endexample}
-  {\endtrivlist}
-  {\smallskip\hfill\rule{3em}{0.4pt}\hfill\medskip\endtrivlist}
-  {}{\fail}
+%% Definindo o fim do example
+%\usepackage{xpatch}
+%\xpatchcmd{\endexample}
+%  {\endtrivlist}
+%  {\smallskip\hfill\rule{3em}{0.4pt}\hfill\medskip\endtrivlist}
+%  {}{\fail}
 
 
 

@@ -1,4 +1,4 @@
-\section{Estimação da Entropia}
+\section{Estimação da Entropia\index{entropia!estimação}}
 \label{sec:estimacao-entropia}
 
 Vimos anteriormente conceitos como a entropia de Shannon, entropia conjunta e
@@ -12,7 +12,7 @@ sobre a fonte e limitações impostas pela quantidade finita de dados.
 
 
 A entropia de Shannon assume uma fonte sem memória e ignora dependências ou padrões temporais.
-Ao utilizá-la como uma medida de incerteza de uma fonte, devemos ter em mente tais limitações. 
+Ao utilizá-la como uma medida de incerteza\index{incerteza} de uma fonte, devemos ter em mente tais limitações. 
 Sequências previsíveis, como \texttt{010101...} ou \texttt{000...111...}, 
 podem ter a mesma entropia estimada que sequências imprevisíveis 
 (e.g., uma sequência verdadeiramente aleatória) se apresentarem a mesma distribuição de símbolos 
@@ -25,15 +25,15 @@ Além disso, devemos lidar com a imprecisão da estimativa da distribuição sub
 que temos tão somente uma amostra finita em mãos.
 
 Estimar a entropia requer primeiro estimar a distribuição da fonte. Um método
-muito utilizado é a estimativa de máxima verossimilhança (MLE), que se relaciona
-diretamente com a minimização da divergência de Kullback-Leibler. 
+muito utilizado é a \emph{estimativa de máxima verossimilhança}\index{estimativa de máxima verossimilhança} (MLE), que se relaciona
+diretamente com a minimização da divergência de Kullback-Leibler\index{divergência de Kullback-Leibler!minimização}. 
 
 Suponha uma variável aleatória $\mathbf{X} = (X_1, \ldots, X_N)$ 
 com distribuição subjacente $p$, que depende de um parâmetro $\theta$,
 podemos a chamar também de $p_\theta$. 
 Dadas $N$ observações i.i.d. $x_1, \ldots, x_N$, queremos estimar $\theta$ 
-via um estimador $\hat{\theta} = T(x_1, \ldots, x_N)$. 
-A verossimilhança $L(\theta)$ é a probabilidade conjunta dos dados sob o modelo:
+via uma  estatística\index{estatística!estimação de distribuição} $\hat{\theta} = T(x_1, \ldots, x_N)$. 
+A \emph{verossimilhança}\index{verossimilhança} $L(\theta)$ é a probabilidade conjunta dos dados sob o modelo:
 \begin{equation}
 L(\theta) = \Pr(X_1 = x_1, \ldots, X_N = x_N | \theta) = \prod_{n=1}^N p(x_n | \theta).
 \end{equation}
@@ -53,28 +53,28 @@ A distribuição empírica \( \hat{p} \), baseada nas observações, é definida
   \hat{p}(x) = \frac{1}{N} \sum_{n=1}^N \delta (x_n = x) = \frac{N(x \vert x_1, \ldots, x_N)}{N} = \frac{N_x}{N},
 \end{equation}
 onde $\delta(x_n = x)$ é a delta de Kronecker, que vale 1 se $x_n = x$ e 0 caso contrário, e
-$N(x \vert x_1, \ldots, x_N)$ expressa o número de ocorrências do símbolo $x$ na amostra $x_1, \ldots, x_N$.
-Seja $p_\theta$ uma distribuição parametrizada por $\theta$. 
-Maximizar a verossimilhança de $p_\theta(x)$ equivale a minimizar a divergência de KL entre $\hat{p}$ e $p_\theta$:
+$N_x = N(x \vert x_1, \ldots, x_N)$ expressa o número de ocorrências do símbolo $x$ na amostra $x_1, \ldots, x_N$.
+Seja $p_\theta$ uma distribuição parametrizada por $\theta$,
+maximizar a verossimilhança de $p_\theta(x)$ equivale a minimizar a divergência de KL entre $\hat{p}$ e $p_\theta$:
 \begin{subequations}
   \begin{align}
     D_{\text{KL}}(\hat{p} \| p_\theta) &= \sum_{x \in \mathcal{X}} \hat{p}(x) \log \frac{\hat{p}(x)}{p_\theta(x)} \\
                                        &= -H(\hat{p}) - \sum_{x \in \mathcal{X}} \hat{p}(x) \log p_\theta(x)  \nonumber \\
                                        &= -H(\hat{p}) - \frac{1}{N} \sum_{x \in \mathcal{X}} \sum_{n=1}^{N} \delta (x_n = x) \log p_\theta(x) \nonumber \\
-                                       &= -H(\hat{p}) - \frac{1}{N} \sum_{n=1}^{N} \log p_\theta(x_n) ,
+                                       &= -H(\hat{p}) - \frac{1}{N} \sum_{n=1}^{N} \log p_\theta(x_n) \\
+                                       &= -H(\hat{p}) - \frac{1}{N} \ell(\theta) .
   \end{align}
 \end{subequations}
-onde o segundo termo é o oposto do logaritmo da verossimilhança médio. 
 Como $H(\hat{p})$ é constante para um conjunto fixo de dados, minimizar 
-$D_{\text{KL}}(\hat{p} \| p_\theta)$ equivale a maximizar $\frac{1}{N} \sum_{n=1}^N \log p_\theta(x_n)$,
-ou seja, maximizar $\ell(\theta)$. 
-Portanto, o MLE $\hat{\theta}_{\text{MLE}}$ é:
+$D_{\text{KL}}(\hat{p} \| p_\theta)$ equivale a maximizar $\ell(\theta)$. 
+Portanto, o estimador de máxima verossimilhança é:
 \begin{equation}
 \hat{\theta}_{\text{MLE}} = \argmin_{\theta \in \Theta} D_{\text{KL}}(\hat{p} \| p_\theta).
 \end{equation}
 Essa equivalência mostra que escolher o modelo $p_\theta$ que melhor se
 ajusta aos dados (via MLE) minimiza a diferença entre a distribuição empírica e
 o modelo.
+
 
 
 
@@ -88,12 +88,12 @@ devemos nos atentar ao seguinte problema: símbolos raros podem não ser observa
 devido ao tamanho limitado da amostra, levando a estimativas
 imprecisas. Devemos considerar que é um mero acaso da amostra observamos
 determinado símbolo uma vez ou nenhuma vez.
-Em uma sequência binária de $N$ bits, se nenhum 0
+Em uma sequência binária de  $N$ bits, se nenhum 0
 for observado, o estimador atribuirá $\hat{p}(0) = 0$, sugerindo
 que 0 é impossível, o que pode ser um artefato da amostra. Isso distorce a
-estimativa da distribuição, especialmente em fontes com baixa probabilidade de certos
-símbolos. Para abordar essa questão, técnicas de suavização
-(\textit{smoothing}) ajustam as probabilidades empíricas, atribuindo valores
+estimativa da distribuição, especialmente em fontes com baixa probabilidade para certos
+símbolos. Para abordar essa questão, técnicas de \emph{suavização}\index{suavização}
+(em inglês, \textit{smoothing}) ajustam as probabilidades empíricas, atribuindo valores
 não nulos a símbolos não observados. A Regra de Sucessão de
 Laplace e sua generalização via Dirichlet são exemplos simples de
 técnicas de suavização utilizadas.
@@ -101,18 +101,17 @@ técnicas de suavização utilizadas.
 
 
 \subsubsection{Regra de Laplace e o Problema do Nascer do Sol}
-A Regra de Sucessão de Laplace, proposta no século XVIII por Pierre-Simon
+A \emph{Regra de Sucessão de Laplace}\index{suavização!regra de sucessão de Laplace}, proposta no século XVIII por Pierre-Simon
 Laplace, é uma abordagem bayesiana para estimar probabilidades em experimentos
 binários, como o famoso ``problema do nascer do sol'': qual é a probabilidade de
 que o sol nasça amanhã, dado que nasceu todos os dias nos últimos $n$ dias?
-Essa regra suaviza as estimativas ao assumir uma distribuição a priori Beta com
-parâmetros $\alpha_0 = \alpha_1 = 1$, equivalente a uma densidade uniforme
-no intervalo $[0, 1]$ para a probabilidade $p_0$, evitando probabilidades
-nulas. Isso reflete a suposição de ignorância total sobre a probabilidade $p_0$,
+Essa regra suaviza as estimativas ao assumir uma distribuição \textit{a priori} uniforme
+sobre a probabilidade $p_0$ no intervalo $[0, 1]$.
+Isso reflete a suposição de ignorância total sobre a distribuição,
 antes de observar os dados.
 
 Considere uma fonte binária com alfabeto $\mathcal{X} = \{0, 1\}$, onde
-$X_1, \ldots, X_N$ são variáveis aleatórias i.i.d. com $p(0) = p_0$, 
+$X_1, \ldots, X_N$ são variáveis aleatórias i.i.d. com $p(0) = p_0$ e  
 $p(1) = p_1 = 1 - p_0$. Dadas $N$ observações $x_1, \ldots, x_N$, o número
 de ocorrências de 0 e 1 é:
 \begin{equation}
@@ -122,33 +121,19 @@ A verossimilhança dos dados é:
 \begin{equation}
 p(x_1, \ldots, x_N | p_0) = p_0^{N_0} p_1^{N_1}.
 \end{equation}
-Assumimos uma distribuição a priori uniforme para $p_0$, ou seja, $\Pr(p_0) = 1$ para $p_0 \in [0, 1]$, 
-refletindo incerteza total sobre a distribuição. Pelo teorema de Bayes, a distribuição a posteriori de $p_0$ é:
-\begin{subequations}
+Assumimos uma distribuição \textit{a priori} uniforme para $p_0$, ou seja, $\Pr(p_0) = 1$ para $p_0 \in [0, 1]$. 
+%refletindo incerteza total sobre a distribuição. Pelo teorema de Bayes, a distribuição \textit{a posteriori} de $p_0$ é:
+\begin{subequations}\label{eq:Prp0givenx1n}
   \begin{align}
     \Pr(p_0 | x_1, \ldots, x_N) &= \frac{p(x_1, \ldots, x_N | p_0) \Pr(p_0)}{\Pr(x_1, \ldots, x_N)} \\
                                 &= \frac{p_0^{N_0} p_1^{N_1}}{\Pr(x_1, \ldots, x_N)}.
   \end{align}
 \end{subequations}
-O denominador, a probabilidade marginal dos dados, é calculado usando a função Beta:
-\begin{subequations}
-  \begin{align}
-    \Pr(x_1, \ldots, x_N) &= \int_0^1 \Pr (x_{1:N}, p_0) dp_0 \label{eq:demprobmargbetaA}\\
-                          &= \int_0^1 p_0^{N_0} p_1^{N_1} \Pr(p_0) dp_0 \label{eq:demprobmargbetaB}\\
-                          &= \int_0^1 p_0^{N_0} p_1^{N_1} dp_0 \label{eq:demprobmargbetaC} \\
-                          &= B(N_0 + 1, N_1 + 1) \\
-                          &= \frac{\Gamma(N_0 + 1) \Gamma(N_1 + 1)}{\Gamma(N_0 + N_1 + 2)} \\
-                          &= \frac{N_0! N_1!}{(N_0 + N_1 + 1)!},
-  \end{align}
-\end{subequations}
-onde $\Gamma(n) = (n-1)!$ para $n$ inteiro. 
-Em \ref{eq:demprobmargbetaA} utilizamos que a probabilidade marginal $\Pr(x_1, \ldots, x_N)$ é obtida 
-integrando a probabilidade conjunta $\Pr (x_{1:N}, p_0)$ sobre $p_0$.
-Em \ref{eq:demprobmargbetaC} utilizamos que a distribuição a priori é uniforme, $\Pr(p_0)=1$.
-A integral remanescente em \ref{eq:demprobmargbetaC} é característica da função Beta\footnote{
+
+O denominador da \Cref{eq:Prp0givenx1n}, a probabilidade marginal dos dados, é calculado usando a função Beta\footnote[][-30ex]{
 A função Beta é definida como:
 \begin{equation}
-  B(a,b) = \int_0^1 x^{a-1} (1-x)^{b-1} dx.
+  B(a,b) = \int_0^1 x^{a-1} (1-x)^{b-1} \diff x.
 \end{equation}
 A função Beta pode ser expressa em termos da função Gamma:
 \begin{equation}
@@ -159,13 +144,28 @@ A função Gamma para inteiros pode ser expressa como:
   \Gamma(n) = (n-1)! ,
 \end{equation}
 onde $n$ é inteiro.
-}.
+}:
+\begin{subequations}
+  \begin{align}
+    \Pr(x_1, \ldots, x_N) &= \int_0^1 \Pr (x_{1:N}, p_0) \diff p_0 \label{eq:demprobmargbetaA}\\
+                          &= \int_0^1 p_0^{N_0} p_1^{N_1} \Pr(p_0) \diff p_0 \label{eq:demprobmargbetaB}\\
+                          &= \int_0^1 p_0^{N_0} p_1^{N_1} \diff p_0 \label{eq:demprobmargbetaC} \\
+                          &= B(N_0 + 1, N_1 + 1) \\
+                          &= \frac{\Gamma(N_0 + 1) \Gamma(N_1 + 1)}{\Gamma(N_0 + N_1 + 2)} \label{eq:demprobmargbetaE} \\
+                          &= \frac{N_0! N_1!}{(N_0 + N_1 + 1)!}.
+  \end{align}
+\end{subequations}
+Em \ref{eq:demprobmargbetaA} utilizamos que a probabilidade marginal $\Pr(x_1, \ldots, x_N)$ é obtida 
+integrando a probabilidade conjunta $\Pr (x_{1:N}, p_0)$ sobre $p_0$.
+Em \ref{eq:demprobmargbetaC} utilizamos que a distribuição \textit{a priori} é uniforme, $\Pr(p_0)=1$.
+A integral remanescente em \ref{eq:demprobmargbetaC} é característica da função Beta.
+Em \ref{eq:demprobmargbetaE}, avaliando a função gamma nos inteiros positivos $n$, temos $\Gamma(n) = (n-1)!$.
 Para prever a probabilidade do próximo símbolo ser 0, calculamos:
 \begin{subequations}
   \begin{align}
-    \Pr(X_{N+1} = 0 | x_1, \ldots, x_N) &= \int_0^1 p_0 \Pr(p_0 | x_1, \ldots, x_N) dp_0 \\
-                                        &= \int_0^1 p_0 \frac{p_0^{N_0} (1 - p_0)^{N_1}}{\Pr(x_1, \ldots, x_N)} dp_0 \\
-                                        &= \frac{\int_0^1 p_0^{N_0 + 1} (1 - p_0)^{N_1} dp_0}{\int_0^1 p_0^{N_0} (1 - p_0)^{N_1} dp_0} \\
+    \Pr(X_{N+1} = 0 | x_1, \ldots, x_N) &= \int_0^1 p_0 \Pr(p_0 | x_1, \ldots, x_N) \diff p_0 \\
+                                        &= \int_0^1 p_0 \frac{p_0^{N_0} (1 - p_0)^{N_1}}{\Pr(x_1, \ldots, x_N)} \diff p_0 \\
+                                        &= \frac{\int_0^1 p_0^{N_0 + 1} (1 - p_0)^{N_1} dp_0}{\int_0^1 p_0^{N_0} (1 - p_0)^{N_1} \diff p_0} \\
                                         &= \frac{B(N_0 + 2, N_1 + 1)}{B(N_0 + 1, N_1 + 1)} \\
                                         &= \frac{\frac{(N_0 + 1)! N_1!}{(N_0 + N_1 + 2)!}}{\frac{ N_0! N_1! }{ (N_0 + N_1 +1)!  }} \\
                                         &= \frac{N_0 + 1}{N_0 + N_1 + 2}.
@@ -188,16 +188,16 @@ refletindo alta confiança, mas evitando certeza absoluta.
 
 \subsubsection{Generalização: Abordagem de Dirichlet}
 
-A Regra de Laplace assume uma distribuição a priori uniforme, equivalente a uma distribuição
-Beta com parâmetros $\alpha_0 = \alpha_1 = 1$. A abordagem de Dirichlet
-generaliza isso, permitindo distribuições a priori mais flexíveis. Para uma fonte binária, a
-distribuição a priori é uma distribuição Beta com parâmetros $\alpha_0, \alpha_1 > 0$, e a
+A Regra de Laplace assume uma distribuição \textit{a priori} uniforme, equivalente a uma distribuição
+Beta com parâmetros $\alpha_0 = \alpha_1 = 1$. A abordagem de Dirichlet\index{suavização!regra de Dirichlet}
+generaliza isso, permitindo distribuições \textit{a priori} mais flexíveis. Para uma fonte binária, a
+distribuição \textit{a priori} é uma distribuição Beta com parâmetros $\alpha_0, \alpha_1 > 0$, e a
 probabilidade do próximo símbolo é:
 \begin{equation}
 \Pr(X_{N+1} = 0 | x_1, \ldots, x_N) = \frac{N_0 + \alpha_0}{N_0 + N_1 + \alpha_0 + \alpha_1}.
 \end{equation}
 Escolher $\alpha_0 = \alpha_1 = 1$ simplifica para a Regra de Laplace, enquanto
-outros valores ajustam o peso da distribuição a priori, útil em contextos onde há conhecimento prévio sobre a fonte. 
+outros valores ajustam o peso da distribuição \textit{a priori}, útil em contextos onde há conhecimento prévio sobre a fonte. 
 Para alfabetos maiores, a Dirichlet estende a suavização a múltiplos símbolos.
 
 
