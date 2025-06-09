@@ -198,7 +198,7 @@ probabilidade do próximo símbolo é:
 \end{equation}
 Escolher $\alpha_0 = \alpha_1 = 1$ simplifica para a Regra de Laplace, enquanto
 outros valores ajustam o peso da distribuição \textit{a priori}, útil em contextos onde há conhecimento prévio sobre a fonte. 
-Para alfabetos maiores, a Dirichlet estende a suavização a múltiplos símbolos.
+Para alfabetos maiores, a regra de Dirichlet estende a suavização a múltiplos símbolos.
 
 
 
@@ -215,7 +215,7 @@ H(X) = -\sum_{x \in \{0,1\}} p(x) \log_2 p(x),
 onde $p(x)$ é a probabilidade de cada símbolo. Quando $p(0)$ e $p(1)$ são
 desconhecidos, devemos estimá-los a partir de uma sequência observada, como
 \texttt{010110...}. A entropia estimada, $\hat{H}(X)$, é então calculada usando
-essas probabilidades empíricas. No entanto, vários fatores que devemos
+essas probabilidades empíricas. No entanto, há vários fatores que devemos
 considerar: Os dados são finitos, sendo assim, uma sequência curta pode não
 representar a verdadeira distribuição da fonte, levando a estimativas
 imprecisas; Podem existir dependências desconhecidas na sequência de símbolos
@@ -233,7 +233,7 @@ finitude/escassez dos dados, dependências entre símbolos e a sensibilidade da
 entropia a eventos raros. 
 
 \subsubsection{Estimador \textit{Plug-In}}
-O método mais comum para estimar a entropia é o estimador \textit{plug-in}, que
+O método mais comum para estimar a entropia é o \emph{estimador plug-in}\index{entropia!estimador \textit{plug-in}}, que
 utiliza a estimativa de máxima verossimilhança (MLE) para as probabilidades dos
 símbolos. Para uma fonte com alfabeto $\mathcal{X} = \{a_1, \ldots, a_M\}$
 e uma amostra de $N$ observações de símbolos produzidos por esta fonte $x_1, \ldots, x_N$,
@@ -242,14 +242,14 @@ a probabilidade do $k$-ésimo símbolo é estimada como:
 \hat{p}_k = \frac{n_k}{M}, \quad \text{onde} \quad n_k = \sum_{n=1}^N \delta(x_n = a_k)
 \label{eq:mle-prob}
 \end{equation}
-é o número de ocorrências de $a_k$ na amostra, e $\delta(x_n = a_k)$ é a delta de Kronecker
-$1$ se $x_n = a_k$, $0$ caso contrário). A entropia estimada é então:
+é o número de ocorrências de $a_k$ na amostra. %, e $\delta(x_n = a_k)$ é a delta de Kronecker ($1$ se $x_n = a_k$, $0$ caso contrário). 
+A entropia estimada é então:
 \begin{equation}
 \hat{H}(X) = -\sum_{k=1}^M \hat{p}_k \log \hat{p}_k.
 \label{eq:estpluginentropia}
 \end{equation}
 Esse estimador assume que os símbolos são independentes e identicamente
-distribuídos (i.i.d.), ou seja, que não há dependências entre símbolos
+distribuídos (i.i.d.), ou seja, não há dependências entre símbolos
 consecutivos. Em fontes reais, como textos, onde palavras ou bits subsequentes
 exibem correlações, essa suposição é irrealista, levando a estimativas
 imprecisas. Por exemplo, em uma sequência binária como \texttt{010101\ldots}, a
@@ -279,13 +279,13 @@ nesta amostra pode ser tão somente um acaso da amostra tomada).
 
 \subsubsection{Técnicas de Suavização}
 
-Para mitigar o problema de eventos raros, técnicas de suavização atribuem
+Para mitigar o problema de eventos raros, técnicas de \emph{suavização}\index{suavização} atribuem
 probabilidades não nulas a símbolos não observados. A Regra de Sucessão de
 Laplace \parencite{laplace1840}, vista anteriormente, é uma das primeiras abordagens.
 Para o exemplo de uma fonte binária, a Laplace estima
 $\hat{p}(0) = \frac{n_0 + 1}{M + 2}$, garantindo que $\hat{p}(1) > 0$
 mesmo se $n_1 = 0$. No século XX, Alan Turing e Irving John Good \parencite{good1953} 
-sistematizaram métodos de suavização.\footnote{As técnicas de suavização foram
+sistematizaram métodos de suavização.\footnote[][-27ex]{As técnicas de suavização foram
 cruciais durante a Segunda Guerra Mundial no esforço dos criptoanalistas em
 Bletchley Park, Reino Unido. O estimador de Good-Turing, desenvolvido por
 Turing e formalizado por Good, foi usado para estimar probabilidades de eventos
@@ -302,7 +302,7 @@ dependências em sequências com padrões.
 
 \subsubsection{Propriedades Estatísticas do Estimador \textit{Plug-In}}
 
-O estimador \textit{plug-in} é não paramétrico, intuitivo e apresenta
+O estimador \textit{plug-in}\index{entropia!estimador \textit{plug-in}} é não paramétrico, intuitivo e apresenta
 convergência rápida entre os estimadores de entropia \parencite{zhang2012b}. 
 \textcite{antos2001} mostraram que, para distribuições com entropia
 finita, a variância de $\hat{H}(X)$ tem um limite superior que decai com o
@@ -327,7 +327,7 @@ A variância do estimador é dada por:
 \Var(\hat{H}) = \frac{1}{N} \left( \sum_{k=1}^M p_k (\log p_k)^2 - H^2 \right) + \frac{M - 1}{2 N^2} + \mathcal{O}(N^{-3}).
 \label{eq:variance}
 \end{equation}
-Essas expressões, originalmente em nats \cite{harris1975}, devem ser convertidas 
+Essas expressões, originalmente em nats \parencite{harris1975}, devem ser convertidas 
 para bits dividindo por $\ln 2$ quando necessário. Quando $M$ é desconhecido, 
 como em fontes com alfabetos grandes, a estimativa do próprio $M$ adiciona 
 complexidade, ampliando o viés.
@@ -341,9 +341,9 @@ simplicidade e convergência rápida, sua tendência a subestimar
 a entropia, especialmente em amostras finitas com eventos raros, motivou o
 desenvolvimento de estimadores alternativos. 
 
-O estimador de Miller \cite{miller1955} ajusta o viés do estimador
+O estimador de \cite{miller1955}\index{entropia!estimador de Miller} ajusta o viés do estimador
 \textit{plug-in} adicionando um termo de correção baseado no número de símbolos
-observados. Dada a entropia \textit{plug-in} $\hat{H}$ (\Cref{eq:estpluginentropia}), 
+observados. Dada a entropia \textit{plug-in}, $\hat{H}$ (definida na \Cref{eq:estpluginentropia}), 
 o estimador de Miller é definido como:
 \begin{equation}
 \hat{H}_{\text{Miller}} = \hat{H} + \frac{\hat{M} - 1}{2N},
@@ -351,7 +351,7 @@ o estimador de Miller é definido como:
 \end{equation}
 onde $\hat{M}$ é o número de símbolos distintos observados na amostra 
 (i.e., com $n_k > 0$) e $N$ é o tamanho da amostra. 
-O termo $\sfrac{\hat{M} - 1}{2N}$ corresponde à primeira ordem do viés esperado 
+O termo $\sfrac{(\hat{M} - 1)}{2N}$ corresponde à primeira ordem do viés esperado 
 (\Cref{eq:biasHplugin}), compensando a subestimação causada por eventos raros. 
 Embora simples, o estimador de Miller é eficaz para alfabetos moderados, 
 mas pode ser insuficiente em amostras muito pequenas ou quando $\hat{M}$
@@ -367,14 +367,14 @@ Para uma amostra $x_1, \ldots, x_N$, o estimador é:
 onde $\hat{H}_{-i}$ é a entropia \textit{plug-in} calculada na subamostra de tamanho
 $N - 1$ que exclui o $i$-ésimo símbolo, com probabilidades:
 \begin{equation}
-\hat{p}_{k,-i} = \frac{n_k - \delta_(x_i = a_k)}{N - 1}.
+\hat{p}_{k,-i} = \frac{n_k - \delta(x_i = a_k)}{N - 1}.
 \end{equation}
 O Jackknife mitiga o viés ao explorar a variabilidade entre subamostras, 
 sendo mais robusto que o estimador de Miller, especialmente para distribuições complexas. 
 No entanto, sua computação é intensiva, e a variância pode ser alta em amostras pequenas.
 
 Esses estimadores complementam técnicas de suavização ao abordar o viés diretamente,
-sem abordar o problema da interdependência de símbolos. Aqui, apresentamos apenas alguns métodos
+sem abordar o problema da interdependência de símbolos. Aqui, apresentamos apenas alguns
 desses métodos. Outros como Combed Jackknife, Grassberger, Chao–Shen podem ser vistos na 
 literatura \parencite{Chao2003,grassberger2008,Pinchas2024}.
 
@@ -383,12 +383,12 @@ literatura \parencite{Chao2003,grassberger2008,Pinchas2024}.
 \begin{tabular}{@{\extracolsep{5pt}} D{.}{.}{-4} D{.}{.}{-4} D{.}{.}{-4} D{.}{.}{-4} D{.}{.}{-4} }
 \\[-1.8ex]\hline
 \hline \\[-1.8ex]
-\multicolumn{1}{c}{Métrica} & \multicolumn{1}{c}{Plug-in} & \multicolumn{1}{c}{Laplace} & \multicolumn{1}{c}{Miller} & \multicolumn{1}{c}{Laplace-Miller} \\
+\multicolumn{1}{l}{Métrica} & \multicolumn{1}{r}{Plug-in} & \multicolumn{1}{r}{Laplace} & \multicolumn{1}{r}{Miller} & \multicolumn{1}{r}{Laplace-Miller} \\
 \hline \\[-1.8ex]
-\multicolumn{1}{c}{Entropia por caractere (bits/char)} & 4.2467 & 4.2467 & 4.2467 & 4.2468 \\
-\multicolumn{1}{c}{Entropia por palavra (bits/word)} & 10.6757 & 11.2962 & 10.7332 & 11.3537 \\
-\multicolumn{1}{c}{Entropia por caractere por palavra (bits/char)} & 2.3687 & 2.5064 & 2.3815 & 2.5192 \\
-\multicolumn{1}{c}{Comprimento esperado de palavra (chars)} & 4.5069 & 4.5069 & 4.5069 & 4.5069 \\
+\multicolumn{1}{l}{Entropia por caractere (bits/char)} & 4.2467 & 4.2467 & 4.2467 & 4.2468 \\
+\multicolumn{1}{l}{Entropia por palavra (bits/word)} & 10.6757 & 11.2962 & 10.7332 & 11.3537 \\
+\multicolumn{1}{l}{Entropia por caractere por palavra (bits/char)} & 2.3687 & 2.5064 & 2.3815 & 2.5192 \\
+\multicolumn{1}{l}{Comprimento esperado de palavra (chars)} & 4.5069 & 4.5069 & 4.5069 & 4.5069 \\
 \hline \\[-1.8ex]
 \end{tabular}
 \caption{Estimativas de Entropia do Inglês com o Texto de \textit{Ulysses}}

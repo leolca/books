@@ -1,6 +1,6 @@
 \section{Entropia Cruzada}
 
-A entropia cruzada é uma medida frequentemente utilizada para comparar duas
+A \emph{entropia}\index{entropia!cruzada} cruzada é uma medida frequentemente utilizada para comparar duas
 distribuições de probabilidade. Ela desempenha um papel importante em aprendizado de máquina.
 Podemos interpretar a entropia cruzada como a ``surpreza'' da previsão feita por um modelo
 em relação à verdadeira distribuição de probabilidades. 
@@ -35,8 +35,8 @@ Intuitivamente, ela quantifica o ``custo'' de usar uma distribuição errada $q$
 para modelar $p$.
 
 \begin{proposition}
-A entropia cruzada está relacionada à entropia de $p$ e à divergência de
-Kullback-Leibler (KL) entre $p$ e $q$. Especificamente:
+A entropia cruzada\index{entropia!cruzada, relação com divergência} está relacionada à entropia de $p$ e à divergência de
+Kullback-Leibler (KL)\index{divergência de Kullback-Leibler!relação com entropia cruzada} entre $p$ e $q$. Especificamente:
 \begin{equation}\label{eq:crossentropykldiv}
 H(p, q) = H(p) + D_{\text{KL}}(p \| q),
 \end{equation}
@@ -58,7 +58,7 @@ H(p, q) &= - \sum_{x \in \mathcal{X}} p(x) \log q(x) \\
 \end{proof}
 
 A \Cref{eq:crossentropykldiv} revela que a entropia cruzada é composta pela incerteza intrínseca de $p$ (i.e. $H(p)$)
-e pela penalidade devido à diferença entre $p$ e $q$ (i.e. $D(p\|q)$. Como $D(p\|q) \geq 0$, segue que
+e pela penalidade devido à diferença entre $p$ e $q$ (i.e. $D(p\|q)$). Como $D(p\|q) \geq 0$, segue que
 \begin{equation}
 H(p, q) \geq H(p),
 \end{equation}
@@ -120,3 +120,45 @@ Além disso, sua interpretação em termos de teoria da informação conecta
 diretamente o treinamento de modelos à ideia de redução de incerteza sobre a
 distribuição verdadeira.
 
+
+% verificar e melhorar
+%\begin{example}
+%No problema de classificação de vinhos do repositório UCI, com três classes de
+%cultivares, considere um modelo de regressão softmax com pesos 
+%$w_1, w_2, w_3 \in \mathbb{R}^{13}$ e vieses $b_1, b_2, b_3$ para as três classes, utilizando
+%13 características (e.g., álcool, ácido málico). Para uma amostra da classe
+%``Cultivar 1'' com características $x \in \mathbb{R}^{13}$ (padronizadas) e
+%rótulo verdadeiro $y = (1, 0, 0)$, as probabilidades são:
+%\[
+%q_i = \frac{e^{w_i \cdot x + b_i}}{e^{w_1 \cdot x + b_1} + e^{w_2 \cdot x + b_2} + e^{w_3 \cdot x + b_3}}, \quad i = 1, 2, 3.
+%\]
+%Para um modelo inicial com $w_1 = (-2, -2, \ldots)$, $w_2, w_3$ fixos e $b_i = 0$, 
+%obtemos probabilidades aproximadas $q \approx (0.7, 0.2, 0.1)$, com perda
+%de entropia cruzada:
+%\[
+%L = - \log q_1 \approx 0.357.
+%\]
+%Após 50 iterações de gradiente descendente com taxa de aprendizado 
+%$\eta = 0.1$, os pesos são ajustados, resultando em $q \approx (0.9, 0.05, 0.05)$ e uma
+%perda menor:
+%\[
+%L = - \log 0.9 \approx 0.105.
+%\]
+%O mesmo processo aplica-se a amostras das classes ``Cultivar 2'' ($y = (0, 1, 0)$) e ``Cultivar 3'' ($y = (0, 0, 1)$). 
+%A \Cref{fig:cross_entropy_contours} mostra três superfícies de perda,
+%uma para cada classe, em função dos pesos $w_{i1}$ (álcool) e $w_{i2}$ (ácido
+%málico) de cada classe, com a trajetória de gradiente descendente indicando a
+%minimização da entropia cruzada.
+%
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\textwidth]{figures/cross_entropy_contours.pdf}
+%\caption{Curvas de contorno da perda de entropia cruzada para uma amostra de
+%cada classe do conjunto de vinhos UCI. Cada subfigura mostra a perda em função
+%dos pesos $w_{i1}$ (álcool) e $w_{i2}$ (ácido málico) para a classe $i$, com a
+%trajetória de gradiente descendente (linha vermelha). Os pontos vermelhos
+%indicam o modelo inicial e os pontos azuis indicam o modelo aprimorado.}
+%\label{fig:cross_entropy_contours}
+%\end{figure}
+%
+%\end{example}
