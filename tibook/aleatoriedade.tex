@@ -271,16 +271,16 @@ Abaixo listamos algumas delas:
 	    X_n = (X_{n-k} \oplus X_{n-l}) \mod 2^w ,
 	\end{equation} 
 	oferecendo períodos longos, mas exigindo estados iniciais grandes.
-    \item Autômatos Celulares\index{RNG!Autômatos Celulares}: \\ 
+    \item Autômatos Celulares\index{RNG!autômatos celulares}: \\ 
 	Aplicam regras como a Regra 30 vista anteriormente, 
 	\begin{equation} 
 	    c_i(t+1) = c_{i-1}(t) \oplus (c_i(t) \lor c_{i+1}(t)) ,
 	\end{equation} 
 	gerando padrões caóticos, porém computacionalmente custosos.
-    \item Funções de Hash e Criptográficas\index{RNG!Funções Criptográficas}: \\
+    \item Funções de Hash e Criptográficas\index{RNG!funções criptográficas}: \\
 	Utilizam funções como SHA-256 ($R_i = H(S || C)$) ou cifras de fluxo como ChaCha ($R_i = \text{ChaCha}(K, C)$), 
 	sendo seguras para criptografia, porém mais lentas.
-    \item Geradores Baseados em Caos\index{RNG!Caos}: \\
+    \item Geradores Baseados em Caos\index{RNG!caos}: \\
 	Empregam sistemas caóticos, como o mapa logístico 
 	\begin{equation}
 	    X_{n+1} = r \cdot X_n \cdot (1 - X_n) ,

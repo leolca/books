@@ -1,17 +1,17 @@
 \chapter{Propriedade da Equipartição Assintótica}
 
-A Propriedade da Equipartição Assintótica (AEP) visa analisar o comportamento
+A \emph{Propriedade da Equipartição Assintótica}\index{propriedade da equipartição assintótica} (AEP) visa analisar o comportamento
 de sequências no limite, quando estas sequências tornam-se muito grandes.  A
 AEP mostra que para uma sequência longa de variáveis aleatórias independentes e
-identicamente distribuídas (i.i.d.), a probabilidade de observar uma sequência
-típica é aproximadamente $2^{-nH(X)}$, onde $H(X)$ é a entropia da fonte e $n$
+identicamente distribuídas (i.i.d.), a probabilidade de observar uma \emph{sequência
+típica}\index{sequência típica} é aproximadamente $2^{-nH(X)}$, onde $H(X)$ é a entropia da fonte e $n$
 o comprimento da sequência.
 
 Primeiramente, vamos rever o conceito de estatística de uma amostra.
-\begin{definition}[Estatístima amostral]
+\begin{definition}[Estatística amostral\index{estatística!amostral}]
     Seja $x_1, x_2, \ldots, x_n$ uma sequência de comprimento $n$ de valores observados
     de uma amostra de tamanho $n$, obtidos a partir da realização de variáveis aleatórias
-    $X_1, X_2, \ldots, X_n$, uma estatística de uma amostra é qualquer função calculada a partir
+    $X_1, X_2, \ldots, X_n$, uma \emph{estatística} de uma amostra é qualquer função calculada a partir
     de uma amostra de dados, $T(x_1, x_2, \ldots, x_n)$.
 \end{definition}
 Exemplos comuns incluem a média amostral
@@ -30,7 +30,7 @@ Quando avaliamos $T$ nas variáveis aleatórias $X_1, X_2, \ldots, X_n$, o resul
 
 \begin{example}[Ensaio de Bernoulli]\label{ex:ensaiobernoulliT}
   Considere o experimento de Bernoulli com $X_1, \ldots, X_n$ i.i.d., com $X_i \in \{0, 1\}$ e
-  parâmetro $\theta = Pr(X_i == 1)$.
+  parâmetro $\theta = Pr(X_i = 1)$.
 
   Uma dada sequência qualquer $x_1, \ldots, x_n$ terá então probabilidade dada por
   \begin{equation}
@@ -41,7 +41,7 @@ Quando avaliamos $T$ nas variáveis aleatórias $X_1, X_2, \ldots, X_n$, o resul
   \begin{equation}
     T(x_1,\ldots, x_n) = \sum_{i=1}^{x} x_i ,
   \end{equation}
-  o somatório da amostra, no caso, a quantidade de valoes iguais a 1 que apareceu em uma realização.
+  o somatório da amostra, no caso do ensaio de Bernoulli, a quantidade de valores iguais a 1 que apareceu em uma realização.
   Uma vez que sabemos tal estatísticas, a probabilidade de uma sequência pode ser expressa
   sem fazer referência à $\theta$ (parâmetro que caracteriza a distribuição).
   \begin{subequations}\label{eq:TsuficienteSum}
@@ -54,7 +54,9 @@ Quando avaliamos $T$ nas variáveis aleatórias $X_1, X_2, \ldots, X_n$, o resul
     \end{align}
   \end{subequations}
   Em outras palavras, $X_{1:N} \independent \theta | T(X_{1:N})$. 
-  Isto implica na cadeia de Markov $\theta \rightarrow T(X_{1:N}) \rightarrow X_{1:N}$.
+  Isto implica na \emph{cadeia de Markov}\index{cadeia de Markov}\footnote{Uma cadeia de Markov é um modelo estocástico
+  que descreve uma sequência de eventos em que a probabilidade de cada evento depende apenas
+  do estado imediatamente anterior.} $\theta \rightarrow T(X_{1:N}) \rightarrow X_{1:N}$.
   Aplicando a desigualdade de processamento de dados, obtemos
   \begin{equation}\label{eq:dpdtberex01}
     I(\theta;T(X_{1:N})) \geq I(\theta;X_{1:N}).
@@ -76,8 +78,8 @@ Quando avaliamos $T$ nas variáveis aleatórias $X_1, X_2, \ldots, X_n$, o resul
 
 
 
-\begin{definition}[Estatística Suficiente]
-Uma função $T(\cdot)$ é dita ser uma estatística suficiente em relação à família
+\begin{definition}[Estatística Suficiente\index{estatística!suficiente}]
+  Uma função $T(\cdot)$ é dita ser uma \emph{estatística suficiente} em relação à família
 $\{f_{\theta} (x)\}$ se $X$ é independente de $\theta$ dado $T(X)$ para qualquer
 distribuição em $\theta$ (i.e. $\theta \rightarrow T(X) \rightarrow X$ forma uma
 cadeia de Markov). Então
@@ -95,7 +97,7 @@ Podemos verificar que, no \Cref{ex:ensaiobernoulliT}, a estatísticas utilizada
 
 
 Um critério prático para identificar estatísticas suficientes é dado pelo Teorema da Fatoração de Fisher-Neyman.
-\begin{theorem}
+\begin{theorem}[Teorema da Fatoração de Fisher-Neyman]
 Uma estatísticas $T(X_1,\ldots,X_N)$ é suficiente para $\theta$ se, e somente se,
 a função de verossimilhança da amostra pode ser escrita como:
 \begin{equation}
@@ -112,21 +114,22 @@ A demonstração e mais informações sobre o tema podem ser vistos em \textcite
 O histograma empírico da amostra é uma estatística que descreve a distribuição de frequências relativas dos valores observados em uma amostra. 
 \begin{definition}[Histograma Empírico]
   Para uma amostra $x_1,x_2,\ldots,x_n$, obtida a partir de variáveis aleatórias $X_1,X_2,\ldots,X_n$,
-  com suporte finito $S_X = \{a_1,a_2,\ldots,a_D\}$, o histograma empírico pode ser definido como a
-  função que associa cada símbolo $a \in S_X$ à sua frequência relativa:
+  com suporte finito $\mathcal{X} = \{a_1,a_2,\ldots,a_D\}$, o \emph{histograma empírico}\index{estatística!histograma empírico}\index{histograma empírico|see{estatística}}\index{histograma empírico|see{tipo}}
+  pode ser definido como a
+  função que associa cada símbolo $a \in \mathcal{X}$ à sua frequência relativa:
   \begin{equation}
-  \hat{p}_n(a) = \frac{1}{n} \sum_{i=1}^n I\{ x_i = a \} ,
+    \hat{p}_n(a) = \frac{1}{n} \sum_{i=1}^n \mathbf{1}_{\{ x_i = a \}} ,
   \end{equation}
-  onde $I\{ x_i = a \}$ é a função indicadora
+  onde $\mathbf{1}_{\{ x_i = a \}}$ é a função indicadora
   \begin{equation}
-    I\{ x_i = a \} = \begin{cases}
+    \mathbf{1}_{\{ x_i = a \}} = \begin{cases}
       1, & x = a,\\
       0, & x\neq a. 
     \end{cases}
   \end{equation}
   Desta forma, $\hat{p}_n(a)$ representa a proporção de vezes que o valor $a$ aparece na amostra.
 \end{definition}
-Equivalentemente, o histograma empírico pode ser representado como a enúpla que contém as frequências relativas de todos os símbolos de $S_X$.
+Equivalentemente, o histograma empírico pode ser representado como a ênupla que contém as frequências relativas de todos os símbolos de $\mathcal{X}$.
 \begin{equation}
 P_{x_{1:n}} \triangleq \left( \frac{N(a_1|x_{1:n})}{n} , \frac{N(a_2|x_{1:n})}{n} , \ldots , \frac{N(a_D|x_{1:n})}{n} \right) ,
 \end{equation}
@@ -145,13 +148,13 @@ o histograma empírico é uma estatísticas suficiente:
 \end{subequations}
 onde temos o coeficiente multinomial\footnote{
   Teorema Multinomial
-        \begin{equation}
-        (x_1 + x_2 + \ldots + x_m)^n = \sum_{k_1 + k_2 + \ldots + k_m = n} {n \choose {k_1, k_2, \ldots, k_m}} \prod_{1 \leq t \leq m} x_t^{k_t}
-        \end{equation}
+        \begin{align}
+          &(x_1 + x_2 + \ldots + x_m)^n = \nonumber \\ &\sum_{k_1 + \ldots + k_m = n} {n \choose {k_1, \ldots, k_m}} \prod_{1 \leq t \leq m} x_t^{k_t}
+        \end{align}
 }
 ${n \choose {k_1, k_2, \ldots, k_m}} = \frac{n!}{k_1! k_2! \ldots k_m!}$.
 Podemos observar que $p(x_{1:n}|P_{x_{1:n}},\theta) = p(x_{1:n}|P_{x_{1:n}})$, ou seja,
-é independente de $\theta$.
+a distribuição é independente do modelo, dado o histograma empírico.
 Então $X_{1:n} \independent \theta \vert P_{x_{1:n}}$, então $P_{x_{1:n}}$ é uma estatística suficiente.
 
 
@@ -161,7 +164,7 @@ Então $X_{1:n} \independent \theta \vert P_{x_{1:n}}$, então $P_{x_{1:n}}$ é 
 
 \section{Codificação}
 
-O codificador é responsável por associar cada sequência $x_1,x_2,\ldots,x_n$
+O \emph{codificador}\index{codificador} é responsável por associar cada sequência $x_1,x_2,\ldots,x_n$
 produzida pela fonte, ou seja, realizações de variáveis aleatórias $X_1,X_2,\ldots,X_n$,
 a uma sequência de bits de comprimento variável ou fixo, de modo que a sequência original 
 possa ser recuperada perfeitamente por um decodificador. Para simplificar, vamos
@@ -171,12 +174,32 @@ cardinalidade $K = \vert \mathcal{X} \vert$. O alfabeto
 de saída do codificador é $\mathcal{Y} = \{0,1\}$, ou seja, codificação binária ($\vert \mathcal{Y} \vert = 2$).
 A \Cref{fig:blockcoding} representa este esquema de codificação.
 
-\begin{figure}%
-  \centering
-  \includegraphics[width=0.8\linewidth]{figures/blockcoding.pdf}
-  \caption{Esquemático de um codificador.}
-  \label{fig:blockcoding}
+\begin{figure}
+\begin{tikzpicture}[
+    block/.style={rectangle, draw, thick, minimum width=2cm, minimum height=1.5cm, align=center},
+    arrow/.style={-Stealth, thick},
+    textnode/.style={align=center, font=\small}
+]
+% Nodes
+\node[block] (encoder) at (0,0) {Codificador};
+\node[textnode, left=0.5cm and 1.5cm of encoder] (source) {mensagens da fonte \\ $\{X_1, X_2, \ldots, X_n\}$};
+\node[textnode, below left=0.5cm and 0.5cm of encoder] (symbols) {$X_i \in \{a_1, a_2, \ldots, a_K\}$ \\ $K^n$ mensagens possíveis \\ $n$ letras ou símbolos do alfabeto};
+\node[textnode, right=0.5cm and 1.5cm of encoder] (encoded) {mensagem codificada (codewords) \\ $\{Y_1, Y_2, \ldots, Y_m\}$};
+\node[textnode, below right=0.5cm and 0.5cm of encoder] (bits) {$Y_i \in \{0, 1\}$ \\ $2^m$ mensagens possíveis \\ $m$ total de bits};
+% Arrows
+\draw[arrow] (source) -- (encoder);
+\draw[arrow] (encoder) -- (encoded);
+\end{tikzpicture}
+\caption[][55pt]{Esquemático de um codificador.}
+\label{fig:blockcoding}
 \end{figure}
+
+%\begin{figure}%
+%  \centering
+%  \includegraphics[width=0.8\linewidth]{figures/blockcoding.pdf}
+%  \caption{Esquemático de um codificador.}
+%  \label{fig:blockcoding}
+%\end{figure}
 
 Para que seja possível termos uma palavra de código para cada mensagem possível,
 devemos satisfazer a seguinte condição:
@@ -193,7 +216,7 @@ ao representar uma sequência de símbolos em forma binária.
 \begin{definition}[Taxa de Codificação]
   Para uma sequência de entrada de comprimento $n$, $X_1,X_2,\ldots,X_n$,
   codificada em uma mensagem binária de comprimento $m$, $Y_1,Y_2,\ldots,Y_m$,
-  a taxa de codificação é definida como
+  a \emph{taxa de codificação}\index{codificador!taxa} é definida como
   \begin{equation}
     R = \frac{m}{n} .
   \end{equation}
@@ -224,10 +247,10 @@ a proporção da frequência observada deste evento em relação ao total númer
 converge em direção a $p$ à medida que o número de repetições se torna arbitrariamente grande.
 
 Sejam $X_1, X_2, \ldots, X_n$ v.a.s i.i.d. com $\E X_i = \mu$ e $\Var X_i = \sigma^2 < \infty$, para $i=1,\ldots,n$.
-Seja a média definida por $\overline{X_n} = \frac{1}{n} \sum_{i=1}^{n} X_i$, então, para $\varepsilon > 0$,
+Seja a média amostral definida por $\overline{X_n} = \frac{1}{n} \sum_{i=1}^{n} X_i$, então, para $\varepsilon > 0$,
 a \emph{Lei Fraca dos Grandes Números} diz que $\overline{X_n}$ converge em probabilidade para $\mu$, ou seja,
 \begin{equation}
-\lim_{n \rightarrow \infty} P \left( \vert \overline{X_n} - \mu \vert < \varepsilon  \right) = 1 .
+\lim_{n \rightarrow \infty} Pr \left( \vert \overline{X_n} - \mu \vert < \varepsilon  \right) = 1 .
 \end{equation}
 }
 diz que $\frac{1}{n} S_n \xrightarrow{p} \mu$, onde $S_n$ é a soma
@@ -237,20 +260,23 @@ Obteremos assim
   \frac{1}{n} \sum_{i=1}^n I(X_i) \xrightarrow[n \rightarrow \infty]{p} H(X) .
 \end{equation}
 Quando $n$ é grande suficiente, podemos escrever
-\begin{subequations}
+\begin{subequations}\label{eq:nIHcpn}
   \begin{align}
      \frac{1}{n} \sum_{i=1}^n I(x_i)        &\approx H(X) , \forall i, x_i \sim p(x) \\
-     - \frac{1}{n} \sum_{i=1}^n \log p(x_i) &\approx H(X) \\
-     - \log \prod_{i=1}^n p(x_i)            &\approx n H(X) \\
-     - \log p(x_1,x_2,\ldots,x_n)           &\approx n H(X) \\
-     p(x_1,x_2,\ldots,x_n)                  &\approx 2^{-nH(X)} .
+     - \frac{1}{n} \sum_{i=1}^n \log p(x_i) &\approx H(X) \label{eq:nIHcpnb}\\
+     - \log \prod_{i=1}^n p(x_i)            &\approx n H(X) \label{eq:nIHcpnc}\\
+     - \log p(x_1,x_2,\ldots,x_n)           &\approx n H(X) \label{eq:nIHcpnd}\\
+     p(x_1,x_2,\ldots,x_n)                  &\approx 2^{-nH(X)} , \label{eq:nIHcpe}
   \end{align}
 \end{subequations}
-Esta probabilidade não depende da sequência em si. Depende apenas do comprimento $n$ e
+onde em \ref{eq:nIHcpnb} utilizamos a definição de informação sobre um evento;
+em \ref{eq:nIHcpnc} apenas multiplicamos por $n$ e utilizamos a propriedade do logaritmo; em \ref{eq:nIHcpnd} utilizamos
+que eventos são i.i.d.; e em \ref{eq:nIHcpe}, multiplicamos por $-1$ e tomamos a exponencial.
+Esta probabilidade final, observada em \ref{eq:nIHcpe}, não depende da sequência em si. Depende apenas do comprimento $n$ e
 da entropia da fonte.
 Quando $n$ fica grande, podemos dizer que todas as sequências terão a mesma probabilidade: $2^{-nH}$.
 Estas sequências que possuem esta probabilidade (praticamente todas as sequências) são
-chamadas de \emph{sequências típicas}, e são representadas pela conjunto $A_\epsilon^{(n)}$.
+chamadas de \emph{sequências típicas}\index{sequência típica}, e são representadas pela conjunto $A_\epsilon^{(n)}$.
 
 Se todas as sequência de comprimento $n$ possuem aproximadamente a mesma probabilidade $2^{-nH(X)}$,
 então existe no máximo $2^{nH}$ sequências de comprimento $n$. Pode ser que $2^{nH} \ll K^n$,
@@ -260,38 +286,38 @@ com a codificação do conjunto menor, o conjunto das sequências que efetivamen
 típicas. Desta forma, para representar (ou codificar) as sequencias típicas, precisaremos de
 $nH(X)$ bits. Teremos então
 \begin{equation}
-m = nH(X)
+m = nH(X),
 \end{equation}
-no modelo do codificador. Então a taxa será $H(X)$.
+no modelo do codificador. Desta forma, a taxa será $H(X)$.
 
 
-\begin{theorem}[Propriedade da Equipartição Assintótica]\label{thm-prop-eqp-ass}
+\begin{theorem}[Propriedade da Equipartição Assintótica\index{propriedade da equipartição assintóticas}]\label{thm-prop-eqp-ass}
   Se $X_1, X_2, \ldots, X_n$ são i.i.d. e $X_i \sim p(x)$ para todo $i$, então
   \begin{equation}\label{eq-pX1X2Xn-H}
-  -\frac{1}{n} \log p(X_1, X_2, \ldots, X_n) \xrightarrow{p} H(X)
+  -\frac{1}{n} \log p(X_1, X_2, \ldots, X_n) \xrightarrow{p} H(X) .
   \end{equation}
 \end{theorem}
 \begin{proof}
   \begin{subequations}
   \begin{align}
   -\frac{1}{n} \log p(X_1, X_2, \ldots, X_n) &= - \frac{1}{n} \log \prod_{i=1}^n p(X_i) \\
-                                             &= - \frac{1}{n} \sum_i \log p(X_i) \xrightarrow{p} \E \log p(X) \label{eq:dempealfgn}\\
-                                             &= H(X)
+                                            &= - \frac{1}{n} \sum_i \log p(X_i) \xrightarrow{p} \E \log p(X) \label{eq:dempealfgn}\\
+                                             &= H(X) ,
   \end{align}
   \end{subequations}
   onde utilizamos a lei fraca dos números grandes em \ref{eq:dempealfgn}.
   \end{proof}
 
 
-\begin{definition}[Conjunto Típico]
-  Um conjunto típico $A_\epsilon^{(n)}$ em relação a $p(x)$ é o conjunto de sequências
+\begin{definition}[Conjunto Típico]\label{def:conjtipico}
+  Um \emph{conjunto típico}\index{conjunto típico} $A_\epsilon^{(n)}$ em relação a $p(x)$ é o conjunto de sequências
   $(x_1,x_2,\ldots,x_n) \in \mathcal{X}^n$ com propriedade
   \begin{equation}\label{eq:probseqtipicas}
-  2^{-n(H(X)+\epsilon)} \leq p(x_1, x_2, \ldots, x_n) \leq 2^{-n(H(X)-\epsilon)}
+  2^{-n(H(X)+\epsilon)} \leq p(x_1, x_2, \ldots, x_n) \leq 2^{-n(H(X)-\epsilon)} .
   \end{equation}
   De forma equivalente, podemos escrever
   \begin{equation}
-  A_\epsilon^{(n)} = \left\{ (x_1, x_2, \ldots, x_n) : \vert - \frac{1}{n} \log p(x_1, \ldots, x_n) - H \vert < \epsilon \right\}
+  A_\epsilon^{(n)} = \left\{ (x_1, x_2, \ldots, x_n) : \vert - \frac{1}{n} \log p(x_1, \ldots, x_n) - H \vert < \epsilon \right\} .
   \end{equation}
 \end{definition}
 
@@ -302,7 +328,7 @@ no modelo do codificador. Então a taxa será $H(X)$.
 \begin{enumerate}
 \item\label{prop1conjtip} Se $(x_1, x_2, \ldots, x_n) \in A_\epsilon^{(n)}$, então
       \begin{equation}
-      H(X) - \epsilon \leq - \frac{1}{n} \log p(x_1, x_2, \ldots, x_n) \leq H(X) + \epsilon
+      H(X) - \epsilon \leq - \frac{1}{n} \log p(x_1, x_2, \ldots, x_n) \leq H(X) + \epsilon .
       \end{equation}
 \item\label{prop2conjtip} $p(A_\epsilon^{(n)}) = p\left( \left\{ x: x \in A_\epsilon^{(n)} \right\} \right) > 1 - \epsilon$ para $n$ grande suficiente, para todo $\epsilon > 0$.
 \item\label{prop3conjtip} Limite superior: $\vert A_\epsilon^{(n)} \vert \leq 2^{n(H(X)+\epsilon)}$, onde $\vert A_\epsilon^{(n)} \vert$ é o número de elementos no conjunto $A_\epsilon^{(n)}$.
@@ -317,26 +343,26 @@ no modelo do codificador. Então a taxa será $H(X)$.
   \item Vamos utilizar a definição expandida de convergência em probabilidade,
           dada na equação \ref{eq-pX1X2Xn-H}.
           \begin{equation}
-          p(A_\epsilon^{(n)}) = p\left( \vert - \frac{1}{n} \sum_i \log p(x_i) - H \vert < \epsilon \right) > 1 - \delta
+          p(A_\epsilon^{(n)}) = p\left( \vert - \frac{1}{n} \sum_i \log p(x_i) - H \vert < \epsilon \right) > 1 - \delta ,
           \end{equation}
           para $n$ grande suficiente.
-          Podemos escolher qualquer $\delta$, escolhemos então $\delta = \epsilon$, resultando em
+          Podemos escolher qualquer $\delta$. Escolhemos então $\delta = \epsilon$, resultando em
           \begin{equation}
-          p(A_\epsilon^{(n)}) > 1 - \epsilon, \quad \text{ para } n \text{ grande suficiente } \forall \epsilon
+          p(A_\epsilon^{(n)}) > 1 - \epsilon, \quad \text{ para } n \text{ grande suficiente, } \forall \epsilon .
           \end{equation}
-  \item Limite superior de $A_\epsilon^{(n)}$
+  \item Limite superior de $A_\epsilon^{(n)}$:
     \begin{subequations}
       \begin{align}
         1 &= \sum_x p(x) \geq \sum_{x \in A_\epsilon^{(n)}} p(x) \geq \sum_{x \in A_\epsilon^{(n)}} 2^{-n(H(X)+\epsilon)} \\
-          &= \vert A_\epsilon^{(n)} \vert 2^{-n(H(X)+\epsilon)}
+          &= \vert A_\epsilon^{(n)} \vert 2^{-n(H(X)+\epsilon)},
       \end{align}
     \end{subequations}
-  Resultando em $\vert A_\epsilon^{(n)} \vert \leq 2^{n(H+\epsilon)}$.
-  \item Limite inferior do tamanho de $A_\epsilon^{(n)}$. Para $n$ grande suficiente
+  resultando em $\vert A_\epsilon^{(n)} \vert \leq 2^{n(H+\epsilon)}$.
+  \item Limite inferior do tamanho de $A_\epsilon^{(n)}$. Para $n$ grande suficiente:
     \begin{subequations}
         \begin{align}
         1 - \epsilon &< p(A_\epsilon^{(n)}) \leq \sum_{x \in A_\epsilon^{(n)}} 2^{-n(H(X)-\epsilon)} \\
-                     &= 2^{-n(H(X)-\epsilon)} \vert A_\epsilon^{(n)} \vert
+                     &= 2^{-n(H(X)-\epsilon)} \vert A_\epsilon^{(n)} \vert ,
         \end{align}
     \end{subequations}
     resultando em $\vert A_\epsilon^{(n)} \vert \geq (1-\epsilon) 2^{n(H(X)-\epsilon)}$.
@@ -363,15 +389,15 @@ lidar com sequências típicas, que dominam a probabilidade.
 
 Considere agora as chaves privadas de Bitcoin. Uma
 chave privada de Bitcoin é um número de 256 bits, gerado aleatoriamente, o que
-significa que o número total de chaves possíveis é $2^{256} \approx 1,1579 \times 10^{77}$. 
+significa que o número total de chaves possíveis é $2^{256} \approx 1{,}1579 \times 10^{77}$. 
 Esse valor é menor que o número de átomos no universo observável, mas ainda é astronomicamente grande. 
 Pela AEP, se os bits da chave fossem gerados de forma i.i.d. com entropia $H(X)$
 (em bits por bit), o número de chaves típicas seria aproximadamente $2^{nH(X)}$, 
 onde $n = 256$. No caso ideal, em que os bits são uniformes
 ($H(X) = 1$ bit por bit), o número de chaves típicas é $2^{256 \cdot 1} = 2^{256}$,
 ou seja, todas as chaves são típicas. No entanto, se houvesse algum
-viés na geração das chaves, por exemplo, $H(X) = 0,9$ bits por bit, o
-número de chaves típicas seria $2^{256 \cdot 0,9} = 2^{230,4} \approx 10^{69,3}$, 
+viés na geração das chaves, por exemplo, $H(X) = 0{,}9$ bits por bit, o
+número de chaves típicas seria $2^{256 \cdot 0{,}9} = 2^{230{,}4} \approx 10^{69{,}3}$, 
 ainda um número enorme, mas uma fração do total. Isso ilustra a
 importância de maximizar a entropia na geração de chaves para garantir que o
 espaço de chaves típicas seja o maior possível, minimizando a probabilidade de
@@ -379,15 +405,15 @@ colisões.
 
 \begin{marginfigure}%
   \includegraphics[width=\linewidth]{figures/seq100mackay.pdf}
-  \caption{Sequências regadas por um ensaio de Bernoulli com $n=100$ e $P(X=1) = p = 0.1$.
+  \caption{Sequências regadas por um ensaio de Bernoulli com $n=100$ e $P(X=1) = p = 0{,}1$.
         As 15 sequências superiores representam amostras típicas. As duas últimas sequências
         representam a sequência mais provável e a menos provável \parencite{mackay2003}.}
   \label{fig:seq100mackay}
 \end{marginfigure}
 
 Considere agora um ensaio de Bernoulli com $n = 100$ lançamentos, onde cada
-lançamento $X_i$ é uma variável aleatória com $P(X_i = 1) = p = 0,1$ e
-$P(X_i = 0) = 1-p = 0,9$. Nesse cenário, uma sequência 
+lançamento $X_i$ é uma variável aleatória com $P(X_i = 1) = p = 0{,}1$ e
+$P(X_i = 0) = 1-p = 0{,}9$. Nesse cenário, uma sequência 
 $(x_1, x_2, \ldots, x_{100}) \in \{0,1\}^{100}$ tem probabilidade 
 $P(x_1, \ldots, x_{100}) = p^k (1-p)^{n-k}$, onde $k = \sum_{i=1}^{100} x_i$ 
 é o número de 1's na sequência. A \Cref{fig:seq100mackay} compara três tipos
@@ -396,18 +422,18 @@ A sequência mais provável é a sequência com 100 ocorrências de 0 (penúltim
 apresentada na \Cref{fig:seq100mackay}), já a sequência menos provável é aquela 
 com 100 ocorrências de 1 (última sequência apresentada na \Cref{fig:seq100mackay}).
 As sequências típicas são aquelas com probabilidade aproximadamente $2^{-nH(X)}$.
-Para o exemplo em questão, temos $H = 0,4690$ e assim $\log (2^{-100 H(X)}) = -46.9$.
+Para o exemplo em questão, temos $H = 0{,}4690$ e assim $\log (2^{-100 H(X)}) = -46.9$.
 As 15 sequências apresentadas no parte superior da \Cref{fig:seq100mackay} representam
-aquelas com $\log p(x_1,\ldots,x_n)$ próximo de $-46.9$, ou seja, sequências que
+aquelas com $\log p(x_1,\ldots,x_n)$ próximo de $-46{,}9$, ou seja, sequências que
 podemos considerar típicas (dado um determinado critério $\epsilon$).
 
 
 \begin{figure}%
   \centering
   \includegraphics[width=\linewidth]{figures/seq100mackay2.pdf}
-  \caption{Para $p=0.1$, $n=100$ e $n=1000$ os gráficos ilustram $n(r)$, o número de strings contendo 
-    $r$ 1s; a probabilidade $P(x_{1:n})$ para uma string contendo $r$ 1s; a mesma probabilidade
-    em escala logarítmica; e a probabilidade total $n(r) P(x_{1:n})$ de todas as strings contendo $r$ 1s \parencite{mackay2003}.
+    \caption{Considerando $p=0{,}1$, $n=100$ e $n=1000$ os gráficos ilustram $n(r)$, o número de strings contendo 
+    $r$ 1s; a probabilidade $Pr(x_{1:n})$ para uma sequência contendo $r$ 1's; a mesma probabilidade
+    em escala logarítmica; e a probabilidade total $n(r) Pr(x_{1:n})$ de todas as sequências contendo $r$ 1s \parencite{mackay2003}.
   }
   \label{fig:seq100mackay2}
 \end{figure}
@@ -427,14 +453,14 @@ No limite, quando $n$ for muito grande, só ocorrerão sequências com 10\% de 1
 
 
 
-\section{Codificação para o Conjunto Típico}
+\section{Codificação para o Conjunto Típico\index{conjunto típico!codificação}}
 
 Após definirmos o que são sequências típicas e formalizarmos a propriedade da
 equipartição assintótica, vamos agora abordar o problema de codificação
 considerando a codificação de sequências típicas.  Como vimos que existe um
 limite para o tamanho do conjunto típicos, iremos utilizar o número de bits
-mínimo necessários para codificar as sequências quer pertençam a este conjunto.
-As sequências remancessentes, contidas no conjunto não típico, podem ser
+mínimo necessários para codificar as sequências que pertençam a este conjunto.
+As sequências remanescentes, contidas no conjunto não típico, podem ser
 codificadas utilizando mais bits, sem que isto cause impacto significativo ao
 código, uma vez que a probabilidade do conjunto típico é aproximadamente 1
 (conforme \cref{prop2conjtip} do \Cref{thm:propconjtip}).
@@ -446,22 +472,48 @@ Tais partições satisfazem $A_\epsilon^{(n)} \cap A_\epsilon^{(n)c} = \emptyset
 e $A_\epsilon^{(n)} \cup A_\epsilon^{(n)c} = \mathcal{X}^n$. A \Cref{fig:particao2}
 ilustra o particionamento proposto.
 
+
 \begin{marginfigure}%
-  \includegraphics[width=\linewidth]{figures/particao2.pdf}
-  \caption{Particionamento de $\mathcal{X}^n$ em dois conjuntos: $A_\epsilon^{(n)}$ e $A_\epsilon^{(n)c}$.}
-  \label{fig:particao2}
+\resizebox{1.2\textwidth}{!}{
+\begin{tikzpicture}[
+    every node/.style={font=\large},
+    label/.style={font=\small}
+]
+% Outer ellipse (mathcal{X}^n)
+\fill[blue!20] (0,0) ellipse (3cm and 2cm);
+\node at (-2.45, 1.5) {$\mathcal{X}^n$};
+\node[label] at (1.25, 2.5) {$|\mathcal{X}^n| = K^n$ elementos};
+% Inner ellipse (mathcal{X}^n | A_epsilon^n)
+\fill[blue!50] (0,0) ellipse (1.5cm and 1cm);
+% Inner shaded region (mathcal{X}^n | A_epsilon^n)
+\fill[gray!50] (0,0) ellipse (1.5cm and 1cm);
+\node at (0,0) {$A_\epsilon^{(n)}$};
+\node at (-1.25, -1.25) {$\mathcal{X}^n \setminus A_\epsilon^{(n)}$};
+% Point for a particular sequence
+\fill (1.4, 1) circle (2pt);
+\node[label, right=0.2cm of {(1.4, 1)}] {uma sequência particular $x_{1:n}$};
+\end{tikzpicture}
+}
+\caption{Particionamento de $\mathcal{X}^n$ em dois conjuntos: $A_\epsilon^{(n)}$ e $A_\epsilon^{(n)c}$.}
+\label{fig:particao2}
 \end{marginfigure}
+
+%\begin{marginfigure}%
+%  \includegraphics[width=\linewidth]{figures/particao2.pdf}
+%  \caption{Particionamento de $\mathcal{X}^n$ em dois conjuntos: $A_\epsilon^{(n)}$ e $A_\epsilon^{(n)c}$.}
+%  \label{fig:particao2}
+%\end{marginfigure}
 
 Vamos então indexar os elementos de cada conjunto (conjunto típico e não-típico) separadamente.
 O número de elementos do conjunto típico é $\vert A_\epsilon^{(n)} \vert \leq 2^{n(H+\epsilon)}$,
-desta forma será necessário
+desta forma serão necessários
 \begin{equation}
   \lceil n(H+\epsilon) \rceil \leq n (H + \epsilon) + 1 \text{bits}
 \end{equation}
 para indexar os elementos deste conjunto.
 Ainda, utilizaremos um bit extra para indicar se o elemento está no conjunto típico ou não, i.e.,
 vamos utilizar uma sequência $(b_0,b_1,b_2,\ldots,b_{\lceil n(H+\epsilon) \rceil})$ onde
-o primeiro bit indica se temos um elemento do conjunto típico ($b_0=0$) ou não
+o primeiro bit indica se temos um elemento do conjunto típico ($b_0=0$) ou não ($b_0=1$),
 e os demais indexam o elemento do conjunto.
 O número total de bits necessário para uma sequência típica será então $\leq n(H+\epsilon)+2$.
 
@@ -469,34 +521,38 @@ Para os elementos do conjunto não típico, vamos utilizar
 \begin{equation}
   \lceil \log \vert \mathcal{X} \vert^n \rceil \leq n \log K + 1 \text{bits}.
 \end{equation}
-Então teremos um vetor binário da forma $(b_0,b_1,b_2,\ldots,b_{\lceil \log \vert \mathcal{X} \vert^n \rceil})$
+Teremos então um vetor binário da forma $(b_0,b_1,b_2,\ldots,b_{\lceil \log \vert \mathcal{X} \vert^n \rceil})$
 onde $b_0=1$, indicando a atipicidade.
 Assim, o número total de bits para indexar uma sequência atípica será $\leq n \log K + 2$.
 
-Este código proposto é 1-pra-1, sendo fácil codificar e decodificar, dado o \textit{codebook}.
-Para o conjunto não-típico $A_\epsilon^{(n)c}$ estamos utilizando mais bits do que o necessário,
-já que $\vert A_\epsilon^{(n)c} \vert = \vert \mathcal{X}^n \vert - \vert A_\epsilon^{(n)} \vert = K^n - \vert A_\epsilon^{(n)} \vert \leq K^n$,
-mas isto não importará, como veremos adiante.
+Este código proposto é 1-pra-1, sendo fácil codificar e decodificar, dado o \textit{codebook}\index{codebook}.
+Para o conjunto não-típico $A_\epsilon^{(n)c}$, estamos utilizando mais bits do que o necessário,
+já que $\vert A_\epsilon^{(n)c} \vert = \vert \mathcal{X}^n \vert - \vert A_\epsilon^{(n)} \vert = K^n - \vert A_\epsilon^{(n)} \vert \leq K^n$.
+Mas isto não importará, como veremos adiante.
 O importante desta proposta de código é que as sequências típicas possuem um comprimento descritivo curto, aproximadamente $nH$.
 
 \begin{definition}[Comprimento da palavra associada a uma sequência]
-  O comprimento da palavra (\emph{codeword}) associada à sequência $x_{1:n}$ é denominado $l(x_{1:n})$.
+  O \emph{comprimento da palavra}\index{palavra!comprimento}\index{codeword!comprimento} (\emph{codeword}) associada à sequência $x_{1:n}$ é denominado $l(x_{1:n})$.
 \end{definition}
 Assim, $l(X_{1:n})$ é uma variável aleatória, já que $X_{1:n}$ é uma variável aleatória.
 Então $E l(X_{1:n}) = \sum_{x_{1:n}} p(x_{1:n}) l(x_{1:n})$ é o valor esperado do comprimento
 do código. Queremos que ele seja o menor possível.
 
 Suponha que $n$ seja grande suficiente de forma que $p(A_\epsilon^{(n)}) > 1 - \epsilon$, então
+{\allowdisplaybreaks[4]
 \begin{subequations}
   \begin{align}
-    E l(X_{1:n}) &= \sum_{x_{1:n}} p(x_{1:n}) l(x_{1:n}) \\
-                 &= \sum_{x_{1:n} \in A_\epsilon^{(n)}} p(x_{1:n}) l(x_{1:n}) + \sum_{x_{1:n} \in A_\epsilon^{(n)c}} p(x_{1:n}) l(x_{1:n}) \\
-                 &\leq \sum_{x_{1:n} \in A_\epsilon^{(n)}} p(x_{1:n}) [n(H+\epsilon)+2] + \sum_{x_{1:n} \in A_\epsilon^{(n)c}} p(x_{1:n}) [n \log K + 2] \\
-                 &= \underbrace{p(A_\epsilon^{(n)})}_{\leq 1} [n(H+\epsilon)+2] + \underbrace{p(A_\epsilon^{(n)c})}_{< \epsilon} [n \log K + 2] \\
-                 &\leq n(H+\epsilon)+2 + \epsilon n \log K + \epsilon 2 \\
-                 &= n [H + \underbrace{\epsilon + \epsilon \log K + \frac{2}{n} + \frac{2 \epsilon}{n}}_{\epsilon'} ] = n(H+\epsilon') ,
+    E l(X_{1:n}) ={}& \sum_{x_{1:n}} p(x_{1:n}) l(x_{1:n}) \\
+                 ={}& \sum_{x_{1:n} \in A_\epsilon^{(n)}} p(x_{1:n}) l(x_{1:n}) + \sum_{x_{1:n} \in A_\epsilon^{(n)c}} p(x_{1:n}) l(x_{1:n}) \\
+    \begin{split}             \leq{}& \sum_{x_{1:n} \in A_\epsilon^{(n)}} p(x_{1:n}) [n(H+\epsilon)+2] + \\
+      & \sum_{x_{1:n} \in A_\epsilon^{(n)c}} p(x_{1:n}) [n \log K + 2] 
+    \end{split} \\
+                 ={}& \underbrace{p(A_\epsilon^{(n)})}_{\leq 1} [n(H+\epsilon)+2] + \underbrace{p(A_\epsilon^{(n)c})}_{< \epsilon} [n \log K + 2] \\
+                 \leq{}& n(H+\epsilon)+2 + \epsilon n \log K + \epsilon 2 \\
+                 ={}& n [H + \underbrace{\epsilon + \epsilon \log K + \frac{2}{n} + \frac{2 \epsilon}{n}}_{\epsilon'} ] = n(H+\epsilon') ,
   \end{align}
 \end{subequations}
+}
 onde definimos $\epsilon'$ como
 \begin{equation}
   \epsilon' = \epsilon + \epsilon \log K + \frac{2}{n} + \frac{2 \epsilon}{n} .
@@ -504,7 +560,7 @@ onde definimos $\epsilon'$ como
 Podemos fazer $\epsilon'$ tão pequeno quanto queremos, fazendo $\epsilon$ pequeno e $n$ grande.
 Desta forma, podemos fazer $n(H+\epsilon')$ tão próximo quanto quisermos de $nH$.
 
-\begin{theorem}[Primeiro Teorema de Shannon]
+\begin{theorem}[Primeiro Teorema de Shannon\index{teorema!primeiro teorema de Shannon (teorema da codificação de fonte)}]
 Seja $X_{1:n}$ i.i.d. $\sim p(x)$, $\epsilon > 0$, então $\exists$ um código $f_n : \mathcal{X}^n \rightarrow \text{string binária}$
 e um inteiro $n_{\epsilon}$, tal que o mapeamento seja um-pra-um (desta forma inversível sem erro), e
       \begin{equation}
@@ -518,14 +574,20 @@ para todo $\epsilon > 0$ e todo $n \geq n_{\epsilon}$.
   exemplo anterior.
 \end{proof}
 
+A demonstração do primeiro teorema de Shannon utiliza sequências típicas\index{sequências típicas} para
+garantir a existência de códigos cujo comprimento médio se aproxima, no limite,
+da entropia da fonte. Contudo, a codificação de sequências típicas requer
+sequências arbitrariamente longas, o que, na prática, torna a implementação
+inviável. Assim, embora o teorema não indique um método para construir códigos
+práticos, ele assegura a possibilidade teórica de atingir o limite definido
+pela entropia.
 
 É interessante notar que a sequência mais provável não pertence ao conjunto
 típico $A_\epsilon^{(n)}$. Isso ocorre porque o conjunto típico contém
 sequências cujo histograma empírico é próximo da distribuição subjacente. A
-tipicidade não está relacionada à probabilidade de uma única sequência ser a
-maior. 
+tipicidade não está relacionada a uma única sequência ter a maior probabilidade.
 
-Dado que o conjunto típcio é tal que $P(A_\epsilon^{(n)}) \to 1$ à medida que
+Dado que o conjunto típcio é tal que $Pr(A_\epsilon^{(n)}) \to 1$ à medida que
 $n \to \infty$, ou seja, $A_\epsilon^{(n)}$ captura toda probabilidade, podemos
 nos questionar se existe um conjunto ainda menor que também contenha
 essencialmente `toda' a probabilidade.
@@ -560,22 +622,22 @@ Se $\delta_n \rightarrow 0$ e $\epsilon_n \rightarrow 0$, então teremos
 Seja $X_1, X_2, \ldots, X_n$ i.i.d. $\sim p(x)$. Seja $B_{\delta}^{(n)} \subset \mathcal{X}^n$ tal que
 $\Pr(B_{\delta}^{(n)}) > 1 - \delta$. Fixe $\epsilon < \sfrac{1}{2}$.
 Dados dois subconjuntos quaisquer $A$ e $B$ tais que $\Pr(A) > 1 - \epsilon_1$ e $\Pr(B) > 1 - \epsilon_2$.
-Seja $A^c$ o complemento de $A$ e $B^c$ o complemento de $B$, então
+Seja $A^c$, o complemento de $A$, e $B^c$, o complemento de $B$, então
 \begin{equation}
-P(A^c \cup B^c) \leq P(A^c) + P(B^c) .
+Pr(A^c \cup B^c) \leq Pr(A^c) + Pr(B^c) .
 \end{equation}
 
-Como $P(A) > 1 - \epsilon_1$, teremos $P(A^c) \leq \epsilon_1$. De forma similar, $P(B^c) \leq \epsilon_2$.
+Como $Pr(A) > 1 - \epsilon_1$, teremos $Pr(A^c) \leq \epsilon_1$. De forma similar, $Pr(B^c) \leq \epsilon_2$.
 Poderemos assim escrever
 \begin{subequations}
 \begin{align}
-P(A \cap B) &= 1 - P(A^c \cup B^c) \\
-        &\geq 1 - P(A^c) - P(B^c) \\
+Pr(A \cap B) &= 1 - Pr(A^c \cup B^c) \\
+        &\geq 1 - Pr(A^c) - Pr(B^c) \\
         &\geq 1 - \epsilon_1 - \epsilon_2.
 \end{align}
 \end{subequations}
 
-Podemos reescrever a desigualdade anterior como
+Assim, a desigualdade anterior poderá ser reescrita como:
 \begin{equation}
 \Pr(A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}) \geq 1 - \epsilon - \delta .
 \end{equation}
@@ -598,7 +660,7 @@ Desta forma teremos
 \end{subequations}
 onde utilizamos $A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)} \subseteq B_{\delta}^{(n)}$.
 
-Poderemos reescrever então da seguinte forma,
+A desigualdade anterior poderá ser reescrita então seguinte forma:
 \begin{equation}
 \vert B_{\delta}^{(n)} \vert  >  2^{n(H-\epsilon)} ,
 \end{equation}
@@ -617,33 +679,33 @@ onde $\epsilon > 0$.
 
 \section{Método de Típos}
 
-O método de tipos refina a abordagem das sequências típicas, oferecendo uma
+O \emph{método de tipos}\index{método de tipos} refina a abordagem das sequências típicas, oferecendo uma
 análise mais estruturada das propriedades assintóticas. O método de tipos
 considera todas as possíveis distribuições empíricas (ou `tipos') que
 sequências $x_{1:n}$ podem ter, agrupando-as em conjuntos de sequências que
 compartilham um mesmo histograma empírico $\hat{p}_n(x_{1:n})$, ou
 $P_{x_{1:n}}$. O conjunto de sequências de comprimento $n$ pode ser
-particionado em subconjuntos de sequências de tipos distintos. Na AEP, o método
+particionado em subconjuntos de sequências de tipos distintos. Na AEP\index{propriedade da equipartição assintótica}, o método
 de tipos confirma que o número de sequências típicas é $\circeq 2^{nH(X)}$.
 Vamos então estabelecer algumas definições.
 
-\begin{definition}[Tipo]
-  Seja $X_1, X_2, \ldots, X_n \equiv X_{1:n}$ uma amostra de comprimento $n$ de uma variável aleatória discreta $D$-ária.
-  Então $x_i \in \mathcal{X}$ e o tamanho do alfabeto é $D=\vert \mathcal{X} \vert$, e $\mathcal{X}=\{a_1, a_2, \ldots, a_D\}$.
-  Definimos a seguinte estatística, o histograma empírico da amostras, também chamado tipo da amostra:
+\begin{definition}[Tipo\index{tipo}]
+  Seja $x_1, x_2, \ldots, x_n \equiv x_{1:n}$ uma amostra de comprimento $n$ de uma variável aleatória discreta $D$-ária.
+  Então $x_i \in \mathcal{X}$ e o tamanho do alfabeto é $D=\vert \mathcal{X} \vert$, sendo o alfabeto $\mathcal{X}=\{a_1, a_2, \ldots, a_D\}$.
+  Definimos a seguinte estatística, o \emph{histograma empírico}\index{estatística!histograma empírico} da amostras, também chamado \emph{tipo} da amostra:
   \begin{equation}
   P_{x_{1:n}} \triangleq \left( \frac{n(a_1|x_{1:n})}{n}, \frac{n(a_2|x_{1:n})}{n}, \ldots, \frac{n(a_D|x_{1:n})}{n} \right)
   \end{equation}
   onde $n(a_i|x_{1:n})$ representa o número de ocorrências do símbolo $a_i$ na amostra $x_{1:n}$.
 \end{definition}
 Note que $P_{x_{1:n}}$ pode ser considerado como uma função massa probabilidade.
-Um tipo $\hat{p}$ é uma função de massa de probabilidade sobre $S_X$, 
-definido como o histograma empírico $\hat{p}(a) = \frac{k_a}{n}$, 
-onde $k_a = \sum_{i=1}^n \mathbb{I}\{x_i = a\}$ é o número de ocorrências do símbolo $a \in S_X$ na sequência, 
-e $\sum_{a \in S_X} k_a = n$.
+Um tipo $\hat{p}$ é uma função de massa de probabilidade sobre $\mathcal{X}$, 
+definido como o histograma empírico $\hat{p}(a) = \sfrac{k_a}{n}$, 
+onde $k_a = \sum_{i=1}^n \mathbf{1}_{\{x_i = a\}}$ é o número de ocorrências do símbolo $a \in \mathcal{X}$ na sequência, 
+e $\sum_{a \in \mathcal{X}} k_a = n$.
 
 \begin{definition}[Conjunto de Tipos]
-    O Conjunto de Tipos $\mathcal{P}_n$, ou $\mathcal{P}_n (\mathcal{X})$, para sequências de comprimento $n$ sobre um alfabeto finito $\mathcal{X}$ 
+  O \emph{conjunto de tipos}\index{tipo!conjunto de tipos} $\mathcal{P}_n$, ou $\mathcal{P}_n (\mathcal{X})$, para sequências de comprimento $n$ sobre um alfabeto finito $\mathcal{X}$ 
     é o conjunto de todas as possíveis distribuições empíricas (ou tipos) que podem ser formadas 
     por sequências $(x_1, x_2, \ldots, x_n) \in \mathcal{X}^n$.
 \end{definition}
@@ -653,7 +715,7 @@ teremos o seguinte conjunto de tipos:
 \begin{equation}\label{eq:exconjtiposbernoulli}
 \mathcal{P}_n (\mathcal{X}) = \left\{ \left( \frac{0}{n}, \frac{n}{n} \right), \left( \frac{1}{n} , \frac{n-1}{n} \right), \ldots, \left( \frac{n}{n}, \frac{0}{n} \right)\right\}
 \end{equation}
-onde existem $n+1$ tipos (histogramas empíricos). O primeiro tipo em \ref{eq:exconjtiposbernoulli} representa
+onde existem $n+1$ tipos (histogramas empíricos). O primeiro tipo, na \Cref{eq:exconjtiposbernoulli}, representa
 a sequência sem nenhuma ocorrência de zeros e $n$ ocorrências de uns; o segundo tipo representa 
 as sequências com apenas uma ocorrência de zero e $n-1$ ocorrência de uns; e o último tipo
 representa a sequência com $n$ ocorrência de zeros e nenhuma ocorrência de uns.
@@ -661,7 +723,7 @@ representa a sequência com $n$ ocorrência de zeros e nenhuma ocorrência de un
 
 
 \begin{definition}[Classe de Tipo]
-    A Classe de Tipo $T(P)$, ou $T(\hat{p})$, associada a um tipo $\hat{p} \in \mathcal{P}_n(\mathcal{X})$, 
+  A \emph{classe de tipo}\index{tipo!classe de tipo} $T(P)$, ou $T(\hat{p})$, associada a um tipo $\hat{p} \in \mathcal{P}_n(\mathcal{X})$, 
     para sequências de comprimento $n$ sobre um alfabeto finito $\mathcal{X}$, 
     é o conjunto de todas as sequências $(x_1, x_2, \ldots, x_n) \in \mathcal{X}^n$ 
     que compartilham um mesmo histograma empírico $\hat{p}$, ou $P$.
@@ -679,7 +741,7 @@ possui apenas uma sequência:
 \end{equation}
 
 Para o tipo $P = \left( \frac{1}{n} , \frac{n-1}{n} \right)$, a classe de tipo $T(P)$
-possui $n$ sequências:
+possui $n$ sequências, todas com apenas uma ocorrência de zero:
 \begin{equation}
     T(P) = \{ 011\cdots{}11, 101\cdots{}11, \ldots, 111\cdots{}01, 111\cdots{}10 \} .
 \end{equation}
@@ -695,7 +757,7 @@ possui apenas uma sequência:
 Como mencionado anteriormente, o conjunto de todas sequências $\mathcal{X}^n$
 pode ser particionado em diferentes conjuntos $T(P_i)$, com $P_i \in \mathcal{P}_n$,
 o conjunto de todos os tipos, ou seja, $\mathcal{P}_n = \{ P_1, P_2, \ldots, P_{\vert \mathcal{P}_n \vert} \}$.
-As partições são disjuntas
+As partições são disjuntas,
 \begin{equation}
     T(P_i) \cap T(P_j) = \emptyset, \forall i,j \in \{1, \ldots, \vert \mathcal{P}_n \vert\} \text{ e } i \neq j,
 \end{equation}
@@ -704,9 +766,41 @@ e o particionamento é exaustivo
   \bigcup_{P \in \mathcal{P}_n} T(P) = \mathcal{X}^n.
 \end{equation}
 Este particionamento é ilustrado na \Cref{fig:particao-Xn2}.
+O conjunto de todas sequências de comprimento $n$, $\mathcal{X}^n$, é particionado
+em $\vert \mathcal{P}_n \vert$ classes de tipo, para cada um dos tipos existentes.
+Em particular, a \Cref{fig:particao-Xn2}, apenas a título de ilustração, evidencia
+3 classes de tipo: $T(P_1)$, $T(P_2)$ e $T(P_3)$, e uma sequência qualquer $x_{1:n}$
+em uma determinada classe de tipo.
 
 \begin{marginfigure}%
-  \includegraphics[width=\linewidth]{figures/particao-Xn2.pdf}
+  %\includegraphics[width=\linewidth]{figures/particao-Xn2.pdf}
+  \resizebox{\textwidth}{!}{
+  \begin{tikzpicture}
+    % Draw the outer ellipse
+    \draw[thick, fill=gray!30] (0,0) ellipse (3cm and 2cm);
+    
+    % Draw the internal grid lines
+    \draw[thick] (-2.6,1) -- (2.4,1.2); % Horizontal line 1
+    \draw[thick] (-3,0) -- (3,-0.25); % Horizontal line 2
+    \draw[thick] (-2.4,-1.2) -- (2.75,-0.8); % Horizontal line 3
+    %\draw[thick] (-3,1.5) -- (-3,-1.5); % Vertical line 1
+    \draw[thick] (-1,1.9) -- (-1,-1.9); % Vertical line 2
+    \draw[thick] (1,1.9) -- (0.75,-1.95); % Vertical line 3
+    %\draw[thick] (3,1.5) -- (3,-1.5); % Vertical line 4
+    
+    % Label the regions
+    \node at (-1.8, 0.5) {$T(P_1)$};
+    \node at (0, 0.5) {$T(P_3)$};
+    \node at (-1.8, -0.6) {$T(P_2)$};
+    
+    % Add the point and label
+    \fill (2, 0.5) circle (2pt);
+    \node at (2, 0.8) {$x_{1:n}$};
+    
+    % Add the title
+    \node at (0, 2.3) {particionamiento de $\mathcal{X}^n$};
+  \end{tikzpicture}
+  }
   \caption{Particionamento do espaço de sequências de comprimento $n$.}
   \label{fig:particao-Xn2}
 \end{marginfigure}
@@ -716,28 +810,30 @@ No exemplo do ensaio de Bernoulli é fácil constatar quantos tipos distintos ex
 O \Cref{thm:numtiposn} a seguir usa o método estrela traço da análise combinatória para determinar
 o número de tipos existentes. Vejamos então primeiramente o teorema da análise combinatória.
 
-\begin{theorem}[Método Estrela Traço]
-    Suponha que $n$ estrelas que devem ser organizadas em $k$ recipientes, podendo inclusive
+\begin{theorem}[Método Bola-Traço\index{método bola-traço}(\textit{stars and bars})]
+    Suponha $n$ estrelas que devam ser organizadas em $k$ recipientes, podendo inclusive
     ter recipiente vazio.
     Neste caso, o número de maneiras de fazer tal organização é dado por
     \begin{equation}
-	\binom{n+k-1}{k-1}
+	  \binom{n+k-1}{k-1} .
     \end{equation}
 \end{theorem}
 \begin{proof}
 Este problema é o mesmo que incluir $k-1$ traços para separar uma sequência de $n$ estrelas.
 Os traços podem ser inseridos em qualquer posição, inclusive sem existir estrelas entre eles,
 como por exemplo, com $n=7$ e $k=4$:
-$$\star \star \star \star \quad | \quad | \quad \star \quad | \quad \star \star$$
-Note que, neste problema temos $n+k-1$ símbolos (estrelas e traços) para serem incluídos, dos
+$$\star \star \star \star \quad | \quad | \quad \star \quad | \quad \star \star$$ 
+o que seria equivalente a termos o primeiro recipiente com 4 estrelas, o segundo vazio, o terceiro
+com apenas uma estrela, e o último com duas estrelas.
+Note que, neste problema, temos $n+k-1$ símbolos (estrelas e traços) para serem incluídos, dos
 quais $k-1$ são escolhidos para serem traços. Desta forma existem $\tbinom{n+k-1}{k-1}$
 formas de dispor estes símbolos.
 \end{proof}
 
-\begin{theorem}[Número de tipos existentes]\label{thm:numtiposn}
+\begin{theorem}[Número de tipos existentes\index{tipo!número de tipos}]\label{thm:numtiposn}
  Para sequências de comprimento $n$, em um alfabeto $\mathcal{X}$, o número de tipos é dado por
  \begin{equation}\label{eq:number-of-types}
- \vert \mathcal{P}_n \vert = {n + \vert \mathcal{X} \vert - 1 \choose \vert \mathcal{X} \vert - 1}
+ \vert \mathcal{P}_n \vert = {n + \vert \mathcal{X} \vert - 1 \choose \vert \mathcal{X} \vert - 1} .
  \end{equation}
 \end{theorem}
 \begin{proof}
@@ -754,12 +850,12 @@ uma delas corresponde a uma forma de organização no problema de estrelas e tra
 \end{proof}
 
 
-Embora tenhamos uma fórmula fechada para o número de tipos, \Cref{eq:number-of-types},
+Embora tenhamos uma fórmula fechada para o número de tipos, dada pela \Cref{eq:number-of-types},
 iremos encontrar um limite superior para $\vert \mathcal{P}_n \vert$,
 que, embora seja um limite relativamente largo, é mais fácil de manipular e suficiente 
 para muitas demonstrações teóricas. 
 
-\begin{theorem}[Limite no número de tipos]
+\begin{theorem}[Limite no número de tipos\index{tipo!limite no número de tipos}]\label{thm:limnumtipos}
  O número de tipos para sequências de comprimento $n$ em um alfabeto $\mathcal{X}$ é limitado por
  \begin{equation}\label{eq:number-of-types-bound}
  \vert \mathcal{P}_n \vert \leq (n+1)^{\vert \mathcal{X} \vert} .
@@ -787,7 +883,7 @@ $(x_1, x_2, \ldots, x_n)$ depende apenas do seu tipo e não da sequência espec�
 Isso significa que todas as sequências em uma mesma classe de tipo, ou seja,
 sequências que compartilham um mesmo histograma empírico, têm a mesma probabilidade.
 
-\begin{theorem}[Probabilidade Depende do Tipo]
+\begin{theorem}[Probabilidade depende do tipo\index{tipo!probabilidade}]\label{thm:probabilidadetipo}
 Seja $X_1, X_2, \ldots, X_n$ i.i.d. $\sim Q(x)$, com $Q$ arbitrário, e extensão
 $Q^n(x_{1:n}) = \prod_i Q(x_i)$, a probabilidade da sequencia depende apenas do tipo, ou seja,
 a probabilidade é `independente' da sequencia, dado o tipo e $Q$, isto é,
@@ -821,7 +917,7 @@ determinada distribuição. Intuitivamente, esperamos que a classe de tipo
 mais provável seja aquela cujo histograma empírico esteja mais próximo 
 da distribuição geradora.
 
-\begin{lemma}[Classe de Tipo com maior probabilidade]
+\begin{lemma}[Classe de tipo com maior probabilidade\index{tipo!classe de tipo com maior probabilidade}]
 Dada a distribuição geradora $Q = P \in \mathcal{P}_n$, teremos que $T(P)$ possui a maior probabilidade. Isto é
 \begin{equation}
   P^n(T(P)) \geq P^n(T(\hat{P})) , \ \forall \hat{P} \in \mathcal{P}_n .
@@ -854,7 +950,7 @@ O tamanho de uma classe de tipo $T(P)$ pode ser determinado pelos coeficientes m
 Cada sequência $x_{1:n} \in T(P)$ possui exatamente $nP(a)$ ocorrências de cada símbolo $a \in \mathcal{X}$.
 O número de sequências corresponde ao número de maneiras de permutar os símbolos de acordo com o número de ocorrência de cada símbolo.
 
-\begin{lemma}[Tamanho da Classe de Tipo]
+\begin{lemma}[Tamanho da classe de tipo\index{tipo!tamanho da classe de tipo}]
     Seja $P \in \mathcal{P}_n$, um tipo para sequências de comprimento $n$ sobre um alfabeto finito $\mathcal{X}$,
     de tamanho $D = \vert\mathcal{X}\vert$, 
     e seja $T(P)$ a classe de tipo associada, ou seja, o conjunto de todas as sequências $x_{1:n} \in \mathcal{X}^n$
@@ -877,18 +973,31 @@ para utilização em outras demonstrações. Veremos então a seguir os limites 
 para o tamanho da classe de tipo.
 
 
-\begin{theorem}[Limites no tamanho da Classe de Tipo]\label{thm:limtamclasstip}
+\begin{theorem}[Limites no tamanho da classe de tipo\index{tipo!classe de tipo!limites para o tamanho}]\label{thm:limtamclasstip}
 Dado um tipo $P \in \mathcal{P}_n$, temos
 \begin{equation}\label{eq:limtamclasstip}
 \frac{1}{(n+1)^{\vert \mathcal{X} \vert}} 2^{nH(P)} \leq \vert T(P) \vert \leq 2^{nH(P)} .
 \end{equation}
 \end{theorem}
 \begin{proof}[Demonstração (limite superior)]
-\begin{subequations}
+\begin{subequations}\label{eq:demlimsupclasstype}
 \begin{align}
-  1 &\geq P^{n} (T(P)) = \sum_{x_{1:n} \in T(P)} P^{n} (x_{1:n}) = \sum_{x_{1:n} \in T(P)} 2^{-nH(P)} \\
-    &= \vert T(P) \vert 2^{-nH(P)}
+  1 \geq{}& P^{n} (T(P)) \label{eq:demlimsupclasstypeA}\\
+    ={}& \sum_{x_{1:n} \in T(P)} P^{n} (x_{1:n}) \label{eq:demlimsupclasstypeB}\\
+    ={}& \sum_{x_{1:n} \in T(P)} 2^{-nH(P)} \label{eq:demlimsupclasstypeC}\\
+    &= \vert T(P) \vert 2^{-nH(P)} ,\label{eq:demlimsupclasstypeD}
 \end{align}
+\end{subequations}
+onde em \ref{eq:demlimsupclasstypeA} utilizamos que a probabilidade de uma classe de tipo em particular
+é menor ou igual ao todo; e em \ref{eq:demlimsupclasstypeC} utilizamos que
+\begin{subequations}
+  \begin{align}
+     P^{n} (x_{1:n}) ={}& \prod_{i=1}^n P(x_i) \\
+     ={}& \prod_{x \in \mathcal{X}} P(x)^{nP(x)} \\
+     ={}& 2^{\sum_{x \in \mathcal{X}} nP(x) \log P(x)} \\
+     ={}& 2^{-n \sum_{x \in \mathcal{X}} P(x) \log \frac{1}{P(x)}} \\
+     ={}& 2^{-nH(P)} .
+  \end{align}
 \end{subequations}
 \end{proof}
 \begin{proof}[Demonstração (limite inferior)]
@@ -928,7 +1037,7 @@ da classe de tipo $Q^n(T(P))$, onde $Q$ é a distribuição subjacente da fonte 
 Um resultado importante é que qualquer outro tipo que seja menos próximo de $Q$ (em termos de divergência de Kullback-Leibler)
 terá sua probabilidade decrescendo exponencialmente com $n$, decrescendo assim mais rapidamente que o tipo mais provável.
 
-\begin{theorem}[Limites da probabilidade da classe de tipo]
+\begin{theorem}[Limites da probabilidade da classe de tipo\index{tipo!classe de tipo!limites da probabilidade}]\label{thm:limprobclasstype}
  Para qualquer $P \in \mathcal{P}_n$ e seja $Q$ a distribuição subjacente da fonte i.i.d., a probabilidade da classe de tipo
 $T(P)$ sob $Q^n$ é tal que $Q^n(T(P)) \circeq 2^{-n D(P \mid \mid Q)}$. Especificamente, temos os limites
 \begin{equation}
@@ -947,15 +1056,20 @@ $T(P)$ sob $Q^n$ é tal que $Q^n(T(P)) \circeq 2^{-n D(P \mid \mid Q)}$. Especif
 
 
 Iremos agora rever a definição de conjunto típico, utilizando a formalização do métodos de tipos.
-\begin{definition}[Conjunto Típico]
+\begin{definition}[Conjunto Típico\index{conjunto típico}]
+  Na \Cref{def:conjtipico} vimos a definição de conjunto típico, com relação à sua probabilidade. Definimos agora
+  com relação à divergência entre o histograma empírico e a distribuição subjacente.
   Seja $X_1, X_2, \ldots, X_n$ i.i.d. $\forall i$, $X_i \sim Q(x)$. Então o conjunto típico é definido como
   \begin{equation}
-    T^{\epsilon}_{Q} = \{ x_{1:n} : D(P_{x_{1:n}} \mid \mid Q) \leq \epsilon \} .
+    T^{\epsilon}_{Q} = \{ x_{1:n} : D(P_{x_{1:n}} \mid \mid Q) \leq \epsilon \} ,
   \end{equation}
+  onde $P_{x_{1:n}}$ é o tipo empírico (distribuição de frequência relativa) da sequência $x_{1:n}$,
+  e $\epsilon > 0$ é um limiar que controla a tolerância na definição de tipicidade. 
+
 \end{definition}
 
 Podemos agora analizar a probabilidade do conjunto típico.
-\begin{theorem}[Probabilidade do Conjunto Típico]
+\begin{theorem}[Probabilidade do Conjunto Típico\index{conjunto típico!probabilidade}]
   Sejam $X_1, X_2, \ldots, X_n$ i.i.d. $\forall i$, $X_i \sim Q(x)$. A probabilidade do complemento
   do conjunto típico $\overline{T}^{\epsilon}_Q$ é dada por
   \begin{equation}
@@ -968,15 +1082,19 @@ Podemos agora analizar a probabilidade do conjunto típico.
   ou seja, a divergência entre $P_{x_{1:n}}$ e $Q$ converge em probabilidade para zero quando $n$ é grande suficiente.
   \end{theorem}
   \begin{proof}
-  \begin{subequations}
+  \begin{subequations}\label{eq:propconjtipico}
   \begin{align}
-  Q(\overline{T}^{\epsilon}_Q) &= \sum_{P \in \mathcal{P}_n : D(P \mid\mid Q) > \epsilon} Q^n (T(P)) \\
-        &\leq \sum_{P \in \mathcal{P}_n : D(P \mid\mid Q) > \epsilon} 2^{-n D(P\mid\mid Q)} \\
-        &\leq \sum_{P \in \mathcal{P}_n : D(P \mid\mid Q) > \epsilon} 2^{-n \epsilon} \\
-        &\leq (n+1)^{\vert \mathcal{X}  \vert} 2^{-n \epsilon} = 2^{-n \left( \epsilon - \vert \mathcal{X} \vert \frac{\log (n+1)}{n}  \right)}
+  Q(\overline{T}^{\epsilon}_Q) &= \sum_{P \in \mathcal{P}_n : D(P \mid\mid Q) > \epsilon} Q^n (T(P)) \label{eq:propconjtipicoA}\\
+        &\leq \sum_{P \in \mathcal{P}_n : D(P \mid\mid Q) > \epsilon} 2^{-n D(P\mid\mid Q)} \label{eq:propconjtipicoB}\\
+        &\leq \sum_{P \in \mathcal{P}_n : D(P \mid\mid Q) > \epsilon} 2^{-n \epsilon} \label{eq:propconjtipicoC}\\
+        &\leq (n+1)^{\vert \mathcal{X}  \vert} 2^{-n \epsilon} = 2^{-n \left( \epsilon - \vert \mathcal{X} \vert \frac{\log (n+1)}{n}  \right)} \label{eq:propconjtipicoD}
   \end{align}
   \end{subequations}
-  então a probabilidade vai para zero quando $n \rightarrow \infty$, e desta forma a probabilidade do conjunto típico vai para $1$ quando $n \rightarrow \infty$.
+  onde em \ref{eq:propconjtipicoA} usamos a definição do complemento do conjunto típico,
+  em \ref{eq:propconjtipicoB} utilizamos o \Cref{thm:limprobclasstype},
+  e em \ref{eq:propconjtipicoD} utilizamos o \Cref{thm:limnumtipos}.
+    Então, como podemos observar em \ref{eq:propconjtipicoD}, 
+    a probabilidade vai para zero quando $n \rightarrow \infty$, e desta forma a probabilidade do conjunto típico vai para $1$ quando $n \rightarrow \infty$.
   \end{proof}
 Os tipos que divergem (KL) mais do que $\epsilon$ da distribuição subjacente $Q$ terão probabilidade decrescente.
 Para $n$ grande, o conjunto típico acaba sendo a única coisa que ocorre com uma probabilidade não evanescente.
@@ -1000,36 +1118,71 @@ Quando $n$ cresce, apenas os tipos $P$ `próximos' de $Q$ irão ocorrer.
 
 A \Cref{fig:Mncodes2} ilustra um codificador de blocos que associa cada uma das $M$ sequências de $n$ de símbolos
 da fonte a uma sequência binária de comprimento $m$.
-Neste codificadador de blocos, cada sequências de $n$ símbolos é codificada conjuntamente
-associando a ela uma palavra a cada. O codiﬁcador faz o mapeamento de sequências de tamanho $n$ produzidas pela fonte em
+Neste codificador de blocos, cada sequências de $n$ símbolos é codificada conjuntamente,
+associando a ela uma palavra de código (\textit{codeword}) de comprimento $m$. 
+Em outras palavras, o codificador faz o mapeamento de sequências de tamanho $n$ produzidas pela fonte em
 sequências de $m$ bits.
 $M$ é o número de possíveis mensagens e também o número de palavras do \emph{codebook} do codificador.
 \begin{marginfigure}%
-  \includegraphics[width=\linewidth]{figures/Mncodes2.pdf}
+  %\includegraphics[width=\linewidth]{figures/Mncodes2.pdf}
+  \resizebox{1.2\textwidth}{!}{
+  \begin{tikzpicture}
+    % Nodes for input and output sequences
+    \node (input) at (-2, 0) {
+        \begin{tabular}{l}
+            sequências de $n$ \\ símbolos (fonte) \\
+            \( x^{(1)}_{1:n} \) \\
+            \( x^{(2)}_{1:n} \) \\
+            \( x^{(3)}_{1:n} \) \\
+            \( \vdots \) \\
+            \( x^{(M)}_{1:n} \)
+        \end{tabular}
+    };
+    
+    \node[rectangle, draw, minimum width=2cm, minimum height=1cm] (coder) at (0, 0) {Codificador};
+    
+    \node (output) at (4, 0) {
+        \begin{tabular}{l}
+            palavras de \\ $m$ bits (código) \\
+            \( y^{(1)}_{1:m} \) \\
+            \( y^{(2)}_{1:m} \) \\
+            \( \vdots \) \\
+            \( y^{(M)}_{1:m} \)
+        \end{tabular}
+    };
+    
+    % Vertical line for M
+    \draw[thick] (4.5, 0.5) -- (4.5, -1.5) node[midway, right] {\( M \)};
+    
+    % Arrows
+    \draw[->, thick] (-2.5, 0) -- (-1, 0);
+    \draw[->, thick] (1, 0) -- (2.5, 0);
+  \end{tikzpicture}
+  }
   \caption{Codificador $(M,n)$, onde $M$ representa o número de mensagens e $n$ o comprimento das sequências.}
   \label{fig:Mncodes2}
 \end{marginfigure}
 
-\begin{definition}[Código de Bloco com Taxa Fixa $R$]
+\begin{definition}[Código de bloco com taxa fixa $R$\index{código de bloco!com taxa fixa}]
 Seja $X_1, X_2, \ldots, X_n \sim Q$, i.i.d. mas $Q$ desconhecido. A função do codificador
 e decodificador são definidas a seguir:
-  \begin{equation}
-  \text{codificador: } f_n : \mathcal{X}^n \rightarrow \{1,2,\ldots,2^{nR}\}
-  \end{equation}
-  \begin{equation}
-  \text{decodificador: } \phi_n : \{1,2,\ldots,2^{nR}\} \rightarrow \mathcal{X}^n
-  \end{equation}
-e a probabilidade de erro
+  \begin{subequations}
+    \begin{align}
+    \text{codificador: } f_n :{}& \mathcal{X}^n \rightarrow \{1,2,\ldots,2^{nR}\} \\
+    \text{decodificador: } \phi_n :{}& \{1,2,\ldots,2^{nR}\} \rightarrow \mathcal{X}^n
+    \end{align}
+  \end{subequations}
+  e a probabilidade de erro
   \begin{equation}
   P_e^{(n)} = Q^n (\{ x_{1:n} : \phi (f_n (x_{1:n})) \neq x_{1:n} \}) .
   \end{equation}
 \end{definition}
 
-\begin{definition}[Código de Bloco Universal de Taxa $R$]
-  Um código de bloco de taxa $R$ para um fonte é dito universal se a função $f_n$ e $\phi_n$
-  não depender da distribuição $Q$ e se
+\begin{definition}[Código de bloco universal de taxa $R$\index{código de bloco!universal}]
+  Um código de bloco de taxa $R$ para uma fonte é dito universal se a função $f_n$ e $\phi_n$
+  não dependem da distribuição $Q$ e se
   \begin{equation}
-    P_e^{(n)} \rightarrow 0 \text{ quando } n \rightarrow \infty \text{ sempre que } H(Q) < R .
+    P_e^{(n)} \rightarrow 0 \text{, quando } n \rightarrow \infty \text{, sempre que } H(Q) < R .
   \end{equation}
 \end{definition}
 
@@ -1037,41 +1190,122 @@ Veremos que, se $R > H(Q)$, então existe uma sequência (em $n$) de códigos co
 Por outro lado, se $R < H(Q)$ a probabilidade de erro vai pra $1$.
 
 Na demonstração do \Cref{thm:teocodshannontipos} utilizaremos ainda a definição de simplex probabilístico.
-\begin{definition}[Simplex Probabilístico]
-  O Simplex Probabilístico em $\RealNumber^m$ é o conjunto de pontos
+\begin{definition}[Simplex Probabilístico\index{simplex probabilístico|see{tipo}}\index{tipo!simplex probabilístico}]
+  O \emph{simplex probabilístico}\footnote{Note que o simples probabilístico
+  (ou tipo) de uma sequência coincide com o histograma empírico normalizado.}
+  em $\RealNumber^m$ é o conjunto de pontos
   $x_{1:m} = (x_1, x_2, \ldots, x_m) \in \RealNumber^m$ tal que $x_i \geq 0$, $\sum_{i=1}^{m} x_i = 1$.
 \end{definition}
 
-\begin{example}[Simplex Probabilístico com $m=2$]
-  O Simplex probabilístico será o conjunto de pontos
+\begin{example}[Simplex probabilístico com $m=2$]
+  O simplex probabilístico será o conjunto de pontos
   \begin{equation}
   \{ (x_1, x_2)  :  x_1 \geq 0 , x_2 \geq 0 , x_1 + x_2 = 1 \} ,
   \end{equation}
   representado na \Cref{fig:prob-simplex-2}.
     \begin{marginfigure}
     \centering
-    \includegraphics[width=\textwidth]{figures/prob-simplex-2.pdf}
+    \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}
+    % Draw the axes
+    \draw[->] (-0.5, 0) -- (2, 0) node[right] {};
+    \draw[->] (0, -0.5) -- (0, 2) node[above] {};
+    
+    % Draw the line connecting (1,0) and (0,1)
+    \draw[thick, gray!50] (1, 0) -- (0, 1);
+    
+    % Label the points
+    \node at (1.5, -0.5) [above left] {$(1,0)$};
+    \node at (-1, 1.2) [below right] {$(0,1)$};
+    \end{tikzpicture}
+    }
+    %\includegraphics[width=\textwidth]{figures/prob-simplex-2.pdf}
     \caption{Simplex probabilístico para $m=2$.}
     \label{fig:prob-simplex-2}
     \end{marginfigure}
 \end{example}
 
- \begin{example}[Simplex Probabilístico com $m=3$]
-  O Simplex probabilístico será o conjunto de pontos
+ \begin{example}[Simplex probabilístico com $m=3$]
+  O simplex probabilístico será o conjunto de pontos
   \begin{equation}
   \{ (x_1, x_2, x_3)  :  x_1 \geq 0 , x_2 \geq 0 , x_3 \geq 0 , x_1 + x_2 + x_3 = 1 \}
   \end{equation}
   representado na \Cref{fig:prob-simplex-3} e com alguns pontos em destaque na \Cref{fig:prob-simplex-3t}.
     \begin{marginfigure}
     \centering
-    \includegraphics[width=\textwidth]{figures/prob-simplex-3.pdf}
+    \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}
+    \usetikzlibrary{calc}
+    % Define coordinates for the vertices
+    \coordinate (A) at (0,2);      % Corresponds to (1,0,0)
+    \coordinate (B) at (-1,-1);    % Corresponds to (0,1,0)
+    \coordinate (C) at (1.5,0);     % Corresponds to (0,0,1)
+    \coordinate (O) at (0,0);      % Origin
+
+    % Draw the shaded triangle
+    \fill[red!40, opacity=0.7] (A) -- (B) -- (C) -- cycle;
+    \draw[gray, thick] (A) -- (B) -- (C) -- cycle;
+
+    % Draw the axes
+    \draw[->, thick] (-2.5,0) -- (2.5,0) node[right] {}; % X-axis
+    \draw[->, thick] (0,-1.5) -- (0,2.5) node[above] {}; % Y-axis
+    \draw[->, thick] (-1.5,-1.5) -- (1.5,1.5) node[above] {}; % Z-axis
+
+    % Labels for the vertices
+    \node[above left] at (A) {(0,1,0)};
+    \node[left] at (B) {(0,0,1)};
+    \node[below right] at (C) {(1,0,0)};
+
+    \end{tikzpicture}
+    }
+    %\includegraphics[width=\textwidth]{figures/prob-simplex-3.pdf}
     \caption{Simplex probabilístico para $m=3$.}
     \label{fig:prob-simplex-3}
     \end{marginfigure}
 
     \begin{marginfigure}
     \centering
-    \includegraphics[width=\textwidth]{figures/prob-simplex-types3.pdf}
+    \resizebox{1.2\textwidth}{!}{
+      \begin{tikzpicture}
+    \usetikzlibrary{calc}
+    % Define coordinates for the vertices
+    \coordinate (A) at (0,2);      % Corresponds to (1,0,0)
+    \coordinate (B) at (-1,-1);    % Corresponds to (0,1,0)
+    \coordinate (C) at (1.5,0);     % Corresponds to (0,0,1)
+    \coordinate (O) at (0,0);      % Origin
+
+    % Draw the shaded triangle
+    \fill[red!40, opacity=0.7] (A) -- (B) -- (C) -- cycle;
+    \draw[gray, thick] (A) -- (B) -- (C) -- cycle;
+
+    % Draw the axes
+    \draw[->, thick] (-2.5,0) -- (2.5,0) node[right] {}; % X-axis
+    \draw[->, thick] (0,-1.5) -- (0,2.5) node[above] {}; % Y-axis
+    \draw[->, thick] (-1.5,-1.5) -- (1.5,1.5) node[above] {}; % Z-axis
+
+    % Labels for the vertices
+    \node[above left, font=\tiny] at (A) {$(0,1,0): H(P) = 0$};
+    \node[left, font=\tiny] at (B) {$(0,0,1): H(P) = 0$};
+    \node[below right, font=\tiny] at (C) {$(1,0,0): H(P) = 0$};
+    \filldraw[black] (A) circle (1.5pt);
+    \filldraw[black] (B) circle (1.5pt);
+    \filldraw[black] (C) circle (1.5pt);
+
+    % 1. Draw a small filled circle for the dot
+    \filldraw[black] (0.85,0.85) circle (1.5pt); % (x,y) is the coordinate, 1.5pt is the radius of the dot
+    \node[right, font=\tiny] at (0.85,0.85) {$(\sfrac{1}{2},\sfrac{1}{2},0): H(P)=1$}; % 'right' places the text to the right of the coordinate
+
+    \filldraw[black] (0.25,-0.5) circle (1.5pt); % (x,y) is the coordinate, 1.5pt is the radius of the dot
+    \node[right, font=\tiny] at (0.25,-0.6) {$(\sfrac{1}{2},0,\sfrac{1}{2}): H(P)=1$}; % 'right' places the text to the right of the coordinate
+
+    \filldraw[black] (-0.52,0.45) circle (1.5pt); % (x,y) is the coordinate, 1.5pt is the radius of the dot
+    \node[left, font=\tiny] at (-0.52,0.45) {$(0,\sfrac{1}{2},\sfrac{1}{2}): H(P)=1$}; % 'right' places the text to the right of the coordinate
+
+    \filldraw[black] (0.25,0.25) circle (1.5pt); % (x,y) is the coordinate, 1.5pt is the radius of the dot
+    \node[right, font=\tiny] at (0.25,0.25) {$(\sfrac{1}{3},\sfrac{1}{3},\sfrac{1}{3}): H(P)=\log 3$}; % 'right' places the text to the right of the coordinate
+    \end{tikzpicture}
+    }
+    %\includegraphics[width=\textwidth]{figures/prob-simplex-types3.pdf}
     \caption{Representação de alguns pontos e suas respectivas entropias.}
     \label{fig:prob-simplex-3t}
     \end{marginfigure}
@@ -1095,12 +1329,12 @@ de $Q$ ocorrem, para $n$ grande, é possível construir códigos universais que
 codifiquem eficientemente as sequências produzidas pela fonte, usando aproximadamente 
 $nH(Q)$ bits.
 
-\begin{theorem}[Teorema da Codificação de Shannon]\label{thm:teocodshannontipos}
+\begin{theorem}[Teorema da Codificação de Shannon\index{teorema!primeiro teorema de Shannon (teorema da codificação de fonte)}]\label{thm:teocodshannontipos}
 $\exists$ uma sequencia $(2^{nR},n)$ de códigos universais tais que $P_e^{(n)} \rightarrow 0$ para toda
 distribuição $Q$ tal que $H(Q) < R$.
 \end{theorem}
 \begin{proof}
-  Fixe $R > H(Q)$. Defina uma taxa para $n$ que é fixada a um fator polinomial:
+  Fixe $R > H(Q)$. Defina uma taxa para $n$ que é fixada a um fator:
   \begin{equation}
     R_n \triangleq R - \vert \mathcal{X} \vert \frac{\log (n+1)}{n} < R .
   \end{equation}
@@ -1133,31 +1367,128 @@ distribuição $Q$ tal que $H(Q) < R$.
   e não associará valor se $H(P_{x_{1:n}}) >  R_n$ (ou seja, $x_{1:n} \notin A_n$).
   Note que $f_n(\cdot)$ não depende da distribuição da fonte, apenas do ordenamento e de $\RealNumber^m$.
   Um erro ocorrerá se $x_{1:n} \notin A_n$.
-  Os tipos podem ser representados por pontos em um Simplex Probabilístico, conforme ilustrado na \Cref{fig:type-simplex}.
-\begin{marginfigure}%
-  \includegraphics[width=\linewidth]{figures/type-simplex.pdf}
+  Os tipos podem ser representados por pontos em um simplex probabilístico, conforme ilustrado na \Cref{fig:type-simplex}.
+\begin{figure}%
+  %\includegraphics[width=\linewidth]{figures/type-simplex.pdf}
+  \resizebox{\textwidth}{!}{
+    \begin{tikzpicture}
+    % 1. Draw the large gray triangle
+    % Define the vertices of the triangle to make it equilateral and centered
+    \coordinate (top) at (0, 3.5);
+    \coordinate (bottom left) at (-3, -1.5);
+    \coordinate (bottom right) at (3, -1.5);
+
+    \fill[gray!60] (top) -- (bottom left) -- (bottom right) -- cycle;
+    \draw[black, thick] (top) -- (bottom left) -- (bottom right) -- cycle;
+
+    % 2. Draw the inner cyan circle
+    % Let's place it roughly at the center of the triangle
+    \coordinate (circle center) at (0, 0.2); % Adjust this to visually center it
+
+    \fill[cyan!40, opacity=0.8] (circle center) circle (1.2cm);
+    \draw[black, thick] (circle center) circle (1.2cm);
+
+    % 3. Text labels within and around the shapes
+
+    % Label for the entire gray area (correctly encoded sequences)
+    \node[anchor=west, font=\sffamily\normalsize, text width=4cm, anchor=west] at (2.5, 2.5) {conjunto de sequências \\ corretamente codificadas}; % Adjust position slightly right of top
+
+    % Label for the inner cyan circle (sequences that will result in error)
+    \node[align=center, font=\sffamily\normalsize, text width=4cm, anchor=east] at (-2.5, 2.5) {conjunto de sequências \\ que resultarão em erro};
+
+
+    % Labels inside the shapes
+    \node[font=\itshape\normalsize] at (circle center) {$H(P) > R_n$};
+    \node[font=\itshape\normalsize] at (circle center |- 0.5, 1.8) {$H(P) < R_n$}; % Slightly above the circle center, but within the triangle
+    \node[font=\itshape\normalsize] at (1.6, -1.2) {$H(P) = R_n$}; % Slightly below the circle center
+
+    % 4. Arrows pointing to the labels
+
+    % Arrow to the right label (correctly encoded)
+    % We need to calculate a point on the perimeter of the triangle for the arrow to originate from
+    \draw[->, >=Stealth, thick] (2.5, 2.5) -- (0.9, 1.4);
+
+    % Arrow to the left label (sequences in error)
+    \draw[->, >=Stealth, thick] (-2.5, 2.5) -- (0.0, 0.8);
+
+    % Arrow for H(P) = Rn
+    \draw[->, >=Stealth, thick] (0.6, -1.2) -- (0.4, -0.9); % From inside the circle to the label
+
+  \end{tikzpicture}
+  }
   \caption{Representação das sequências em um simplex probabilísticos. As sequências com $H(P_{x_{1:n}}) \leq  R_n$ não acarretarão em erro no processo de codificação.}
   \label{fig:type-simplex}
-\end{marginfigure}
+\end{figure}
 Um erro ocorre quando a sequência não está em $A_n$. Desta forma,
 \begin{subequations}
   \begin{align}
-  P_e^{(n)} = 1 - Q^n(A_n) &=& Q^n(A^c_n) = \sum_{P: H(P) > R_n} Q^n (T(P)) \\
-        &\leq& \sum_{P: H(P) > R_n} \max_{P: H(P) > R_n} Q^n (T(P)) \\
-        &\leq& (n+1)^{\vert \mathcal{X} \vert} \max_{P: H(P) > R_n} Q^n (T(P)) \\
-        &\leq& (n+1)^{\vert \mathcal{X} \vert} \max_{P: H(P) > R_n} 2^{-n  D(P \mid\mid Q)} \\
-        &=& (n+1)^{\vert \mathcal{X} \vert} 2^{-n [\min_{P: H(P) > R_n} D(P \mid\mid Q)]} \label{eq:dempeteoshan}
+    P_e^{(n)} ={}& Q^n(A^c_n) \\
+        ={}& \sum_{P: H(P) > R_n} Q^n (T(P)) \\
+        \leq{}& \sum_{P: H(P) > R_n} \max_{P: H(P) > R_n} Q^n (T(P)) \\
+        \leq{}& (n+1)^{\vert \mathcal{X} \vert} \max_{P: H(P) > R_n} Q^n (T(P)) \\
+        \leq{}& (n+1)^{\vert \mathcal{X} \vert} \max_{P: H(P) > R_n} 2^{-n  D(P \mid\mid Q)} \\
+        ={}& (n+1)^{\vert \mathcal{X} \vert} 2^{-n [\min_{P: H(P) > R_n} D(P \mid\mid Q)]} \label{eq:dempeteoshan}
   \end{align}
 \end{subequations}
 onde utilizamos que $Q^n(T(P)) \leq 2^{-n D(P\mid \mid Q)}$.
 Temos que $R_n$ forma uma sequência crescente com $n$, tal que $R_n < R$ para todo $n$ (veja a \Cref{fig:Rn-seq}).
-Por hipótese, $H(Q) < R$. Eventualmente, para algum $n_0$, teremos que $\forall n > n_0$, $R_n > H(Q)$.
-Na \Cref{eq:dempeteoshan}, escolhemos $P: H(P) > R_n$.
 \begin{marginfigure}%
-  \includegraphics[width=\linewidth]{figures/Rn-seq.pdf}
+  %\includegraphics[width=\linewidth]{figures/Rn-seq.pdf}
+  \resizebox{1.2\textwidth}{!}{
+    \begin{tikzpicture}
+
+    % Define the range of the number line
+    \def\xmin{-3}
+    \def\xmax{7}
+    \def\ymin{0} % Baseline for the number line
+
+    % Draw the main horizontal line
+    \draw[thick] (\xmin, \ymin) -- (\xmax, \ymin);
+
+    % --- Define points and draw tick marks and labels ---
+
+    % R_n0-2
+    \coordinate (Rn0-2) at (-2, \ymin);
+    \draw[thick] (Rn0-2) -- ($(Rn0-2) + (0, 0.2)$); % Tick mark above
+    \node[above=3pt of Rn0-2] {$R_{n_0-2}$}; % Label above
+
+    % R_n0-1
+    \coordinate (Rn0-1) at (-0.5, \ymin);
+    \draw[thick] (Rn0-1) -- ($(Rn0-1) + (0, 0.2)$);
+    \node[above=3pt of Rn0-1] {$R_{n_0-1}$};
+
+    % H(Q)
+    \coordinate (HQ) at (0.5, \ymin);
+    \draw[thick] (HQ) -- ($(HQ) + (0, -0.2)$); % Tick mark below
+    \node[below=3pt of HQ] {$H(Q)$}; % Label below
+
+    % R_n0
+    \coordinate (Rn0) at (1.5, \ymin);
+    \draw[thick] (Rn0) -- ($(Rn0) + (0, 0.2)$);
+    \node[above=3pt of Rn0] {$R_{n_0}$};
+
+    % R_n
+    \coordinate (Rn) at (3, \ymin);
+    \draw[thick] (Rn) -- ($(Rn) + (0, 0.2)$);
+    \node[above=3pt of Rn] {$R_n$};
+
+    % H(P)
+    \coordinate (HP) at (5, \ymin);
+    \draw[thick] (HP) -- ($(HP) + (0, -0.2)$);
+    \node[below=3pt of HP] {$H(P)$};
+
+    % R
+    \coordinate (R_label) at (6.5, \ymin);
+    \draw[thick] (R_label) -- ($(R_label) + (0, -0.2)$);
+    \node[below=3pt of R_label] {$R$};
+
+  \end{tikzpicture}
+  }
   \caption{Sequência de taxas $R_n$.}
   \label{fig:Rn-seq}
 \end{marginfigure}
+Por hipótese, $H(Q) < R$. Eventualmente, para algum $n_0$, teremos que $\forall n > n_0$, $R_n > H(Q)$.
+Na \Cref{eq:dempeteoshan}, escolhemos $P: H(P) > R_n$.
 Teremos então: $H(P) > R_n > H(Q)$, o que implica em $P \neq Q$.
 Desta forma, teremos $D(P \mid\mid Q) > 0$, para $P$ que foi escolhido em \ref{eq:dempeteoshan}.
 Teremos assim
