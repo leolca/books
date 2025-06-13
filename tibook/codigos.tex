@@ -1,6 +1,6 @@
 \chapter{Codificação de Fonte}
 
-A codificação de fonte sem perdas é o objetivo central quando
+A \emph{codificação de fonte} sem perdas é o objetivo central quando
 buscamos representar os símbolos de uma fonte estocástica de forma eficiente.
 Ou seja, desejamos utilizar o menor número de bits possível para
 codificar a informação produzida pela fonte, sem que haja perda de informação,
@@ -10,7 +10,7 @@ enviada pelo emissor.
 O Teorema da Codificação de Shannon estabelece que, para uma fonte com entropia
 $H(X)$, é possível codificar utilizando uma taxa $R > H(X)$ bits por símbolo,
 desde que se empregue blocos suficientemente grandes. No entanto, a codificação
-por blocos pode ser impraticável em aplicações reais devido à latência e à
+por blocos pode ser impraticável em aplicações reais, devido à latência e à
 complexidade computacional, o que motiva a busca por alternativas mais práticas
 que ainda alcancem o limite teórico da entropia.
 
@@ -36,7 +36,7 @@ produzida pela fonte. Um código pode ser de tamanho fixo ou variável, e, para
 codificação sem perdas, devemos requerer que cada símbolo seja
 univocamente recuperado a partir de sua palavra-código.
 
-\begin{definition}[Codificação de Fonte]
+\begin{definition}[Codificação de fonte\index{código!codificação de fonte}]
 Um código $C$ para a v.a. $X$ é um mapeamento de $\mathcal{X}$ em $\mathcal{D}^\ast$,
 ou seja
 \begin{equation}
@@ -49,7 +49,7 @@ de sequências (\textit{strings}) finitas em um alfabeto $D$-ário. $C(x)$ é a 
 De forma geral, $\mathcal{D} = \{0,1, \ldots, D-1\}$, mas usualmente utilizamos $D=2$, ou seja,
 codificação binária com alfabeto $\mathcal{D} = \{0,1\}$.
 O conjunto $\mathcal{D}^\ast$ representa a extensão do alfabeto $\mathcal{D}$
-(fecho de Kleene\footnote{
+(fecho de Kleene\footnote[][-1cm]{
   O fecho de Kleene de um alfabeto $\mathcal{D}$, denotado $\mathcal{D}^\ast$,
   é um conceito da teoria de linguagens formais que inclui todas as sequências
   finitas que podem ser formadas concatenando zero ou mais símbolos de $\mathcal{D}$,
@@ -71,8 +71,8 @@ fonte, pois quantifica a eficiência média do código ao representar os símbol
 da fonte, permitindo comparar diferentes esquemas de codificação em termos de
 uso de bits.
 
-\begin{definition}[Comprimento Esperado]
-O comprimento esperado $L(C)$ de um código $C$ para uma v.a. $X$ com distribuição $p(x)$ é dado por
+\begin{definition}[Comprimento esperado]
+  O \emph{comprimento esperado}\index{código!comprimento esperado} $L(C)$ de um código $C$ para uma v.a. $X$ com distribuição $p(x)$ é dado por
 \begin{equation}
   L(C) = \sum_x p(x) l(x) .
 \end{equation}
@@ -106,9 +106,9 @@ O código proposto é apresentado na \Cref{tb:excode2}.
 \begin{table}[h]
   \centering
   \caption{Exemplo de código binário para um alfabeto com 3 símbolos.}\label{tb:excode2}
-   \begin{tabular}{cccc}
+   \begin{tabular}{c|ccc}
    x      &  1    &   2   &   3   \\ \hline
-   $p(x)$ & $1/3$ & $1/3$ & $1/3$ \\ \hline
+   $p(x)$ & $1/3$ & $1/3$ & $1/3$ \\ 
    $C(X)$ & $0$   & $10$  & $11$
    \end{tabular}
 \end{table}
@@ -122,7 +122,7 @@ quão próximo o código está do limite teórico de
 compressão estabelecido pelo Teorema da Codificação de Shannon.
 
 \begin{definition}[Eficiência de um código]
-  A eficiência de um código é definida da seguinte forma
+  A \emph{eficiência de um código}\index{código!eficiência} é definida da seguinte forma
     \begin{equation}
       0 \leq \text{eficiência} \triangleq \frac{H_D(X)}{E l(X)} \leq 1 .
     \end{equation}
@@ -130,7 +130,7 @@ compressão estabelecido pelo Teorema da Codificação de Shannon.
 
 \begin{example}
   Para $\mathcal{X} = \{1,2,3,4\}$ e $\mathcal{D}=\{0,1\}$ (código binário), considere os seguintes códigos
-  dados na \Cref{tb:excode3}
+  dados na \Cref{tb:excode3}.
   \begin{table}[h]
     \centering
     \caption{Comparativo de 4 códigos distintos para uma fonte com 4 símbolos e distribuição dada.}\label{tb:excode3}
@@ -145,24 +145,26 @@ compressão estabelecido pelo Teorema da Codificação de Shannon.
     eficiência    &       & 1.555 & 1.4   & 1             & 0.933 
     \end{tabular}
   \end{table}
-  Neste caso, obtemos valores impróprios para os códigos $C_I$ e $C_{II}$,
-  indicando que não podem ser códigos sem perdas, já que violam do teorema de Shannon.
-  O valor esperado do comprimento do código não pode ser menor que a entropia sem que o código incorra em erro.
+  Neste caso, obtemos valores impróprios para o comprimento esperado dos códigos $C_I$ e $C_{II}$,
+  indicando que não podem ser códigos sem perdas, já que violam o teorema de Shannon.
+  O valor esperado do comprimento do código não pode ser menor que a entropia, sem que o código incorra em erro.
 
   Note que o código $C_I$ não é unívoco. A sequência $00001$ pode ser decodificada como
   $1,2,1,2,3$ ou $2,1,2,1,3$ ou $1,1,1,1,3$.
 
-  Considere $C_{II}$. O resultado da decodificação de $0011$ poderia ser $,1,1,2,2$ ou $3,4$ ou $3,2,2$ ou $1,1,4$.
+  Considere $C_{II}$. O resultado da decodificação de $0011$ poderia ser $1,1,2,2$ ou $3,4$ ou $3,2,2$ ou $1,1,4$.
   Novamente, não é possível decodificar sem que a probabilidade de erro seja nula (quando a sequência torna-se mais longa, a probabilidade de erro tende a $1$).
 
-  O código $C_{III}$ é factível (já que $El \geq H$). O processo de decodificação é simples. Por exemplo: $111110100 = 111,110,10,0 = 4,3,2,1$.
+  O código $C_{III}$ é factível (já que $El \geq H$). O processo de decodificação é simples. Por exemplo: $111110100 = 111,110,10,0 \rightarrow 4,3,2,1$.
 
-  Utilizando o código $C_{IV}$ é possível decodificar a sequência $00000000111$ univocamente, porém os símbolos não são instantaneamente decodificados, é necessário analisar os bits à frente para conseguir decodificar.
+  Utilizando o código $C_{IV}$ é possível decodificar a sequência $00000000111$
+  univocamente, porém os símbolos não são instantaneamente decodificados. É
+  necessário analisar os bits à frente para conseguir decodificar.
 \end{example}
 
 
 \begin{definition}[Extensão de um código]
-Um extensão $C^\ast$ de um código $C$ é um mapeamento de uma sequência finita
+  Uma \emph{extensão}\index{código!extensão} $C^\ast$ de um código $C$ é um mapeamento de uma sequência finita
 de símbolos em $\mathcal{X}$ em uma sequência finita de símbolos em $\mathcal{D}$ através da
 concatenação dos códigos:
 \begin{equation}
@@ -176,26 +178,26 @@ representação única, sendo essa uma condição necessária para a codificaç�
 perdas, embora não garanta por si só a decodificação unívoca.
 
 \begin{definition}[Código não-singular]
-Um código é dito \textbf{não-singular} se todo elemento de $\mathcal{X}$
+Um código é dito \emph{não-singular}\index{código!não-singular} se todo elemento de $\mathcal{X}$
 é mapeado em sequências (\textit{strings}) diferentes em $\mathcal{D}^\ast$. I.e.,
 \begin{equation}
 x_i \neq x_j \Rightarrow C(x_i) \neq C(x_j) .
 \end{equation}
 \end{definition}
 
-Para garantir que cada sequência codificada possa ser recuperada de forma inequívoca
+Para garantir que cada sequência codificada possa ser recuperada de forma inequívoca,
 a partir de sua representação em bits, um código precisa ter decodificação unívoca,
-ou seja, não pode haver ambiguidades na decodificação.
+ou seja, não pode haver ambiguidade na decodificação.
 
 \begin{definition}[Código com decodificação unívoca]
-Um código $C$ com extensão $C^\ast$ é decodificável univocamente se a sua extensão $C^\ast$ for não-singular.
+Um código $C$ com extensão $C^\ast$ é decodificável \emph{univocamente}\index{código!unívoco} se a sua extensão $C^\ast$ for não-singular.
 \end{definition}
 
 Em um código de prefixo nenhuma palavra-código é um prefixo de outra, garantindo que a decodificação possa ser realizada de
 forma unívoca e sequencial sem a necessidade de olhar para além do próximo delimitador.
 
 \begin{definition}[Código de prefixo]
-Um código é chamado \emph{código de prefixo} ou \emph{código instantâneo} se nenhum palavra
+Um código é chamado \emph{código de prefixo}\index{código!de prefixo} ou \emph{código instantâneo}\index{código!instantâneo|see{de prefixo}} se nenhum palavra
 é prefixo de qualquer outra palavra.
 \end{definition}
 
@@ -207,11 +209,32 @@ Dentre o conjunto dos códigos unívocos possíveis, queremos um código com
 comprimento esperado mínimo possível. Analisando as classes de códigos,
 intuitivamente pensamos que é mais provável encontrarmos um código com
 comprimento esperado menor em uma classe maior (ou mais abrangente). 
-A \Cref{fig:tiposcodigos} apresentado a estrutura hierárquica dos códigos
+A \Cref{fig:tiposcodigos} apresenta a estrutura hierárquica dos códigos
 (todos os códigos $\supset$ não-singulares $\supset$ unicamente decodificáveis $\supset$ prefixo).
 
-\begin{marginfigure}%
-  \includegraphics[width=\linewidth]{figures/tiposcodigos.pdf}
+\begin{marginfigure}[-4cm]%
+  %\includegraphics[width=\linewidth]{figures/tiposcodigos.pdf}
+  \resizebox{\textwidth}{!}{
+  \begin{tikzpicture}
+    % Outermost rectangle: Yellow
+    % Coordinates are directly specified for each rectangle
+    \filldraw[fill=yellow!80, draw=black, thick] (-5, -3) rectangle (5, 3);
+    \node[anchor=north west] at (-4.8, 2.8) {todos os códigos}; % Adjusted node position directly
+
+    % Second rectangle: Orange/Salmon
+    \filldraw[fill=orange!80!red!70, draw=black, thick] (-4, -2) rectangle (4, 2);
+    \node[anchor=north west] at (-3.8, 1.8) {códigos não-singulares};
+
+    % Third rectangle: Light Blue/Cyan
+    \filldraw[fill=cyan!60!blue!30, draw=black, thick] (-3, -1.5) rectangle (3, 1);
+    \node[anchor=north west] at (-2.8, 0.85) {códigos unicamente decodificáveis};
+
+    % Innermost rectangle: Green
+    % This one is not perfectly centered, so its coordinates are different
+    \filldraw[fill=green!70!lime, draw=black, thick] (-2, -0.9) rectangle (2, 0.25);
+    \node[anchor=north west] at (-1.8, -0.1) {códigos instantâneos};
+  \end{tikzpicture}
+  }
   \caption{Diagrama de representação dos conjuntos de códigos, evidenciando a estrutura hierárquica existente.}\label{fig:tiposcodigos}
 \end{marginfigure}
 
@@ -220,8 +243,8 @@ A \Cref{fig:tiposcodigos} apresentado a estrutura hierárquica dos códigos
 
 \section{Desigualdade de Kraft}
 
-A Desigualdade de Kraft estabelece uma condição necessária e suficiente para a
-existência de códigos de prefixo com comprimentos de palavras-código
+A \emph{desigualdade de Kraft}\index{desigualdade de Kraft} estabelece uma condição necessária e suficiente para a
+existência de códigos de prefixo\index{código!de prefixo!desigualdade de Kraft} com comprimentos de palavras-código
 especificados. A demonstração, que será vista, ainda fornecerá um método para
 construir um código de prefixo.
 
@@ -235,7 +258,7 @@ Por um outro lado, dado um conjunto de comprimentos de código satisfazendo a de
 então existe um código de prefixo com estes comprimentos.
 \end{theorem}
 
-Note que foi dito que existe um código de prefixo com aqueles comprimentos, não
+Note que, ao dizer que existe um código de prefixo com aqueles comprimentos, não
 significa que todos códigos cujos comprimentos satisfazem a desigualdade são
 códigos de prefixo. Se existe um código não-instantâneo com comprimentos $l_i$
 satisfazendo a desigualdade de Kraft, então podemos encontrar um outro código,
@@ -249,14 +272,68 @@ Vamos representar o conjunto de códigos em uma árvore $D$-ária (não necessar
 conforme a \Cref{fig:Dtree}.
 
 \begin{marginfigure}
-\includegraphics[width=\textwidth]{figures/Dtree.pdf}
+%\includegraphics[width=\textwidth]{figures/Dtree.pdf}
+\resizebox{1.2\textwidth}{!}{  
+\begin{tikzpicture}[
+    % Global style for all 'draw' commands
+    % This will apply to lines, edges, and node outlines (if drawn)
+    every picture/.style={draw=black, thick},
+    dotnode/.style={circle, fill, inner sep=2.5pt}, % Style for the black dots
+]
+    % --- Level 1: Root Node ---
+    \node[dotnode] (root) at (0,4) {}; % Place the root node
+
+    % --- Level 2: Children of the root ---
+    % First child
+    \node[dotnode] (child1) at (-3, 2) {};
+    \draw (root) -- (child1) node[midway, left=2pt] {1}; % Edge with label
+
+    % Second child (just a line and label, no dot for simplicity to allow for '...')
+    \path (root) -- (-1.5, 2) node[midway, right=2pt] {2}; % Path, not drawn, but for placing label
+    \draw (root) -- (-1.5, 2); % Actual line
+
+    % Ellipses for middle branches
+    \node at (0, 2) {$\ldots$}; % Visual ellipsis for middle branches
+
+    % Last child (similarly, just a dot and a line for simplicity as it's the last one)
+    \node[dotnode] (childD) at (3, 2) {};
+    \draw (root) -- (childD) node[midway, right=2pt] {D}; % Edge with label
+
+    % --- Level 3: Children of child1 ---
+    % Branches from child1
+    \path (child1) -- node[midway, left=2pt] {1} ($(child1) + (-1.5, -1)$);
+    \draw (child1) -- ($(child1) + (-1.5, -1)$); % Branch 1
+    \path (child1) -- node[midway, right=2pt] {2} ($(child1) + (-0.5, -1)$);
+    \draw (child1) -- ($(child1) + (-0.5, -1)$); % Branch 2
+    \node at ($(child1) + (0.5, -1)$) {$\ldots$}; % Ellipsis for middle branches
+    \path (child1) -- node[midway, right=2pt] {D} ($(child1) + (1.5, -1)$);
+    \draw (child1) -- ($(child1) + (1.5, -1)$); % Branch D
+
+    % Ellipses for middle branches at this level between child1 and childD
+    \node at (0, 0) {$\vdots$}; % Vertical ellipsis to show more levels/branches
+
+    % --- Level 3: Children of childD ---
+    % Branches from childD
+    \path (childD) -- node[midway, left=2pt] {1} ($(childD) + (-1.5, -1)$);
+    \draw (childD) -- ($(childD) + (-1.5, -1)$); % Branch 1
+    \path (childD) -- node[midway, right=2pt] {2} ($(childD) + (-0.5, -1)$);
+    \draw (childD) -- ($(childD) + (-0.5, -1)$); % Branch 2
+    \node at ($(childD) + (0.5, -1)$) {$\ldots$}; % Ellipsis for middle branches (THIS WAS THE LINE WITH THE ERROR)
+    \path (childD) -- node[midway, right=2pt] {D} ($(childD) + (1.5, -1)$);
+    \draw (childD) -- ($(childD) + (1.5, -1)$); % Branch D
+
+    % Vertical ellipses for lower levels
+    \node at ($(child1) + (0, -2)$) {$\vdots$};
+    \node at ($(childD) + (0, -2)$) {$\vdots$};
+\end{tikzpicture}
+}
 \caption{Árvore $D$-ária.}\label{fig:Dtree}
 \end{marginfigure}
 
 As palavras correspondem à folhas na árvore. O caminho da raiz até a folha determina a palavra código.
 A condição de prefixo implica que não existe uma palavra a não ser nas folhas
 (nenhum descendente de uma palavra código será também uma palavra código).
-$l_{\text{max}} = \max_i (l_i)$ é o comprimento da palavra mais longa.
+Designaremos por $l_{\text{max}} = \max_i (l_i)$ o comprimento da palavra mais longa.
 Podemos expandir toda a árvore até o comprimento $l_{\text{max}}$.
 Os nós no nível de $l_{\text{max}}$ são: palavras de código; descendentes de palavras de código; ou
 apenas nós sem palavra código associada a ele ou seus antecessores.
@@ -290,8 +367,9 @@ possíveis escolhas), eliminando assim uma fração $D^{-s_2}$ de nós terminais
 A fração total de nós eliminados, até o momento, foi de $D^{-s_1} + D^{-s_2}$.
 Continuando este processo, iremos eliminar uma fração $\sum_{i=1}^{m} D^{-s_i}$ de nós, e neste processo
 estamos garantindo que estamos criando um código instantâneo (uma palavra de código não pode ser prefixo de outra).
-Como por suposição temos $\sum_{i=1}^{m} D^{-s_i} \leq 1$, nunca iremos eliminar mais do que todas as palavras
-de código, então este processo não irá exaurir as palavras de código.
+Como por suposição temos $\sum_{i=1}^{m} D^{-s_i} \leq 1$, podemos associar palavras de código,
+com comprimentos dados, a nós na árvore, no nível correspondente, eliminando todos os descendentes e, nesse
+processo, nunca iremos exaurir a árvore.
 Criamos assim um código de prefixo com os comprimentos desejados, satisfazendo Kraft.
 \end{proof}
 
@@ -304,13 +382,13 @@ comprimentos $\{l_1, l_2, \ldots, l_m\}$ que satisfaça a
 \Cref{eq:desigualdadekraft}.
 
 
-\section{Em busca do código ótimo}
+\section{Em busca do código ótimo}\index{código!ótimo}
 
 Desejamos um código que forneça decodificação instantânea e livre de
-ambiguidade, além disso, queremos um código eficiênte, que tenha comprimento
+ambiguidade, além disso, queremos um código eficiente, que tenha comprimento
 esperado mínimo. Desta forma, estamos em busca de um código de prefixo ótimo.
 
-O comprimento esperado é dado por
+O \emph{comprimento esperado}\index{código!comprimento esperado} é dado por
 \begin{equation}
   L(C) = \sum_{i} p_i l_i ,
 \end{equation}
@@ -329,11 +407,11 @@ sua complexidade computacional cresce exponencialmente com o tamanho da entrada.
 Não seria assim possível resolvê-lo de forma eficiente.
 Vamos relaxar a condição de que $l_i$ precisa ser inteiro e considerar o Lagrangiano
 \begin{equation}
-  J = \sum_i p_i l_i + \lambda \left( \sum_i D^{-l_i} - 1 \right)
+  J = \sum_i p_i l_i + \lambda \left( \sum_i D^{-l_i} - 1 \right) .
 \end{equation}
 Para encontrar os pontos estacionários de $J$, considerado uma função dos $l_i$'s
 e do multiplicador lagrangiano $\lambda$, devemos encontrar as condições para que
-as derivadas se igualam a zero, ou seja, $\sfrac{\partial J}{\partial l_i} = 0$,
+as derivadas se igualem a zero, ou seja, $\sfrac{\partial J}{\partial l_i} = 0$,
 $i=1,\ldots,m$, e $\sfrac{\partial J}{\partial \lambda} = 0$. Teremos assim
 \begin{equation}
   \frac{\partial J}{\partial l_i} = p_i - \lambda D^{-l_i} \ln D = 0 ,
@@ -360,7 +438,7 @@ Desta forma, o comprimento esperado do código ótimo será
   L^\ast = \sum_i p_i l_i^\ast = - \sum_i p_i \log_D p_i = H_D (X) = H(X) / \log D .
 \end{equation}
 
-Assumindo que seja possível utilizar comprimentos fracionários, os omprimentos
+Assumindo que seja possível utilizar comprimentos fracionários, os comprimentos
 ótimos para as palavras de um código são $l^\ast_i = - \log_D p_i$, isto
 implica que os comprimentos ótimos são iguais à informação do evento (o menor
 comprimento para codificação de um evento é inerentemente a informação sobre o
@@ -372,12 +450,12 @@ fatos adequadamente.
 }), e assim o comprimento
 esperado do código será a entropia.
 
-Apesar os comprimentos ótimos dados na \Cref{eq:codotli} não seja, a princípio,
-inteiros, podemos utilizar a codificação em blocos e assim proximar do limite
-ótimo mesmo quando os comprimentos dos códigos por símbolos são valores fracionários.
+Apesar de os comprimentos ótimos, dados na \Cref{eq:codotli}, não serem, a princípio,
+inteiros, podemos utilizar a codificação em blocos e assim aproximar do limite
+ótimo, mesmo quando os comprimentos dos códigos por símbolos são valores fracionários.
 
 \begin{theorem}[Comprimento esperado mínimo]\label{thm:comprespmin}
-Entropia é o comprimento esperado mínimo. O comprimento esperado $L$ de qualquer código
+Entropia é o \emph{comprimento esperado mínimo}\index{código!comprimento esperado mínimo}. O comprimento esperado $L$ de qualquer código
 $D$-ário instantâneo (satisfaz Kraft por conseguinte) para uma v.a. $X$ é tal que
 \begin{equation}
   L \geq H_D (X) ,
@@ -387,24 +465,26 @@ com igualdade sse $D^{-l_i} = p_i$.
 \begin{proof}
   \begin{subequations}
     \begin{align}
-      L - H_D (X) &= \sum_i p_i l_i - \sum_i p_i \log_D 1/p_i \\
-                &= - \sum_i p_i \log_D D^{-l_i} + \sum_i p_i \log_D p_i \\
-                &= - \sum_i p_i \log_D D^{-l_i} + \underbrace{ \log_D \left( \sum_i D^{-l_i} \right) - \log_D \left( \sum_i D^{-l_i} \right)  }_{=0} + \sum_i p_i \log_D p_i \label{eq:demthm:comprespminA}\\
-                &= \sum_i p_i \log_D \frac{p_i}{r_i} - \log_D \left( \sum_i D^{-l_i} \right) \\
-                &= \underbrace{D(p \mid\mid r)}_{ \geq 0} + \underbrace{\log_D (1/c)}_{ \geq 0} \\
-                &\geq& 0 \label{eq:demthm:comprespminB}
+      L - H_D (X) ={}& \sum_i p_i l_i - \sum_i p_i \log_D 1/p_i \\
+                ={}& - \sum_i p_i \log_D D^{-l_i} + \sum_i p_i \log_D p_i \\
+                ={}& - \sum_i p_i \log_D D^{-l_i} + \underbrace{ \log_D \left( \sum_i D^{-l_i} \right) - \log_D \left( \sum_i D^{-l_i} \right)  }_{=0} + \sum_i p_i \log_D p_i \label{eq:demthm:comprespminA}\\
+                ={}& \sum_i p_i \log_D \frac{p_i}{r_i} - \log_D \left( \sum_i D^{-l_i} \right) \\
+                ={}& \underbrace{D(p \mid\mid r)}_{ \geq 0} + \underbrace{\log_D (1/c)}_{ \geq 0} \\
+                \geq{}& 0 \label{eq:demthm:comprespminB}
     \end{align}
   \end{subequations}
-  onde utilizamos em \ref{eq:demthm:comprespminA}, para simplificar, a soma de três das quatro parcelas é dada na \Cref{eq:demthm:simplificar},
+  onde utilizamos em \ref{eq:demthm:comprespminA}, para simplificar, a soma de três das quatro parcelas, como é dada na \Cref{eq:demthm:simplificar}; e
   e em \ref{eq:demthm:comprespminB} utilizamos que $c \leq 1$ pois a desigualdade de Kraft deve ser satisfeita,
   onde $c = \sum_i D^{-l_i}$.
+  Vejamos a seguir a soma da primeira, segunda e quarta parcelas da soma em \ref{eq:demthm:comprespminA}:
   \begin{subequations}\label{eq:demthm:simplificar}
     \begin{align}
       - \sum_i p_i \log_D D^{-l_i} + \log_D \left( \sum_j D^{-l_j} \right) +  \sum_i p_i \log_D p_i &= \\
-      - \sum_i p_i \log_D D^{-l_i} + \left( \underbrace{ \sum_i p_i }_{=1} \right) \log_D \left( \sum_i D^{-l_i} \right) + \sum_i p_i \log_D p_i & \\  
+      - \sum_i p_i \log_D D^{-l_i} + \left( \underbrace{ \sum_i p_i }_{=1} \right) \log_D \left( \sum_i D^{-l_i} \right) + \sum_i p_i \log_D p_i &= \\  
       - \sum_i p_i \log_D D^{-l_i} + \sum_i p_i \log_D \left( \sum_j D^{-l_j} \right) + \sum_i p_i \log_D p_i &= \\
       \sum_i p_i \log_D \frac{p_i \left( \sum_j D^{-l_j} \right)}{D^{-l_i}} &= \\
-      \sum_i p_i \log_D \frac{p_i}{\frac{D^{-l_i}}{\left( \sum_j D^{-l_j} \right)}} &= \sum_i p_i \log_D \frac{p_i}{r_i} ,
+      \sum_i p_i \log_D \frac{p_i}{\frac{D^{-l_i}}{\left( \sum_j D^{-l_j} \right)}} &= \\
+      \sum_i p_i \log_D \frac{p_i}{r_i} ,
     \end{align}
   \end{subequations}
   onde definimos
@@ -420,7 +500,7 @@ Se $l_i \neq -\log_D p_i$, mas $l_i$ é inteiro, teremos estritamente $E l > H$.
 
 
 \section{Código de Shannon}
-O código de Shannon é um código subótimo que consiste em considerar
+O \emph{código de Shannon}\index{código!de Shannon} é um código subótimo que consiste em considerar
 o comprimento como inteiro mais próximo do valor ótimo, ou seja,
 \begin{equation}\label{eq:compricodshannon}
   l_i = \lceil \log_D 1/p_i \rceil .
@@ -431,7 +511,7 @@ Os comprimentos definidos desta forma satisfazem Kraft, uma vez que
 \end{equation} 
 Pelo \Cref{thm:deskraft}, existe então um código de prefixo com os comprimentos dados em \ref{eq:compricodshannon}.
 
-\begin{theorem}[Limites para o comprimento esperado do código de Shannon]
+\begin{theorem}[Limites para o comprimento esperado do código de Shannon\index{código!de Shannon!limites para o comprimento esperado}]
   Sejam $l_1, l_2, \ldots, l_m$ comprimentos inteiros do código de Shannon para uma fonte $p$ e um
   alfabeto $D$-ário. $L$ é o comprimento esperado. Então
   \begin{equation}
@@ -442,12 +522,12 @@ Pelo \Cref{thm:deskraft}, existe então um código de prefixo com os comprimento
 Para o código de Shannon, teremos os seguintes limites:
 \begin{subequations}\label{eq:limitescodshannon}
   %\begin{align}
-      \begin{alignat}{2}
+  \begin{alignat}{2}
 	  \log_D \frac{1}{p_i} & \leq l_i && \leq \log_D \frac{1}{p_i} + 1 \\
 	  E_p \left[ \log_D \frac{1}{p_i} \right]  & \leq E_p \left[ l_i \right] && \leq E_p \left[ \log_D \frac{1}{p_i} + 1 \right] \\
 	  \sum_i p_i \log_D \frac{1}{p_i} & \leq L && \leq \sum_i p_i \left( \log_D \frac{1}{p_i} + 1 \right) \\
 	  H_D(X) & \leq L && \leq H_D(X) + 1 .
-      \end{alignat}
+  \end{alignat}
   %\end{align}
 \end{subequations}
 \end{proof}
@@ -460,7 +540,7 @@ Vamos chamar de $L_n$ o comprimento esperado por símbolo de uma sequência de $
 \begin{equation}
   L_n = \frac{1}{n} \sum_{x_{1:n} \in \mathcal{X}^n} p(x_{1:n}) l(x_{1:n}) = \frac{1}{n} E l(x_{1:n}) .
 \end{equation}
-tilizando os comprimentos do código de Shannon, teremos
+utilizando os comprimentos do código de Shannon, teremos
 \begin{subequations}
   \begin{alignat}{2}
     \log 1/p_i & \leq l_i &&\leq \log 1/p_i + 1 \\
@@ -479,7 +559,7 @@ adotar a estratégia de codificação em blocos.
 A escolha feita na \Cref{eq:compricodshannon} para definir o comprimento das palavras
 no código de Shannon, subentende o conhecimento da distribuição $p$. Entretanto,
 em geral, a distribuição subjacente não é conhecida. Isso implica que existem erros nos cálculos.
-Suponha então que o código de Shannon utiliza $l(x) = \lceil \log 1/q(x) \rceil$, mas a real
+Suponha então que o código de Shannon utilize $l(x) = \lceil \log 1/q(x) \rceil$, mas a real
 distribuição é $p(x) \neq q(x)$. Vamos recalcular o valor esperado do comprimento do código,
 agora utilizando esta informação. Encontraremos novos limites para o comprimento esperado
 do código de Shannon.
@@ -513,7 +593,7 @@ E agora, para o limite inferior temos
 \end{subequations}
 \end{proof}
 Comparando estes limites com aqueles dados na \Cref{eq:limitescodshannon}, verificamos que
-$D(p \mid \mid q)$ é o custo adicional por símbolo causado por utilizar a distribuição errada.
+$D(p \mid\mid q)$ é o custo adicional por símbolo causado por utilizar a distribuição errada.
 
 
 
@@ -526,7 +606,7 @@ constante $c$, destaca a robustez do código de Shannon, mostrando que a
 probabilidade de seus comprimentos excederem significativamente os de outro
 código decresce exponencialmente, um resultado que reforça sua relevância.
 
-\begin{theorem}[Otimalidade Competitiva do Código de Shannon]\label{thm:otcompcodshannon}
+\begin{theorem}[Otimalidade competitiva do código de Shannon\index{código!de Shannon!otimalidade competitiva}]\label{thm:otcompcodshannon}
 Considere $l(x)$ como o comprimento da palavra associada ao símbolo $x$ no
 código de Shannon e $l'(x)$ como o comprimento da palavra correspondente em
 outro código univocamente decodificável, ambos definidos sobre uma variável
@@ -569,7 +649,7 @@ um código de Shannon sejam menores do que maiores em comparação com um códig
 alternativo. Esse resultado evidencia uma vantagem probabilística do código de
 Shannon, destacando sua eficiência relativa.
 
-\begin{theorem}[Otimalidade Competitiva do Código de Shannon II]\label{thm:otcompcodshannon2}
+\begin{theorem}[Otimalidade competitiva do código de Shannon II\index{código!de Shannon!otimalidade competitiva}]\label{thm:otcompcodshannon2}
 Considere uma distribuição $d$-ádica $p$ sobre um conjunto de símbolos,
 onde $p(x) = 1/d^k$ para algum inteiro $k$, e seja $l(x) = \log_d (1/p(x))$
 o comprimento da palavra associada a $x$ no código de Shannon, enquanto $l'(x)$
@@ -580,7 +660,6 @@ aplicados a uma variável aleatória $X$ com distribuição $p$. Então:
 \end{equation}
 com igualdade se, e somente se, $l'(x) = l(x)$ para todo $x$.
 \end{theorem}
-
 \begin{proof}
 Seja
 \begin{equation}
@@ -597,20 +676,20 @@ e para $t \leq 1$ teremos $-1 \leq 2^t - 1$, uma vez que $2^t < 1$ para $t \leq 
 
 Teremos então
 \begin{subequations}
-{
+{%
 \allowdisplaybreaks
 \begin{align}
-\Pr \left( l'(X) < l(X) \right) - \Pr \left( l'(X) > l(X) \right) &= \sum_{x:l'(x) \leq l(x)} p(x) - \sum_{x:l'(x)>l(x)} p(x) \\
-             &= \sum_x p(x) \sign\left( l(x)-l'(x) \right) \label{dem:otcompcodshannon2A}\\
-             &= E \left[ \sign \left( l(X) - l'(X) \right) \right] \\
-             &\leq \sum_x p(x) \left( 2^{l(x) - l'(x)} - 1\right) \\
-             &= \sum_x 2^{-l(x)} \left( 2^{l(x)-l'(x)} - 1 \right) \label{dem:otcompcodshannon2B}\\
-             &= \sum_x 2^{-l'(x)} - \sum_x 2^{-l(x)} \\
-             &= \sum_x 2^{-l'(x)} - 1 \\
-             &\leq 1 - 1 \label{dem:otcompcodshannon2C} \\
-             &= 0
+\Pr \left( l'(X) < l(X) \right) - \Pr \left( l'(X) > l(X) \right) ={}& \sum_{x:l'(x) \leq l(x)} p(x) - \sum_{x:l'(x)>l(x)} p(x) \\
+             ={}& \sum_x p(x) \sign\left( l(x)-l'(x) \right) \label{dem:otcompcodshannon2A}\\
+             ={}& E \left[ \sign \left( l(X) - l'(X) \right) \right] \\
+             \leq{}& \sum_x p(x) \left( 2^{l(x) - l'(x)} - 1\right) \\
+             ={}& \sum_x 2^{-l(x)} \left( 2^{l(x)-l'(x)} - 1 \right) \label{dem:otcompcodshannon2B}\\
+             ={}& \sum_x 2^{-l'(x)} - \sum_x 2^{-l(x)} \\
+             ={}& \sum_x 2^{-l'(x)} - 1 \\
+             \leq{}& 1 - 1 \label{dem:otcompcodshannon2C} \\
+             ={}& 0,
 \end{align}
-}
+}%
 \end{subequations}
 onde em \ref{dem:otcompcodshannon2A} utilizamos que $\{l'(x) \leq l(x)\} \cap \{l'(x)>l(x)\} = \emptyset$,
 em \ref{dem:otcompcodshannon2B} utilizamos que $p(x)$ é d-ádica, $p(x)=2^{-l(x)}$, e em \ref{dem:otcompcodshannon2C} 
@@ -621,7 +700,7 @@ Assim, mostramos que $\Pr \left( l'(X) < l(X) \right) \leq \Pr \left( l'(X) > l(
 
 
 
-\section{Desigualdade de Kraft revisitada}
+\section{Desigualdade de Kraft revisitada\index{desigualdade de Kraft}}
 Considerando como objetivo principal, encontrar um código unívoco (unicamente decodificável)
 com comprimento esperado de palavra mínimo, ao observar as classes de códigos, conforme
 apresentadas na \Cref{fig:tiposcodigos}, podemos imaginar que a classe mais ampla é a mais
@@ -632,14 +711,14 @@ condição \emph{sine qua non} para obtermos um código unicamente
 decodificável. Desta forma, podemos concluir que um código prefixo é a melhor escolha.
 
 Primeiramente, vamos apresentar o seguinte lemma.
-\begin{lemma}[Expansão Multinomial]\label{lm:expmultin}
+\begin{lemma}[Expansão multinomial\index{expansão multinomial}]\label{lm:expmultin}
   Seja $\mathcal{X} = \{x_1, x_2, \ldots, x_m \}$, $\vert \mathcal{X} \vert = m$, temos
   \begin{equation}
     \left( \sum_{x \in \mathcal{X}} D^{-l(x)} \right)^k = \sum_{x_{1:k} \in \mathcal{X}^k} D^{-l(x_1)} D^{-l(x_2)} \ldots D^{-l(x_k)} .
   \end{equation}
 \end{lemma}
 \begin{proof}
-  A demonstração utiliza o teorema multinomial para expandir a soma, revelando sua equivalência à soma combinatória das contribuições de cada sequência.
+  A demonstração utiliza o \emph{teorema multinomial}\index{teorema multinomial} para expandir a soma, revelando sua equivalência à soma combinatória das contribuições de cada sequência.
   \begin{subequations}
     \begin{align}
     \left( \sum_{x \in \mathcal{X}} D^{-l(x)} \right)^k &= \left( \sum_{i=1}^{m} D^{-l(x_i)} \right)^k \\
@@ -660,7 +739,7 @@ Primeiramente, vamos apresentar o seguinte lemma.
 \end{proof}
 
 
-\begin{theorem}[Desigualdade de Kraft para códigos unicamente decodificáveis]
+\begin{theorem}[Desigualdade de Kraft para códigos unicamente decodificáveis\index{desigualdade de Kraft}]
 O comprimento de palavras de qualquer código unicamente decodificável (não necessariamente instantâneo)
 deve satisfazer a desigualdade de Kraft $\sum_i D^{-l_i} \leq 1$. Por outro lado, dado um conjunto de comprimentos
 que satisfazem Kraft, é possível construir um código unicamente decodificável.
@@ -683,7 +762,7 @@ Vamos definir $S = \sum_{x \in \mathcal{X}} D^{-l(x)}$ e então teremos
         &= \sum_{m=1}^{k l_{\text{max}}} a(m) D^{-m}
   \end{align}
 \end{subequations}
-onde em \ref{eq:demkraftrevA} utilizamos o resultado do \Cref{lm:expmultin} e
+onde em \ref{eq:demkraftrevA} utilizamos o resultado do Lema \ref{lm:expmultin} e
 $l_{\text{max}} = \max_x l(x)$, $a(m)$ é o número de sequências $x_{1:k}$ mapeadas em palavras de comprimento $m$, 
 i.e., 
 \begin{equation}
@@ -714,7 +793,7 @@ código de prefixo.
 
 
 
-\section{Código de Huffman}
+\section{Código de Huffman\index{código!de Huffman}}
 
 Os códigos de comprimento variável buscam minimizar o comprimento esperado,
 para tanto, atribuem comprimentos menores a símbolos mais frequentes em detrimento
@@ -730,10 +809,10 @@ esperado mínimo, respeitando a desigualdade de Kraft e aproximando-se do limite
 teórico da entropia de Shannon.
 
 Vejamos inicialmente um exemplo de utilização da abordagem gulosa \emph{top-down}
-para criar um códgio. A abordagem consistem em: começar pelo topo e 
-realizar divisões com entropia máxmima para determinar os símbolos.
+para criar um código. A abordagem consistem em: começar pelo topo e 
+realizar divisões com entropia máxima para determinar os símbolos.
 Em cada etapa dividimos os símbolos em dois grupos, de forma que cada etapa
-tenha entropia máxima no processo de detrerminação dos símbolos.
+tenha entropia máxima no processo de determinação dos símbolos.
 
 \begin{example}[Método Guloso \emph{top-down} para codificação \parencite{bilmes2013}]
   Considere uma variável alatória $X$ com distribuição\\
@@ -810,30 +889,30 @@ tenha entropia máxima no processo de detrerminação dos símbolos.
   \end{center}
 
   Ao final, seguindo a abordagem gulosa \emph{top-down} obtemos o código representado
-  na \Cref{fig:greedytree}. Este código possui comprimento esperado do código $E l = 2.53$ e 
+  na \Cref{fig:greedytree}. Este código possui comprimento esperado $E l = 2.53$ e 
   eficiência $H/E l = 0.7638$, uma vez que a entropia é $H=1.9323$ bits.
 
-  \begin{marginfigure}%[-25cm]%
+  \begin{marginfigure}[-15cm]%
   \centering
   \includegraphics[width=0.9\linewidth]{figures/greedytree.pdf}
-  \caption{Árvore obtida através do método guloso seguindo a estratégia \emph{top-down}.}\label{fig:greedytree}
+  \caption{Árvore obtida através do método guloso seguindo a estratégia \emph{top-down} \parencite{bilmes2013}.}\label{fig:greedytree}
   \end{marginfigure}
 
   A título de comparação, o algoritmo de Huffman produz o código apresentado na \Cref{fig:huffman}.
-  Terá comprimento esperado $E l_{\text{huffman}} = 1.97$ e eficiência $H/E l_{\text{huffman}} = 0.9809$.
+  O código de Huffman terá comprimento esperado $E l_{\text{huffman}} = 1.97$ e eficiência $H/E l_{\text{huffman}} = 0.9809$.
 
   Isto demonstra claramente que o código de Huffman é superior e que a estratégia gulosa
   não foi capaz de nos levar a um código ótimo.
-  \begin{marginfigure}%
+  \begin{marginfigure}[-5cm]%
   \centering
   \includegraphics[width=0.7\linewidth]{figures/huffman.pdf}
-  \caption{Árvore obtida pelo código de Huffman.}\label{fig:huffman}
+  \caption{Árvore obtida pelo código de Huffman \parencite{bilmes2013}.}\label{fig:huffman}
   \end{marginfigure}
 \end{example}
 
 
 O algoritmo de Huffman pode ser sumarizado através dos seguintes passos:
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
 \item Selecione os dois símbolos menos prováveis no alfabeto.
 \item Ambos terão associados as palavras mais longas e se diferirão no último bit.
 \item Combine estes dois símbolos em um símbolo auxiliar com probabilidade igual à soma das
@@ -850,7 +929,7 @@ O procedimento e o código de Huffman obtido estão dispostos na \Cref{fig:ex-hu
        \begin{figure}[h!]
        \centering
        \includegraphics[width=0.95\textwidth]{figures/ex-huffman01.pdf}
-       \caption{Código de Huffman exemplo.}\label{fig:ex-huffman01}
+       \caption{Código de Huffman exemplo \parencite{bilmes2013}.}\label{fig:ex-huffman01}
        \end{figure}
 
 Para este código de Huffman teremos $E l = 2.3$ bits e $H=2.2855$ bits.
@@ -868,10 +947,10 @@ intrínsecas a códigos ótimos, refletem a construção \emph{bottom-up} do alg
 Huffman.
 
 
-\begin{lemma}[Propriedades de Códigos Instantâneos Ótimos]\label{lem:propcodinstot}
+\begin{lemma}[Propriedades de códigos instantâneos ótimos\index{código!instantâneo ótimo!propriedade}]\label{lem:propcodinstot}
 Para toda distribuição, $\exists$ um código instantâneo ótimo (i.e., com comprimento esperado mínimo)
 satisfazendo simultâneamente:
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
   \item\label{propcodinstot1} Se $p_j > p_k$ então $l_j \leq l_k$ (i.e., o símbolo mais provável não possui palavra com maior comprimento).
   \item\label{propcodinstot2} As duas maiores palavras possuem o mesmo comprimento.
   \item\label{propcodinstot3} As duas maiores palavras diferem apenas no último bit e correspondem aos dois símbolos menos prováveis.
@@ -902,22 +981,53 @@ Devemos ter então $(l_k - l_j) \geq 0$, ou seja, $l_k \geq l_j$ quando $p_j > p
 Esta propriedade é verdadeira para todos códigos ótimos.
 
 Vejamos agora a propriedade \ref{propcodinstot2}: as palavras mais longas possuem o mesmo comprimento.
-
 Se as duas palavras maiores não possuem o mesmo comprimento, podemos apagar o último bit da palavra mais longa.
 Desta forma manteremos a propriedade de prefixo, já que a palavra mais longa é a única com o seu dado comprimento e não
 existe um prefixo dela que seja uma outra palavra (veja a \Cref{fig:lemmahuffman}).
  \begin{figure}[h!]
  \centering
- \includegraphics[width=0.5\textwidth]{figures/lemmahuffman.pdf}
+ %\includegraphics[width=0.5\textwidth]{figures/lemmahuffman.pdf}
+ \begin{tikzpicture}[
+  dot/.style={circle, fill=black, inner sep=2pt},
+  reddot/.style={circle, fill=red, inner sep=2pt},
+  every edge/.style={draw=black, thick}
+  ]
+  % Left structure: irmãos após apagar
+  \node (top1) [dot] at (-1, 2) {};
+  \node (mid1) [dot, below=0.5cm of top1] {};
+  \node (bottomleft1) [dot, below left=0.5cm of mid1] {};
+  \node (bottomright1) [dot, below right=0.5cm of mid1] {};
+  \node (red1) [reddot, below=0.7cm of bottomright1] {};
+
+  \draw (top1) -- (mid1);
+  \draw (mid1) -- (bottomleft1);
+  \draw (mid1) -- (bottomright1);
+  \draw [red, thick] (bottomright1) -- (red1);
+
+  \node at (-1, 2.5) {\vdots};
+  \node [above=0.1cm of {$(top1.north)!(0,2.5)!(top1.north)$}] {irmãos após apagar};
+
+  % Right structure: não irmãos após apagar
+  \node (top2a) [dot] at (3, 2) {};
+  \node (bottom2a) [dot, below=0.5cm of top2a] {};
+  \node (top2b) [dot, right=1cm of top2a] {};
+  \node (bottom2b) [dot, below=0.5cm of top2b] {};
+  \node (red2) [reddot, below=0.7cm of bottom2a] {};
+
+  \draw (top2a) -- (bottom2a);
+  \draw (top2b) -- (bottom2b);
+  \draw [red, thick] (bottom2a) -- (red2);
+
+  \node at (3, 2.5) {\vdots};
+  \node [above=0.1cm of {$(top2a.north)!(3,2.5)!(top2a.north)$}] {não irmãos após apagar};
+  \end{tikzpicture}
  \caption{Apagando o último bit da palavra mais longa.}\label{fig:lemmahuffman}
  \end{figure}
-
 Desta forma reduzimos o comprimento esperado. Concluímos que um código ótimo deve possuir as duas
 palavras mais longas com o mesmo comprimento.
 
 Analisaremos agora a propriedade \ref{propcodinstot3}: as duas palavras mais longas diferem apenas no último bit e correspondem aos símbolos menos prováveis.
-
-Devido à propriedade 1 ($p_k < p_j \Rightarrow l_k \geq l_j$), se $p_k$ é a menor probabilidade, então ela deve
+Devido à propriedade \ref{propcodinstot1} ($p_k < p_j \Rightarrow l_k \geq l_j$), se $p_k$ é a menor probabilidade, então ela deve
 possuir associada uma palavra de comprimento que não seja menor do que qualquer outra $j$ com $p_j > p_k$.
 De forma similar, se $p_k$ é a segunda menor probabilidade, a palavra associada deve possuir comprimento que não seja
 menor do que qualquer outro símbolo mais provável.
@@ -928,7 +1038,83 @@ fazemos a transposição ilustrada na \Cref{fig:lemmahuffman2}.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/lemmahuffman2.pdf}
+%\includegraphics[width=0.5\textwidth]{figures/lemmahuffman2.pdf}
+  \begin{tikzpicture}[
+    dot/.style={circle, fill=black, inner sep=2pt}, % Style for the black dots
+    every edge/.style={draw=black, thick},        % Global style for all lines
+    level distance=0.5cm,                            % Vertical distance between levels
+    level 1/.style={sibling distance=1cm},         % Horizontal distance at level 1
+    % Specific adjustment for level 2 to prevent overlap
+    level 2/.style={sibling distance=0.5cm},        % <--- DECREASED SIBLING DISTANCE HERE
+  ]
+    % --- Left Tree ---
+    % Place the root of the left tree
+    \node[dot] (rootL) at (-1.5,0) {}; % <--- SLIGHTLY ADJUSTED STARTING X FOR LEFT TREE
+
+    % Level 1 children
+    \node[dot, below left of=rootL] (L1_L) {}; % Left child of rootL
+    \node[dot, below right of=rootL] (L1_R) {}; % Right child of rootL
+
+    % Level 2 children
+    % These will use the level 2 sibling distance
+    %\node[dot, below left of=L1_L] (L2_LL) {}; % Left child of L1_L
+    \node[dot] (L2_LL) at ($(L1_L) + (-0.3cm, -0.75cm)$) {};
+    %\node[dot, below right of=L1_L] (L2_LR) {}; % Right child of L1_L
+    \node[dot] (L2_LR) at ($(L1_L) + (+0.3cm, -0.75cm)$) {};
+    %\node[dot, below left of=L1_R] (L2_RL) {}; % Left child of L1_R
+    \node[dot] (L2_RL) at ($(L1_R) + (-0.3cm, -0.75cm)$) {};
+    %\node[dot, below right of=L1_R] (L2_RR) {}; % Right child of L1_R
+    \node[dot] (L2_RR) at ($(L1_R) + (+0.3cm, -0.75cm)$) {};
+
+    % Draw edges for the left tree
+    \draw (rootL) -- (L1_L);
+    \draw (rootL) -- (L1_R);
+    \draw (L1_L) -- (L2_LL);
+    \draw (L1_L) -- (L2_LR);
+    \draw (L1_R) -- (L2_RL);
+    \draw (L1_R) -- (L2_RR);
+
+    % Labels for the left tree (rotated)
+    % Use rotate=-90 for top-down text
+    \node[below=0.5cm of L2_LR, rotate=-90, yshift=3mm] {$p_{m-1}$}; % <--- ROTATED TO -90 AND USED MATH MODE
+    \node[below=0.3cm of L2_RR, rotate=-90, yshift=3mm] {$p_m$};     % <--- ROTATED TO -90 AND USED MATH MODE
+
+    % --- Arrow between trees ---
+    \draw[thick, -stealth] (0.5,0) -- (2.5,0); % <--- ADJUSTED ARROW POSITION TO BE BETWEEN TREES
+
+    % --- Right Tree (identical structure, shifted) ---
+    % Place the root of the right tree
+    \node[dot] (rootR) at (4.5,0) {}; % <--- SHIFTED RIGHT TREE CLOSER (OLD: 5, NEW: 6.5)
+
+    % Level 1 children
+    \node[dot, below left of=rootR] (R1_L) {}; % Left child of rootR
+    \node[dot, below right of=rootR] (R1_R) {}; % Right child of rootR
+
+    % Level 2 children
+    %\node[dot, below left of=R1_L] (R2_LL) {}; % Left child of R1_L
+    \node[dot] (R2_LL) at ($(R1_L) + (-0.3cm, -0.75cm)$) {};
+    %\node[dot, below right of=R1_L] (R2_LR) {}; % Right child of R1_L
+    \node[dot] (R2_LR) at ($(R1_L) + (+0.3cm, -0.75cm)$) {};
+    %\node[dot, below left of=R1_R] (R2_RL) {}; % Left child of R1_R
+    \node[dot] (R2_RL) at ($(R1_R) + (-0.3cm, -0.75cm)$) {};
+    %\node[dot, below right of=R1_R] (R2_RR) {}; % Right child of R1_R
+    \node[dot] (R2_RR) at ($(R1_R) + (+0.3cm, -0.75cm)$) {};
+
+    % Draw edges for the right tree
+    \draw (rootR) -- (R1_L);
+    \draw (rootR) -- (R1_R);
+    \draw (R1_L) -- (R2_LL);
+    \draw (R1_L) -- (R2_LR);
+    \draw (R1_R) -- (R2_RL);
+    \draw (R1_R) -- (R2_RR);
+
+    % Labels for the right tree (rotated)
+    \node[below=0.5cm of R2_LR, rotate=-90, yshift=3mm] {$p_{m-1}$}; % <--- ROTATED TO -90 AND USED MATH MODE
+    \node[below=0.3cm of R2_RR, rotate=-90, yshift=3mm] {$p_m$};     % <--- ROTATED TO -90 AND USED MATH MODE
+
+    % --- Additional Text ---
+    \node[right=1cm of R1_R, align=left] {diferem apenas\\ no último bit};
+  \end{tikzpicture}
 \caption{Transposição das duas palavras mais longas.}\label{fig:lemmahuffman2}
 \end{figure}
 
@@ -944,7 +1130,7 @@ e no qual $C(x_{m-1})$ e $C(x_m)$ diferem apenas no último bit.
 Vamos mostrar que Huffman é ótimo através da operação de criar um novo código no qual a otimização é mais simples.
 Este processo é repetido até que a otimização seja trivial.
 
-\begin{theorem}[Otimidade do Código de Huffman]\label{thm:optcodhuffman}
+\begin{theorem}[Otimidade do código de Huffman\index{código!de Huffman!otimalidade}]\label{thm:optcodhuffman}
 O procedimento de codificação de Huffman cria um código com comprimentos inteiros ótimo.
 \end{theorem}
 \begin{proof}

@@ -278,7 +278,11 @@ Abaixo listamos algumas delas:
 	\end{equation} 
 	gerando padrões caóticos, porém computacionalmente custosos.
     \item Funções de Hash e Criptográficas\index{RNG!funções criptográficas}: \\
-	Utilizam funções como SHA-256 ($R_i = H(S || C)$) ou cifras de fluxo como ChaCha ($R_i = \text{ChaCha}(K, C)$), 
+	Utilizam funções como SHA-256 ($R_i = H(S || C)$)\footnote{Aqui, $S ||
+        C$ denota a concatenação das sequências $S$ e $C$. Apesar da similaridade
+        visual, é distinta da notação $P \mid\mid Q$ para divergência de
+        Kullback-Leibler, apresentada em capítulos futuros.} ou cifras de fluxo como
+        ChaCha ($R_i = \text{ChaCha}(K, C)$), 
 	sendo seguras para criptografia, porém mais lentas.
     \item Geradores Baseados em Caos\index{RNG!caos}: \\
 	Empregam sistemas caóticos, como o mapa logístico 

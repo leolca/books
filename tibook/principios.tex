@@ -758,7 +758,7 @@ A informação mútua, dada pela \Cref{eq:infmutdivkl}, pode ser vista como
 a \emph{divergência de Kullback-Leibler}\index{divergência de Kullback-Leibler!relação com informação mútua} entre a distribuição conjunta e o produto
 das marginais, ou seja,
 \begin{equation}
-I(X;Y) = D(p(x,y)||p(x)p(y)) .
+I(X;Y) = D(p(x,y) \mid\mid p(x)p(y)) .
 \end{equation}
 Vejamos então a definição de divergência de Kullback-Leibler.
 \begin{definition}[Divergência de Kullback-Leibler\index{divergência de Kullback-Leibler}]\label{def:divKL}
@@ -766,11 +766,11 @@ A divergência de Kullback–Leibler (KL) entre duas distribuições $p$ e $q$, 
 alfabeto comum $\mathcal{X}$, é definida como
 \begin{subequations}\label{eq:divergenciaKL}
 \begin{align}
-D(p||q) \: &\triangleq \sum_x p(x) \log \frac{p(x)}{q(x)} \\
+D(p \mid\mid q) \: &\triangleq \sum_x p(x) \log \frac{p(x)}{q(x)} \\
         &= \E_p \log \frac{p(X)}{q(X)} .
 \end{align}
 \end{subequations}
-Note que, em geral, a divergência de KL não é simétrica, ou seja, $D(p||q) \neq D(q||p)$.
+Note que, em geral, a divergência de KL não é simétrica, ou seja, $D(p \mid\mid q) \neq D(q \mid\mid p)$.
 \end{definition}
 Na definição de acima, adotamos a convenção de que o somatório se dá
 sobre o suporte\footnote{O suporte de uma distribuição de probabilidade ou de uma função é
@@ -788,7 +788,7 @@ Como observado anteriormente, seja $\mu_1(x,y) = p(x,y)$ (distribuição conjunt
 com $p(x)=\sum_y p(x,y)$ e $p(y)=\sum_x p(x,y)$, então
 \begin{subequations}\label{eq:divergenciaKLinfmut}
 \begin{align}
- D(\mu_1 || \mu_2) \: &= \sum_{x,y} \mu_1(x,y) \log \frac{\mu_1(x,y)}{\mu_2(x,y)} \\
+ D(\mu_1 \mid\mid \mu_2) \: &= \sum_{x,y} \mu_1(x,y) \log \frac{\mu_1(x,y)}{\mu_2(x,y)} \\
               &= \sum_{x,y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)} = I(X;Y) .
 \end{align}
 \end{subequations}
@@ -804,7 +804,7 @@ conjunta $p(x,y)$ sobre o conjunto dos produtos de distribuições independentes
 minimizando a divergência entre a distribuição conjunta e o produto das marginais.
 Ou seja,
 \begin{equation}
-p(x)p(y) \: = \argmin_{p'(x,y) \backslash p'(x,y)=p'(x)p'(y)} D(p(x,y)||p'(x,y)) .
+p(x)p(y) \: = \argmin_{p'(x,y) \backslash p'(x,y)=p'(x)p'(y)} D(p(x,y) \mid\mid p'(x,y)) .
 \end{equation}
 
 
@@ -869,17 +869,17 @@ Vejamos então uma propriedade essencial da divergência: a não negatividade.
 \begin{theorem}[Não negatividade da Divergência\index{divergência de Kullback-Leibler!não negatividade}]\label{thm-divnn}
 Para duas distribuições $p$ e $q$ em um alfabeto comum $\mathcal{X}$,
 \begin{equation}
-D(p||q) \: \geq 0 
+D(p \mid\mid q) \: \geq 0 
 \end{equation}
 com igualdade se e somente se $p=q$.
 \end{theorem}
 \begin{proof}
-Se $q(x) = 0$ para algum $x \in S_p$, então $D(p||q) = \infty$ e o teorema é verdadeiro
+Se $q(x) = 0$ para algum $x \in S_p$, então $D(p \mid\mid q) = \infty$ e o teorema é verdadeiro
 (caso trivial).
 Vamos assumir então que $q(x) > 0, \forall x \in S_p$. Teremos então
 \begin{subequations}\label{eq:thmDge0}
 \begin{align}
- D(p||q) \: &= \log e \sum_{x \in S_p} p(x) \ln \frac{p(x)}{q(x)} \\
+ D(p \mid\mid q) \: &= \log e \sum_{x \in S_p} p(x) \ln \frac{p(x)}{q(x)} \\
    &\geq \log e \sum_{x \in S_p} p(x) \left( 1 - \frac{q(x)}{p(x)} \right) \label{eq:thmDge0-2} \\
    &= \log e \left[ \sum_{x \in S_p} p(x) - \sum_{x \in S_p} q(x) \right] \\
    &\geq \log e \: (1 - 1) \label{eq:thmDge0-4}\\
@@ -909,7 +909,7 @@ com igualdade se e somente se $X \independent Y$, ou seja, $X$ e $Y$ são indepe
 A informação mútua é a divergência entre a distribuição conjunta e o produto das marginais, logo,
 aplicando o \Cref{thm-divnn}, obtemos
 \begin{equation}
- I(X;Y) = D(p(x,y)||p(x)p(y)) \geq 0 .
+ I(X;Y) = D(p(x,y) \mid\mid p(x)p(y)) \geq 0 .
 \end{equation}
 Quando $X \independent Y$, teremos $p(x,y) = p(x)p(y)$ e assim a divergência será nula
 e também a informação mútua.
@@ -943,10 +943,10 @@ e também a informação mútua.
   $p(x)$ usando a máxima verossimilhança com suavização de Laplace 
   A distribuição uniforme é $q(x) = \frac{1}{26}$ para todo $x \in \mathcal{A}$.
 
-  Calculamos $D(p||q)$ para cada amostra e plotamos histogramas das distribuições
+  Calculamos $D(p \mid\mid q)$ para cada amostra e plotamos histogramas das distribuições
   empíricas para visualizar como elas diferem da uniforme.
-  Esperamos que, para \texttt{/dev/urandom}, $D(p||q)$ seja próximo de zero,
-  refletindo a aleatoriedade dos dados, enquanto para o texto, $D(p||q)$ 
+  Esperamos que, para \texttt{/dev/urandom}, $D(p \mid\mid q)$ seja próximo de zero,
+  refletindo a aleatoriedade dos dados, enquanto para o texto, $D(p \mid\mid q)$ 
   permaneça maior que zero devido à estrutura linguística.
 
   Os histogramas das distribuições são mostrados na \Cref{fig:hist_ulysses_urandom}.
@@ -962,9 +962,9 @@ e também a informação mútua.
   \end{figure}
 
   A \Cref{fig:kld} mostra a divergência de KL em função de $n$.
-  Para \texttt{/dev/urandom}, $D(p||q)$ é pequeno e diminui com $n$,
+  Para \texttt{/dev/urandom}, $D(p \mid\mid q)$ é pequeno e diminui com $n$,
   indicando que a distribuição empírica se aproxima da uniforme.
-  Para Ulysses, $D(p||q)$ estabiliza em um valor positivo (aproximadamente 0.5),
+  Para Ulysses, $D(p \mid\mid q)$ estabiliza em um valor positivo (aproximadamente 0.5),
   refletindo a estrutura não uniforme do texto. Observe que, para um alfabeto
   de 26 caracteres, a entropia máxima é $\log(26) = 4.7$ bits e, calculando
   o valor da entropia para Ulysses obtemos aproximadamente 4.2.
@@ -991,14 +991,14 @@ do alfabeto $\mathcal{X}$, com igualdade se e somente se $X$ possuir distribuiç
 Seja $u(x) = \sfrac{1}{\vert \mathcal{X} \vert}$ a função probabilidade de massa uniforme
 em $\mathcal{X}$, e seja $p(x)$ a função probabilidade de massa para $X$. Então
 \begin{align}
-D(p||u) &= \sum_{x \in \mathcal{X}} p(x) \log \frac{p(x)}{u(x)} \nonumber \\
+D(p \mid\mid u) &= \sum_{x \in \mathcal{X}} p(x) \log \frac{p(x)}{u(x)} \nonumber \\
         &= \sum_{x \in \mathcal{X}} p(x) \log p(x) + \sum_{x \in \mathcal{X}} p(x) \log \frac{1}{u(x)} \nonumber \\
         &= -H(X) + \log \vert \mathcal{X} \vert \sum_{x \in \mathcal{X}} p(x) \nonumber \\
         &= \log \vert \mathcal{X} \vert - H(X) .
 \end{align}
-Como a entropia relativa é não negativa, $D(p||u) \geq 0$, teremos
+Como a entropia relativa é não negativa, $D(p \mid\mid u) \geq 0$, teremos
 \begin{equation}
-D(p||u) = \log \vert \mathcal{X} \vert - H(X) \geq 0 ,
+D(p \mid\mid u) = \log \vert \mathcal{X} \vert - H(X) \geq 0 ,
 \end{equation}
 e assim
 \begin{equation}
@@ -1365,16 +1365,16 @@ A desigualdade de Jensen pode ser utilizada para demonstrar a não negatividade
 da divergência de KL.
 \begin{lemma}[Não negatividade da Divergência de Kullback–Leibler\index{desigualdade de Jensen!não negatividade}]
 \begin{equation}
-D(p||q) \geq 0 \text{ com igualdade se e somente se } p(x) = q(x), \forall x.
+D(p \mid\mid q) \geq 0 \text{ com igualdade se e somente se } p(x) = q(x), \forall x.
 \end{equation}
 \end{lemma}
 \begin{proof}
-De forma equivalente, iremos mostrar que $-D(p||q) \leq 0$.
+De forma equivalente, iremos mostrar que $-D(p \mid\mid q) \leq 0$.
 
 Seja $S_p=\{x: p(x) > 0\}$, o suporte de $p$, então
 \begin{subequations}\label{dem:divnonneg}
 \begin{align}
--D(p||q) &= -\sum_x p(x) \log \frac{p(x)}{q(x)} = -\sum_{x \in S_p} p(x) \log \frac{p(x)}{q(x)} \label{dem:divnonneg1}\\
+-D(p \mid\mid q) &= -\sum_x p(x) \log \frac{p(x)}{q(x)} = -\sum_{x \in S_p} p(x) \log \frac{p(x)}{q(x)} \label{dem:divnonneg1}\\
          &= \sum_{x \in S_p} p(x) \log \frac{q(x)}{p(x)} = \E \log \frac{q(X)}{p(X)} \label{dem:divnonneg2}\\
 	 &\leq \log \left( E \frac{q(X)}{p(X)} \right) = \log \left( \sum_{x \in S_p} p(x) \frac{q(x)}{p(x)} \right) \label{dem:divnonneg3}\\
 	 &= \log \left( \sum_{x \in S_p} q(x) \right) \leq \log \left( \sum_x  q(x) \right) = \log 1 = 0 \label{dem:divnonneg4}
@@ -1417,14 +1417,14 @@ Vamos fazer $\alpha_i = \sfrac{b_i}{\sum_{j=1}^n b_j}$ e $t_i = \sfrac{a_i}{b_i}
 \end{subequations}
 \end{proof}
 
-A desigualdade da soma de logaritmos pode ser utilizada para mostrar que $D(p||q) \geq 0$.
+A desigualdade da soma de logaritmos pode ser utilizada para mostrar que $D(p \mid\mid q) \geq 0$.
 \begin{proposition}[Não negatividade da Divergência\index{divergência de Kullback-Leibler!não negatividade} -- revisitado]
-$D(p||q) \geq 0$
+$D(p \mid\mid q) \geq 0$
 \end{proposition}
 \begin{proof}
   \begin{subequations}
   \begin{align}
-  D(p||q) &= \sum_x p(x) \log \frac{p(x)}{q(x)} \\
+  D(p \mid\mid q) &= \sum_x p(x) \log \frac{p(x)}{q(x)} \\
           &\geq \left( \sum_x p(x) \right) \log \frac{\sum_x p(x)}{\sum_x q(x)} \\
           &= 1 \log \frac{1}{1} = 0 .
   \end{align}
@@ -1438,7 +1438,7 @@ A convexidade no par considera a interpolação simultânea de ambas as distribu
 \begin{theorem}[A Entropia Relativa é Convexa no Par\index{divergência de Kullback-Leibler!convexidade}]
 Para dois pares de distribuições $(p_1, q_1)$ e $(p_2, q_2)$, 
 \begin{equation}\label{eq:entrelconvpar}
-D(\lambda p_1 + (1 - \lambda) p_2 || \lambda q_1 + (1- \lambda)q_2) \leq \lambda D(p_1 || q_1) + (1- \lambda) D(p_2 || q_2) ,
+D(\lambda p_1 + (1 - \lambda) p_2 \mid\mid \lambda q_1 + (1- \lambda)q_2) \leq \lambda D(p_1 \mid\mid q_1) + (1- \lambda) D(p_2 \mid\mid q_2) ,
 \end{equation}
 para todo $0 \leq \lambda \leq 1$.
 \end{theorem}
@@ -1446,9 +1446,9 @@ para todo $0 \leq \lambda \leq 1$.
 Usando a \Cref{def:divKL}, definição de divergência de KL, temos
 \begin{subequations}\label{dem:entrelconvpar}
 \begin{align}
-    D(\lambda p_1 + (1 - \lambda) p_2 || \lambda q_1 + (1- \lambda)q_2) &= \sum_x (\lambda p_1(x) + (1 - \lambda) p_2(x) ) \log \frac{\lambda p_1(x) + (1 - \lambda) p_2(x)}{\lambda q_1(x) + (1 - \lambda) q_2(x)} \label{dem:entrelconvpar1} \\
+    D(\lambda p_1 + (1 - \lambda) p_2 \mid\mid \lambda q_1 + (1- \lambda)q_2) &= \sum_x (\lambda p_1(x) + (1 - \lambda) p_2(x) ) \log \frac{\lambda p_1(x) + (1 - \lambda) p_2(x)}{\lambda q_1(x) + (1 - \lambda) q_2(x)} \label{dem:entrelconvpar1} \\
 									&\leq \sum_x \left( \lambda p_1(x) \log \frac{\lambda p_1(x)}{\lambda q_1(x)} + (1 - \lambda) p_2(x) \log \frac{(1 - \lambda) p_2(x)}{(1-\lambda) q_2(x)} \right) \label{dem:entrelconvpar2} \\
-									&= \lambda D(p_1 || q_1) + (1 - \lambda) D(p_2 || q_2) \label{dem:entrelconvpar3}
+									&= \lambda D(p_1 \mid\mid q_1) + (1 - \lambda) D(p_2 \mid\mid q_2) \label{dem:entrelconvpar3}
 \end{align}
 \end{subequations}
 onde, em \ref{dem:entrelconvpar1}, podemos considerar que, dentro do somatório em $x$, temos um somatório com dois termos: $(a_1+a_2) \log \left( \sfrac{(a_1+a_2)}{(b_1 + b_2)} \right)$.
@@ -1463,7 +1463,7 @@ Utilizamos então a desigualdade da soma de logaritmos (veja a \Cref{eq:dessomal
 
 
 \begin{theorem}[A Entropia Relativa é Convexa no Primeiro Argumento\index{divergência de Kullback-Leibler!convexidade}]\label{thm:divklconvp}
-A divergência de Kullback-Leibler, $D(p||q)$, é convexa em relação a $p$, fixando-se $q$.
+A divergência de Kullback-Leibler, $D(p \mid\mid q)$, é convexa em relação a $p$, fixando-se $q$.
 Ou seja, dadas $p_1$ e $p_2$, duas distribuições de probabilidade, e fixando-se $q$,
 a distribuição de referência ou distribuição base. Temos então, para $\lambda \in [0,1]$,
 \begin{equation}
@@ -1475,7 +1475,7 @@ D(\lambda p_1+(1-\lambda)p_2|q) \leq D(p_1|q) + (1-\lambda)D(p_2|q) .
 \begin{align}
 D(\lambda p_1+(1-\lambda)p_2|q) &= \sum_x \left(\lambda p_1+(1-\lambda)p_2\right)\log\frac{\lambda p_1+(1-\lambda)p_2}{q} \label{dem:divklconv1}\\
 				&\leq \lambda \sum_x p_1 \log \frac{p_1}{q} + (1-\lambda) \sum_x p_2 \log \frac{p_2}{q} \label{dem:divklconv2}\\
-				&= \lambda D(p_1||q) + (1-\lambda) D(p_2||q) ,\label{dem:divklconv3}
+				&= \lambda D(p_1 \mid\mid q) + (1-\lambda) D(p_2 \mid\mid q) ,\label{dem:divklconv3}
 \end{align}
 \end{subequations}
 onde em \ref{dem:divklconv1} utilizamos que a função $f(p) = p \log p$ é convexa em $p$ 
@@ -1497,12 +1497,12 @@ $H(p)$ é uma função concava de $p$.
         &= \log \vert \mathcal{X} \vert - \sum_i p_i \log p_i - \log \vert \mathcal{X} \vert \underbrace{\sum_i p_i}_{=1} \label{dem:entropiaconcava2}\\
         &= \log \vert \mathcal{X} \vert - \sum_i \left( p_i \log p_i + p_i \log \vert \mathcal{X} \vert \right) \label{dem:entropiaconcava3}\\
         &= \log \vert \mathcal{X} \vert - \sum_i p_i \left( \log p_i -  \log \sfrac{1}{\vert \mathcal{X} \vert } \right) \label{dem:entropiaconcava4}\\
-        &= \underbrace{\log \vert \mathcal{X} \vert}_{\text{constante}} - \underbrace{D(p||u)}_{\text{convexo}} \label{dem:entropiaconcava5}
+        &= \underbrace{\log \vert \mathcal{X} \vert}_{\text{constante}} - \underbrace{D(p \mid\mid u)}_{\text{convexo}} \label{dem:entropiaconcava5}
 \end{align}
 \end{subequations}
 \end{proof}
 A partir da relação em \ref{dem:entropiaconcava5}, podemos ver a entropia como a similaridade com a distribuição uniforme.
-Quanto maior a entropia (menor a divergência $D(p||u)$), mais próximo estaremos da distribuição uniforme.
+Quanto maior a entropia (menor a divergência $D(p \mid\mid u)$), mais próximo estaremos da distribuição uniforme.
 
 
 Analisaremos agora a convexidade ou concavidade da informação mútua $I(X;Y)$, quando fixamos uma das distribuições condicionais ou marginais.
@@ -1519,7 +1519,7 @@ Vejamos primeiro o motivo de $I(X;Y)$ ser uma função côncava de $p(x)$ para $
 Podemos escrever a informação mútua como uma função de $p(x)$:
 \begin{subequations}\label{dem:concconvinfmutA}
 \begin{align}
-    I(X;Y) &= D(p(x,y)||p(x)p(y)) \label{dem:concconvinfmutA1} \\
+    I(X;Y) &= D(p(x,y) \mid\mid p(x)p(y)) \label{dem:concconvinfmutA1} \\
        &= \sum_{x,y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)} \label{dem:concconvinfmutA2}\\
        &= \sum_{x,y} p(x)p(y|x) \log \frac{ p(x)p(y|x) }{p(x) \sum_x p(x) p(y|x)}, \label{dem:concconvinfmutA3}
 \end{align}
@@ -1732,7 +1732,7 @@ $H(Y|X) = 0$\index{entropia condicional!nula} se, e somente se, $Y$ for um funç
     \begin{align}
       I(X;Y|Z) &= \sum_{x,y,x} p(x,y,z) \log \frac{p(x,y|z)}{p(x|z) p(y|z)} \\
                &= \sum_z p(z) \sum_{x,y} p(x,y|z) \log \frac{p(x,y|z)}{p(x|z) p(y|z)} \\
-               &= \sum_z p(z) D(p_{XY|z}||p_{X|z} p(Y|z)) ,
+               &= \sum_z p(z) D(p_{XY|z} \mid\mid p_{X|z} p(Y|z)) ,
     \end{align}
   \end{subequations}
   onde $p_{XY|z}$ representa $\{ p(x,y|z), (x,y) \in \mathcal{X} \times \mathcal{Y} \}$,
@@ -1741,7 +1741,7 @@ $H(Y|X) = 0$\index{entropia condicional!nula} se, e somente se, $Y$ for um funç
   Dado $z$, ambos $p_{XY|z}$ e $p_{X|z}p_{Y|z}$ são distribuições conjuntas em $\mathcal{X} \times \mathcal{Y}$.
   Teremos então
   \begin{equation}
-    D(p_{XY|z}||p_{X|z} p(Y|z)) \geq 0 .
+    D(p_{XY|z} \mid\mid p_{X|z} p(Y|z)) \geq 0 .
   \end{equation}
   Concluímos assim que $I(X;Y|Z) \geq 0$. A partir da \Cref{def:divKL}, observamos que $I(X;Y|Z) = 0$ se, e somente se,
   para todo $z \in S_z$,
@@ -1902,19 +1902,19 @@ Vamos analisar agora a probabilidade de colisão quando as duas variáveis aleat
   Seja $X, X'$ independentes com $X \sim p(x)$ e $X' \sim q(x)$, $x,x' \in \mathcal{X}$, então
   \begin{subequations}
     \begin{align}
-      Pr(X=X') &\geq 2^{-H(p) - D(p||q)} \\
-      Pr(X=X') &\geq 2^{-H(q) - D(q||p)}
+      Pr(X=X') &\geq 2^{-H(p) - D(p \mid\mid q)} \\
+      Pr(X=X') &\geq 2^{-H(q) - D(q \mid\mid p)}
     \end{align}
   \end{subequations}
   ou seja,
   \begin{equation}
-  Pr(X=X') \geq \max \left( 2^{-H(p) - D(p||q)} , 2^{-H(q)-D(q||p)} \right)
+  Pr(X=X') \geq \max \left( 2^{-H(p) - D(p \mid\mid q)} , 2^{-H(q)-D(q \mid\mid p)} \right)
   \end{equation}
 \end{corollary}
 \begin{proof}
   \begin{subequations}\label{dem:liminfprobcoldisdis}
     \begin{align}
-      2^{-H(p) - D(p||q)} &= 2^{\sum_x p(x) \log p(x) + \sum_x p(x) \log \frac{q(x)}{p(x)}} \label{dem:liminfprobcoldisdis1}\\
+      2^{-H(p) - D(p \mid\mid q)} &= 2^{\sum_x p(x) \log p(x) + \sum_x p(x) \log \frac{q(x)}{p(x)}} \label{dem:liminfprobcoldisdis1}\\
                 &= 2^{\sum_x p(x) \log q(x)} \label{dem:liminfprobcoldisdis2}\\
                 &= 2^{E_p[\log q(X)]} \label{dem:liminfprobcoldisdis3} \\
                 &\leq \sum_x p(x) 2^{\log q(x)}  \label{dem:liminfprobcoldisdis4} \\

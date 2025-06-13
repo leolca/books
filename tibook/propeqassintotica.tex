@@ -888,7 +888,7 @@ Seja $X_1, X_2, \ldots, X_n$ i.i.d. $\sim Q(x)$, com $Q$ arbitrário, e extensã
 $Q^n(x_{1:n}) = \prod_i Q(x_i)$, a probabilidade da sequencia depende apenas do tipo, ou seja,
 a probabilidade é `independente' da sequencia, dado o tipo e $Q$, isto é,
 \begin{equation}
-Q^n(x_{1:n}) = 2^{-n[ H(P_{x_{1:n}}) + D(P_{x_{1:n}}||Q) ]} .
+Q^n(x_{1:n}) = 2^{-n[ H(P_{x_{1:n}}) + D(P_{x_{1:n}} \mid\mid Q) ]} .
 \end{equation}
 \end{theorem}
 
@@ -1163,7 +1163,7 @@ $M$ é o número de possíveis mensagens e também o número de palavras do \emp
   \label{fig:Mncodes2}
 \end{marginfigure}
 
-\begin{definition}[Código de bloco com taxa fixa $R$\index{código de bloco!com taxa fixa}]
+\begin{definition}[Código de bloco com taxa fixa $R$\index{código!de bloco!com taxa fixa}]
 Seja $X_1, X_2, \ldots, X_n \sim Q$, i.i.d. mas $Q$ desconhecido. A função do codificador
 e decodificador são definidas a seguir:
   \begin{subequations}
@@ -1178,7 +1178,7 @@ e decodificador são definidas a seguir:
   \end{equation}
 \end{definition}
 
-\begin{definition}[Código de bloco universal de taxa $R$\index{código de bloco!universal}]
+\begin{definition}[Código de bloco universal de taxa $R$\index{código!de bloco!universal}]
   Um código de bloco de taxa $R$ para uma fonte é dito universal se a função $f_n$ e $\phi_n$
   não dependem da distribuição $Q$ e se
   \begin{equation}

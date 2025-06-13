@@ -17,15 +17,15 @@ estocásticos em que a dependência é limitada ao estado imediatamente anterior
 oferecendo um equilíbrio entre simplicidade e aplicabilidade em problemas de
 codificação e comunicação.
 
-Um processo estocástico estacionário em sentido estrito é uma sequência de
+Um \emph{processo estocástico estacionário em sentido estrito}\index{processo estocástico!estacionário em sentido estrito} é uma sequência de
 variáveis aleatórias cujas propriedades estatísticas conjuntas permanecem
 invariantes sob deslocamentos temporais. Isto implica que, por exemplo, médias,
 variâncias e outras estatísticas não dependem do instante absoluto, permanecem
 estáveis ao longo do tempo.
 
-\begin{definition}[Processo Estocástico Estacionário (sentido-estrito)]
+\begin{definition}[Processo estocástico estacionário (sentido-estrito)]
   Uma sequência de v.a.s. $X_1, X_2, \ldots, X_n$ é governada por uma distribuição probabilística é dita
-  estacionária em sentido estrito se
+  \emph{estacionária} em sentido estrito se
   \begin{equation}
   p(X_{1:n} = x_{1:n}) = p(X_{1+l:n+l} = x_{1:n}) ,
   \end{equation}
@@ -37,7 +37,7 @@ próximo estado depende apenas do estado atual, e não de toda a história
 anterior.
 
 \begin{definition}[Processo de Markov de primeira ordem]
-  Um processo estocástico é um processo de Markov de primeira ordem se
+  Um processo estocástico é um \emph{processo de Markov}\index{cadeia de Markov}\index{processo estocástico!Markov|see{cadeia de Markov}} de primeira ordem se
   \begin{equation}
      p(X_{n+1} = x_{n+1} \mid X_{1:n} = x_{1:n}) = p(X_{n+1} = x_{n+1} \mid X_n = x_n)
   \end{equation}
@@ -63,14 +63,14 @@ p(x_n \mid x_{n-1}, x_{n-2}, \ldots, x_{n -m})$.
 
 Uma cadeia de Markov homogênea é um processo de Markov em que as probabilidades
 de transição entre estados não variam com o tempo.
-\begin{definition}[Cadeia de Markov homogênea]
-  Uma cadeia de Markov é invariante no tempo (também chamada de homogênea) se $p(x_{n+1} \mid x_n)$ não
+\begin{definition}[Cadeia de Markov homogênea\index{cadeia de Markov!homogênea}]
+  Uma cadeia de Markov é invariante no tempo (também chamada de \emph{homogênea}) se $p(x_{n+1} \mid x_n)$ não
   depender do tempo, i.e., se
   \begin{equation}
     p(X_{n+1} = b \mid X_{n} = a) = p(X_2 = b \mid X_1 = a) \quad \forall a,b,n .
   \end{equation}
 \end{definition}
-Neste caso, a cadeia de Markov pode ser descrita por uma matriz de transição fixa $P = [p_{ij}]_{ij}$
+Neste caso, a cadeia de Markov pode ser descrita por uma matriz de transição fixa $\mathbf{P} = [p_{ij}]_{ij}$
 em que $p_{ij} = p(X_{n+1} = j \mid X_{n} = i)$. Podemos representar esta cadeia de Markov como um grafo
 com setas entre estados cuja probabilidade de transição não é nula.
 O fato de ser homogênea também facilita o estudo de propriedades assintóticas,
@@ -80,7 +80,7 @@ como a taxa de entropia, como veremos adiante.
   Vamos considerar neste exemplo uma cadeia de Markov homogênea de primeira ordem
   com 4 estados. Esta cadeia pode ser ser representada pela sua matriz de transição:
   \begin{equation}
-  P = \begin{bmatrix}
+  \mathbf{P} = \begin{bmatrix}
           0 & p(2 \mid 1) & 0 & p(4 \mid 1) \\
           0 & p(2 \mid 2) & p(3 \mid 2) & 0 \\
           0 & 0 & 0 & p(4 \mid 3) \\
@@ -89,7 +89,7 @@ como a taxa de entropia, como veremos adiante.
  \end{equation}
  ou, alternativamente, pelo grafo ilustrado na \Cref{fig:markov-example}
 
-\begin{marginfigure}%
+  \begin{marginfigure}[-5.5cm]%
   \includegraphics[width=\linewidth]{figures/markov-example.pdf}
   \caption{Exemplo de uma cadeia de Markov de primeira ordem com 4 estados.}
   \label{fig:markov-example}
@@ -98,26 +98,26 @@ como a taxa de entropia, como veremos adiante.
 
 Para uma cadeia de Markov homogênea de primeira ordem,
 a probabilidade de um estado no instante $n+1$, pode ser dada em função dos possíveis
-estados no instante $n$ e da probabilidade de transição:
+estados no instante $n$ e das probabilidades de transição:
 \begin{equation}
   p(X_{n+1} = i) = \sum_{j} p(X_n = j) p(i|j) ,
 \end{equation}
-onde $p(i|j)$ é o elemento $p_{ij}$ da matriz de transição $P$. Esta cadeia de
+onde $p(i|j)$ é o elemento $p_{ij}$ da matriz de transição $\mathbf{P}$. Esta cadeia de
 Markov será estacionária se a probabilidade dos estados não mudar
 ao longo do tempo, ou seja, $p(X_{n+1} = i) = p(X_n = i)$, para todo $i$.
-Quando isto ocorrer, haverá uma distribuição estacionária $\mu$ tal que $\mu P = \mu$, onde $P$ é a matriz de transição.
+Quando isto ocorrer, haverá uma distribuição estacionária $\mu$ tal que $\mu^T \mathbf{P} = \mu^T$, onde $\mathbf{P}$ é a matriz de transição.
 Isto assegura que a probabilidade de cada estado permaneça constante ao longo do tempo quando o processo parte de,
 ou alcança, uma distribuição $\mu$.
 
 \begin{definition}[Cadeira de Markov irredutível]
-  Uma cadeia de Markov é irredutível se $p_{ij}(n) > 0$ para todo $i,j$ e para algum $n$ onde
+  Uma cadeia de Markov é \emph{irredutível}\index{cadeia de Markov!irredutível} se $p_{ij}(n) > 0$ para todo $i,j$ e para algum $n$ onde
   $p_{ij}(n) = p(X_{n+1} = j \mid X_{n} = i)$.
 \end{definition}
 Ou seja, qualquer estado é acessível de qualquer outro estado (ao menos em algum instante $n$),
 com probabilidade não nula.
 
 \begin{definition}[Período de uma cadeia de Markov]
-  Uma cadeia de Markov é periódica se $d(i) > 1$ com
+  Uma cadeia de Markov é \emph{periódica}\index{cadeia de Markov!periódica} se $d(i) > 1$ com
   \begin{equation}
   d(i) = \gcd \{ n : p_{ii}(n) > 0 \}
   \end{equation}
@@ -130,7 +130,7 @@ Note que temos o máximo divisor comum do número de épocas para o qual um reto
   Suponha uma cadeia de Markov homogênea de primeira ordem com apenas dois estados.
   Esta cadeia é caracterizada pela matriz de transição
   \begin{equation}
-    P = \begin{pmatrix} 1 - \alpha & \alpha \\ \beta & 1 - \beta \end{pmatrix}
+    \mathbf{P} = \begin{pmatrix} 1 - \alpha & \alpha \\ \beta & 1 - \beta \end{pmatrix}
   \end{equation}
   e pode também ser representada pelo grafo da \Cref{fig:markov-example2}.
   \begin{marginfigure}%
@@ -138,7 +138,7 @@ Note que temos o máximo divisor comum do número de épocas para o qual um reto
   \caption{Grafo representando uma cadeia de Markov de primeira ordem com dois estados.}
   \label{fig:markov-example2}
   \end{marginfigure}
-  Se $\mu = [p_1 \ p_2]^T$ é uma distribuição estacionária, então devemos ter $\mu^T P = \mu^T$.
+  Se $\mu = [p_1 \ p_2]^T$ é uma distribuição estacionária, então devemos ter $\mu^T \mathbf{P} = \mu^T$.
   Neste caso, teremos
   \begin{subequations}
   \begin{align}
@@ -171,11 +171,11 @@ A Média de Cesàro representada uma técnica matemática que consiste em
 substituir a soma parcial tradicional de uma série por uma média aritmética de
 suas somas parciais.
 Ela pode ser utilizada para obter representações mais precisas de sinais descontínuos;
-reduzir artefatos processamento de sinais; aplicada a equações diferenciais parciais;
+utilizada em análises em processamento de sinais; aplicada a equações diferenciais parciais;
 e, em processos estocásticos analisar o comportamento assintótico, especialmente ao 
 estudar convergência ou taxas de entropia.
 
-\begin{lemma}[Média Cesáro]
+\begin{lemma}[Média Cesáro\index{média Cesàro}]
   Sejam $a_n$ números reais, se $a_n \rightarrow a$ quando $n \rightarrow \infty$ e $b_n = \frac{1}{n} \sum_{i=1}^n a_i$,
   então $b_n \rightarrow a$ quando $n \rightarrow \infty$.
 \end{lemma}
@@ -186,19 +186,19 @@ estudar convergência ou taxas de entropia.
   Para $n > N_{\epsilon}$ teremos
   \begin{subequations}
   \begin{align}
-    \vert b_n - a \vert &= \vert \frac{1}{n} \sum_{i=1}^n a_i - a \vert = \vert \frac{1}{n} \sum_{i=1}^n a_i - \frac{1}{n} \sum_{i=1}^n a \vert \\
-                        &= \vert \frac{1}{n} \sum_{i=1}^n (a_i - a) \vert  \leq  \frac{1}{n} \sum_{i=1}^n \vert a_i - a \vert \label{eq:demmediacesaro}\\
-                        &= \frac{1}{n} \left( \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert + \sum_{i=N_{\epsilon}+1}^n \vert a_i - a \vert \right) \\
-                        &\leq \frac{1}{n} \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert + \frac{1}{n}  \sum_{i=N_{\epsilon}+1}^n \epsilon \\
-                &= \frac{1}{n} \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert + \underbrace{\frac{n - N_{\epsilon}}{n}}_{<1} \epsilon \\
-                &< \underbrace{ \frac{1}{n} \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert }_{< \epsilon } + \epsilon < 2\epsilon \label{eq:demmediacesaro2}
+    \vert b_n - a \vert ={}& \left\vert \frac{1}{n} \sum_{i=1}^n a_i - a \right\vert = \left\vert \frac{1}{n} \sum_{i=1}^n a_i - \frac{1}{n} \sum_{i=1}^n a \right\vert \\
+                        ={}& \left\vert \frac{1}{n} \sum_{i=1}^n (a_i - a) \right\vert  \leq  \frac{1}{n} \sum_{i=1}^n \vert a_i - a \vert \label{eq:demmediacesaro}\\
+                        ={}& \frac{1}{n} \left( \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert + \sum_{i=N_{\epsilon}+1}^n \vert a_i - a \vert \right) \\
+                        <{}& \frac{1}{n} \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert + \frac{1}{n}  \sum_{i=N_{\epsilon}+1}^n \epsilon \label{eq:demmediacesaroD}\\
+                ={}& \frac{1}{n} \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert + \underbrace{\frac{n - N_{\epsilon}}{n}}_{<1} \epsilon \\
+                <{}& \underbrace{ \frac{1}{n} \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert }_{< \epsilon } + \epsilon < 2\epsilon \label{eq:demmediacesaro2}
   \end{align}
   \end{subequations}
-  onde em \ref{eq:demmediacesaro} utilizamos a desigualdade triangular e em \ref{eq:demmediacesaro2}
+  onde em \ref{eq:demmediacesaro} utilizamos a desigualdade triangular,
+  em \ref{eq:demmediacesaroD} utilizamos a convergência de $a_n$, e em \ref{eq:demmediacesaro2}
   utilizamos o fato de que podemos tomar $n$ grande suficiente de forma que 
   $\frac{1}{n} \sum_{i=1}^{N_{\epsilon}} \vert a_i - a \vert < \epsilon$,
   pois trata-se de uma soma finita.
-
   Então $b_n \rightarrow a$ quando $n \rightarrow \infty$.
 \end{proof}
 
@@ -207,8 +207,8 @@ Processos Estocástico possuem taxas de entropia, que intuitivamente representam
 quantidade de informação nova, na média, que é fornecida pelo processo estocástico a
 cada instante.
 
-\begin{definition}[Taxa de Entropia de um processo estocástico]
-  A taxa de entropia de um processo estocástico $\{ X_i \}_i$ é definida como
+\begin{definition}[Taxa de entropia de um processo estocástico\index{processo estocástico!taxa de entropia}]
+  A \emph{taxa de entropia} de um processo estocástico $\{ X_i \}_i$ é definida como
   \begin{equation}\label{eq:txentropia}
     H(\mathcal{X}) \triangleq \lim_{n \rightarrow \infty} \frac{1}{n} H(X_1, X_2, \ldots, X_n) , 
     \end{equation}
@@ -225,14 +225,14 @@ A taxa de entropia pode ser vista como a entropia por símbolo para um dado proc
 
 A Taxa de Entropia de um processo estocástico $H(\mathcal{X})$
 mede a incerteza média por símbolo em uma sequência longa, 
-enquanto a Taxa de Inovação da Informação $H'(\mathcal{X})$,
+enquanto a \emph{taxa de inovação da informação} $H'(\mathcal{X})$,
 que será definida a seguir, quantifica a incerteza de um novo símbolo dado o passado. Para
 processos gerais, essas taxas podem diferir devido à dependência entre
 símbolos; no entanto, em processos estacionários, ambas
 convergem ao mesmo valor, ou seja, $H(\mathcal{X}) = H'(\mathcal{X})$,
 refletindo a estabilidade estatística do processo ao longo do tempo.
 
- \begin{definition}[Taxa de Inovação da Informação]
+ \begin{definition}[Taxa de inovação da informação\index{processo estocástico!taxa de inovação da informação}]
   Vamos assumir um processo estocástico e definir a taxa da seguinte forma
   \begin{equation}
     H'(\mathcal{X}) \triangleq \lim_{n \rightarrow \infty} H(X_n \mid X_{n-1}, X_{n-2}, \ldots , X_1) ,
@@ -241,7 +241,7 @@ refletindo a estabilidade estatística do processo ao longo do tempo.
  \end{definition}
  Veremos a seguir que $H'(\mathcal{X})$ existe para um processo estocástico estacionário.
 
- \begin{theorem}[Um processo estocástico estacionário possui taxa de inovação de informação]
+ \begin{theorem}[Um processo estocástico estacionário possui taxa de inovação de informação\index{processo estocástico!taxa de inovação de informação}]
   Para um processo estocástico estacionário, $H(X_n \mid X_{n-1}, X_{n-2}, \ldots , X_1)$ é decrescente com $n$ e possui como limite $H'(\mathcal{X})$.
 \end{theorem}
 \begin{proof}
@@ -257,7 +257,7 @@ refletindo a estabilidade estatística do processo ao longo do tempo.
   Temos então uma sequência decrescente com limite inferior $0$, logo, esta sequência possui um limite: $H'(\mathcal{X})$.
 \end{proof}
 
-\begin{theorem}[Em um processo estocástico estacionário taxa de inovação é igual a taxa de entropia]
+\begin{theorem}[Em um processo estocástico estacionário taxa de inovação é igual a taxa de entropia\index{processo estocástico!teorema taxa de inovação e taxa de entropia}]
   Para um processo estocástico estacionário temos
   \begin{subequations}
   \begin{align}
@@ -276,7 +276,7 @@ refletindo a estabilidade estatística do processo ao longo do tempo.
 
 
 
-\begin{example}[Taxa de entropia para cadeia de Markov de primeira ordem]
+\begin{example}[Taxa de entropia para cadeia de Markov de primeira ordem\index{cadeia de Markov!taxa de entropia}]
   A taxa de entropia para um cadeia de Markov de primeira ordem estacionária será dada da seguinte forma
   \begin{subequations}\label{eq:extxentropiamarkov1ord}
   \begin{align}
@@ -300,7 +300,7 @@ refletindo a estabilidade estatística do processo ao longo do tempo.
 
 
 \begin{example}[Modelos de Ehrenfest]
-Os Modelos de Ehrenfest são cadeias de Markov que descrevem a dinâmica de
+Os modelos de Ehrenfest são cadeias de Markov que descrevem a dinâmica de
 partículas em um sistema com dois compartimentos. Tais modelos são
 frequentemente usados para ilustrar conceitos de equilíbrio estatístico e
 comportamento assintótico. A análise desse processo estocástico revela
@@ -383,27 +383,27 @@ A distribuição de estado estacionário é tal que $\mathbf{\mu}^T P = \mathbf{
 
 \begin{subequations}
 \begin{align}
-\mathbf{\mu}^T P &= \mathbf{\mu}^T \\
-\mathbf{\mu}^T (P-I) &= 0 \\
-\mathbf{\mu}^T Q &= 0
+\mathbf{\mu}^T \mathbf{P} &= \mathbf{\mu}^T \\
+\mathbf{\mu}^T (\mathbf{P}-\mathbf{I}) &= 0 \\
+\mathbf{\mu}^T \mathbf{Q} &= 0
 \end{align}
 \end{subequations}
 
 
 Teremos aqui
 \begin{equation}
-Q = \begin{pmatrix}
+\mathbf{Q} = \begin{pmatrix}
 -1  &  1  & 0   & 0   & 0   \\
 1/4 & -1  & 3/4 & 0   & 0   \\
 0   & 1/2 & -1  & 1/2 & 0   \\
-0   & 0   & 3/4 & -1  & 1/4 \\
+   & 0   & 3/4 & -1  & 1/4 \\
 0   & 0   & 0   & 1   & -1
 \end{pmatrix} .
 \end{equation}
 
 Vamos incorporar a condição $\sum_i \mu_i = 1$ fazendo:
 \begin{equation}
-\tilde{Q} = \begin{pmatrix}
+\tilde{\mathbf{Q}} = \begin{pmatrix}
 -1  &  1  & 0   & 0   & 1 \\
 1/4 & -1  & 3/4 & 0   & 1 \\
 0   & 1/2 & -1  & 1/2 & 1 \\
@@ -413,13 +413,13 @@ Vamos incorporar a condição $\sum_i \mu_i = 1$ fazendo:
 \end{equation}
 e o novo sistema de equações será
 \begin{equation}\label{eq-novo-sistema}
-\mathbf{\mu}^T \tilde{Q} = (0, 0, 0, 1) .
+\mathbf{\mu}^T \tilde{\mathbf{Q}} = (0, 0, 0, 1) .
 \end{equation}
 
 Para solucionar a Equação \ref{eq-novo-sistema}, iremos pós multiplicar ambos os lados
-pela matriz inversa de $\tilde{Q}$,
+pela matriz inversa de $\tilde{\mathbf{Q}}$,
 \begin{equation}
-\mathbf{\mu}^T = (0, 0, 0, 1) \tilde{Q}^{-1} ,
+\mathbf{\mu}^T = (0, 0, 0, 1) \tilde{\mathbf{Q}}^{-1} ,
 \end{equation}
 obtendo assim
 \begin{equation}
@@ -433,19 +433,21 @@ cadeia de Markov de primeira ordem estacionária será dada da seguinte forma
 \end{equation}
 onde $\mu$ é a distribuição estacionária,
 $p_{ij}$ a probabilidade de transição de $i$ para $j$ (elementos da matriz $P$)
-e $\mathbf{p_i}$ a $i$-ésima linha da matriz $P$ (as probabilidades de transição à partir
+e $\mathbf{p_i}$ a $i$-ésima linha da matriz $\mathbf{P}$ (as probabilidades de transição à partir
 do estado $i$).
 
 Para o exemplo em questão:
 \begin{subequations}
 \begin{align}
-  H(\mathcal{X}) &= \mu_1 H(\mathbf{p_1}) + \mu_2 H(\mathbf{p_2}) + \mu_3 H(\mathbf{p_3}) + \mu_4 H(\mathbf{p_4}) + \mu_5 H(\mathbf{p_5}) \\
-        &= \frac{1}{16} H(0,1,0,0,0) + \frac{1}{4} H(\frac{1}{4}, 0, \frac{3}{4}, 0, 0) + \frac{6}{16} H(0, \frac{1}{2}, 0, \frac{1}{2}, 0) +
-                \frac{1}{4} H(0, 0, \frac{3}{4}, 0, \frac{1}{4}) + \frac{1}{16} H(0, 0, 0, 1, 0) \\
-        &= 0 + 2 \times \frac{1}{4} \left( \frac{1}{4} \log 4 + \frac{3}{4} \log \frac{4}{3} \right) +
+  H(\mathcal{X}) ={}& \mu_1 H(\mathbf{p_1}) + \mu_2 H(\mathbf{p_2}) + \mu_3 H(\mathbf{p_3}) + \mu_4 H(\mathbf{p_4}) + \mu_5 H(\mathbf{p_5}) \\
+  \begin{split}
+      ={}& \frac{1}{16} H(0,1,0,0,0) + \frac{1}{4} H(\frac{1}{4}, 0, \frac{3}{4}, 0, 0) + \frac{6}{16} H(0, \frac{1}{2}, 0, \frac{1}{2}, 0) + \\
+         & \frac{1}{4} H(0, 0, \frac{3}{4}, 0, \frac{1}{4}) + \frac{1}{16} H(0, 0, 0, 1, 0) 
+  \end{split}\\
+        ={}& 0 + 2 \times \frac{1}{4} \left( \frac{1}{4} \log 4 + \frac{3}{4} \log \frac{4}{3} \right) +
                 \frac{6}{16} + 0 \\
-        &= \frac{1}{2} \left( \frac{1}{2} + \frac{3}{2} - \frac{3}{4} \log 3  \right) + \frac{6}{16} \\
-        &= 1 - \frac{3}{8} \log 3 + \frac{6}{16} = \frac{11}{8} - \frac{3}{8} \log 3 = 0.78064
+        ={}& \frac{1}{2} \left( \frac{1}{2} + \frac{3}{2} - \frac{3}{4} \log 3  \right) + \frac{6}{16} \\
+        ={}& 1 - \frac{3}{8} \log 3 + \frac{6}{16} = \frac{11}{8} - \frac{3}{8} \log 3 = 0.78064
 \end{align}
 \end{subequations}
 
