@@ -1653,12 +1653,13 @@
 
 \titlespacing*{\chapter}{0pt}{50pt}{40pt}
 \titlespacing*{\section}{0pt}{4ex minus 1ex}{2.5ex plus .2ex}
-\titlespacing*{\subsection}{0pt}{3ex plus 1ex minus .5ex}{1.5ex plus.2ex}
+\titlespacing*{\subsection}{0pt}{3ex minus .5ex}{1.5ex plus.2ex}
 \titlespacing*{\subsubsection}{0pt}{2.25ex plus 1ex minus .2ex}{1.0ex plus.2ex}
 
-\RequirePackage{needspace}
-\RequirePackage{etoolbox}
-\preto\section{\needspace{4\baselineskip}}
+%\RequirePackage{needspace}
+%\RequirePackage{etoolbox}
+%\preto\section{\needspace{4\baselineskip}}
+%\preto\subsection{\needspace{2\baselineskip}}
 
 %% Subsubsection and following section headings shouldn't be used.
 %% See Bringhurst's _The Elements of Typography_, section 4.2.2.

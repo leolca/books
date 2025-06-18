@@ -461,7 +461,7 @@ Vamos demonstrar que $\ln z \leq z-1$, para $z > 1$ por contradição.
 Suponha que existe $b > 1$ tal que $\ln z > z - 1$, para $z=b$.
 Vamos definir $f(z) = \ln z - z + 1$, logo $f(1) = 0$ (conforme visto acima)
 e $f(b) > 0$ (por hipótese).
-Pelo teorema do valor médio $\exists c$, $1 < c < b$, tal que
+Pelo Teorema do Valor Médio\index{teorema!do valor médio} $\exists c$, $1 < c < b$, tal que
 \begin{equation}
 f'(c) = \frac{f(b) - f(1)}{b - 1} = \frac{\overbrace{f(b)}^{>0}}{\underbrace{b-1}_{>0}} > 0 .
 \end{equation}
@@ -470,7 +470,7 @@ e nossa hipótese é falsa. Teremos assim $\ln z \leq z-1$, para $z \geq 1$.
 
 Para $z \in (0,1)$, basta seguir os mesmos passos, escolhendo um ponto
 $z=b$, tal que $0 < b < 1$. Vamos encontrar um ponto $c$ tal que $0 < b < c < 1$.
-E usar o teorema do valor médio para mostrar uma contradição na hipótese.
+E usar o Teorema do Valor Médio para mostrar uma contradição na hipótese.
 \end{proof}
 
 Outra propriedade importante que mencionamos é o limite máximo da entropia,
@@ -619,8 +619,8 @@ H(Y|X,Z=z) \: = -\sum_{x,y} p(x,y|z) \log p(y|x,z) .
 
 Observando as definições de entropia conjunta e entropia condicional, surge, naturalmente,
 a constatação de que a entropia de um par de variáveis aleatória é a entropia de uma
-somada à entropia condicional da outra. Esta observação é formalizada pelo teorema
-da regra da cadeia.
+somada à entropia condicional da outra. Esta observação é formalizada pelo Teorema
+da Regra da Cadeia.
 
 \begin{theorem}[Regra da Cadeia\index{entropia!regra da cadeia}]\label{thm:regracadeia}
  \begin{equation}
@@ -628,7 +628,7 @@ da regra da cadeia.
  \end{equation}
 \end{theorem}
 \begin{proof}
- Como $p(x,y) = p(x) p(y|x)$ (teorema de Bayes), e como o logaritmo de um produto é a soma 
+ Como $p(x,y) = p(x) p(y|x)$ (Teorema de Bayes\index{teorema!de Bayes}), e como o logaritmo de um produto é a soma 
  dos logaritmos dos fatores, teremos
  \begin{equation}
  - \log p(x,y) = - \log p(x) - \log p(y|x)
@@ -1525,7 +1525,7 @@ Podemos escrever a informação mútua como uma função de $p(x)$:
 \end{align}
 \end{subequations}
 onde em \ref{dem:concconvinfmutA1} utilizamos a definição de informação mútua, 
-em \ref{dem:concconvinfmutA2} utilizamos a definição de divergência e aplicamos o teorema de Bayes em \ref{dem:concconvinfmutA3}.
+  em \ref{dem:concconvinfmutA2} utilizamos a definição de divergência e aplicamos o Teorema de Bayes\index{teorema!de Bayes} em \ref{dem:concconvinfmutA3}.
 Se $p(y|x)$ é constante, então a informação mútua é função de $p(x)$: $I_{p(x)} (X;Y)$.
 Utilizando a propriedade da convexidade da divergência de Kullback-Leibler,
 \begin{equation}\label{eq-Imixpx}
@@ -2060,7 +2060,7 @@ condicional $p(y|x)$, que descreve a relação entre a entrada $X$ e a saída $Y
   A desigualdade de Fano fornece um limite inferior pra a probabilidade de erro (predição incorreta do valor de $X$ baseado
   em $Y$). Este limite inferior é determinado pela incerteza remanescente $H(X|Y)$ sobre $X$ quando $Y$ é conhecido.
 
-  Pelo teorema da desigualdade de Fano temos que
+  Pelo Teorema da Desigualdade de Fano\index{teorema!da desigualdade de Fano} temos que
   \begin{equation}
   P_e \geq \frac{H(X|Y) - 1}{\log \left( \vert \mathcal{X} \vert - 1 \right)}
   \end{equation}

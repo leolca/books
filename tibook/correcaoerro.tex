@@ -548,7 +548,7 @@ Em outras palavras, $\mathcal{C}$ é o kernel (ou espaço nulo) de $\mathbf{H}$,
 \begin{equation}
 \mathcal{C} = \{ \mathbf{c} \in \mathbb{F}_q^n : \mathbf{H} \mathbf{c}^T = \mathbf{0} \}.
 \end{equation}
-Pelo teorema do posto-nulidade, o posto de $\mathbf{H}$ mais a dimensão do seu kernel 
+Pelo Teorema do Posto-nulidade\index{teorema!posto-nulidade}, o posto de $\mathbf{H}$ mais a dimensão do seu kernel 
 é igual ao número de colunas de $\mathbf{H}$. Como $\mathbf{H}$ tem $n$ colunas e $\mathcal{C}$ 
 tem dimensão $k$, temos:
 \begin{equation}
@@ -763,8 +763,8 @@ Como a distância de Hamming entre duas palavras $\mathbf{v}_1, \mathbf{v}_2 \in
 é o peso de $\mathbf{v}_1 + \mathbf{v}_2$ (outra palavra-código), 
 a distância mínima é igual ao peso mínimo, $d_{\text{min}} = 3$.
 
-Pelo Teorema de Detecção de Erros, o código detecta até $d - 1 = 2$ erros. 
-Pelo Teorema de Correção de Erros, ele corrige até $\lfloor (d - 1)/2 \rfloor = \lfloor 2/2 \rfloor = 1$ erro por palavra-código. 
+Pelo Teorema de Detecção de Erros\index{teorema!de detecção de erros}, o código detecta até $d - 1 = 2$ erros. 
+Pelo Teorema de Correção de Erros\index{teorema!de correção de erros}, ele corrige até $\lfloor (d - 1)/2 \rfloor = \lfloor 2/2 \rfloor = 1$ erro por palavra-código. 
 Isso torna o código de Hamming (7,4,3) ideal para canais onde erros únicos são mais prováveis, 
 como em um canal binário simétrico (BSC) com baixa probabilidade de erro.
 
@@ -826,7 +826,7 @@ incorreta.
 O código de Hamming (7,4,3) tem $2^4 = 16$ palavras-código, correspondendo 
 às combinações lineares das colunas de $\mathbf{G}$. A matriz $\mathbf{H}$ 
 tem posto 3, e seu espaço nulo tem dimensão $7 - 3 = 4$, confirmando as 
-$2^4$ palavras. Isso segue do teorema do posto-nulidade, que afirma que, 
+$2^4$ palavras. Isso segue do Teorema do Posto-nulidade\index{teorema!posto-nulidade}, que afirma que, 
 para uma matriz $m \times n$, o posto somado à dimensão do espaço nulo 
 (nulidade) é igual ao número de colunas: $\text{posto} + \text{nulidade} = n $\footnote{
 O posto de uma matriz é a dimensão do espaço vetorial gerado por suas colunas (ou linhas), 

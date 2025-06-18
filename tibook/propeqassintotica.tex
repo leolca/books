@@ -97,7 +97,7 @@ Podemos verificar que, no \Cref{ex:ensaiobernoulliT}, a estatísticas utilizada
 
 
 Um critério prático para identificar estatísticas suficientes é dado pelo Teorema da Fatoração de Fisher-Neyman.
-\begin{theorem}[Teorema da Fatoração de Fisher-Neyman]
+\begin{theorem}[Teorema da Fatoração de Fisher-Neyman]\index{teorema!da fatoração de Fisher-Neyman}
 Uma estatísticas $T(X_1,\ldots,X_N)$ é suficiente para $\theta$ se, e somente se,
 a função de verossimilhança da amostra pode ser escrita como:
 \begin{equation}
@@ -147,7 +147,7 @@ o histograma empírico é uma estatísticas suficiente:
   \end{align}
 \end{subequations}
 onde temos o coeficiente multinomial\footnote{
-  Teorema Multinomial
+  Teorema Multinomial\index{teorema!multinomial}
         \begin{align}
           &(x_1 + x_2 + \ldots + x_m)^n = \nonumber \\ &\sum_{k_1 + \ldots + k_m = n} {n \choose {k_1, \ldots, k_m}} \prod_{1 \leq t \leq m} x_t^{k_t}
         \end{align}
@@ -291,7 +291,7 @@ m = nH(X),
 no modelo do codificador. Desta forma, a taxa será $H(X)$.
 
 
-\begin{theorem}[Propriedade da Equipartição Assintótica\index{propriedade da equipartição assintóticas}]\label{thm-prop-eqp-ass}
+\begin{theorem}[Propriedade da Equipartição Assintótica\index{propriedade da equipartição assintótica}]\label{thm-prop-eqp-ass}
   Se $X_1, X_2, \ldots, X_n$ são i.i.d. e $X_i \sim p(x)$ para todo $i$, então
   \begin{equation}\label{eq-pX1X2Xn-H}
   -\frac{1}{n} \log p(X_1, X_2, \ldots, X_n) \xrightarrow{p} H(X) .
@@ -560,7 +560,7 @@ onde definimos $\epsilon'$ como
 Podemos fazer $\epsilon'$ tão pequeno quanto queremos, fazendo $\epsilon$ pequeno e $n$ grande.
 Desta forma, podemos fazer $n(H+\epsilon')$ tão próximo quanto quisermos de $nH$.
 
-\begin{theorem}[Primeiro Teorema de Shannon\index{teorema!primeiro teorema de Shannon (teorema da codificação de fonte)}]
+\begin{theorem}[Primeiro Teorema de Shannon (Teorema da Codificação de Fonte)\index{teorema!primeiro teorema de Shannon}\index{teorema!da codificação de fonte}]
 Seja $X_{1:n}$ i.i.d. $\sim p(x)$, $\epsilon > 0$, então $\exists$ um código $f_n : \mathcal{X}^n \rightarrow \text{string binária}$
 e um inteiro $n_{\epsilon}$, tal que o mapeamento seja um-pra-um (desta forma inversível sem erro), e
       \begin{equation}
@@ -574,7 +574,7 @@ para todo $\epsilon > 0$ e todo $n \geq n_{\epsilon}$.
   exemplo anterior.
 \end{proof}
 
-A demonstração do primeiro teorema de Shannon utiliza sequências típicas\index{sequências típicas} para
+A demonstração do Primeiro Teorema de Shannon utiliza sequências típicas\index{sequência típica} para
 garantir a existência de códigos cujo comprimento médio se aproxima, no limite,
 da entropia da fonte. Contudo, a codificação de sequências típicas requer
 sequências arbitrariamente longas, o que, na prática, torna a implementação
@@ -1313,11 +1313,11 @@ Na demonstração do \Cref{thm:teocodshannontipos} utilizaremos ainda a definiç
 
 
 
-O Teorema da Codificação de Shannon é um dos resultados fundamentais da teoria
+O Teorema da Codificação de Fonte de Shannon\index{teorema!da codificação de fonte} é um dos resultados fundamentais da teoria
 da informação, estabelecendo as condições sob as quais é possível representar
 as informações produzidas por uma fonte i.i.d. com distribuição subjacente $Q$
 sem que haja perdas, utilizando, para tanto uma taxa $R$.
-O Teorema mostra que, se $R > H(Q)$, então existe um código de bloco universal
+O teorema mostra que, se $R > H(Q)$, então existe um código de bloco universal
 para representar a informação produzida pela fonte com probabilidade de erro
 tendendo a zero à medida que o comprimento $n$ das sequências aumenta.
 Por outro lado, se $R < H(Q)$, não é possível representar a informação da fonte
@@ -1329,7 +1329,7 @@ de $Q$ ocorrem, para $n$ grande, é possível construir códigos universais que
 codifiquem eficientemente as sequências produzidas pela fonte, usando aproximadamente 
 $nH(Q)$ bits.
 
-\begin{theorem}[Teorema da Codificação de Shannon\index{teorema!primeiro teorema de Shannon (teorema da codificação de fonte)}]\label{thm:teocodshannontipos}
+\begin{theorem}[Teorema da Codificação de Fonte de Shannon (Teorema da Codificação de Fonte de Shannon)\index{teorema!primeiro teorema de Shannon}\index{teorema!da codificação de fonte}]\label{thm:teocodshannontipos}
 $\exists$ uma sequencia $(2^{nR},n)$ de códigos universais tais que $P_e^{(n)} \rightarrow 0$ para toda
 distribuição $Q$ tal que $H(Q) < R$.
 \end{theorem}

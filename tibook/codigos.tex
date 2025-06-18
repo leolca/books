@@ -382,6 +382,138 @@ comprimentos $\{l_1, l_2, \ldots, l_m\}$ que satisfaça a
 \Cref{eq:desigualdadekraft}.
 
 
+
+
+
+\begin{theorem}[Desigualdade de Kraft para códigos infinitos contáveis\index{desigualdade de Kraft!infinitos contáveis}]\label{thm:kraftinfinito}
+Seja um conjunto infinito contável de palavras de código que formam um código
+de prefixo sobre um alfabeto $D$-ário. Então, os comprimentos
+$\{\ell_i\}_{i=1}^\infty$ das palavras satisfazem a desigualdade de Kraft
+estendida:
+\begin{equation}
+\sum_{i=1}^\infty D^{-\ell_i} \leq 1.
+\end{equation}
+Reciprocamente, dada uma sequência de comprimentos $\{\ell_i\}_{i=1}^\infty$
+satisfazendo a desigualdade acima, existe um código de prefixo com esses
+comprimentos.
+\end{theorem}
+
+\begin{proof}
+Seja um código de prefixo infinito contável sobre um alfabeto $D$-ário
+$\mathcal{D} = \{0, 1, \dots, D-1\}$. Denote a $i$-ésima palavra de código
+por $\mathbf{y}_i = y_{i1} y_{i2} \dots y_{il_i}$, onde $l_i$ é o
+comprimento da palavra. Vamos provar a desigualdade de Kraft e a existência
+do código.
+
+\paragraph{Prova da desigualdade de Kraft.}
+Associamos cada palavra de código $\mathbf{y}_i = y_{i1} y_{i2} \dots y_{il_i}$
+a um número real na forma de uma representação fracionária:
+\begin{equation}
+0.y_{i1} y_{i2} \dots y_{il_i} = \sum_{j=1}^{l_i} y_{ij} D^{-j}.
+\end{equation}
+Este número define o ponto inicial de um intervalo semiaberto da forma
+$[0.y_{i1} y_{i2} \dots y_{il_i}, 0.y_{i1} y_{i2} \dots y_{il_i} + D^{-l_i})$
+no intervalo unitário $[0,1)$. O comprimento desse intervalo é exatamente $D^{-l_i}$.
+
+Como o código é de prefixo, nenhuma palavra $\mathbf{y}_i$ é prefixo de outra
+palavra $\mathbf{y}_k$ ($i \neq k$). Isso implica que os intervalos
+associados às palavras são disjuntos, pois os números no intervalo de
+$\mathbf{y}_i$ começam com a sequência $y_{i1} y_{i2} \dots y_{il_i}$, que
+não é prefixo de nenhuma outra palavra. Como todos os intervalos estão
+contidos em $[0,1)$, a soma dos seus comprimentos satisfaz:
+\begin{equation}
+\sum_{i=1}^\infty D^{-l_i} \leq 1.
+\end{equation}
+A organização do intervalos associados ao código de prefixo é exemplificada
+na \Cref{fig:kraftintervals}.
+
+\begin{marginfigure}%
+    %\includegraphics[width=0.5\textwidth]{images/kraftintervals2.pdf}
+    \resizebox{1.2\textwidth}{!}{
+    \begin{tikzpicture}[
+    dotnode/.style={circle, fill=black, inner sep=2pt}, % Style for the black dots
+    open_dotnode/.style={circle, draw=black, inner sep=2pt, fill=white}, % Style for the open dots
+    every path/.style={draw=black, thick},             % Global style for all paths
+    ]
+    % Define the extent of the number line
+    \def\xmin{0}  % Interval starts at 0
+    \def\xmax{7}  % Represents 1 (or end of interval)
+    \def\ymin{0}  % Y-coordinate of the main line
+
+    % --- Main Horizontal Line representing [0,1) ---
+    % Draw the main line
+    \draw (\xmin, \ymin) -- (\xmax, \ymin);
+    % Left vertical bar
+    \draw (\xmin, \ymin - 0.2) -- (\xmin, \ymin + 0.2);
+    % Right parenthesis
+    \node at (\xmax, \ymin) [right=-5pt] {)};
+
+    % Labels for 0 and 1
+    % --- CORRECTED LINES HERE ---
+    \node[below=4pt of {(\xmin, \ymin)}, font=\small] {0}; % Reference the coordinate (\xmin, \ymin)
+    \node[below=4pt of {(\xmax, \ymin)}, font=\small] {1}; % Reference the coordinate (\xmax, \ymin)
+    % --- END OF CORRECTED LINES ---
+
+    % --- Disjoint Sub-intervals below the main line ---
+    % Sub-interval 1 (connected dots below main line)
+    \node[dotnode] (int1_start) at (1, \ymin - 0.5) {}; % Start of first sub-interval
+    \node[open_dotnode] (int1_end) at (2.5, \ymin - 0.5) {};  % End of first sub-interval
+    \draw (int1_start) -- (int1_end);
+
+    % Sub-interval 2 (connected dots below main line, disjoint from first)
+    \node[dotnode] (int2_start) at (4.5, \ymin - 0.5) {}; % Start of second sub-interval
+    \node[open_dotnode] (int2_end) at (5.5, \ymin - 0.5) {};    % End of second sub-interval
+    \draw (int2_start) -- (int2_end);
+
+     % Sub-interval 3 (connected dots below main line, disjoint from first)
+    \node[dotnode] (int3_start) at (2.5, \ymin - 0.75) {}; % Start of second sub-interval
+    \node[open_dotnode] (int3_end) at (4.5, \ymin - 0.75) {};    % End of second sub-interval
+    \draw (int3_start) -- (int3_end);
+
+    % --- Ellipsis on the far right below the line ---
+    \node at (6.25, \ymin - 0.5) {\dots};
+
+    % --- Label with Arrow pointing to the START of the first sub-interval ---
+    \node[above=0.8cm of int1_start, align=left] (label_y) {0.$y_1 y_2 y_3 \dots y_{l_i}$};
+    \draw[-{Stealth[length=3mm, width=2mm]}, thick] (label_y.south) -- (int1_start.north);
+
+    \end{tikzpicture}
+    }
+    \caption{Ilustração dos intervalos disjuntos associados a palavras binárias de um código de prefixo, contidos no intervalo $[0,1)$.}
+    \label{fig:kraftintervals}
+\end{marginfigure}
+
+
+\paragraph{Exemplos ilustrativos.}
+Considere um alfabeto binário ($D=2$, $\mathcal{D} = \{0,1\}$).
+Para a palavra $0.1$, temos $0.1 = 1 \times 2^{-1} = \frac{1}{2}$, associada ao intervalo $\left[\frac{1}{2}, 1\right)$.
+Para a palavra $0.01$, temos $0.01 = 0 \times 2^{-1} + 1 \times 2^{-2} = \frac{1}{4}$, associada ao intervalo $\left[\frac{1}{4}, \frac{1}{2}\right)$.
+Para a palavra $0.001$, temos $0.001 = 1 \times 2^{-3} = \frac{1}{8}$, associada ao intervalo $\left[\frac{1}{8}, \frac{1}{4}\right)$.
+
+Para um alfabeto decimal ($D=10$, $\mathcal{D} = \{0,1,\dots,9\}$).
+A palavra $0.157$ corresponde ao intervalo $[0.157, 0.158)$.
+A palavra $0.159$ corresponde ao intervalo $[0.159, 0.160)$.
+
+\paragraph{Construção do código de prefixo.}
+Para a recíproca, fazemos a construção do código de forma similar ao caso finito.
+Dada uma sequência $\{l_i\}_{i=1}^\infty$ tal que
+$\sum_{i=1}^\infty D^{-l_i} \leq 1$, podemos construir um código de
+prefixo iterativamente. Para simplificar a construção, podemos ordenamos os comprimentos em ordem não decrescente.
+Comece escolhendo uma palavra de comprimento $l_1$
+Para cada $i \geq 2$, selecione uma
+palavra de comprimento $l_i$ que não seja prefixo de nenhuma palavra já
+escolhida, o que é possível devido à restrição da soma dos comprimentos dos
+intervalos. Este processo garante a existência de um código de prefixo com os
+comprimentos especificados.
+
+Portanto, a desigualdade de Kraft é necessária e suficiente para a existência
+de um código de prefixo infinito contável.
+\end{proof}
+ 
+
+
+
+
 \section{Em busca do código ótimo}\index{código!ótimo}
 
 Desejamos um código que forneça decodificação instantânea e livre de
@@ -718,7 +850,7 @@ Primeiramente, vamos apresentar o seguinte lemma.
   \end{equation}
 \end{lemma}
 \begin{proof}
-  A demonstração utiliza o \emph{teorema multinomial}\index{teorema multinomial} para expandir a soma, revelando sua equivalência à soma combinatória das contribuições de cada sequência.
+  A demonstração utiliza o \emph{Teorema Multinomial}\index{teorema!multinomial} para expandir a soma, revelando sua equivalência à soma combinatória das contribuições de cada sequência.
   \begin{subequations}
     \begin{align}
     \left( \sum_{x \in \mathcal{X}} D^{-l(x)} \right)^k &= \left( \sum_{i=1}^{m} D^{-l(x_i)} \right)^k \\
@@ -1208,7 +1340,7 @@ será ótimo.
 
 \section{Codificação Shannon-Fano-Elias}
 
-A codificação Shannon-Fano-Elias é uma abordagem prática para representar
+A \emph{codificação Shannon-Fano-Elias}\index{código!Shannon-Fano-Elias} é uma abordagem prática para representar
 símbolos com base em suas probabilidades cumulativas. Ela atribui códigos
 prefixo aproximando os comprimentos ideais por meio de uma representação
 binária truncada da função de distribuição cumulativa. Historicamente,
@@ -1217,10 +1349,10 @@ predecessora da codificação aritmética, que também usa probabilidades
 cumulativas. 
 
 Vejamos algumas definições que serão utilizadas na codificação Shannon-Fano-Elias.
-\begin{definition}[Distribuição Cumulativa]
+\begin{definition}[Distribuição cumulativa]
 Seja $\mathcal{X} = \{x_1, x_2, \ldots, x_m\}$ um conjunto finito de símbolos 
 com uma distribuição $p$, onde $p(x_i) \geq 0$ e $\sum_{i=1}^m p(x_i) = 1$.
-A função de distribuição cumulativa, denotada por $F(x)$, é definida como:
+A função de \emph{distribuição cumulativa}\index{distribuição cumulativa}, denotada por $F(x)$, é definida como:
 \begin{equation}
 F(x) = \sum_{a \leq x} p(a),
 \end{equation}
@@ -1232,12 +1364,12 @@ $F(x_i) \leq F(x_j)$ se $x_i < x_j$ (monotonicidade), e $F(x_m) = 1$.
 \end{definition}
 
 
-\begin{definition}[\(\overline{F}\)-Distribuição Cumulativa Modificada]
+\begin{definition}[\(\overline{F}\)-Distribuição cumulativa modificada]
 Seja $\mathcal{X} = \{x_1, x_2, \ldots, x_m\}$ um conjunto finito de símbolos
 com uma distribuição $p$, e seja $F(x) = \sum_{a \leq x} p(a)$ a função de
 distribuição cumulativa associada, considerando uma ordenação fixa $x_1 < x_2 <
-\cdots < x_m$. A função $\overline{F}(x)$, chamada de distribuição cumulativa
-modificada, é definida como:
+\cdots < x_m$. A função $\overline{F}(x)$, chamada de \emph{distribuição cumulativa
+modificada}\index{distribuição cumulativa!modificada}, é definida como:
 \begin{subequations}
 \begin{align}
 \overline{F}(x) &\triangleq \sum_{a < x} p(a) + \frac{1}{2} p(x), \\
@@ -1257,10 +1389,10 @@ $\overline{F}(x)$ é o ponto entre $F(x-1)$ e $F(x)$, então, como $p(x)>0$, tem
 \end{equation}
 
 Como $p(x)>0$, $a \neq b \Rightarrow F(a) \neq F(b) \Leftrightarrow
-\overline{F}(a) \neq \overline{F}(b)$.  Podemos utilizar $\overline{F}(a)$ como
-um código não singular para $a$ (podemos utilizar a expansão binária após a
-vírgula, como visto anteriormente na prova de Kraft para um infinito contável
-de comprimentos).  Teremos um código unicamente decodificável, porém poderemos
+\overline{F}(a) \neq \overline{F}(b)$. Podemos utilizar $\overline{F}(a)$ como
+um código não singular para $a$ (a expansão binária após a vírgula pode ser utilizada,
+como visto anteriormente na prova de Kraft para um infinito contável
+de comprimentos, veja o \Cref{thm:kraftinfinito}).  Teremos um código unicamente decodificável, porém poderemos
 ter palavras de tamanho infinito.  A solução será truncar $\overline{F}(x)$
 para ficar com $l(x)$ bits. A notação para tanto será $\lfloor \overline{F}(x) \rfloor_{l(x)}$.
 
@@ -1317,11 +1449,10 @@ um código de prefixo. Para tanto, considere a palavra $z_1 z_2 \ldots z_l$ que 
   \left[ 0.z_1 z_2 \ldots z_l , \quad 0.z_1 z_2 \ldots z_l + 0.00\ldots 1  \right) .
 \end{equation}
 que possui comprimento $1/2^l$ (este intervalo contém todos os números binários que se iniciam com $0.z_1 z_2 \ldots z_l$).
-
 A desigualdade $F(x-1) < \lfloor \overline{F}(x) \rfloor_{l(x)} \leq \overline{F}(x) < F(x)$ e o intervalo de comprimento $1/2^l$ são representados na
-\Cref{fig:intervalshannonfanoelias}
+\Cref{fig:intervalshannonfanoelias}.
 \begin{marginfigure}%
-  \includegraphics[width=\linewidth]{figures/intervalshannonfanoelias.pdf}
+  \includegraphics[width=1.2\linewidth]{figures/intervalshannonfanoelias.pdf}
   \caption{Intervalo de comprimento $1/2^l$ representando $\lfloor \overline{F}(x) \rfloor_{l(x)}$ como uma forma não ambígua para codificação.}\label{fig:intervalshannonfanoelias}
 \end{marginfigure}
 Então $\lfloor \overline{F}(x) \rfloor_{l(x)} \in (F(x-1), \overline{F}(x)]$.
@@ -1332,7 +1463,7 @@ nos leva a um código de prefixo (não existirão duas palavras associadas a um 
 Como é suficiente ter $l(x) = \lceil \log 1/p(x) \rceil + 1$, podemos calcular o limite para o comprimento esperado.
 Assim,
 \begin{equation}
- L = \sum_{x} p(x) l(x) = \sum_{x} p(x) (\lceil \log 1 / p(x) \rceil + 1) \leq H(X) + 2
+ L = \sum_{x} p(x) l(x) = \sum_{x} p(x) (\lceil \log 1 / p(x) \rceil + 1) \leq H(X) + 2 .
 \end{equation}
 
 
@@ -1397,7 +1528,7 @@ A compreensão da entropia como medida da incerteza em uma fonte de informação
 fundamental para o desenvolvimento de códigos eficientes. Em seu artigo de
 1951~\parencite{Shannon1951}, \textit{``Prediction and Entropy of Printed English''}, Claude Shannon
 explorou essa ideia por meio de um experimento simples,
-conhecido como o Jogo de Shannon. Neste jogo, participantes tentam adivinhar a
+conhecido como o \emph{Jogo de Shannon}\index{jogo de Shannon}. Neste jogo, participantes tentam adivinhar a
 próxima letra em uma sequência de texto em inglês, como completar ``TH'' em
 ``THE'' ou ``THEN'', utilizando o contexto das letras anteriores. Shannon
 observou que, em média, os participantes precisavam de poucas tentativas para
@@ -1414,7 +1545,8 @@ resultado implica uma redundância de cerca de 75\%, evidenciando que a
 estrutura linguística permite compressão eficiente.
 
 O Jogo de Shannon destaca a
-dependência entre símbolos em uma sequência. Por exemplo, após ``QU'', a
+dependência entre símbolos em uma sequência. Por exemplo, em português, após ``Q'', a 
+próxima letra é quase certamente um ``U'', e após ``QU'', a
 próxima letra é quase certamente uma vogal, reduzindo a incerteza. Essa visão
 sequencial motiva alguns métodos, como a codificação aritmética, que
 comprime uma mensagem inteira em um único número, aproveitando a entropia de
@@ -1428,9 +1560,9 @@ toda a sequência.
 
 
 
-\section{Codificação Aritmética}
+\section{Codificação Aritméticca}
 
-A codificação aritmética supera as limitações dos códigos baseados em símbolos
+A \emph{codificação aritmética}\index{código!codificação aritmética} supera as limitações dos códigos baseados em símbolos
 individuais, sendo considerada como um código de fluxo, ou seja, codifica uma
 sequência inteira em um único número real/binário. Ao mapear a mensagem em um
 intervalo de probabilidade que se estreita iterativamente com base nas
@@ -1442,9 +1574,10 @@ Pasco, na década de 1970. A ideia reflete uma evolução natural das propostas 
 Shannon, oferecendo uma solução elegante para fontes onde a redundância
 sequencial desempenha um papel importante.
 
-A codificação aritmética opera dividindo subsequentemente um intervalo inicial
+O princípio da codificação aritmética é a sucessiva divisão do intervalo inicial
 de probabilidade, $[0, 1)$, com base nas probabilidades dos
-símbolos de uma sequência. Para cada novo símbolo, o intervalo atual é
+símbolos de uma sequência, representando uma mensagem, ao final do processo, como 
+um único número nesse intervalo. Para cada novo símbolo, o intervalo atual é
 particionado proporcionalmente às probabilidades cumulativas dos símbolos
 possíveis, e o subintervalo correspondente ao símbolo observado é selecionado.
 À medida que a sequência avança, esse processo gera intervalos cada vez
@@ -1463,7 +1596,7 @@ apresenta a subdivisão do intervalo para os dois primeiros símbolos da sequên
 \begin{figure}%
   \centering
   \includegraphics[width=0.75\linewidth]{figures/acoding_invervals.pdf}
-  \caption{Definição dos intervalos probabilísticos para uma sequência de símbolos produzida pela fonte.}\label{fig:acoding_invervals}
+  \caption{Definição dos intervalos probabilísticos para uma sequência de símbolos produzida pela fonte \parencite{mackay2003}.}\label{fig:acoding_invervals}
 \end{figure}
 
 Paralelamente, o codificador deve ir subdividindo o intervalo $[0, 1)$,
@@ -1474,15 +1607,15 @@ A \Cref{fig:acoding_binaryinvervals} apresenta a subdivisão binária dos interv
 
 \begin{marginfigure}%
   \includegraphics[width=\linewidth]{figures/acoding_binaryinvervals.pdf}
-  \caption{Definição dos intervalos probabilísticos para uma sequência binária na saída do codificador.}\label{fig:acoding_binaryinvervals}
+  \caption{Definição dos intervalos probabilísticos para uma sequência binária na saída do codificador \parencite{mackay2003}.}\label{fig:acoding_binaryinvervals}
 \end{marginfigure}
 
 
 
 
-\begin{example}[\parencite{mackay2003}]
+\begin{example}[Codificação \parencite{mackay2003}]
 Suponha $x \in \{a,b,\square\}$, onde $\square$ é o símbolo de término.
-Vamos considerar a codificação da \textit{string} $bbba\square$.
+Vamos considerar a codificação da sequência $bbba\square$.
 A seguir, apresentamos as probabilidades do próximo símbolo, dado o passado:
 
 \begin{center}
@@ -1502,11 +1635,11 @@ $[0.b_1 b_2 \ldots b_k, 0.b_1 b_2 \ldots b_k + 2^{-k})$ para $b_i \in \{0,1\}$.
 
 \begin{marginfigure}%
   \includegraphics[width=\linewidth]{figures/bbba.pdf}
-  \caption{Intervalo final para a sequências de símbolos da fonte e para a sequência binária na saída do codificador.}\label{fig:bbba}
+  \caption{Intervalo final para a sequências de símbolos da fonte e para a sequência binária na saída do codificador \parencite{mackay2003}.}\label{fig:bbba}
 \end{marginfigure}
 
-A \Cref{fig:bbba} ilustra os intervalos que teremos ao final da sequência $bbba\square$
-a ser codificada. Observe que a sequência binária $100111101$ correspondente a um
+A \Cref{fig:bbba} ilustra os intervalos que teremos ao final da codificação da sequência $bbba\square$.
+Observe que a sequência binária $100111101$ correspondente a um
 intervalo completamente dentro do intervalo associado à sequência $bbba\square$,
 codificando assim a sequência da fonte.
 
@@ -1609,7 +1742,7 @@ compressão.
 
 \section{Codificação Lempel--Ziv}
 
-A codificação Lempel--Ziv, desenvolvida por \textcite{ziv1977}, marca
+A \emph{codificação Lempel--Ziv}\index{código!Lempel--Ziv}, desenvolvida por \textcite{ziv1977}, marca
 uma transição significativa na compressão de dados ao abandonar abordagens
 baseadas exclusivamente em probabilidades estatísticas, como Huffman e a
 codificação aritmética, em favor de uma estratégia que explora padrões
@@ -1620,7 +1753,7 @@ trechos já observados no texto. Ao utilizar uma janela deslizante para
 identificar repetições, o LZ77 substitui trechos redundantes por ponteiros
 (comprimento e distância).
 
-O algoritmo LZ77 utiliza uma janela deslizante para identificar e substituir
+O algoritmo \emph{LZ77}\index{código!Lempel--Ziv!LZ77} utiliza uma janela deslizante para identificar e substituir
 sequências repetitivas em uma entrada de dados, dividindo-a em dois
 componentes: o \textit{search buffer}, com algumas centenas de bytes, que
 armazena símbolos já processados, e o \textit{look-ahead buffer}, com dezenas
@@ -1637,10 +1770,11 @@ são emitidos diretamente. Após cada codificação, a janela desliza, incorpora
 novos símbolos ao \textit{search buffer} e avançando no \textit{look-ahead
 buffer}, repetindo o processo até o fim da entrada.
 
-\begin{marginfigure}%
+\begin{figure}%
+  \centering
   \includegraphics[width=\linewidth]{figures/sliding_window_lz77.png}
   \caption{Janela deslizante no LZ77 \parencite{salomon2007}.}\label{fig:sliding_window_lz77}
-\end{marginfigure}
+\end{figure}
 
 A \Cref{fig:lz77_schema} apresenta uma etapa da codificação da sequência
 \texttt{sir sid eastman easily teases sea sick seals}. Note como o codificador
@@ -1651,7 +1785,7 @@ que, ao ser acrescentado na \emph{string} de busca, não geraria um \emph{match}
 
   \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\textwidth]{figures/lz77_schema.png}
+  \includegraphics[width=\textwidth]{figures/lz77_schema.png}
   \caption{Codificação LZ77 \parencite{salomon2007}.}
   \label{fig:lz77_schema}
   \end{figure}
@@ -1693,7 +1827,7 @@ LZ77 em padrões como GZIP e PNG.
 
 \section{Codificação LZ78}
 
-A codificação LZ78, também conhecida como LZ2, é uma evolução do método
+A codificação \emph{LZ78}\index{código!Lempel--Ziv!LZ77}, também conhecida como LZ2, é uma evolução do método
 LZ77. Diferentemente do LZ77, que utiliza uma janela deslizante com \emph{search buffer} e
 \emph{look-ahead buffer}, o LZ78 adota um dicionário dinâmico para armazenar
 strings previamente encontradas, eliminando a dependência de \emph{buffers}. O
@@ -1708,7 +1842,8 @@ string vazia como raiz e strings derivadas como filhos, permitindo buscas
 rápidas mesmo em alfabetos grandes, como os de 256 símbolos (8 bits). Essa
 abordagem torna o LZ78 particularmente eficaz para compressão de dados com
 padrões repetitivos, influenciando formatos como LZW e servindo de base para
-aplicações modernas de compressão.
+aplicações modernas de compressão. O pseudo código para o LZ78 é apresentado
+no \Cref{alg:lz78}.
 
 \begin{algorithm}
 \caption{Codificação LZ78}
@@ -1742,7 +1877,7 @@ aplicações modernas de compressão.
 
 \begin{marginfigure}
 \centering
-\includegraphics[width=\linewidth]{figures/lz78_example.png}
+\includegraphics[width=1.2\linewidth]{figures/lz78_example.png}
 \caption{Exemplo \parencite{salomon2007}.}\label{fig:lz78_example}
 \end{marginfigure}
 
@@ -1750,14 +1885,15 @@ As \Cref{fig:lz78_example,fig:lz78_tree_example} apresentam a aplicação do LZ7
 à string exemplo \texttt{sir sid eastman easily teases sea sick seals}.
 Na \Cref{fig:lz78_example} é apresentado o dicionário utilizado pelo
 algoritmo em cada passo da execução, evidenciando o símbolo de entrada
-em cada etapa, a string de busca e a saída do codificador.
+em cada etapa, a \textit{string} de busca e a saída do codificador.
 A \Cref{fig:lz78_tree_example} apresenta a árvore em que a dicionário
 é organizado. Note que as sequências de símbolos são armazenadas como
 sequências na árvore. Por exemplo, no passo 13 da \Cref{fig:lz78_example},
 observamos que a sequência \texttt{sil} deverá ser adicionada à árvore.
 Na \Cref{fig:lz78_tree_example}, podemos observar que 13 (sequência \texttt{sil})
 foi adicionado abaixo de 5 (sequência \texttt{si}), e esta, por sua vez, abaixo 
-de 1 (sequência \texttt{s}).
+de 1 (sequência \texttt{s}), de forma que o caminho percorrido desde a raiz
+até o nó 13 irá então representar a sequência \texttt{sil}.
 
 \begin{figure}
 \centering
@@ -1774,11 +1910,11 @@ de 1 (sequência \texttt{s}).
 
 \section{Codificação LZW}
 
-A codificação LZW, desenvolvida por \cite{welch1984} como uma variação do
+A codificação \emph{LZW}\index{código!Lempel--Ziv!LZW}, desenvolvida por \cite{welch1984}, como uma variação do
 LZ78, aprimora a abordagem baseada em dicionário ao simplificar a estrutura dos
 \textit{tokens} e otimizar o uso do alfabeto inicial. Diferentemente do LZ78,
 que gera \textit{tokens} com dois campos (ponteiro para o dicionário e
-símbolo), o LZW emite apenas o ponteiro para uma string no dicionário,
+símbolo), o LZW emite apenas o ponteiro para uma \textit{string} no dicionário,
 eliminando o segundo campo e reduzindo a complexidade da saída. O dicionário é
 inicializado com todas as entradas do alfabeto --- por exemplo, 256 símbolos
 para um alfabeto de 8 bits --- permitindo que o codificador comece
@@ -1823,7 +1959,8 @@ O algoritmo LZW, embora eficiente em explorar redundâncias, enfrentou desafios
 no passado devido ao crescimento do dicionário, que podia esgotar a memória
 limitada dos computadores da década de 1980. Para contornar isso,
 implementações práticas frequentemente adotavam limites no tamanho do
-dicionário ou reinicializações periódicas.
+dicionário ou reinicializações periódicas. No \Cref{alg:lzw} apresentamos 
+o pseudo-código do LZW.
 
 Para o exemplo da codificação da sequência \texttt{sir sid eastman easily teases sea sick seals},
 a \Cref{fig:lzw_example} apresenta a saída do codificador e
