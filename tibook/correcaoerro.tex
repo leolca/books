@@ -54,7 +54,7 @@ métrica é conhecida como distância de Hamming, um conceito central na
 teoria dos códigos.
 
 \begin{definition}[Distância de Hamming]
-A distância de Hamming entre duas sequências de mesmo comprimento, definidas 
+A \emph{distância!de Hamming}\index{distância de Hamming} entre duas sequências de mesmo comprimento, definidas 
 sobre um alfabeto finito qualquer, é o número de
 posições em que elas diferem. Formalmente, para duas palavras 
 $x = (x_1, x_2, \dots, x_n)$ e $y = (y_1, y_2, \dots, y_n)$, a distância de Hamming é
@@ -70,7 +70,6 @@ Por exemplo, considere as palavras-código binárias $x = 10110$ e
 $y = 11011$. Para sequências binárias, podemos calcular a distância de Hamming
 usando a operação XOR bit a bit, que resulta em 1 nas posições onde os bits
 diferem, e então contar o número de 1s. Comparando posição por posição:
-
 \[
 \begin{array}{r|ccccc}
 x & 1 & 0 & 1 & 1 & 0 \\
@@ -79,7 +78,6 @@ y & 1 & 1 & 0 & 1 & 1 \\
 x \oplus y & 0 & 1 & 1 & 0 & 1 \\
 \end{array}
 \]
-
 O resultado do XOR é $01101$, com 1s nas posições 2, 3 e 5, 
 indicando que essas posições diferem. Assim, $d_H(x, y) = 3$.
 \end{example}
@@ -95,8 +93,8 @@ $u_4 = 0 \neq v_4 = 1$. As posições 2 e 4 diferem, logo $d_H(u, v) = 2$.
 
 
 \begin{definition}[Distância mínima de um código]
-Para um código $C$, composto por um conjunto de palavras-código, a distância
-mínima $d_{\text{min}}$ é definida como a menor distância de Hamming entre
+Para um código $C$, composto por um conjunto de palavras-código, a \emph{distância
+mínima}\index{distância!mínima} $d_{\text{min}}$ é definida como a menor distância de Hamming entre
 quaisquer duas palavras-código distintas:
 \begin{equation}
 d_{\text{min}} = \min \{ d_H(x, y) : x, y \in C, x \neq y \}.
@@ -107,10 +105,9 @@ A distância mínima é um parâmetro fundamental, pois determina a capacidade d
 código de detectar e corrigir erros, como estabelecido pelos seguintes
 teoremas.
 
-\begin{theorem}[Detecção de Erros]\label{thm:deteccaoerros}
+\begin{theorem}[Detecção de Erros]\label{thm:deteccaoerros}\index{teorema!detecção de erros}
 Um código $C$ com distância mínima $d_{\text{min}}$ pode detectar até $d_{\text{min}} - 1$ erros em qualquer palavra-código.
 \end{theorem}
-
 \begin{proof}
 Suponha que uma palavra-código $c \in C$ seja transmitida e receba até $k$ erros,
 resultando em uma sequência $r$, tal que $d_H(c, r) \leq k$.
@@ -127,7 +124,7 @@ Se $k = d_{\text{min}}$, $r$ poderia ser igual a outra palavra-código,
 e o erro não seria detectado. Logo, o código é capaz de detectar até $d_{\text{min}} - 1$ erros.
 \end{proof}
 
-\begin{theorem}[Correção de Erros]\label{thm:correcaoerros}
+\begin{theorem}[Correção de Erros]\label{thm:correcaoerros}\index{teorema!correção de erros} 
 Um código $C$ com distância mínima $d_{\text{min}}$ pode corrigir até
 $t = \lfloor (d_{\text{min}} - 1)/2 \rfloor$ erros em qualquer palavra-código.
 \end{theorem}
@@ -136,12 +133,12 @@ $t = \lfloor (d_{\text{min}} - 1)/2 \rfloor$ erros em qualquer palavra-código.
 Para corrigir erros, o decodificador deve identificar a palavra-código $c \in C$
 mais próxima da sequência recebida $r$, segundo a distância de Hamming 
 (decodificação por máxima verossimilhança). Considere esferas de Hamming de raio $t$
-centradas em cada palavra-código (veja a \Cref{fig:hamming_spheres}), 
+centradas em cada palavra-código (veja a \Cref{fig:hammingspheres}), 
 onde a esfera em torno de $c$ contém todas as sequências $r$ 
 tais que $d_H(c, r) \leq t$. Para que o código corrija até $t$ erros, essas esferas não 
 devem se sobrepor, garantindo que $r$ esteja na esfera de uma única palavra-código.
 
-Seja $t = \lfloor (d_{\text{min}} - 1)/2 \rfloor$. Suponha que $r$ está a distância
+Seja $t = \lfloor (d_{\text{min}} - 1)/2 \rfloor$. Suponha que $r$ está à distância
 $\leq t$ de $c$, ou seja, $d_H(c, r) \leq t$, devido a ocorrência de até $t$ erros em $r$. Para qualquer
 outra palavra-código $c' \neq c$, temos $d_H(c, c') \geq d_{\text{min}}$. 
 Queremos garantir que $r$ não esteja na esfera de $c'$, ou seja, $d_H(c', r) > t$.
@@ -165,7 +162,7 @@ poderiam se sobrepor, levando a erros de decodificação.
 Portanto, o código corrige até $t$ erros.
 \end{proof}
 
-\begin{figure}[h]
+\begin{marginfigure}
     \centering
     \begin{tikzpicture}
         % Esferas de Hamming
@@ -176,18 +173,16 @@ Portanto, o código corrige até $t$ erros.
         \node at (2,1.5) {Distância $d_{\text{min}}$};
         \draw[<->] (1,0) -- (3,0);
     \end{tikzpicture}
-    \caption{Esferas de Hamming de raio \( t = \lfloor (d_{\text{min}} - 1)/2 \rfloor \). 
-    As palavras-código $c$ e $c'$ estão separadas por $d_{\text{min}}$, garantindo que erros de até $t$ símbolos sejam corrigidos.}
-    \label{fig:hamming_spheres}
-\end{figure}
+    \caption{Esferas de Hamming de raio $t = \lfloor (d_{\text{min}} - 1)/2 \rfloor$. As palavras-código $c$ e $c'$ estão separadas por $d_{\text{min}}$, garantindo que erros de até $t$ símbolos sejam corrigidos.}\label{fig:hammingspheres}
+\end{marginfigure}
 
 
 
-\begin{example}[Correção de erros em um código de repetição com $n=3$]
+\begin{example}[Correção de erros em um código de repetição com $n=3$]\index{código!de repetição}
 Considere um código simples com palavras-código $\{000, 111\}$ sobre o
 alfabeto binário. A distância de Hamming entre $000$ e $111$ é 3, logo
-$d_{\text{min}} = 3$. Pelo Teorema de Detecção de Erros, esse código
-detecta até $3 - 1 = 2$ erros. Pelo Teorema de Correção de Erros, ele
+$d_{\text{min}} = 3$. Pelo \hyperref[thm:deteccaoerros]{Teorema de Detecção de Erros}, esse código
+detecta até $3 - 1 = 2$ erros. Pelo \hyperref[thm:correcaoerros]{Teorema de Correção de Erros}, ele
 corrige até $\lfloor (3 - 1)/2 \rfloor = 1$ erro. Se recebermos $001$,
 sabemos que houve erro (pois $001 \notin C$) e corrigimos para $000$,
 que está a distância 1. Note que, para obter a sequência $111$ deveríamos
@@ -199,7 +194,7 @@ a sequência $000$.
 
 
 A distância de Hamming está diretamente ligada à
-redundância do código: adicionar mais símbolos (aumentando $n$) permite
+redundância\index{redundância} do código: adicionar mais símbolos (aumentando $n$) permite
 maior separação entre palavras-código, mas reduz a taxa $R = k/n$. 
 Existe então uma relação de compromisso entre aumentar $d_{\text{min}}$ e
 redzir $R$.
@@ -217,12 +212,11 @@ erro. Apesar de sua simplicidade, ele ilustra o papel da redundância e serve
 como ponto de partida para entender outros códigos.
 
 \begin{definition}[Código de repetição]
-Um código de repetição com parâmetro $n$ codifica cada bit da mensagem repetindo-o $n$ vezes. 
+Um \emph{código de repetição}\index{código!de repetição} com parâmetro $n$ codifica cada bit da mensagem repetindo-o $n$ vezes. 
 Para uma mensagem de 1 bit:
 \begin{equation}
 0 \mapsto \underbrace{00\dots0}_{n \text{ vezes}}, \quad 1 \mapsto \underbrace{11\dots1}_{n \text{ vezes}}.
 \end{equation}
-
 Um código de repetição terá taxa $R = 1/n$, distância mínima $d_{\text{min}} = n$
 e será capaz de corrigir até $t = \lfloor (d_{\text{min}} - 1)/2 \rfloor = \lfloor (n - 1)/2 \rfloor$ bits.
 \end{definition}
@@ -233,25 +227,19 @@ e será capaz de corrigir até $t = \lfloor (d_{\text{min}} - 1)/2 \rfloor = \lf
   terá a seguinte tabela de codificação:
   \begin{table}[h]
     \centering
-    \begin{tabular}{cc}
-        \toprule
-        Mensagem & Palavra-código \\
-        \midrule
-        0 & 000 \\
-        1 & 111 \\
-        \bottomrule
+    \begin{tabular}{lll}
+      mensagem & 0 & 1 \\
+      palavra-código & 000 & 111 
     \end{tabular}
     \caption{Código de repetição com $n = 3$.}
     \label{tab:repetition_code}
   \end{table}
 
-  A mensagem $10$, por exemplo, será codificada como $10 \mapsto 111000$.
-
+  \noindent A mensagem $10$, por exemplo, será codificada como $10 \mapsto 111000$.
   A decodificação é feita por regra/voto de maioria. 
   Para cada bloco de $n$ bits, escolhemos o bit mais frequente. 
   Por exemplo, se $n = 3$ e recebemos $011$, contamos dois 1s e um 0, 
   decodificando como 1 (palavra-código $111$).
-
   Este código terá uma taxa de $R = 1/3$, distância mínima $d_{\text{min}} = 3$ e
   poderá corrigir apenas 1 bit.
 \end{example}
@@ -272,7 +260,7 @@ $d_{\text{min}}$, melhorando a correção de erros, mas reduz drasticamente a ta
 
 \section{Código de Verificação de Paridade Simples}
 
-O código de verificação de paridade simples consiste em adicionar um único bit
+O \emph{código de verificação de paridade simples}\index{código!de verificação de paridade} consiste em adicionar um único bit
 de redundância a uma mensagem binária, permitindo detectar certos tipos de
 erros, embora não seja capaz de corrigi-los. Este código serve como base para
 muitos esquemas de codificação, como o código de Hamming e os códigos de
@@ -300,11 +288,10 @@ número ímpar de erros), essa soma deixará de ser par, permitindo a detecção
 erro. No entanto, um número par de erros manterá a soma par, passando
 despercebido.
 
-\begin{theorem}[Detecção de Erros por Paridade]
+\begin{theorem}[Detecção de Erros por Paridade]\index{teorema!detecção de erros por paridade}
 O código de verificação de paridade simples detecta qualquer número ímpar de
 erros em uma palavra-código, mas não detecta um número par de erros.
 \end{theorem}
-
 \begin{proof}
 Considere uma palavra-código válida $c = (c_1, c_2, \dots, c_n)$, onde
 $\mod \left( \sum_{i=1}^{n} c_i, 2 \right) = 0$. Suponha que $k$ bits
@@ -312,7 +299,7 @@ sejam alterados devido a erros, resultando em uma sequência recebida
 $r = (r_1, r_2, \dots, r_n)$. Cada erro inverte um bit ($0 \to 1$ ou $1 \to 0$), 
 alterando a soma dos bits em $\mod(k, 2)$. Dessa forma:
 \begin{equation}
-\sum_{i=1}^{n} r_i = \sum_{i=1}^{n} c_i + k \mod 2.
+\mod \left( \sum_{i=1}^{n} r_i \right) = \mod \left( \sum_{i=1}^{n} c_i \right) + k \mod 2.
 \end{equation}
 Como $\sum_{i=1}^{n} c_i \mod 2 = 0$, temos:
 \begin{equation}
@@ -325,18 +312,18 @@ palavra-código válida, mesmo que contenha erros.
 Portanto, o código detecta apenas um número ímpar de erros.
 \end{proof}
 
-\begin{example}
+\begin{example}[Verificação de paridade simples]\label{ex:simplyparitycheck}
 Considere um codificador $E: \{0, 1\}^3 \to \{0, 1\}^4$, definido por:
 \begin{equation}
 E(x_1, x_2, x_3) = \left( x_1, x_2, x_3, \mod(x_1 + x_2 + x_3, 2) \right).
 \end{equation}
 As palavras-código são todas as sequências de 4 bits com um número par de 1s:
-\begin{equation}
+\[
 C = \{ (0,0,0,0), (0,0,1,1), (0,1,0,1), (0,1,1,0), (1,0,0,1), (1,0,1,0), (1,1,0,0), (1,1,1,1) \}.
-\end{equation}
-A \Cref{tab:parity_code} lista as mensagens e suas respectivas palavras-código.
+\]
+A tabela \ref{tab:paritycode} lista as mensagens e suas respectivas palavras-código.
 
-\begin{table}[h]
+  \begin{table}[h]
     \centering
     \begin{tabular}{cc}
         \toprule
@@ -352,24 +339,19 @@ A \Cref{tab:parity_code} lista as mensagens e suas respectivas palavras-código.
         (1,1,1) & (1,1,1,1) \\
         \bottomrule
     \end{tabular}
-    \caption{Código de verificação de paridade simples com \( n = 4 \).}
-    \label{tab:parity_code}
+    \caption{Código de verificação de paridade simples com $n = 4$.}
+    \label{tab:paritycode}
 \end{table}
 
-Suponha que a palavra-código $(0,1,0,1)$ seja transmitida. Vamos analisar dois cenários:
-
-\begin{itemize}
-    \item Apagamento: A sequência recebida é $r = (0, \text{x}, 0, 1)$, 
-      onde o segundo bit foi apagado. Calculamos a soma dos bits conhecidos: 
-      $0 + 0 + 1 = 1 \mod 2$. Para que $r$ seja válida, a soma total deve ser par,
-      logo o bit apagado deve ser 1 (pois $1 + 1 = 0 \mod 2$). 
-      Assim, reconstruímos $r = (0,1,0,1)$, recuperando a palavra-código correta.
-    \item Erro: A sequência recebida é $r = (0,0,0,1)$. 
-      Calculamos a soma: $0 + 0 + 0 + 1 = 1 \mod 2$, que é ímpar. 
-      Como a soma viola a condição de paridade, detectamos que houve um erro 
-      (neste caso, um erro no segundo bit, pois $(0,1,0,1) \to (0,0,0,1)$).
-\end{itemize}
-
+Suponha que a palavra-código $(0,1,0,1)$ seja transmitida. Vamos analisar dois cenários: apagamento e erro.
+Para o caso de apagamento, suponha que a sequência recebida seja $r = (0, \text{x}, 0, 1)$, 
+onde o segundo bit foi apagado. Calculamos a soma dos bits conhecidos: $0 + 0 + 1 = 1 \mod 2$.
+Para que $r$ seja válida, a soma total deve ser par, logo o bit apagado deve ser 1 (pois $1 + 1 = 0 \mod 2$). 
+Assim, reconstruímos $r = (0,1,0,1)$, recuperando a palavra-código correta.
+Agora, paa o caso de erro, suponha que a sequência recebida seja $r = (0,0,0,1)$. 
+Calculamos a soma: $0 + 0 + 0 + 1 = 1 \mod 2$, que é ímpar. 
+Como a soma viola a condição de paridade, detectamos que houve um erro 
+(neste caso, um erro no segundo bit, pois $(0,1,0,1) \to (0,0,0,1)$).
 Se a sequência recebida fosse $r = (0,0,0,0)$ (decorrente de dois erros, nos bits 2 e 4), 
 a soma seria $0 + 0 + 0 + 0 = 0 \mod 2$, indicando paridade válida. 
 No entanto, como $(0,0,0,0) \neq (0,1,0,1)$, houve dois erros que não foram detectados,
@@ -384,10 +366,10 @@ paridade de duas palavras distintas pode ser o mesmo, desde que as duas palavras
 tenham ao menos dois bits distintos entre os primeiros $n-1$ bits. 
 De qualquer forma, teremos $d_{\text{min}} = 2$.
 
-Pelo \Cref{thm:deteccaoerros}, %Teorema de Detecção de Erros,  
+Pelo \hyperref[thm:deteccaoerros]{teorema de detecção de erros},  
 um código com $d_{\text{min}} = 2$ detecta até $1$ erro, o que é consistente com
 nossa análise: um erro (ímpar) viola a paridade, mas dois erros (par) não são
-detectados. Para correção, usando o \Cref{thm:correcaoerros}, 
+detectados. Para correção, usando o \hyperref[thm:correcaoerros]{teorema de correção de erros}, 
 temos $t = \lfloor (d_{\text{min}} - 1)/2 \rfloor = 0$,
 indicando que o código não corrige erros, apenas os detecta.
 
@@ -405,12 +387,12 @@ como por exenplo, o código de Hamming.
 
 Na teoria dos códigos de correção de erros, é comum descrever um código por
 meio de três parâmetros que resumem suas propriedades essenciais.
-Essa notação, conhecida como códigos [n, k, d], fornece uma maneira
+Essa notação, conhecida como \emph{códigos [n, k, d]}\index{código![n,k,d]}, fornece uma maneira
 concisa de caracterizar a estrutura e a capacidade de um código, permitindo
 comparar diferentes esquemas de codificação.
 
-\begin{definition}[Códigos \string[n,k,d\string]]\label{def:codnkd}
-Um código [n, k, d] é um código de correção de erros linear com as seguintes características:
+\begin{definition}[Códigos $\lbrack n,k,d \rbrack$]\label{def:codnkd}
+Um \emph{código [n, k, d]} é um código de correção de erros linear com as seguintes características:
 possui comprimento de palavra de código $n$ (incluindo os bits de dados e os bits de redundância);
 possui $k$ bits de dados (tamanho da mensagem antes da codificação);
 e com distância mínima de Hamming $d$ entre quaisquer duas palavras-código distintas do código.
@@ -436,7 +418,7 @@ código de paridade simples com $n=4$ é um código [4, 3, 2].
 
 
 \begin{definition}[Código Linear]
-Um código linear $\mathcal{C}$ de comprimento $n$ sobre um corpo $\mathbb{F} = \text{GF}(q)$ 
+Um \emph{código linear}\index{código!linear} $\mathcal{C}$ de comprimento $n$ sobre um corpo $\mathbb{F} = \text{GF}(q)$ 
 (onde $q$ é geralmente uma potência de um primo) é um subespaço vetorial de $\mathbb{F}^n$ sobre $\mathbb{F}$.
 Em outras palavras, $\mathcal{C} \subseteq \mathcal{F}^n$ é um código linear se, para quaisquer palavras-código 
 $\mathbf{c}_1, \mathbf{c}_2 \in \mathcal{C}$, e quaisquer escalares $\alpha, \beta \in \mathbb{F}$, temos:
@@ -454,14 +436,14 @@ $(n-k) \times n$, tal que $\mathbf{H} \mathbf{c} = \mathbf{0}$ para toda palavra
 
 Se $\mathcal{C}$ é um código linear $(n,M,d)$ sobre $\mathbb{F}$ e a dimensionalidade de $\mathcal{C}$ é $k$,
 então dizemos que $\mathcal{C}$ é um código linear $[n,k,d]$ sobre $\mathbb{F}$. A diferença $n-k$ é a 
-redundância do código. Toda base de um códilo linear $[n,k,d]$ $\mathcal{C}$ sobre $\mathbb{F} = \text{GF}(q)$
+redundância do código. Toda base de um código linear $[n,k,d]$ $\mathcal{C}$ sobre $\mathbb{F} = \text{GF}(q)$
 contém $k$ palavras distintas que geram todo o código $\mathcal{C}$ por combinações lineares delas.
 Assim, $\vert\mathcal{C}\vert = M = q^k$ e a taxa do código é $R = \sfrac{\log_q M}{n} = k/n$.
 As linhas da matriz geradora $\mathbf{G}$ serão a base do código (podendo não ser úncia).
 
 
 \begin{definition}[Peso de Hamming]
-O peso de Hamming de uma palavra $\mathbf{c} \in \mathcal{C}$
+O \emph{peso de Hamming}\index{código!peso da palavra} de uma palavra $\mathbf{c} \in \mathcal{C}$
 é o número de posições em que $\mathbf{c}$ tem elementos não nulos, ou seja:
 \begin{equation}
   w(\mathbf{c}) = |\{ i \in \{1, 2, \dots, n\} : c_i \neq 0 \}|,
@@ -476,9 +458,9 @@ pois $\mathbf{c}$ tem 1s nas posições 1, 3 e 4.
 \end{example}
 \end{definition}
 
-\begin{definition}[Peso Mínimo de um Código]
-O peso mínimo de um código $\mathcal{C} \subseteq \mathbb{F}^n$, 
-onde \( \mathcal{X} = \{0, 1, \dots, q-1\} \) é um alfabeto \( q \)-ário, 
+\begin{definition}[Peso mínimo de um código]
+O \emph{peso mínimo de um código}\index{código!peso mínimo} $\mathcal{C} \subseteq \mathbb{F}^n$, 
+onde $\mathcal{X} = \{0, 1, \dots, q-1\}$ é um alfabeto $q$-ário, 
 é o menor peso de Hamming entre todas as palavras-código não nulas de $\mathcal{C}$, ou seja:
 \begin{equation}
 w_{\text{min}}(\mathcal{C}) = \min \{ w(\mathbf{c}) : \mathbf{c} \in \mathcal{C}, \mathbf{c} \neq \mathbf{0} \},
@@ -508,7 +490,7 @@ Temos que $d(\mathbf{c}_1, \mathbf{c}_2) = w(\mathbf{c}_1 - \mathbf{c}_2)$ e ass
 
 
 
-\begin{definition}[Codificador de um Código Linear]
+\begin{definition}[Codificador de um código linear]\index{código!linear!codificador}
 Seja $\mathcal{C}$ um código linear $[n, k, d]$ sobre um corpo finito $\mathbb{F}_q$, 
 com uma matriz geradora $\mathbf{G}$ de tamanho $k \times n$. 
 Um codificador para $\mathcal{C}$ é um mapeamento bijetivo 
@@ -535,9 +517,9 @@ gerando o mesmo código $\mathcal{C}$, mas com uma ordenação diferente das pos
 \end{definition}
 
 
-\begin{definition}[Matriz Verificadora de Paridade]
+\begin{definition}[Matriz verificadora de paridade]
 Seja $\mathcal{C}$ um código linear $[n, k, d]$ sobre um corpo finito $\mathbb{F}_q$. 
-A matriz verificadora de paridade de $\mathcal{C}$ é uma matriz $\mathbf{H}$ de tamanho
+A \emph{matriz verificadora de paridade}\index{código!matriz verificadora de paridade} de $\mathcal{C}$ é uma matriz $\mathbf{H}$ de tamanho
 $(n-k) \times n$ sobre $\mathbb{F}_q$, tal que:
 \begin{equation}
 \mathbf{H} \mathbf{c}^T = \mathbf{0},
@@ -548,7 +530,7 @@ Em outras palavras, $\mathcal{C}$ é o kernel (ou espaço nulo) de $\mathbf{H}$,
 \begin{equation}
 \mathcal{C} = \{ \mathbf{c} \in \mathbb{F}_q^n : \mathbf{H} \mathbf{c}^T = \mathbf{0} \}.
 \end{equation}
-Pelo Teorema do Posto-nulidade\index{teorema!posto-nulidade}, o posto de $\mathbf{H}$ mais a dimensão do seu kernel 
+Pelo teorema do posto-nulidade\index{teorema!posto-nulidade}\footnote{O teorema de posto-nulidade, em álgebra linear, afirma que, para uma transformação linear $T: V \to W$ entre espaços vetoriais de dimensão finita, a soma da dimensão do núcleo (nulidade) de $T$ e a dimensão da imagem (posto) de $T$ é igual à dimensão do espaço de origem $V$, isto é, $\dim(\ker(T)) + \dim(\im(T)) = \dim(V)$.}, o posto de $\mathbf{H}$ mais a dimensão do seu kernel 
 é igual ao número de colunas de $\mathbf{H}$. Como $\mathbf{H}$ tem $n$ colunas e $\mathcal{C}$ 
 tem dimensão $k$, temos:
 \begin{equation}
@@ -595,7 +577,7 @@ a verificação de paridade, pois os últimos $n-k$ bits da palavra-código são
 
 \section{Código de Hamming (7,4,3)}
 
-O código de Hamming \parencite{hamming1950} é um exemplo
+O \emph{código de Hamming}\index{código!de Hamming} \parencite{hamming1950} é um exemplo
 clássico de código linear que combina detecção e correção de erros.
 Especificamente, o código de Hamming [7,4,3], capaz de
 corrigir um erro por palavra-código, sendo amplamente utilizado em aplicações
@@ -626,15 +608,17 @@ condições de validade.
 
 \begin{example}
 Considere a mensagem $(x_0, x_1, x_2, x_3) = (0,1,1,0)$. Calculamos os bits de paridade:
-\begin{itemize}[itemsep=0pt, topsep=0pt]
-    \item $x_4 = (1 + 1 + 0) \mod 2 = 2 \mod 2 = 0$,
-    \item $x_5 = (0 + 1 + 0) \mod 2 = 1 \mod 2 = 1$,
-    \item $x_6 = (0 + 1 + 0) \mod 2 = 1 \mod 2 = 1$.
-\end{itemize}
+\begin{subequations}
+  \begin{align}
+    x_4 &= (1 + 1 + 0) \mod 2 = 2 \mod 2 = 0,\\
+    x_5 &= (0 + 1 + 0) \mod 2 = 1 \mod 2 = 1,\\
+    x_6 &= (0 + 1 + 0) \mod 2 = 1 \mod 2 = 1.
+  \end{align}
+\end{subequations}
 Assim, a palavra-código é $(0,1,1,0,0,1,1)$.
 \end{example}
 
-O formato como foi aqui proposto para o código é sistemático, separando os bite
+O formato como foi aqui proposto para o código é sistemático, separando os bits
 de dados dos bits de paridade em regiões distintas da palavra-código. Os bits
 de dados ($x_0, x_1, x_2, x_3$) aparecem nos primeiros 4 bits da
 palavra-código, seguidos pelos bits de paridade ($x_4, x_5, x_6$) nos 3 bits
@@ -763,15 +747,15 @@ Como a distância de Hamming entre duas palavras $\mathbf{v}_1, \mathbf{v}_2 \in
 é o peso de $\mathbf{v}_1 + \mathbf{v}_2$ (outra palavra-código), 
 a distância mínima é igual ao peso mínimo, $d_{\text{min}} = 3$.
 
-Pelo Teorema de Detecção de Erros\index{teorema!de detecção de erros}, o código detecta até $d - 1 = 2$ erros. 
-Pelo Teorema de Correção de Erros\index{teorema!de correção de erros}, ele corrige até $\lfloor (d - 1)/2 \rfloor = \lfloor 2/2 \rfloor = 1$ erro por palavra-código. 
+Pelo \hyperref[thm:deteccaoerros]{teorema de detecção de erros}\index{teorema!de detecção de erros}, o código detecta até $d - 1 = 2$ erros. 
+Pelo \hyperref[thm:correcaoerros]{teorema de correção de erros}\index{teorema!de correção de erros}, ele corrige até $\lfloor (d - 1)/2 \rfloor = \lfloor 2/2 \rfloor = 1$ erro por palavra-código. 
 Isso torna o código de Hamming (7,4,3) ideal para canais onde erros únicos são mais prováveis, 
 como em um canal binário simétrico (BSC) com baixa probabilidade de erro.
 
 
 
 \subsection{Decodificação por Síndrome}
-Para corrigir erros, usamos a decodificação por síndrome. 
+Para corrigir erros, usamos a \emph{decodificação por síndrome}\index{código!decodificação por síndrome}\index{código!síndrome}. 
 Seja $\mathbf{x}$ a palavra-código transmitida e $\mathbf{y} = \mathbf{x} + \mathbf{z}$ 
 a palavra recebida, onde $\mathbf{z}$ é o vetor de erro (com 1s nas posições erradas). 
 A síndrome é calculada como:
@@ -782,7 +766,7 @@ pois $\mathbf{H} \mathbf{x} = \mathbf{0}$ para $\mathbf{x} \in C$.
 A síndrome $\mathbf{s}$ depende apenas do erro $\mathbf{z}$. 
 Se $\mathbf{s} = \mathbf{0}$, assumimos que não houve erro (ou houve um erro indetectável, com probabilidade baixa).
 Se $\mathbf{s} \neq \mathbf{0}$ e assumindo um erro de 1 bit na posição $i$, 
-teremos $\mathbf{s} = \mathbf{h}_i$, a $i$-ésima coluna de $\mathbf{H}$\dots
+teremos $\mathbf{s} = \mathbf{h}_i$, a $i$-ésima coluna de $\mathbf{H}$.
 Como as colunas de $\mathbf{H}$ são todas distintas e não nulas, podemos identificar $i$,
 a posição do bit errôneo e corrigi-lo.
 
@@ -850,7 +834,7 @@ determina o número máximo de palavras-código para um dado nível de correçã
 erros.
 
 \begin{definition}[Esfera de Hamming]
-Uma esfera de Hamming de raio $t$ centrada em uma sequência $\mathbf{x}$ de $n$ 
+Uma \emph{esfera de Hamming}\index{código!esfera de Hamming} de raio $t$ centrada em uma sequência $\mathbf{x}$ de $n$ 
 símbolos em um alfabeto $q$-ário é o conjunto de todas as sequências $\mathbf{y}$ 
 tais que a distância de Hamming $d_H(\mathbf{x}, \mathbf{y}) \leq t$. 
 Formalmente:
@@ -873,7 +857,7 @@ Para um código binário ($q = 2$), temos $(q-1)^i = 1$, e para $t = 1$, o taman
 Por exemplo, com $n = 7$, uma esfera de raio 1 contém $1 + 7 = 8$ sequências: 
 a palavra-código e as 7 sequências que diferem dela em exatamente 1 bit.
 
-\begin{theorem}[Limite de Hamming]
+\begin{theorem}[Limite de Hamming]\index{código!limite de Hamming}
 Um código $q$-ário de comprimento $n$ que corrige até $t$ erros pode ter no máximo
 $\sfrac{q^n}{|B(\mathbf{x}, t)|}$ palavras-código, ou seja:
 \begin{equation}
@@ -934,14 +918,14 @@ utilizados em sistemas onde a confiabilidade é crítica, incluindo memórias de
 computadores (e.g., ECC RAM) e comunicações digitais. O código (7,4,3),
 proposto por Richard Hamming, corrige 1 erro e detecta 2 erros com uma
 sobrecarga de aproximadamente 43\% de bits de paridade, sendo um marco teórico
-e histórico, especialmente em sistemas iniciais como o IBM 701. Já o código
+e histórico, especialmente nos primeiros sistemas computacionais, como o IBM 701. Já o código
 (31,26,3), com sobrecarga de cerca de 16\%, é mais comum em memórias RAM
 modernas, protegendo blocos de 32 bits com eficiência, ideal para cenários onde
 erros de bit único predominam, como em chips DRAM. Sua estrutura linear e
 decodificação eficiente, baseada na abordagem por síndrome, estabeleceram os
 códigos Hamming como uma base para o desenvolvimento de códigos mais avançados,
 como os códigos BCH e Reed-Muller, que oferecem maior capacidade de correção,
-mas com maior complexidade e overhead.
+porém com maior complexidade e overhead.
 
 
 
@@ -950,7 +934,7 @@ mas com maior complexidade e overhead.
 
 \section{Construção dos Códigos de Hamming}
 
-Os códigos de Hamming formam uma família de códigos lineares que podem ser
+Os códigos de Hamming\index{código!de Hamming} formam uma família de códigos lineares que podem ser
 gerados de maneira sistemática com base na representação binária das posições
 dos bits. Essa construção permite determinar os bits de paridade e os bits de
 dados de forma algorítmica, garantindo uma distância mínima $d_{\text{min}} = 3$, que
