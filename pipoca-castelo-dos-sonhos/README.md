@@ -68,12 +68,14 @@ Ao rodar o script `createbooklet.sh`, os seguintes arquivos PDF serão gerados:
 
 Essas versões facilitam tanto a leitura doméstica quanto a impressão profissional.
 
-![Booklet](imagens/pipoca-booklet-impressao.jpg)
+![Booklet](imagens/pipoca-booklet-impressao.png)
 
 ---
 
 > “No, no! The adventures first, explanations take such a dreadful time.”
+>
 > (Não, não! As aventuras primeiro, explicações levam um tempo terrível.)
+>
 > — Lewis Carroll, Alice's Adventures in Wonderland
 
 ![Menino lendo livro do Pipoca](imagens/menino.png)
