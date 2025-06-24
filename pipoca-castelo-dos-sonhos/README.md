@@ -1,4 +1,4 @@
-# Pipoca Vai à Escola
+# Pipoca e o Castelo dos Sonhos
 
 ![Pipoca usando o computador](imagens/pipoca-computador_small.png)
 
