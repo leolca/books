@@ -1,11 +1,11 @@
 Title:
-Pipoca Goes to School
+Popcorn Goes to School
 
 Back Cover Text:
-“Pipoca Goes to School” follows the delicate and transformative journey of a little dinosaur on his very first day of school. Between the butterflies in his tummy, the wish to go back home, and a curiosity that insists on shining, Pipoca discovers that school can be much more than an unfamiliar place: it's where friendships, adventures, and learning are born... and even a few tears. In the midst of disputes and intense emotions, he realizes that the other can also be a mirror — reflecting fears, desires, comfort, and discoveries that belong to everyone. In this sensitive and playful story, every emotion Pipoca feels mirrors what so many children experience when taking their first steps away from the nest. By the end of the day, school is no longer something to fear — it becomes part of his heart.
+“Popcorn Goes to School” follows the delicate and transformative journey of a little dinosaur on his very first day of school. Between the butterflies in his tummy, the wish to go back home, and a curiosity that insists on shining, Popcorn discovers that school can be much more than an unfamiliar place: it's where friendships, adventures, and learning are born... and even a few tears. In the midst of disputes and intense emotions, he realizes that the other can also be a mirror — reflecting fears, desires, comfort, and discoveries that belong to everyone. In this sensitive and playful story, every emotion Popcorn feels mirrors what so many children experience when taking their first steps away from the nest. By the end of the day, school is no longer something to fear — it becomes part of his heart.
 
 Title Page:
-Pipoca Goes to School
+Popcorn Goes to School
 Written by Leonardo Araújo
 Illustrations created with the help of Sora and ChatGPT.
 
@@ -16,26 +16,26 @@ And to my daughter, whose magic lights up our lives.
 
 Preface:
 Dear readers,
-This story was inspired by my daughter's adventure as she began school. It brings forth the fears, the anxieties, and the many joys of this very special moment. May Pipoca's journey serve as a bridge to help children face challenges and celebrate the joys of those first years at school.
+This story was inspired by my daughter's adventure as she began school. It brings forth the fears, the anxieties, and the many joys of this very special moment. May Popcorn's journey serve as a bridge to help children face challenges and celebrate the joys of those first years at school.
 Each story is unique, but the essence and magic within them is always the same.
 With affection,
 LEo
 
 Pages 01 and 02:
-Pipoca was sleeping all warm and cozy,
+Popcorn was sleeping all warm and cozy,
 wrapped in his space dreams...
 But the sun was already shining through the window,
 calling him to a new day.
 Today was his first day of school...
 
 Pages 03 and 04:
-Pipoca felt a shiver in his belly...
+Popcorn felt a shiver in his belly...
 Was it the cold milk?
 Or restless butterflies fluttering inside?
 Everything was new...
 
 Pages 05 and 06:
-On the way to school, Pipoca stopped and whispered:
+On the way to school, Popcorn stopped and whispered:
 "I want to go back home..."
 But then he saw other little dinos walking too.
 A chill touched his chest...
@@ -43,7 +43,7 @@ And a spark of curiosity
 warmed his heart.
 
 Pages 07 and 08:
-At school, Pipoca painted with a brush... and also with his paws!
+At school, Popcorn painted with a brush... and also with his paws!
 Red and yellow turned into orange — it was pure magic!
 With just a touch, he created colors, shapes, and joy.
 The class was a colorful mess...
@@ -53,30 +53,30 @@ Pages 09 and 10:
 Vrooom!
 The racetrack was all fun!
 They all raced to see who was fastest.
-Pipoca felt like a champion.
+Popcorn felt like a champion.
 
 Pages 11 and 12:
 Tum-tum!
-Pipoca drummed out his joyful rhythm.
+Popcorn drummed out his joyful rhythm.
 The classroom turned into an orchestra.
 Music filled the room...
 and their hearts too.
 
 Pages 13 and 14:
 Suddenly... the music stopped.
-Pipoca and a classmate were fighting over a toy truck.
+Popcorn and a classmate were fighting over a toy truck.
 His heart pounded...
 but this time it wasn't joy.
 It was anger.
 
 Pages 15 and 16:
 "I wish I were home..."
-thought Pipoca.
+thought Popcorn.
 School didn't feel colorful anymore.
 A whirlwind of tears poured down nonstop.
 
 Pages 17 and 18:
-Pipoca was still quietly sobbing in the corner...
+Popcorn was still quietly sobbing in the corner...
 Until Lila slowly came over without saying a word...
 and handed him a drawing.
 With his heart still tight,
@@ -92,11 +92,11 @@ Pages 21 and 22:
 The silence was magical...
 The teacher read in a voice like the wind,
 then thunder.
-Pipoca soared high in his imagination.
+Popcorn soared high in his imagination.
 Each story was a whole new world to explore.
 
 Pages 23 and 24:
-At home, Pipoca became the teacher.
+At home, Popcorn became the teacher.
 His stuffed animals, devoted students.
 He told stories, taught, and painted with them.
 School lived in his heart —
